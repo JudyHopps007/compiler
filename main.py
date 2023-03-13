@@ -1,6 +1,6 @@
 import tkinter as tk
-
 global row_num_widget, Editor
+
 def on_return_press(event):
     text = event.widget
     # Get the text that was entered after the Return key was pressed
@@ -30,11 +30,22 @@ def main():
 
     # ======================================================== Editor Section ============================
 
-    row_num_widget = tk.Text(app, width=4, padx=5, takefocus=0, border=0, background="#f7f7f7")
-    row_num_widget.place(x=0, y=35, width=45, relheight=1)
+    Text_Frame =  tk.Frame(app, border=0, bg='green')
+    Text_Frame.place(x=45, y=35, relwidth=0.6, relheight=0.9)
 
-    Editor = tk.Text(app, border=0, bg='#EEDC82')
-    Editor.place(x=45, y=35, relwidth=1, relheight=0.9)
+
+    row_num_widget = tk.Text(Text_Frame, width=4, padx=5, takefocus=0, border=0, background="#f7f7f7")
+    row_num_widget.place(x=0, y=0, width=45, relheight=1)
+
+    Editor = tk.Text(Text_Frame, border=0, bg='#EEDC82')
+    Editor.place(x=45, y=0, relwidth=1, relheight=1)
+
+    scrollbar = tk.Scrollbar(Text_Frame, troughcolor="red")
+    scrollbar.pack(side="right", fill="y")
+
+    # Link the scrollbar to the Text widget
+    Editor.config(yscrollcommand=scrollbar.set)
+    scrollbar.config(command=Editor.yview)
 
     #Editor.bind("<Return>", on_return_press)
     Editor.bind("<Key>", update_row_numbers) # Bind the update_row_numbers function to changes in the text widget
