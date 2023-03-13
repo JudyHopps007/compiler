@@ -1,13 +1,15 @@
 import tkinter as tk
-global row_num_widget, Editor
+global row_num_widget, Editor, Terminal, OUT_FED
 
 keyword = ['if' ,'from']
 
-def on_return_press(event):
-    text = event.widget
+def on_return_press():
+    user_input = Editor.get("1.0", "end")
     # Get the text that was entered after the Return key was pressed
-    input_text = text.get("end-1c linestart", "end-1c lineend")
-    print("Input text:", input_text)
+    #input_text = text.get("end-1c linestart", "end-1c lineend")
+    print("Input text:", user_input)
+    OUT_FED.delete("1.0", "end")
+    OUT_FED.insert("1.0", user_input)
 
 
 
@@ -46,27 +48,31 @@ def colorize_text(event):
         key += 1
 
 def main():
-    global row_num_widget, Editor
+    global row_num_widget, Editor,  Terminal, OUT_FED
     app = tk.Tk()
     app.state("zoomed")
     app.config(bg='gray')
     app.minsize(1000, 900)
 
+    container = tk.Frame(app, bg="#232B2B")
+    container.place(x=0, y=0, relwidth=1, relheight=1)
+
     # ========================================================= Navigation Bar ========================
     nav_bar_bg = "#232B2B"
-    nav_bar = tk.Frame(app, bg=nav_bar_bg)
+    nav_bar = tk.Frame(container, bg=nav_bar_bg)
     nav_bar.place(x=0, y=0, relwidth=1, height=35)
 
-
-
+    nav_bar = tk.Button(nav_bar, bg=nav_bar_bg, text="Run", fg='white', borderwidth=0, border=0, activebackground=nav_bar_bg, activeforeground="green", command=on_return_press)
+    nav_bar.place(x=0, y=0, relwidth=0.05, relheight=1)
 
 
     # ======================================================== Editor Section ============================
 
-    Text_Frame =  tk.Frame(app, border=0, bg='green')
+    Text_Frame =  tk.Frame(container, border=0, bg=nav_bar_bg)
     Text_Frame.place(x=0, y=35, relwidth=1, relheight=0.75)
 
-    Editor_color = "#EEDC82"
+
+    Editor_color = "#3A3A38"
     row_num_widget = tk.Text(Text_Frame, wrap="none", font=("Courier New", 12), width=4, padx=5, takefocus=0, border=0, background=Editor_color)
     row_num_widget.place(x=0, y=0, width=50, relheight=1)
     row_num_widget.config(state="disabled")
@@ -87,9 +93,18 @@ def main():
 
     # ======================================================== Terminal  Section ============================
 
-    Terminal = tk.Frame(app, border=0, bg='green')
-    Terminal.place(x=0, rely=0.785, relwidth=1, relheight=0.2)
+    Terminal = tk.Frame(container, border=0, bg=nav_bar_bg)
+    Terminal.place(x=0, rely=0.79, relwidth=1, relheight=0.2)
 
+    OUT_FED = tk.Text(Terminal, border=0, bg=Editor_color, font=("Courier New", 12), wrap="none")
+    OUT_FED.place(x=51, y=0, relwidth=1, relheight=1)
+
+    scrollbar2 = tk.Scrollbar(Terminal, troughcolor=Editor_color, bg=Editor_color)
+    scrollbar2.pack(side="right", fill="y")
+
+    # Link the scrollbar to the Text widget
+    OUT_FED.config(yscrollcommand=scrollbar2.set)
+    scrollbar2.config(command=OUT_FED.yview, bg="blue")
 
 
 
