@@ -12,9 +12,10 @@ def main():
     app.state("zoomed")
     app.config(bg='gray')
 
-
+    Nav_Bar = tk.Frame(app)
+    Nav_Bar.place()
     Editor = tk.Text(app)
-    Editor.place(relheight=1, relwidth=1, relx=0, rely=0)
+    #Editor.place(relheight=1, relwidth=1, relx=0, rely=0)
 
     Editor.bind("<Return>", on_return_press)
 
