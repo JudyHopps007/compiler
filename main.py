@@ -1,6 +1,10 @@
 import tkinter as tk
 
-app = tk.Tk()
+def main():
+    app = tk.Tk()
+
+    app.mainloop()
 
 
-if __main__ == __name__
+if  __name__ == "__main__":
+    main()
