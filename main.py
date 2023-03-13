@@ -50,6 +50,7 @@ def main():
     app = tk.Tk()
     app.state("zoomed")
     app.config(bg='gray')
+    app.minsize(1000, 900)
 
     # ========================================================= Navigation Bar ========================
     nav_bar_bg = "#232B2B"
@@ -63,15 +64,15 @@ def main():
     # ======================================================== Editor Section ============================
 
     Text_Frame =  tk.Frame(app, border=0, bg='green')
-    Text_Frame.place(x=45, y=35, relwidth=0.6, relheight=0.9)
+    Text_Frame.place(x=0, y=35, relwidth=1, relheight=0.75)
 
     Editor_color = "#EEDC82"
-    row_num_widget = tk.Text(Text_Frame, wrap="none", width=4, padx=5, takefocus=0, border=0, background=Editor_color)
-    row_num_widget.place(x=0, y=0, width=45, relheight=1)
+    row_num_widget = tk.Text(Text_Frame, wrap="none", font=("Courier New", 12), width=4, padx=5, takefocus=0, border=0, background=Editor_color)
+    row_num_widget.place(x=0, y=0, width=50, relheight=1)
     row_num_widget.config(state="disabled")
 
-    Editor = tk.Text(Text_Frame, border=0, bg=Editor_color, wrap="none")
-    Editor.place(x=46, y=0, relwidth=1, relheight=1)
+    Editor = tk.Text(Text_Frame, border=0, bg=Editor_color, font=("Courier New", 12), wrap="none")
+    Editor.place(x=51, y=0, relwidth=1, relheight=1)
 
     scrollbar = tk.Scrollbar(Text_Frame, troughcolor=Editor_color, bg=Editor_color)
     scrollbar.pack(side="right", fill="y")
@@ -84,10 +85,16 @@ def main():
     Editor.bind("<Key>", update_row_numbers) # Bind the update_row_numbers function to changes in the text widget
     Editor.bind("<KeyRelease>", colorize_text)
 
+    # ======================================================== Terminal  Section ============================
+
+    Terminal = tk.Frame(app, border=0, bg='green')
+    Terminal.place(x=0, rely=0.785, relwidth=1, relheight=0.2)
+
+
+
 
 
     app.mainloop()
-
 
 if  __name__ == "__main__":
     main()
