@@ -12,12 +12,19 @@ def main():
     app.state("zoomed")
     app.config(bg='gray')
 
-    Nav_Bar = tk.Frame(app)
-    Nav_Bar.place()
-    Editor = tk.Text(app)
-    #Editor.place(relheight=1, relwidth=1, relx=0, rely=0)
+    # ========================================================= Navigation Bar ========================
+    nav_bar_bg = "#232B2B"
+    nav_bar = tk.Frame(app, bg=nav_bar_bg)
+    nav_bar.place(x=0, y=0, relwidth=1, height=35)
 
-    Editor.bind("<Return>", on_return_press)
+
+
+    # ======================================================== Editor Section ============================
+
+    Home_Tab = tk.Text(app, border=0)
+    Home_Tab.place(y=35, relwidth=1, relheight=0.9)
+
+    #Editor.bind("<Return>", on_return_press)
 
 
 
