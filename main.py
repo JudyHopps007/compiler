@@ -1,7 +1,7 @@
 import tkinter as tk
 global row_num_widget, Editor
 
-
+keyword = ['if' ,'from']
 
 def on_return_press(event):
     text = event.widget
@@ -19,6 +19,31 @@ def update_row_numbers(event=None):
         row_num_widget.insert("end", str(line_num) + "\n")
     row_num_widget.config(state="disabled") # Disable the Text widget
 
+
+def colorize_text(event):
+    # Remove existing tags
+    Editor.tag_remove("red", "1.0", "end")
+    Editor.tag_remove("green", "1.0", "end")
+    Editor.tag_remove("black", "1.0", "end")
+
+    # Get the text from the Text widget and split it into words
+    text = Editor.get("1.0", "end")
+
+    key = 0
+    while key < len(keyword):
+        index = text.find(keyword[key])
+        while index != -1:
+            tag = "green"
+            color = "green"
+
+            start = "1.%d" % index
+            end = "1.%d" % (index+4)
+
+            Editor.tag_add(tag, start, end)
+            Editor.tag_config(tag, foreground=color)
+
+            index = text.find("from", index + 1)
+        key += 1
 
 def main():
     global row_num_widget, Editor
@@ -57,7 +82,7 @@ def main():
 
     #Editor.bind("<Return>", on_return_press)
     Editor.bind("<Key>", update_row_numbers) # Bind the update_row_numbers function to changes in the text widget
-
+    Editor.bind("<KeyRelease>", colorize_text)
 
 
 
