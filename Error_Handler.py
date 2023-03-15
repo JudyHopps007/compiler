@@ -69,6 +69,6 @@ def lex(filename):
     return tokens, symbol_table
 
 # Example usage
-tokens, symbol_table = lex('program.txt')
+tokens, symbol_table = lex('program.c')
 print(tokens)
 print(symbol_table)
