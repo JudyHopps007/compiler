@@ -4,7 +4,7 @@ import re
 
 # Define regular expression patterns for different types of tokens
 patterns = [
-    (r'\b(if|else|while|for)\b', 'KEYWORD'),
+    (r'\b(int|char|void|bool|if|else|while|for)\b', 'KEYWORD'),
     (r'\b(true|false)\b', 'BOOLEAN'),
     (r'\b([0-9]+)\b', 'NUMBER'),
     (r'\b([a-zA-Z_][a-zA-Z0-9_]*)\b', 'IDENTIFIER'),
@@ -12,6 +12,7 @@ patterns = [
     (r'-', 'MINUS'),
     (r'\*', 'MULTIPLY'),
     (r'/', 'DIVIDE'),
+    (r'%', 'MODULUS'),
     (r'=', 'ASSIGN'),
     (r'==', 'EQUAL'),
     (r'!=', 'NOT_EQUAL'),
@@ -25,7 +26,10 @@ patterns = [
     (r'\}', 'RIGHT_BRACE'),
     (r';', 'SEMICOLON'),
     (r',', 'COMMA'),
-    (r'#.*$', 'COMMENT')
+    #(r'&&', 'AND'),
+    #(r'||', '0R'),
+    #(r'!', 'NOT'),
+    (r'//.*$|/\*.*?\*/', 'COMMENT')
 ]
 
 # Define a function that reads a program from a text file and generates a list of tokens
@@ -52,5 +56,5 @@ def lex(filename):
     return tokens
 
 # Example usage
-tokens = lex('program.txt')
+tokens = lex('program.c')
 print(tokens)
