@@ -1,5 +1,5 @@
 import tkinter as tk
-global row_num_widget, Editor, Terminal, OUT_FED
+global row_num_widget, Editor, Terminal, Terminal_display
 
 keyword = ['if' ,'from']
 
@@ -8,8 +8,8 @@ def on_return_press():
     # Get the text that was entered after the Return key was pressed
     #input_text = text.get("end-1c linestart", "end-1c lineend")
     print("Input text:", user_input)
-    OUT_FED.delete("1.0", "end")
-    OUT_FED.insert("1.0", user_input)
+    Terminal_display.delete("1.0", "end")
+    Terminal_display.insert("1.0", user_input)
 
 
 
@@ -30,7 +30,7 @@ def colorize_text(event):
 
     # Get the text from the Text widget and split it into words
     text = Editor.get("1.0", "end")
-
+    print(text)
     key = 0
     while key < len(keyword):
         index = text.find(keyword[key])
@@ -48,7 +48,7 @@ def colorize_text(event):
         key += 1
 
 def main():
-    global row_num_widget, Editor,  Terminal, OUT_FED
+    global row_num_widget, Editor,  Terminal, Terminal_display
     app = tk.Tk()
     app.state("zoomed")
     app.config(bg='gray')
@@ -77,7 +77,7 @@ def main():
     row_num_widget.place(x=0, y=0, width=50, relheight=1)
     row_num_widget.config(state="disabled")
 
-    Editor = tk.Text(Text_Frame, border=0, bg=Editor_color, font=("Courier New", 12), wrap="none")
+    Editor = tk.Text(Text_Frame, border=0, bg=Editor_color, font=("Courier New", 12), wrap="none", fg='white')
     Editor.place(x=51, y=0, relwidth=1, relheight=1)
 
     scrollbar = tk.Scrollbar(Text_Frame, troughcolor=Editor_color, bg=Editor_color)
@@ -93,18 +93,18 @@ def main():
 
     # ======================================================== Terminal  Section ============================
 
-    Terminal = tk.Frame(container, border=0, bg=nav_bar_bg)
-    Terminal.place(x=0, rely=0.79, relwidth=1, relheight=0.2)
+    Text_Frame_2 = tk.Frame(container, border=0, bg=nav_bar_bg)
+    Text_Frame_2.place(x=0, rely=0.79, relwidth=1, relheight=0.2)
 
-    OUT_FED = tk.Text(Terminal, border=0, bg=Editor_color, font=("Courier New", 12), wrap="none")
-    OUT_FED.place(x=51, y=0, relwidth=1, relheight=1)
+    Terminal_display = tk.Text(Text_Frame_2, border=0, bg=Editor_color, font=("Courier New", 12), wrap="none")
+    Terminal_display.place(x=51, y=0, relwidth=1, relheight=1)
 
-    scrollbar2 = tk.Scrollbar(Terminal, troughcolor=Editor_color, bg=Editor_color)
+    scrollbar2 = tk.Scrollbar(Text_Frame_2, troughcolor=Editor_color, bg=Editor_color)
     scrollbar2.pack(side="right", fill="y")
 
     # Link the scrollbar to the Text widget
-    OUT_FED.config(yscrollcommand=scrollbar2.set)
-    scrollbar2.config(command=OUT_FED.yview, bg="blue")
+    Terminal_display.config(yscrollcommand=scrollbar2.set)
+    scrollbar2.config(command=Terminal_display.yview, bg="blue")
 
 
 
