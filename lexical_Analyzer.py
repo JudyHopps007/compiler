@@ -1,5 +1,7 @@
 import re
 
+symbol_table = {}
+
 
 # Define regular expression patterns for different types of tokens(assigning tokens to lexemes)
 patterns = [
@@ -85,4 +87,4 @@ def generate_symbol_table(tokens):
     return symbol_table
 
 symbol_table = generate_symbol_table(tokens)
-print(symbol_table)
+print("\n smb: ",symbol_table)

@@ -1,84 +1,37 @@
-import re
+from pycparser import c_parser, c_ast
 
-# Define regular expression patterns for different types of tokens
-patterns = [
-    (r'#include\s+<.*?>', 'INCLUDE_DIRECTIVE'),
-    (r'\b(int|char|void|bool|if|else|while|for|continue|break|for|return|float|long)\b', 'KEYWORD'),
-    (r'\b(true|false)\b', 'BOOLEAN'),
-    (r'\b([0-9]+)\b', 'NUMBER'),
-    (r'\b([a-zA-Z_][a-zA-Z0-9_]*)\b', 'IDENTIFIER'),
-    (r'\+', 'PLUS'),
-    (r'-', 'MINUS'),
-    (r'\*', 'MULTIPLY'),
-    (r'(\/\/[^\n\r]*[\n\r])|\/\*[\s\S]*?\*\/', 'COMMENT'),
-    (r'/(?![\/\*])[\n\s]*', 'DIVIDE'),
-    (r'%', 'MODULUS'),
-    (r'=', 'ASSIGN'),
-    (r'==', 'EQUAL'),
-    (r'!=', 'NOT_EQUAL'),
-    (r'<', 'LESS_THAN'),
-    (r'>', 'GREATER_THAN'),
-    (r'<=', 'LESS_THAN_EQUAL'),
-    (r'>=', 'GREATER_THAN_EQUAL'),
-    (r'\(', 'LEFT_PAREN'),
-    (r'\)', 'RIGHT_PAREN'),
-    (r'\{', 'LEFT_BRACE'),
-    (r'\}', 'RIGHT_BRACE'),
-    (r';', 'SEMICOLON'),
-    (r',', 'COMMA')
-]
+# Sample C program to parse
+c_program = """
 
-# Define a function that reads a program from a text file and generates a list of tokens and symbol tables
-def lex(filename):
-    with open(filename, 'r') as f:
-        program = f.read()
+int main() {
+    int x = 10;
+    printf("x = %d", x);
+    return 0;
+}
+"""
 
-    tokens = []
-    global_table = {}
-    scope_table = {}
-    current_scope = 'global'
-    position = 0
+# Create a C parser object
+parser = c_parser.CParser()
 
-    while position < len(program):
-        match = None
+# Parse the C program into an AST (abstract syntax tree)
+ast = parser.parse(c_program)
 
-        # Skip over whitespace and comments
-        if re.match(r'\s', program[position]):
-            position += 1
-            continue
-        if re.match(r'//', program[position:]):
-            position = program.index('\n', position)
-            continue
+# Traverse the AST to extract symbol table information
+class SymbolVisitor(c_ast.NodeVisitor):
+    def __init__(self):
+        self.symbols = {}
 
-        # Try to match a pattern for each token type
-        for pattern, token_type in patterns:
-            regex = re.compile(pattern)
-            match = regex.match(program, position)
+    def visit_Decl(self, node):
+        # Extract symbol name and type
+        symbol_name = node.name
+        symbol_type = type(node.type).__name__
 
-            if match:
-                lexeme = match.group(0)
-                if token_type != 'COMMENT':
-                    tokens.append((token_type, lexeme))
-                    if token_type == 'IDENTIFIER':
-                        if current_scope == 'global':
-                            global_table[lexeme] = None
-                        else:
-                            scope_table[lexeme] = None
-                if token_type == 'LEFT_BRACE':
-                    current_scope = f'scope{len(scope_table)}'
-                elif token_type == 'RIGHT_BRACE':
-                    current_scope = 'global'
-                position += len(lexeme)
-                break
+        # Add symbol to symbol table
+        self.symbols[symbol_name] = symbol_type
 
-        if not match:
-            print("Illegal character: " + program[position])
-            position += 1
+# Create a symbol table visitor object and visit the AST
+symbol_visitor = SymbolVisitor()
+symbol_visitor.visit(ast)
 
-    return tokens, global_table, scope_table
-
-# Example usage
-tokens, global_table, scope_table = lex('program.c')
-print('Tokens:', tokens)
-print('Global table:', global_table)
-print('Scope table:', scope_table)
+# Print the symbol table
+print(symbol_visitor.symbols)
