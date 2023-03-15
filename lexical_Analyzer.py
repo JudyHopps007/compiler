@@ -1,7 +1,7 @@
 import re
 
 
-# Define regular expression patterns for different types of tokens
+# Define regular expression patterns for different types of tokens(assigning tokens to lexemes)
 patterns = [
     (r'#include\s+<.*?>', 'INCLUDE_DIRECTIVE'),
     (r'\b(int|char|void|bool|if|else|while|for|continue|break|for|return|float|long)\b', 'KEYWORD'),
@@ -68,3 +68,21 @@ def lex(filename):
 # Example usage
 tokens = lex('program.c')
 print(tokens)
+
+
+def generate_symbol_table(tokens):
+    symbol_table = {}
+
+    for token_type, value in tokens:
+        if token_type == 'IDENTIFIER':
+            if value not in symbol_table:
+                symbol_table[value] = {
+                    'type': None,
+                    'value': None,
+                    'line_number': None
+                }
+
+    return symbol_table
+
+symbol_table = generate_symbol_table(tokens)
+print(symbol_table)

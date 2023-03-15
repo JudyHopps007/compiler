@@ -10,8 +10,7 @@ patterns = [
     (r'\+', 'PLUS'),
     (r'-', 'MINUS'),
     (r'\*', 'MULTIPLY'),
-    (r'\/\/[^\n\r]*[\n\r]', 'COMMENT'),
-    (r'\/\*[\s\S]*?\*\/', 'COMMENT 2'),
+    (r'(\/\/[^\n\r]*[\n\r])|\/\*[\s\S]*?\*\/', 'COMMENT'),
     (r'/(?![\/\*])[\n\s]*', 'DIVIDE'),
     (r'%', 'MODULUS'),
     (r'=', 'ASSIGN'),
@@ -29,38 +28,47 @@ patterns = [
     (r',', 'COMMA')
 ]
 
-# Define a function that reads a program from a text file and generates a list of tokens
+# Define a function that reads a program from a text file and generates a list of tokens and a symbol table
 def lex(filename):
     with open(filename, 'r') as f:
         program = f.read()
 
     tokens = []
+    symbol_table = {}
     position = 0
 
     while position < len(program):
         match = None
 
-        # Skip over empty lines
-        if program[position] == '\n':
+        # Skip over whitespace and comments
+        if re.match(r'\s', program[position]):
             position += 1
             continue
+        if re.match(r'//', program[position:]):
+            position = program.index('\n', position)
+            continue
 
+        # Try to match a pattern for each token type
         for pattern, token_type in patterns:
             regex = re.compile(pattern)
             match = regex.match(program, position)
 
             if match:
+                lexeme = match.group(0)
                 if token_type != 'COMMENT':
-                    tokens.append((token_type, match.group(0)))
-                position = match.end(0)
+                    tokens.append((token_type, lexeme))
+                    if token_type == 'IDENTIFIER' and lexeme not in symbol_table:
+                        symbol_table[lexeme] = len(symbol_table) + 1
+                position += len(lexeme)
                 break
 
         if not match:
             print("Illegal character: " + program[position])
             position += 1
 
-    return tokens
+    return tokens, symbol_table
 
 # Example usage
-tokens = lex('program.c')
+tokens, symbol_table = lex('program.txt')
 print(tokens)
+print(symbol_table)

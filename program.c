@@ -1,6 +1,15 @@
+// Simple C program to display "Hello World"
+  
+// Header file for input output functions
 #include <stdio.h>
-1
-// printf() displays the string inside quotation
-/
-/*Hello Hezrom*/
-int
+  
+// main function -
+// where the execution of program begins
+int main()
+{
+  
+    // prints hello world
+    printf("Hello World");
+  
+    return 0;
+}
