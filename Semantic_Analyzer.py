@@ -1,14 +1,27 @@
-import re
-
-# Define a regular expression pattern for C comments
-comment_pattern = r'//.*$|/\*.*?\*/'
-
-# Read the C program from a file
-with open('program.c', 'r') as f:
-    program = f.read()
-
-# Remove comments from the program
-program_without_comments = re.sub(comment_pattern, '', program, flags=re.DOTALL | re.MULTILINE)
-
-# Print the program without comments
-print(program_without_comments)
+patterns = [
+    (r'#include\s+<.*?>', 'INCLUDE_DIRECTIVE'),
+    (r'\b(int|char|void|bool|if|else|while|for|continue|break|for|return|float|long)\b', 'KEYWORD'),
+    (r'\b(true|false)\b', 'BOOLEAN'),
+    (r'\b([0-9]+)\b', 'NUMBER'),
+    (r'\b([a-zA-Z_][a-zA-Z0-9_]*)\b', 'IDENTIFIER'),
+    (r'\+', 'PLUS'),
+    (r'-', 'MINUS'),
+    (r'\*', 'MULTIPLY'),
+    (r'\/\/[^\n\r]*[\n\r]', 'COMMENT'),
+    (r'\/\*[\s\S]*?\*\/', 'COMMENT 2'),
+    (r'/(?![\/\*])[\n\s]*', 'DIVIDE'),
+    (r'%', 'MODULUS'),
+    (r'=', 'ASSIGN'),
+    (r'==', 'EQUAL'),
+    (r'!=', 'NOT_EQUAL'),
+    (r'<', 'LESS_THAN'),
+    (r'>', 'GREATER_THAN'),
+    (r'<=', 'LESS_THAN_EQUAL'),
+    (r'>=', 'GREATER_THAN_EQUAL'),
+    (r'\(', 'LEFT_PAREN'),
+    (r'\)', 'RIGHT_PAREN'),
+    (r'\{', 'LEFT_BRACE'),
+    (r'\}', 'RIGHT_BRACE'),
+    (r';', 'SEMICOLON'),
+    (r',', 'COMMA')
+]

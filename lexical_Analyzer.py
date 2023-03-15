@@ -4,14 +4,16 @@ import re
 
 # Define regular expression patterns for different types of tokens
 patterns = [
-    (r'\b(int|char|void|bool|if|else|while|for)\b', 'KEYWORD'),
+    (r'#include\s+<.*?>', 'INCLUDE_DIRECTIVE'),
+    (r'\b(int|char|void|bool|if|else|while|for|continue|break|for|return|float|long)\b', 'KEYWORD'),
     (r'\b(true|false)\b', 'BOOLEAN'),
     (r'\b([0-9]+)\b', 'NUMBER'),
     (r'\b([a-zA-Z_][a-zA-Z0-9_]*)\b', 'IDENTIFIER'),
     (r'\+', 'PLUS'),
     (r'-', 'MINUS'),
     (r'\*', 'MULTIPLY'),
-    (r'/', 'DIVIDE'),
+    (r'(\/\/[^\n\r]*[\n\r])|\/\*[\s\S]*?\*\/', 'COMMENT'),
+    (r'/(?![\/\*])[\n\s]*', 'DIVIDE'),
     (r'%', 'MODULUS'),
     (r'=', 'ASSIGN'),
     (r'==', 'EQUAL'),
@@ -25,11 +27,7 @@ patterns = [
     (r'\{', 'LEFT_BRACE'),
     (r'\}', 'RIGHT_BRACE'),
     (r';', 'SEMICOLON'),
-    (r',', 'COMMA'),
-    #(r'&&', 'AND'),
-    #(r'||', '0R'),
-    #(r'!', 'NOT'),
-    (r'//.*$|/\*.*?\*/', 'COMMENT')
+    (r',', 'COMMA')
 ]
 
 # Define a function that reads a program from a text file and generates a list of tokens
@@ -45,7 +43,8 @@ def lex(filename):
             match = regex.match(program, position)
 
             if match:
-                tokens.append((token_type, match.group(0)))
+                if token_type != 'COMMENT': # the tokenization logic skips over comment tokens
+                    tokens.append((token_type, match.group(0)))
                 position = match.end(0)
                 break
 
