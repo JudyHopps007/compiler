@@ -1,4 +1,3 @@
-input_code = '#include <stdio.h> \nint main() { \nprintf("Hello, World!"); \nreturn 0;'
 import re
 
 
@@ -38,10 +37,22 @@ def lex(filename):
     position = 0
     while position < len(program):
         match = None
+
+        # Skip over empty lines
+        if program[position] == '\n':
+            position += 1
+            continue
+
+        # Skip over whitespace
+        if re.match(r'\s', program[position]):
+            position += 1
+            continue
+
         for pattern, token_type in patterns:
             regex = re.compile(pattern)
             match = regex.match(program, position)
 
+            # get rid of code comments
             if match:
                 if token_type != 'COMMENT': # the tokenization logic skips over comment tokens
                     tokens.append((token_type, match.group(0)))
