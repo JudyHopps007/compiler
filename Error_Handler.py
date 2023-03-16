@@ -1,93 +1,58 @@
-# Grammar rules
-rules = {
-    "<program>": ["<declaration-list>"],
-    "<declaration-list>": ["<declaration>", "<declaration> <declaration-list>"],
-    "<declaration>": ["<type-specifier> <init-declarator-list> ;"],
-    "<type-specifier>": ["void", "char", "short", "int", "long", "float", "double",
-                         "signed", "unsigned", "<struct-or-union-specifier>", "<enum-specifier>", "<typedef-name>"],
-    "<init-declarator-list>": ["<init-declarator>", "<init-declarator> , <init-declarator-list>"],
-    "<init-declarator>": ["<declarator>", "<declarator> = <initializer>"],
-    "<declarator>": ["<pointer> <direct-declarator>"],
-    "<pointer>": ["*", "* <pointer>"],
-    "<direct-declarator>": ["<identifier>",
-                            "( <declarator> )",
-                            "<direct-declarator> [ <constant-expression> ]",
-                            "<direct-declarator> ( <parameter-type-list> )",
-                            "<direct-declarator> ( <identifier-list> )",
-                            "<direct-declarator> ( )"],
-    "<parameter-type-list>": ["<parameter-list>", "<parameter-list> , ..."],
-    "<parameter-list>": ["<parameter-declaration>", "<parameter-declaration> , <parameter-list>"],
-    "<parameter-declaration>": ["<type-specifier> <declarator>", "<type-specifier> <abstract-declarator>"],
-    "<abstract-declarator>": ["<pointer>", "<direct-abstract-declarator>", "<pointer> <direct-abstract-declarator>"],
-    "<direct-abstract-declarator>": ["( <abstract-declarator> )",
-                                     "[ ]",
-                                     "[ <constant-expression> ]",
-                                     "<direct-abstract-declarator> [ ]",
-                                     "<direct-abstract-declarator> [ <constant-expression> ]",
-                                     "( )",
-                                     "( <parameter-type-list> )",
-                                     "<direct-abstract-declarator> ( )",
-                                     "<direct-abstract-declarator> ( <parameter-type-list> )"],
-    "<initializer>": ["<assignment-expression>", "{ <initializer-list> }", "{ <initializer-list> , }"],
-    "<initializer-list>": ["<initializer>", "<initializer> , <initializer-list>"],
-    "<statement>": ["<labeled-statement>", "<expression-statement>", "<compound-statement>",
-                    "<selection-statement>", "<iteration-statement>", "<jump-statement>"],
-    "<labeled-statement>": ["<identifier> : <statement>", "case <constant-expression> : <statement>", "default : <statement>"],
-    "<expression-statement>": ["<expression> ;"],
-    "<compound-statement>": ["{ <declaration-list> <statement-list> }"],
-    "<statement-list>": ["<statement>", "<statement> <statement-list>"],
-    "<selection-statement>": ["if ( <expression> ) <statement>",
-                               "if ( <expression> ) <statement> else <statement>",
-                               "switch ( <expression> ) <statement>"],
-    "<iteration-statement>": ["while ( <expression> ) <statement>",
-                               "do <statement> while ( <expression> ) ;",
-                               "for ( <expression> ; <expression> ; <expression> ) <statement>",
-                               "for ( <declaration> <expression> ;                   <expression> ) <statement>"],
-"<jump-statement>": ["goto <identifier> ;",
-                      "continue ;",
-                      "break ;",
-                      "return ;",
-                      "return <expression> ;"],
-"<expression>": ["<assignment-expression>", "<expression> , <assignment-expression>"],
-"<assignment-expression>": ["<conditional-expression>", "<unary-expression> <assignment-operator> <assignment-expression>"],
-"<conditional-expression>": ["<logical-OR-expression>",
-                              "<logical-OR-expression> ? <expression> : <conditional-expression>"],
-"<logical-OR-expression>": ["<logical-AND-expression>", "<logical-OR-expression> || <logical-AND-expression>"],
-"<logical-AND-expression>": ["<inclusive-OR-expression>", "<logical-AND-expression> && <inclusive-OR-expression>"],
-"<inclusive-OR-expression>": ["<exclusive-OR-expression>", "<inclusive-OR-expression> | <exclusive-OR-expression>"],
-"<exclusive-OR-expression>": ["<AND-expression>", "<exclusive-OR-expression> ^ <AND-expression>"],
-"<AND-expression>": ["<equality-expression>", "<AND-expression> & <equality-expression>"],
-"<equality-expression>": ["<relational-expression>", "<equality-expression> == <relational-expression>",
-                           "<equality-expression> != <relational-expression>"],
-"<relational-expression>": ["<shift-expression>",
-                             "<relational-expression> < <shift-expression>",
-                             "<relational-expression> > <shift-expression>",
-                             "<relational-expression> <= <shift-expression>",
-                             "<relational-expression> >= <shift-expression>"],
-"<shift-expression>": ["<additive-expression>", "<shift-expression> << <additive-expression>",
-                        "<shift-expression> >> <additive-expression>"],
-"<additive-expression>": ["<multiplicative-expression>",
-                           "<additive-expression> + <multiplicative-expression>",
-                           "<additive-expression> - <multiplicative-expression>"],
-"<multiplicative-expression>": ["<cast-expression>",
-                                 "<multiplicative-expression> * <cast-expression>",
-                                 "<multiplicative-expression> / <cast-expression>",
-                                 "<multiplicative-expression> % <cast-expression>"],
-"<cast-expression>": ["<unary-expression>", "( <type-name> ) <cast-expression>"],
-"<unary-expression>": ["<postfix-expression>", "++ <unary-expression>", "-- <unary-expression>",
-                        "<unary-operator> <cast-expression>", "sizeof <unary-expression>",
-                        "sizeof ( <type-name> )"],
-"<postfix-expression>": ["<primary-expression>", "<postfix-expression> [ <expression> ]",
-                          "<postfix-expression> ( <argument-expression-list> )",
-                          "<postfix-expression> . <identifier>",
-                          "<postfix-expression> -> <identifier>",
-                          "<postfix-expression> ++", "<postfix-expression> --"],
-"<primary-expression>": ["<identifier>", "<constant>", "<string>", "( <expression> )"],
-"<argument-expression-list>": ["<assignment-expression>", "<argument-expression-list> , <assignment-expression>"],
-"<constant>": ["<integer-constant>", "<character-constant>", "<floating-constant>"],
-"<integer-constant>": ["<decimal-constant>", "<octal-constant>", "<hexadecimal-constant>"],
-"<decimal-constant>": ["<nonzero-digit>", "<decimal-constant> <digit>"],
-"<nonzero-digit>": ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
-"<digit>": ["0","1", "2", "3", "4", "5", "6", "7", "8", "9"]
+import re
 
-}
+# Define the grammar rules using regular expressions
+program_regex = re.compile(r'^<statement>(<statement>)?$')
+statement_regex = re.compile(r'^<assignment>|<print>|<if>|<while>$')
+assignment_regex = re.compile(r'^<identifier>=<expression>;$')
+expression_regex = re.compile(r'^<term>(<addop><expression>)?$')
+term_regex = re.compile(r'^<factor>(<mulop><term>)?$')
+factor_regex = re.compile(r'^<identifier>|<number>|\(<expression>\)$')
+addop_regex = re.compile(r'^\+|\-$')
+mulop_regex = re.compile(r'^\*|\/$')
+print_regex = re.compile(r'^printf\("<string>"\);$')
+string_regex = re.compile(r'^"[^"\\]*(\\.[^"\\]*)*"$')
+if_regex = re.compile(r'^if\(<condition>\)<statement>(else<statement>)?$')
+condition_regex = re.compile(r'^<expression><relop><expression>$')
+relop_regex = re.compile(r'^==|!=|<|<=|>|>=$')
+while_regex = re.compile(r'^while\(<condition>\)<statement>$')
+
+# Define a function to parse a sentence
+def parse(sentence):
+    if program_regex.match(sentence):
+        statements = sentence.split()
+        for statement in statements:
+            if statement_regex.match(statement):
+                if assignment_regex.match(statement):
+                    identifier, expression = statement.split('=')
+                    identifier = identifier.strip()
+                    expression = expression.strip()
+                    if identifier_regex.match(identifier) and expression_regex.match(expression):
+                        continue
+                elif print_regex.match(statement):
+                    string = string_regex.search(statement).group(0)
+                    if string:
+                        continue
+                elif if_regex.match(statement):
+                    condition, if_statement, else_statement = if_regex.search(statement).groups()
+                    if condition_regex.match(condition) and statement_regex.match(if_statement) and statement_regex.match(else_statement):
+                        continue
+                    elif condition_regex.match(condition) and statement_regex.match(if_statement):
+                        continue
+                elif while_regex.match(statement):
+                    condition, while_statement = while_regex.search(statement).groups()
+                    if condition_regex.match(condition) and statement_regex.match(while_statement):
+                        continue
+            raise SyntaxError(f'Invalid statement: {statement}')
+    else:
+        #raise SyntaxError(f'Invalid program: {sentence}')
+        pass
+    return True
+
+# Example usage
+program = '''
+x = 2 + 3;
+printf("Hello, world!");
+if (x > 5) x = x - 5; else x = x + 5;
+while (x < 10) x = x + 1;
+'''
+parse(program)
