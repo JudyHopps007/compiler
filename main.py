@@ -1,5 +1,12 @@
 import tkinter as tk
 global row_num_widget, Editor, Terminal, Terminal_display
+import platform
+import os
+import ctypes
+
+# Disable DPI awareness on Windows
+ctypes.windll.shcore.SetProcessDpiAwareness(1)
+ctypes.windll.shcore.SetProcessDpiAwareness(True)
 
 keyword = ['if' ,'from']
 
@@ -53,6 +60,7 @@ def main():
     app.state("zoomed")
     app.config(bg='gray')
     app.minsize(1000, 900)
+    app.tk.call('tk', 'scaling', -1)
 
     container = tk.Frame(app, bg="#232B2B")
     container.place(x=0, y=0, relwidth=1, relheight=1)
@@ -92,7 +100,8 @@ def main():
     Editor.bind("<KeyRelease>", colorize_text)
 
     # ======================================================== Terminal  Section ============================
-
+    abs_y = Text_Frame.winfo_y()
+    rel_y = abs_y / root.winfo_height()
     Text_Frame_2 = tk.Frame(container, border=0, bg=nav_bar_bg)
     Text_Frame_2.place(x=0, rely=0.79, relwidth=1, relheight=0.2)
 
