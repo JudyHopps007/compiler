@@ -69,12 +69,14 @@ def lex(filename):
 
 # Example usage
 tokens = lex('program.c')
-print(tokens)
+print("tokens: \n", tokens )
+
+
+
 # ================================================================================
 # Define a function to parse a list of tokens and check for syntax errors
 def parse(tokens):
     position = 0
-
     # Helper function to parse an expression
     def parse_expression():
         nonlocal position
@@ -166,7 +168,6 @@ def parse(tokens):
         else:
             print(f'Error: unexpected token {lexeme}')
             return False
-
     return True
 
 
