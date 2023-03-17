@@ -7,8 +7,10 @@ symbol_table = {}
 patterns = [
     (r'#include\s+<.*?>', 'INCLUDE_DIRECTIVE'),
     (r'\b(int|char|void|bool|if|else|while|for|continue|break|for|return|float|long)\b', 'KEYWORD'),
-    (r'\b(true|false)\b', 'BOOLEAN'),
-    (r'\b([0-9]+)\b', 'NUMBER'),
+    (r'\b(true|false|1|0)\b', 'BOOLEAN'),
+    (r'\b\d+\.\d+\b', 'floating_point'),
+    (r'\b\d+\b', 'integer'),
+    (r"'.'", 'char'),
     (r'\b([a-zA-Z_][a-zA-Z0-9_]*)\b', 'IDENTIFIER'),
     (r'\+', 'PLUS'),
     (r'-', 'MINUS'),
@@ -30,6 +32,7 @@ patterns = [
     (r';', 'SEMICOLON'),
     (r',', 'COMMA')
 ]
+
 
 # Define a function that reads a program from a text file and generates a list of tokens
 def lex(filename):
