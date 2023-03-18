@@ -9,4 +9,3 @@ for token in tokens:
         print(f"{token} matches the pattern")
     else:
         print(f"{token} does not match the pattern")
-                                                                                                                                                                                                                                                                                                                                                                

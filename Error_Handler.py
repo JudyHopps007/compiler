@@ -12,12 +12,13 @@ class ParseTreeNode:
 # This is a simplified set of rules for illustration purposes only
 rules = [
         ('<statement>', ['<type_specifier>', 'IDENTIFIER', 'ASSIGN', 'integer', 'SEMICOLON']),
-        ('<type_specifier>',  ['']),
+        ('<type_specifier>',  ['void_kw','int_kw']),
         ('<type_specifier>', ['void_kw']),
 
 
 
 ]
+
 
 """
     ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'parameter_list', 'RIGHT_PAREN', '<block>']),
