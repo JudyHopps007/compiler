@@ -11,20 +11,13 @@ class ParseTreeNode:
 # Define the production rules for the language
 # This is a simplified set of rules for illustration purposes only
 rules = [
-    ('<program>', ['<include-list>', '<function_definition>', '<main-function>']),
-    ('<include-list>', ['INCLUDE_DIRECTIVE']),
-    ('<function_definition>', ['<type_specifier>', '<declarator>', '<compound_statement>']),
-    ('<declarator>', ['<identifier>', 'LEFT_PAREN', '<parameter_list_opt>', 'RIGHT_PAREN']),
-    ('<parameter_list_opt>', ['']),
-    ('<parameter_list_opt>', ['parameter_list']),
-    ('<parameter_list>', '<parameter_declaration>'),
-    ('<parameter_list>', '<parameter_list>', ',', '<parameter_declaration>'),
-    ('<parameter_declaration>', '<type_specifier>', '<declarator>'),
-    ('<type_specifier>', ['KEYWORD']),
-    ('<main-function>', ['int_kw', 'main', 'LEFT_PAREN', 'RIGHT_PAREN', '<block>']),
+        ('<statement>', ['<type_specifier>', 'IDENTIFIER', 'ASSIGN', 'integer', 'SEMICOLON']),
+        ('<type_specifier>',  ['']),
+        ('<type_specifier>', ['void_kw']),
+
+
 
 ]
-
 
 """
     ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'parameter_list', 'RIGHT_PAREN', '<block>']),

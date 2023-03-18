@@ -1,36 +1,22 @@
-program -> external_declaration | program external_declaration
-external_declaration -> function_definition | declaration
-function_definition -> type_specifier declarator compound_statement
-declarator -> direct_declarator | pointer direct_declarator
-direct_declarator -> identifier | "(" declarator ")" | direct_declarator "[" constant_expression "]" | direct_declarator "(" parameter_type_list ")" | direct_declarator "(" identifier_list ")" | direct_declarator "()"
-pointer -> "*" type_qualifier_list_opt | "*" type_qualifier_list_opt pointer
-type_qualifier_list -> type_qualifier | type_qualifier_list type_qualifier
-type_qualifier -> "const" | "volatile"
-parameter_type_list -> parameter_list | parameter_list "," "..."
-parameter_list -> parameter_declaration | parameter_list "," parameter_declaration
-parameter_declaration -> type_specifier declarator_opt | type_specifier abstract_declarator_opt
-identifier_list -> identifier | identifier_list "," identifier
-type_specifier -> "void" | "char" | "short" | "int" | "long" | "float" | "double" | "signed" | "unsigned" | struct_or_union_specifier | enum_specifier | typedef_name
-struct_or_union_specifier -> struct_or_union identifier_opt "{" struct_declaration_list "}" | struct_or_union "{" struct_declaration_list "}" | struct_or_union identifier
-struct_or_union -> "struct" | "union"
-struct_declaration_list -> struct_declaration | struct_declaration_list struct_declaration
-struct_declaration -> specifier_qualifier_list struct_declarator_list ";"
-specifier_qualifier_list -> type_specifier specifier_qualifier_list_opt | type_qualifier specifier_qualifier_list_opt | type_specifier type_qualifier specifier_qualifier_list_opt
-specifier_qualifier_list_opt -> ε | specifier_qualifier_list
-struct_declarator_list -> struct_declarator | struct_declarator_list "," struct_declarator
-struct_declarator -> declarator | declarator ":" constant_expression | ":" constant_expression
-abstract_declarator -> pointer | pointer direct_abstract_declarator | direct_abstract_declarator
-direct_abstract_declarator -> "(" abstract_declarator ")" | direct_abstract_declarator "[" constant_expression_opt "]" | "[" constant_expression_opt "]" | direct_abstract_declarator "(" parameter_type_list_opt ")" | "(" parameter_type_list_opt ")"
-initializer -> assignment_expression | "{" initializer_list "}" | "{" initializer_list "," "}"
-initializer_list -> initializer | initializer_list "," initializer
-statement -> labeled_statement | expression_statement | compound_statement | selection_statement | iteration_statement | jump_statement
-labeled_statement -> identifier ":" statement | "case" constant_expression ":" statement | "default" ":" statement
-expression_statement -> expression_opt ";"
-compound_statement -> "{" declaration_list statement_list "}"
-declaration_list -> declaration | declaration_list declaration
-declaration -> type_specifier init_declarator_list ";"
-init_declarator_list -> init_declarator | init_declarator_list "," init_declarator
-init_declarator -> declarator | declarator "=" initializer
-statement_list -> statement | statement_list statement
-selection_statement -> "if" "(" expression ")" statement | "if" "(" expression ")" statement "else" statement | "switch" "(" expression ")" statement
-iteration_statement -> "while" "(" expression ")" statement | "do" statement "while" "(" expression ")" ";" | "for" "(" expression_opt ";" expression_opt ";" expression_opt ")" statement | jump_statement
+    ('<program>', ['<include-list>', '<program>']),
+    ('<program>', ['<include-list>', '<function_definition>', '<program>']),
+    ('<program>', ['<include-list>', '<main-function>']),
+    ('<program>', []),
+    ('<include-list>', ['INCLUDE_DIRECTIVE']),
+    ('<function_definition>', ['<type_specifier>', '<declarator>', '<compound_statement>']),
+    ('<declarator>', ['<identifier>', 'LEFT_PAREN', '<parameter_list_opt>', 'RIGHT_PAREN']),
+    ('<parameter_list_opt>', []),
+    ('<parameter_list_opt>', ['parameter_list']),
+    ('<parameter_list>', '<parameter_declaration>'),
+    ('<parameter_list>', '<parameter_list>', ',', '<parameter_declaration>'),
+    ('<parameter_declaration>', '<type_specifier>', '<declarator>'),
+    ('<type_specifier>', ['KEYWORD']),
+    ('<identifier>', ['IDENTIFIER']),
+    ('<compound_statement>', ['LEFT_BRACE', '<declaration_list_opt>', '<statement_list>', 'RIGHT_BRACE']),
+    ('<declaration_list_opt>', []),
+    ('<declaration_list_opt>', ['<declaration_list>']),
+    ('<statement_list>', ['<statement>']),
+    ('<statement_list>', ['<statement_list>', '<statement>']),
+    ('<statement>', ['<compound_statement>']),
+
+    ('<main-function>', ['int_kw', 'main', 'LEFT_PAREN', 'RIGHT_PAREN', '<block>']),
