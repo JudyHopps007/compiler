@@ -6,7 +6,7 @@ symbol_table = {}
 # Define regular expression patterns for different types of tokens(assigning tokens to lexemes)
 patterns = [
     (r'#include\s+<.*?>', 'INCLUDE_DIRECTIVE'),
-    (r'\b(int|char|void|bool|float|long)\b', 'KEYWORD'),
+    (r'\b(char|void|bool|float|long)\b', 'KEYWORD'),
     (r'\b(if)\b', 'if'),
     (r'\b(true|false|1|0)\b', 'BOOLEAN'),
     (r'\b\d+\.\d+\b', 'floating_point'),

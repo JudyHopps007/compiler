@@ -11,17 +11,17 @@ class ParseTreeNode:
 # Define the production rules for the language
 # This is a simplified set of rules for illustration purposes only
 rules = [
-    ('<program>', ['<include-list>']),
-    ('<program>', ['<declaration_list>']),
-
-
+    ('<program>', ['<include-list>', '<function_definition>', '<main-function>']),
     ('<include-list>', ['INCLUDE_DIRECTIVE']),
-    ('<declaration_list>', ['<declaration>']),
-    ('<declaration>', ['<variable_declaration>']),
-    ('<variable_declaration>', ['<type_specifier>', '<identifier>', 'SEMICOLON']),
-    ('<variable_initializer>', ['<type_specifier>', '<identifier>', 'ASSIGN', 'integer', 'SEMICOLON']),
+    ('<function_definition>', ['<type_specifier>', '<declarator>', '<compound_statement>']),
+    ('<declarator>', ['<identifier>', 'LEFT_PAREN', '<parameter_list_opt>', 'RIGHT_PAREN']),
+    ('<parameter_list_opt>', ['']),
+    ('<parameter_list_opt>', ['parameter_list']),
+    ('<parameter_list>', '<parameter_declaration>'),
+    ('<parameter_list>', '<parameter_list>', ',', '<parameter_declaration>'),
+    ('<parameter_declaration>', '<type_specifier>', '<declarator>'),
     ('<type_specifier>', ['KEYWORD']),
-    ('<identifier>', ['IDENTIFIER']),
+    ('<main-function>', ['int_kw', 'main', 'LEFT_PAREN', 'RIGHT_PAREN', '<block>']),
 
 ]
 
@@ -56,7 +56,7 @@ rules = [
 # Define a function that recursively generates a parse tree from the token stream using the production rules
 def parse(tokens, rule):
     node = ParseTreeNode(rule[0])
-
+    print(rule[0])
     for production in rule[1]:
         if production.startswith('<'):
             # If the production is a non-terminal, recursively generate a subtree using the corresponding rule

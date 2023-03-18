@@ -1,74 +1,77 @@
-from typing import List, Tuple
 
-# Define a function to parse a single production rule
-def parse_rule(rule: str) -> Tuple[str, List[str]]:
-    lhs, rhs = rule.split(" -> ")
-    rhs = rhs.split(" | ")
-    rhs = [r.split() for r in rhs]
-    return lhs, rhs
+class ParseTreeNode:
+    def __init__(self, value, children=None):
+        self.value = value
+        self.children = children if children else []
 
-# Define a function to read production rules from a text file
-def read_rules(filename: str) -> List[Tuple[str, List[str]]]:
-    with open(filename) as f:
-        rules = [parse_rule(line.strip()) for line in f if line.strip()]
-    return rules
-
-# Define a function to find all rules that have a given nonterminal symbol on the left-hand side
-def find_rules_by_lhs(rules: List[Tuple[str, List[str]]], nonterminal: str) -> List[Tuple[str, List[str]]]:
-    return [r for r in rules if r[0] == nonterminal]
-
-# Define a function to find all nonterminal symbols that appear in a given production rule
-def find_nonterminals_in_rule(rule: Tuple[str, List[str]]) -> List[str]:
-    return [s for s in rule[1] if s.isupper()]
-
-# Define a function to find all nonterminal symbols that appear in a list of production rules
-def find_nonterminals_in_rules(rules: List[Tuple[str, List[str]]]) -> List[str]:
-    nonterminals = set()
-    for rule in rules:
-        nonterminals.update(find_nonterminals_in_rule(rule))
-    return list(nonterminals)
-
-# Define a function to parse a C program using the given production rules
-def parse_c_program(program: str, rules: List[Tuple[str, List[str]]]) -> bool:
-    def parse_symbol(symbol: str, rest_program: str) -> bool:
-        if symbol.islower():  # Terminal symbol
-            if rest_program.startswith(symbol):
-                return True, rest_program[len(symbol):]
-            else:
-                return False, rest_program
-        else:  # Nonterminal symbol
-            symbol_rules = find_rules_by_lhs(rules, symbol)
-            for rule in symbol_rules:
-                success, new_program = parse_sequence(rule[1], rest_program)
-                if success:
-                    return True, new_program
-            return False, rest_program
-
-    def parse_sequence(sequence: List[str], rest_program: str) -> Tuple[bool, str]:
-        if not sequence:  # Empty sequence
-            return True, rest_program
-        else:
-            success, new_program = parse_symbol(sequence[0], rest_program)
-            if success:
-                return parse_sequence(sequence[1:], new_program)
-            else:
-                return False, rest_program
-
-    # Start parsing with the 'program' nonterminal symbol
-    success, remaining_program = parse_symbol('program', program)
-    return success and not remaining_program.strip()
-
-# Read the production rules from a text file
-rules = read_rules('grammar.txt')
-
-# Parse a C program using the given production rules
-program = """
-int main() {
-    printf("Hello, world!");
-    return 0;
+    def add_child(self, child):
+        self.children.append(child)
+# Define the production rules for the language using the | symbol to represent alternatives
+# Define the production rules for the language
+# Use a list of possible right-hand side productions for each left-hand side non-terminal symbol
+# '|' is used as an 'or' operator between alternative productions
+rules = {
+    '<program>': [['<statement>']],
+    '<statement>': [['<if_statement>'], ['<while_statement>'], ['<expression_statement>']],
+    '<if_statement>': [['if', '(', '<expression>', ')', '<statement>']],
+    '<while_statement>': [['while', '(', '<expression>', ')', '<statement>']],
+    '<expression_statement>': [['<expression>', ';']],
+    '<expression>': [['<identifier>', '=', '<expression>'], ['<simple_expression>']],
+    '<simple_expression>': [['<term>', '<additive_operator>', '<term>']],
+    '<term>': [['<factor>', '<multiplicative_operator>', '<factor>']],
+    '<factor>': [['<identifier>'], ['<number>']],
+    '<identifier>': [['IDENTIFIER']],
+    '<number>': [['NUMBER']],
+    '<additive_operator>': [['+'], ['-']],
+    '<multiplicative_operator>': [['*'], ['/']]
 }
-"""
-if parse_c_program(program, rules):
-    print("Parsing succeeded.")
-else:
-    print("Parsing failed.")
+
+# Define a function that recursively generates a parse tree from the token stream using the production rules
+def parse(tokens, rule):
+    node = ParseTreeNode(rule)
+
+    # Get the list of possible right-hand side productions for the given rule
+    rhs_list = rules[rule]
+
+    for rhs in rhs_list:
+        i = 0
+        subtree = ParseTreeNode(rule)
+        for symbol in rhs:
+            if symbol.startswith('<'):
+                # If the symbol is a non-terminal, recursively generate a subtree using the corresponding rule
+                subrule = symbol
+                child = parse(tokens, subrule)
+                subtree.add_child(child)
+            else:
+                # If the symbol is a terminal, consume a token from the token stream and match it against the symbol
+                if not tokens:
+                    break
+                token = tokens[0]
+                if token[0] == symbol:
+                    subtree.add_child(ParseTreeNode(token))
+                    tokens.pop(0)
+                    i += 1
+                else:
+                    break
+        # If the entire right-hand side of the production matches the token stream, return the subtree
+        if i == len(rhs):
+            node.add_child(subtree)
+            break
+
+    return node
+
+
+# Define a function that runs the syntax analyzer on the token stream
+def syntax_analyze(tokens):
+    tree = parse(tokens, '<program>')
+    if tokens:
+        raise ValueError("Unexpected tokens at end of input")
+    return tree
+
+# Example usage
+
+import lexical_Analyzer
+tokens = lexical_Analyzer.lex('program.c')
+print(tokens)
+tree = syntax_analyze(tokens)
+print(tree.value)
