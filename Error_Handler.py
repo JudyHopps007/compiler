@@ -12,7 +12,7 @@ class ParseTreeNode:
 # This is a simplified set of rules for illustration purposes only
 rules = [
         ('<statement>', ['<type_specifier>', 'IDENTIFIER', 'ASSIGN', 'integer', 'SEMICOLON']),
-        ('<type_specifier>',  ['void_kw','int_kw']),
+        ('<type_specifier>',  ['void_kw' ,'int_kw']),
         ('<type_specifier>', ['void_kw']),
 
 
