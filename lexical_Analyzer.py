@@ -6,7 +6,8 @@ symbol_table = {}
 # Define regular expression patterns for different types of tokens(assigning tokens to lexemes)
 patterns = [
     (r'#include\s+<.*?>', 'INCLUDE_DIRECTIVE'),
-    (r'\b(int|char|void|bool|if|else|while|for|continue|break|for|return|float|long)\b', 'KEYWORD'),
+    (r'\b(int|char|void|bool|else|while|for|continue|break|for|return|float|long)\b', 'KEYWORD'),
+    (r'\b(if)\b', 'if'),
     (r'\b(true|false|1|0)\b', 'BOOLEAN'),
     (r'\b\d+\.\d+\b', 'floating_point'),
     (r'\b\d+\b', 'integer'),
@@ -71,8 +72,8 @@ def lex(filename):
     return tokens
 
 # Example usage
-tokens = lex('program.c')
-print(tokens)
+#tokens = lex('program.c')
+#print(tokens)
 
 # ============================================================================================================
 def generate_symbol_table(tokens):
@@ -89,7 +90,7 @@ def generate_symbol_table(tokens):
 
     return symbol_table
 
-symbol_table = generate_symbol_table(tokens)
-print("\n smb: ",symbol_table)
+#symbol_table = generate_symbol_table(tokens)
+#print("\n smb: ",symbol_table)
 # ============================================================
 

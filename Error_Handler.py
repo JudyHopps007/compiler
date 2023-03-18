@@ -1,90 +1,81 @@
-# Grammar rules in dictionary form
-grammar_rules = {
-    "<program>": [["<statements>"]],
-    "<statements>": [["<statement>"], ["<statement>", "<statements>"]],
-    "<statement>": [["<expression>", ";"],
-                    ["<conditional-statement>"],
-                    ["<loop-statement>"],
-                    ["<declaration>"]],
-    "<declaration>": [["<type>", "<identifier>", ";"]],
-    "<type>": [["int"], ["float"], ["double"], ["char"]],
-    "<identifier>": [["<letter>"], ["<identifier>", "<letter>"], ["<identifier>", "<digit>"]],
-    "<letter>": [["a"], ["b"], ["c"], ["d"], ["e"], ["f"], ["g"], ["h"], ["i"], ["j"],
-                 ["k"], ["l"], ["m"], ["n"], ["o"], ["p"], ["q"], ["r"], ["s"], ["t"],
-                 ["u"], ["v"], ["w"], ["x"], ["y"], ["z"], ["A"], ["B"], ["C"], ["D"],
-                 ["E"], ["F"], ["G"], ["H"], ["I"], ["J"], ["K"], ["L"], ["M"], ["N"],
-                 ["O"], ["P"], ["Q"], ["R"], ["S"], ["T"], ["U"], ["V"], ["W"], ["X"],
-                 ["Y"], ["Z"], ["_"]],
-    "<digit>": [["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"]],
-    "<expression>": [["<term>"], ["<term>", "<addop>", "<expression>"]],
-    "<term>": [["<factor>"], ["<factor>", "<mulop>", "<term>"]],
-    "<factor>": [["<identifier>"], ["<number>"], ["(", "<expression>", ")"]],
-    "<addop>": [["+"], ["-"]],
-    "<mulop>": [["*"], ["/"], ["%"]],
-    "<number>": [["<digit>"], ["<number>", "<digit>"], ["<number>", ".", "<digit>"], ["<number>", "E", "<digit>"]],
-    "<conditional-statement>": [["if", "(", "<condition>", ")", "<statement>", "[", "else", "<statement>", "]"],
-                                ["if", "(", "<condition>", ")", "<statement>"]],
-    "<condition>": [["<expression>", "<relop>", "<expression>"]],
-    "<relop>": [["=="], ["!="], ["<"], ["<="], [">"], [">="]],
-    "<loop-statement>": [["while", "(", "<condition>", ")", "<statement>"],
-                         ["for", "(", "<for-initializer>", "<condition>", ";", "<for-expression>", ")", "<statement>"]],
-    "<for-initializer>": [["<declaration>"], ["<expression>"]],
-    "<for-expression>": [["<expression>"]]
-}
 
-# Terminals in the grammar
-terminals = ["int", "float", "double", "char", ";", "(", ")", "{", "}", "<letter>", "<digit>",
-             "+", "-", "*", "/", "%", "<number>", "==", "!=", "<", "<=", ">", ">=", "if",
-             "else", "while", "for", ",", "="]
+# Define a class to represent a node in the parse tree
+class ParseTreeNode:
+    def __init__(self, value, children=None):
+        self.value = value
+        self.children = children if children else []
 
-# First set for each nonterminal
-first_sets = {
-    "<program>": ["int", "float", "double", "char"],
-        "<statement>": ["int", "float", "double", "char", "<identifier>", "if", "while", "for"],
-    "<declaration>": ["int", "float", "double", "char"],
-    "<type>": ["int", "float", "double", "char"],
-    "<identifier>": ["<letter>"],
-    "<letter>": ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
-                 "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
-                 "u", "v", "w", "x", "y", "z", "A", "B", "C", "D",
-                 "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
-                 "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X",
-                 "Y", "Z", "_"],
-    "<digit>": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
-    "<expression>": ["<identifier>", "<number>", "("],
-    "<term>": ["<identifier>", "<number>", "("],
-    "<factor>": ["<identifier>", "<number>", "("],
-    "<addop>": ["+", "-"],
-    "<mulop>": ["*", "/", "%"],
-    "<number>": ["<digit>"],
-    "<conditional-statement>": ["if"],
-    "<condition>": ["<identifier>", "<number>", "("],
-    "<relop>": ["==", "!=", "<", "<=", ">", ">="],
-    "<loop-statement>": ["while", "for"],
-    "<for-initializer>": ["int", "float", "double", "char", "<identifier>", "("],
-    "<for-expression>": ["<identifier>", "<number>", "("]
-}
+    def add_child(self, child):
+        self.children.append(child)
 
-# Follow set for each nonterminal
-follow_sets = {
-    "<program>": ["$"],
-    "<statements>": ["}"],
-    "<statement>": ["int", "float", "double", "char", "<identifier>", "if", "while", "for", "}"],
-    "<declaration>": [";"],
-    "<type>": ["<identifier>"],
-    "<identifier>": [";", ",", "=", "<addop>", "<mulop>", "<relop>", ")"],
-    "<letter>": ["<letter>", "<digit>"],
-    "<digit>": ["<digit>", "."],
-    "<expression>": [";", ",", ")", "<addop>", "<relop>"],
-    "<term>": [";", ",", ")", "<addop>", "<relop>"],
-    "<factor>": [";", ",", ")", "<addop>", "<mulop>", "<relop>"],
-    "<addop>": ["<term>", "<identifier>", "<number>", "("],
-    "<mulop>": ["<factor>", "<identifier>", "<number>", "("],
-    "<number>": [";", ",", ")", "<addop>", "<mulop>", "<relop>"],
-    "<conditional-statement>": ["else", "}"],
-    "<condition>": [")"],
-    "<relop>": ["<expression>", "<identifier>", "<number>", "("],
-    "<loop-statement>": ["else", "}"],
-    "<for-initializer>": ["<condition>"],
-    "<for-expression>": [")"]
-}
+# Define the production rules for the language
+# This is a simplified set of rules for illustration purposes only
+rules = [
+    ('<program>', ['<declaration>']),
+    ('<declaration>', ['<function_declaration>']),
+    ('<declaration>', ['<variable_declaration>']),
+    ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'parameter_list', 'RIGHT_PAREN', 'compound_statement'])
+
+
+
+
+    
+]
+"""
+('<statement>', ['<if_statement>']),
+('<statement>', ['<while_statement>']),
+('<statement>', ['<expression_statement>']),
+('<if_statement>', ['if', 'LEFT_PAREN', '<identifier>', 'RIGHT_PAREN', 'LEFT_BRACE', 'RIGHT_BRACE']),
+('<while_statement>', ['while', 'LEFT_PAREN', '<expression>', 'RIGHT_PAREN', '<statement>']),
+('<expression_statement>', ['<expression>', ';']),
+('<expression>', ['<identifier>', 'ASSIGN', '<expression>']),
+('<expression>', ['<simple_expression>']),
+
+('<simple_expression>', ['<term>', '<additive_operator>', '<term>']),
+('<term>', ['<factor>', '<multiplicative_operator>', '<factor>']),
+('<factor>', ['<identifier>']),
+('<factor>', ['<number>']),
+('<identifier>', ['IDENTIFIER']),
+('<number>', ['NUMBER']),
+('<additive_operator>', ['+', '-']),
+('<multiplicative_operator>', ['*', '/'])
+"""
+
+
+# Define a function that recursively generates a parse tree from the token stream using the production rules
+def parse(tokens, rule):
+    node = ParseTreeNode(rule[0])
+
+    for production in rule[1]:
+        if production.startswith('<'):
+            # If the production is a non-terminal, recursively generate a subtree using the corresponding rule
+            subrule = next((r for r in rules if r[0] == production), None)
+            if not subrule:
+                raise ValueError("Invalid production rule: " + production)
+            child = parse(tokens, subrule)
+            node.add_child(child)
+        else:
+            # If the production is a terminal, consume a token from the token stream and match it against the production
+            if not tokens:
+                raise ValueError("Unexpected end of input")
+            token = tokens.pop(0)
+            if token[0] != production:
+                raise ValueError(f"Expected token type {production}, got {token[0]}: {token[1]}")
+            node.add_child(ParseTreeNode(token))
+
+    return node
+
+# Define a function that runs the syntax analyzer on the token stream
+def syntax_analyze(tokens):
+    tree = parse(tokens, rules[0])
+    if tokens:
+        raise ValueError("Unexpected tokens at end of input")
+    return tree
+
+# Example usage
+import lexical_Analyzer
+
+tokens = lexical_Analyzer.lex('program.c')
+print(tokens)
+tree = syntax_analyze(tokens)
+print(tree.value)

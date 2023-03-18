@@ -1,94 +1,104 @@
-import re
+import lexical_Analyzer
 
-symbol_table = {}
+tokens = lexical_Analyzer.lex('program.c')
 
-
-# Define regular expression patterns for different types of tokens(assigning tokens to lexemes)
-patterns = [
-    (r'#include\s+<.*?>', 'INCLUDE_DIRECTIVE'),
-    (r'\b(int|char|void|bool|if|else|while|for|continue|break|for|return|float|long)\b', 'KEYWORD'),
-    (r'\b(true|false)\b', 'BOOLEAN'),
-    (r'\b\d+\.\d+\b', 'floating_point'),
-    (r'\b\d+\b', 'integer'),
-    (r"'.'", 'char'),
-    (r'\b([a-zA-Z_][a-zA-Z0-9_]*)\b', 'IDENTIFIER'),
-    (r'\+', 'PLUS'),
-    (r'-', 'MINUS'),
-    (r'\*', 'MULTIPLY'),
-    (r'(\/\/[^\n\r]*[\n\r])|\/\*[\s\S]*?\*\/', 'COMMENT'),
-    (r'/(?![\/\*])[\n\s]*', 'DIVIDE'),
-    (r'%', 'MODULUS'),
-    (r'=', 'ASSIGN'),
-    (r'==', 'EQUAL'),
-    (r'!=', 'NOT_EQUAL'),
-    (r'<', 'LESS_THAN'),
-    (r'>', 'GREATER_THAN'),
-    (r'<=', 'LESS_THAN_EQUAL'),
-    (r'>=', 'GREATER_THAN_EQUAL'),
-    (r'\(', 'LEFT_PAREN'),
-    (r'\)', 'RIGHT_PAREN'),
-    (r'\{', 'LEFT_BRACE'),
-    (r'\}', 'RIGHT_BRACE'),
-    (r';', 'SEMICOLON'),
-    (r',', 'COMMA')
+# Define the production rules for the language
+# This is just an example, you'll need to define your own rules for your specific language
+# Each rule is represented as a tuple where the first element is the name of the nonterminal symbol
+# and the remaining elements are the symbols in the production
+rules = [
+    ('program', 'declaration_list'),
+    ('declaration_list', 'declaration'),
+    ('declaration_list', 'declaration_list declaration'),
+    ('declaration', 'variable_declaration'),
+    ('declaration', 'function_declaration'),
+    ('variable_declaration', 'type ID ;'),
+    ('function_declaration', 'type ID ( parameter_list ) compound_statement'),
+    ('parameter_list', 'parameter'),
+    ('parameter_list', 'parameter_list , parameter'),
+    ('parameter', 'type ID'),
+    ('type', 'int'),
+    ('type', 'float'),
+    ('type', 'bool'),
+    ('compound_statement', '{ statement_list }'),
+    ('statement_list', 'statement'),
+    ('statement_list', 'statement_list statement'),
+    ('statement', 'expression_statement'),
+    ('statement', 'variable_declaration'),
+    ('statement', 'if_statement'),
+    ('statement', 'while_statement'),
+    ('expression_statement', 'expression ;'),
+    ('if_statement', 'if ( expression ) statement'),
+    ('if_statement', 'if ( expression ) statement else statement'),
+    ('while_statement', 'while ( expression ) statement'),
+    ('expression', 'ID = expression'),
+    ('expression', 'expression + expression'),
+    ('expression', 'expression - expression'),
+    ('expression', 'expression * expression'),
+    ('expression', 'expression / expression'),
+    ('expression', '( expression )'),
+    ('expression', 'ID'),
+    ('expression', 'NUMBER'),
+    ('expression', 'BOOLEAN'),
 ]
 
-# Define a function that reads a program from a text file and generates a list of tokens
-def lex(filename):
-    with open(filename, 'r') as f:
-        program = f.read()
-    tokens = []
+# Define a function to perform syntax analysis on a list of tokens
+def parse(tokens):
+    tree = []
     position = 0
-    while position < len(program):
-        match = None
 
-        # Skip over empty lines
-        if program[position] == '\n':
-            position += 1
-            continue
+    # Start with the start symbol of the grammar
+    symbol = 'program'
 
-        # Skip over whitespace
-        if re.match(r'\s', program[position]):
-            position += 1
-            continue
+    # Define a function to match a token to a terminal symbol
+    def match(token, symbol):
+        return token[0] == symbol
 
-        for pattern, token_type in patterns:
-            regex = re.compile(pattern)
-            match = regex.match(program, position)
+    # Define a function to generate a subtree from a production rule
+    def generate_subtree(rule, children):
+        return (rule[0], children)
 
-            # get rid of code comments
-            if match:
-                if token_type != 'COMMENT': # the tokenization logic skips over comment tokens
-                    tokens.append((token_type, match.group(0)))
-                position = match.end(0)
-                break
+    # Define a function to recursively parse a nonterminal symbol
+    def parse_nonterminal(symbol):
+        nonlocal position
+        children = []
 
-        if not match:
-            print("Illegal character: " + program[position])
-            position += 1
+        # Try each production rule for the symbol
+        for rule in rules:
+            if rule[0] == symbol:
+                print(12)
+                for symbol in rule[1:]:
+                    # If the symbol is a nonterminal, recursively parse it
+                    if symbol.isupper():
+                        subtree = parse_nonterminal(symbol)
+                        if subtree:
+                            children.append(subtree)
+                            continue
 
-    return tokens
+                    # If the symbol is a terminal, match it with the current token
+                    elif match(tokens[position], symbol):
+                        children.append(tokens[position])
+                        position += 1
+                        continue
 
-# Example usage
-tokens = lex('program.c')
-print(tokens)
+                    # If the symbol does not match, backtrack and try the next production rule
+                    break
 
-# ============================================================================================================
-def generate_symbol_table(tokens):
-    symbol_table = {}
+                # If all symbols match, generate a subtree and return it
+                else:
+                    return generate_subtree(rule, children)
 
-    for token_type, value in tokens:
-        if token_type == 'IDENTIFIER':
-            if value not in symbol_table:
-                symbol_table[value] = {
-                    'type': None,
-                    'value': None,
-                    'line_number': None
-                }
+        # If no production rule matches, return None to indicate a syntax error
+        return None
 
-    return symbol_table
+    # Start parsing with the start symbol
+    tree = parse_nonterminal(symbol)
+    print(tree)
+    # If the parse was successful, make sure we consumed all the tokens
+    if tree and position == len(tokens):
+        print('fail')
+        return tree
 
-symbol_table = generate_symbol_table(tokens)
-print("\n smb: ",symbol_table)
-# ============================================================
 
+x = parse(tokens)
+print(x)
