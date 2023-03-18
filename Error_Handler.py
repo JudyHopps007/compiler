@@ -11,19 +11,25 @@ class ParseTreeNode:
 # Define the production rules for the language
 # This is a simplified set of rules for illustration purposes only
 rules = [
-    ('<program>', ['<declaration>']),
-    ('<declaration>', ['<function_declaration>']),
+    ('<program>', ['<include-list>', '<declaration_list>', '<variable_initializer>']),
+    ('<include-list>', ['INCLUDE_DIRECTIVE']),
+    ('<declaration_list>', ['<declaration>']),
     ('<declaration>', ['<variable_declaration>']),
-    ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'parameter_list', 'RIGHT_PAREN', 'compound_statement']),
-    ('<variable_declaration>', ['<type_specifier>', '<identifier>', '=', 'expression', ';']),
-    ('<parameter_list>', ['<parameter>', ',', '<parameter>']),
-    ('<parameter>', ['<type_specifier>', '<identifier>']),
+    ('<variable_declaration>', ['<type_specifier>', '<identifier>', 'SEMICOLON']),
+    ('<variable_initializer>', ['<type_specifier>', '<identifier>', 'ASSIGN', 'integer', 'SEMICOLON']),
+    ('<type_specifier>', ['KEYWORD']),
     ('<identifier>', ['IDENTIFIER']),
-    ('<type_specifier>', ['<int>' or '<float>']),
-    ('<int>', ['int']),
-    ('<float>', ['float'])
+
 ]
+
+
 """
+    ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'parameter_list', 'RIGHT_PAREN', '<block>']),
+    ('<parameter>', ['<type_specifier>', '<identifier>']),
+    ('<block>', ['SEMICOLON', '<statement_list>', 'SEMICOLON']),
+    ('<identifier>', ['IDENTIFIER']),
+    
+    ('<expression>', ['integer'])
 ('<statement>', ['<if_statement>']),
 ('<statement>', ['<while_statement>']),
 ('<statement>', ['<expression_statement>']),
@@ -80,4 +86,4 @@ import lexical_Analyzer
 tokens = lexical_Analyzer.lex('program.c')
 print(tokens)
 tree = syntax_analyze(tokens)
-print(tree.value)
+print("tree", tree.value)
