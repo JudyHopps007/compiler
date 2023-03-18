@@ -1,4 +1,4 @@
-
+import re
 # Define a class to represent a node in the parse tree
 class ParseTreeNode:
     def __init__(self, value, children=None):
@@ -14,12 +14,14 @@ rules = [
     ('<program>', ['<declaration>']),
     ('<declaration>', ['<function_declaration>']),
     ('<declaration>', ['<variable_declaration>']),
-    ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'parameter_list', 'RIGHT_PAREN', 'compound_statement'])
-
-
-
-
-    
+    ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'parameter_list', 'RIGHT_PAREN', 'compound_statement']),
+    ('<variable_declaration>', ['<type_specifier>', '<identifier>', '=', 'expression', ';']),
+    ('<parameter_list>', ['<parameter>', ',', '<parameter>']),
+    ('<parameter>', ['<type_specifier>', '<identifier>']),
+    ('<identifier>', ['IDENTIFIER']),
+    ('<type_specifier>', ['<int>' or '<float>']),
+    ('<int>', ['int']),
+    ('<float>', ['float'])
 ]
 """
 ('<statement>', ['<if_statement>']),
