@@ -72,8 +72,8 @@ def lex(filename):
     return tokens
 
 # Example usage
-#tokens = lex('program.c')
-#print(tokens)
+tokens = lex('program.c')
+
 
 # ============================================================================================================
 def generate_symbol_table(tokens):
@@ -90,7 +90,7 @@ def generate_symbol_table(tokens):
 
     return symbol_table
 
-#symbol_table = generate_symbol_table(tokens)
-#print("\n smb: ",symbol_table)
+symbol_table = generate_symbol_table(tokens)
+print("\n smb: ", symbol_table)
 # ============================================================
 
