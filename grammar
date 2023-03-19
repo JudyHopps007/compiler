@@ -19,4 +19,3 @@
     ('<statement_list>', ['<statement_list>', '<statement>']),
     ('<statement>', ['<compound_statement>']),
 
-    ('<main-function>', ['int_kw', 'main', 'LEFT_PAREN', 'RIGHT_PAREN', '<block>']),

@@ -11,14 +11,15 @@ class ParseTreeNode:
 # Define the production rules for the language
 # This is a simplified set of rules for illustration purposes only
 rules = [
-        ('<program>', ['<include-list>', '<declaration>']),
-        ('<include-list>', ['INCLUDE_DIRECTIVE']),
-        ('<declaration>', ['<function_declaration>', '<variable_declaration>']),
-        ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', '<parameter_list>', 'RIGHT_PAREN', '<compound_statement>']),
-        ('<type_specifier>', ['KEYWORD']),
-
-
-
+    ('<program>', ['<include-list>', '<declaration>']),
+    ('<include-list>', ['INCLUDE_DIRECTIVE']),
+    ('<declaration>', ['<function_declaration>', '<variable_declaration>']),
+    ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', '<parameter_list>', 'RIGHT_PAREN', '<compound_statement>']),
+    ('<type_specifier>', ['KEYWORD']),
+    ('<identifier>', ['IDENTIFIER']),
+    ('<parameter_list>', ['<statement>', 'COMMA', '<statement>']),
+    ('<statement>', ['<type_specifier>', 'IDENTIFIER']),
+    ('<compound_statement>', ['LEFT_BRACE', '<type_specifier>', 'IDENTIFIER', 'ASSIGN', 'IDENTIFIER', 'PLUS', 'IDENTIFIER', 'SEMICOLON', 'KEYWORD', 'IDENTIFIER', 'SEMICOLON', 'LEFT_BRACE']),
 ]
 
 
@@ -30,7 +31,7 @@ rules = [
     
     ('<expression>', ['integer'])
 ('<statement>', ['<if_statement>']),
-('<statement>', ['<while_statement>']),
+('<parameter_list>', ['<while_statement>']),
 ('<statement>', ['<expression_statement>']),
 ('<if_statement>', ['if', 'LEFT_PAREN', '<identifier>', 'RIGHT_PAREN', 'LEFT_BRACE', 'RIGHT_BRACE']),
 ('<while_statement>', ['while', 'LEFT_PAREN', '<expression>', 'RIGHT_PAREN', '<statement>']),
