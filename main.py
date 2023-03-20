@@ -100,6 +100,7 @@ def main():
     Editor.bind("<KeyRelease>", colorize_text)
 
 
+
     # ======================================================== Terminal  Section ============================
     abs_y = Text_Frame.winfo_y()
     rel_y = abs_y / root.winfo_height()
