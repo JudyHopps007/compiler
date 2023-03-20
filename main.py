@@ -99,6 +99,7 @@ def main():
     Editor.bind("<Key>", update_row_numbers) # Bind the update_row_numbers function to changes in the text widget
     Editor.bind("<KeyRelease>", colorize_text)
 
+
     # ======================================================== Terminal  Section ============================
     abs_y = Text_Frame.winfo_y()
     rel_y = abs_y / root.winfo_height()
