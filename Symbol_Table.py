@@ -15,6 +15,7 @@ class ParseTreeNode:
 # This is a simplified set of rules for illustration purposes only
 rules = [
     ('<program>', ['<include-list>',  '<declaration>']),
+    ('<program>', ['<include-list>']),
     ('<include-list>', ['INCLUDE_DIRECTIVE']),
     ('<declaration>', ['<function_declaration>']),
     ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', '<parameter_list>', 'RIGHT_PAREN', '<compound_statement>']),
@@ -35,19 +36,20 @@ def parse(tokens, rule):
     for production in rule[1]:
         if production.startswith('<'):
             # If the production is a non-terminal, recursively generate a subtree using the corresponding rule
-            matching_rules = [r for r in rules if r[0] == production]
-            if not matching_rules:
+            subrules = [r for r in rules if r[0] == production]
+            if not subrules:
                 raise ValueError("Invalid production rule: " + production)
-            subrule = None
-            for r in matching_rules:
+            match_found = False
+            for subrule in subrules:
                 try:
-                    subrule = parse(tokens[:], r)  # Pass a copy of the token list to avoid consuming tokens prematurely
+                    child = parse(tokens, subrule)
+                    node.add_child(child)
+                    match_found = True
                     break
                 except ValueError:
                     pass
-            if not subrule:
-                raise ValueError("No valid subrule found for production rule: " + production)
-            node.add_child(subrule)
+            if not match_found:
+                raise ValueError("No matching subrule found for production rule: " + production)
         else:
             # If the production is a terminal, consume a token from the token stream and match it against the production
             if not tokens:
@@ -58,6 +60,8 @@ def parse(tokens, rule):
             node.add_child(ParseTreeNode(token))
 
     return node
+
+
 
 # Define a function that runs the syntax analyzer on the token stream
 def syntax_analyze(tokens):
