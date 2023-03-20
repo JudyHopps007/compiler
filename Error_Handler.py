@@ -59,6 +59,7 @@ def parse(tokens, rule):
             # If the production is a choice between two rules, try both and use the one that succeeds
             for subrule in rules:
                 if subrule[0] in ('<include-list>', '<declaration>'):
+                    print(subrule[0])
                     try:
                         child = parse(tokens, subrule)
                         node.add_child(child)
