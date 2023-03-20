@@ -1,96 +1,82 @@
 import re
 
-symbol_table = {}
+
+# Define a class to represent a node in the parse tree
+class ParseTreeNode:
+    def __init__(self, value, children=None):
+        self.value = value
+        self.children = children if children else []
+
+    def add_child(self, child):
+        self.children.append(child)
 
 
-# Define regular expression patterns for different types of tokens(assigning tokens to lexemes)
-patterns = [
-    (r'#include\s+<.*?>', 'INCLUDE_DIRECTIVE'),
-    (r'\b(int|char|void|bool|else|while|for|continue|break|for|return|float|long)\b', 'KEYWORD'),
-    (r'\b(if)\b', 'if'),
-    (r'\b(true|false|1|0)\b', 'BOOLEAN'),
-    (r'\b\d+\.\d+\b', 'floating_point'),
-    (r'\b\d+\b', 'integer'),
-    (r"'.'", 'char'),
-    (r'\b([a-zA-Z_][a-zA-Z0-9_]*)\b', 'IDENTIFIER'),
-    (r'\+', 'PLUS'),
-    (r'-', 'MINUS'),
-    (r'\*', 'MULTIPLY'),
-    (r'(\/\/[^\n\r]*[\n\r])|\/\*[\s\S]*?\*\/', 'COMMENT'),
-    (r'/(?![\/\*])[\n\s]*', 'DIVIDE'),
-    (r'%', 'MODULUS'),
-    (r'=', 'ASSIGN'),
-    (r'==', 'EQUAL'),
-    (r'!=', 'NOT_EQUAL'),
-    (r'<', 'LESS_THAN'),
-    (r'>', 'GREATER_THAN'),
-    (r'<=', 'LESS_THAN_EQUAL'),
-    (r'>=', 'GREATER_THAN_EQUAL'),
-    (r'\(', 'LEFT_PAREN'),
-    (r'\)', 'RIGHT_PAREN'),
-    (r'\{', 'LEFT_BRACE'),
-    (r'\}', 'RIGHT_BRACE'),
-    (r';', 'SEMICOLON'),
-    (r',', 'COMMA')
+# Define the production rules for the language
+# This is a simplified set of rules for illustration purposes only
+rules = [
+    ('<program>', ['<include-list>' '|' '<declaration>']),
+    ('<include-list>', ['INCLUDE_DIRECTIVE']),
+    ('<declaration>', ['<function_declaration>']),
+    ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', '<parameter_list>', 'RIGHT_PAREN', '<compound_statement>']),
+    ('<type_specifier>', ['KEYWORD']),
+    ('<identifier>', ['IDENTIFIER']),
+    ('<parameter_list>', ['<statement>', 'COMMA', '<statement>']),
+    ('<statement>', ['<type_specifier>', 'IDENTIFIER']),
+    ('<compound_statement>', ['LEFT_BRACE', '<type_specifier>', 'IDENTIFIER', 'ASSIGN', 'IDENTIFIER', 'PLUS', 'IDENTIFIER', 'SEMICOLON', 'KEYWORD', 'IDENTIFIER', 'SEMICOLON', 'RIGHT_BRACE']),
 ]
 
 
-# Define a function that reads a program from a text file and generates a list of tokens
-def lex(filename):
-    with open(filename, 'r') as f:
-        program = f.read()
-    tokens = []
-    position = 0
-    while position < len(program):
-        match = None
+# Define a function that recursively generates a parse tree from the token stream using the production rules
+def parse(tokens, rule):
+    node = ParseTreeNode(rule[0])
+    for production in rule[1]:
+        if production.startswith('<'):
+            # If the production is a non-terminal, recursively generate a subtree using the corresponding rule
+            if '|' in production:
+                # If the production contains the "or" operator, try each alternative rule until one succeeds
+                subrules = [r for r in rules if r[0] in production.split('|')]
+                subnode = None
+                for subrule in subrules:
+                    try:
+                        subnode = parse(tokens, subrule)
+                        break
+                    except ValueError:
+                        pass
+                if not subnode:
+                    raise ValueError(f"No valid alternative rules found for production: {production}")
+                node.add_child(subnode)
+            else:
+                subrule = next((r for r in rules if r[0] == production), None)
+                if not subrule:
+                    raise ValueError("Invalid production rule: " + production)
+                child = parse(tokens, subrule)
+                node.add_child(child)
+        else:
+            # If the production is a terminal, consume a token from the token stream and match it against the production
+            if not tokens:
+                raise ValueError("Unexpected end of input")
+            token = tokens.pop(0)
+            if token[0] != production:
+                raise ValueError(f"Expected token type {production}, got {token[0]}: {token[1]}")
+            node.add_child(ParseTreeNode(token))
 
-        # Skip over empty lines
-        if program[position] == '\n':
-            position += 1
-            continue
+    return node
 
-        # Skip over whitespace
-        if re.match(r'\s', program[position]):
-            position += 1
-            continue
 
-        for pattern, token_type in patterns:
-            regex = re.compile(pattern)
-            match = regex.match(program, position)
 
-            # get rid of code comments
-            if match:
-                if token_type != 'COMMENT': # the tokenization logic skips over comment tokens
-                    tokens.append((token_type, match.group(0)))
-                position = match.end(0)
-                break
 
-        if not match:
-            print("Illegal character: " + program[position])
-            position += 1
+# Define a function that runs the syntax analyzer on the token stream
+def syntax_analyze(tokens):
+    tree = parse(tokens, rules[0])
+    if tokens:
+        raise ValueError("Unexpected tokens at end of input")
+    return tree
 
-    return tokens
 
 # Example usage
-#tokens = lex('program.c')
-#print(tokens)
+import lexical_Analyzer
 
-# ============================================================================================================
-def generate_symbol_table(tokens):
-    symbol_table = {}
-
-    for token_type, value in tokens:
-        if token_type == 'IDENTIFIER':
-            if value not in symbol_table:
-                symbol_table[value] = {
-                    'type': None,
-                    'value': None,
-                    'line_number': None
-                }
-
-    return symbol_table
-
-#symbol_table = generate_symbol_table(tokens)
-#print("\n smb: ",symbol_table)
-# ============================================================
-
+tokens = lexical_Analyzer.lex('program.c')
+print(tokens)
+tree = syntax_analyze(tokens)
+print("tree", tree.value)
