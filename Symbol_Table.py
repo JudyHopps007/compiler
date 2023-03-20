@@ -14,7 +14,7 @@ class ParseTreeNode:
 # Define the production rules for the language
 # This is a simplified set of rules for illustration purposes only
 rules = [
-    ('<program>', ['<include-list>', 'or', '<declaration>']),
+    ('<program>', ['<include-list>',  '<declaration>']),
     ('<include-list>', ['INCLUDE_DIRECTIVE']),
     ('<declaration>', ['<function_declaration>']),
     ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', '<parameter_list>', 'RIGHT_PAREN', '<compound_statement>']),
@@ -33,32 +33,21 @@ def parse(tokens, rule):
     node = ParseTreeNode(rule[0])
     print(rule[0])
     for production in rule[1]:
-        print("p", production)
-        if production == 'or':
-            # If the production is a choice between two rules, try both and use the one that succeeds
-            for subrule in rules:
-                if subrule[0] in ('<include-list>', '<declaration>'):
-                    print("s", subrule[0])
-                    try:
-                        child = parse(tokens, subrule)
-                        node.add_child(child)
-                        break
-                    except ValueError:
-                        pass
-            else:
-                raise ValueError("No valid subrule found for choice")
         if production.startswith('<'):
-            # If the production is a non-terminal, recursively generate a subtree using one of the corresponding rules
-            alternatives = [r for r in rules if r[0] == production]
-            for subrule in alternatives:
-                try:
-                    child = parse(tokens, subrule)
-                    node.add_child(child)
-                    break  # If the parse succeeds, stop trying alternatives
-                except ValueError:
-                    pass  # If the parse fails, try the next alternative
-            else:
+            # If the production is a non-terminal, recursively generate a subtree using the corresponding rule
+            matching_rules = [r for r in rules if r[0] == production]
+            if not matching_rules:
                 raise ValueError("Invalid production rule: " + production)
+            subrule = None
+            for r in matching_rules:
+                try:
+                    subrule = parse(tokens[:], r)  # Pass a copy of the token list to avoid consuming tokens prematurely
+                    break
+                except ValueError:
+                    pass
+            if not subrule:
+                raise ValueError("No valid subrule found for production rule: " + production)
+            node.add_child(subrule)
         else:
             # If the production is a terminal, consume a token from the token stream and match it against the production
             if not tokens:
@@ -69,7 +58,6 @@ def parse(tokens, rule):
             node.add_child(ParseTreeNode(token))
 
     return node
-
 
 # Define a function that runs the syntax analyzer on the token stream
 def syntax_analyze(tokens):
