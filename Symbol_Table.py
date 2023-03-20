@@ -23,7 +23,7 @@ rules = [
     ('<identifier>', ['IDENTIFIER']),
     ('<parameter_list>', ['<statement>', 'COMMA', '<statement>']),
     ('<statement>', ['<type_specifier>', 'IDENTIFIER']),
-    ('<compound_statement>', ['LEFT_BRACE', '<type_specifier>', 'IDENTIFIER', 'ASSIGN', 'IDENTIFIER', 'PLUS', 'IDENTIFIER', 'SEMICOLON', 'KEYWORD', 'IDENTIFIER', 'SEMICOLON']),
+    ('<compound_statement>', ['LEFT_BRACE', '<type_specifier>', 'IDENTIFIER', 'ASSIGN', 'IDENTIFIER', 'PLUS', 'IDENTIFIER', 'SEMICOLON', 'KEYWORD', 'IDENTIFIER', 'SEMICOLON', 'RIGHT_BRACE']),
 ]
 
 
