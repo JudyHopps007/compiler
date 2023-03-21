@@ -31,7 +31,7 @@ patterns = [
     (r'\{', 'LEFT_BRACE'),
     (r'\}', 'RIGHT_BRACE'),
     (r';', 'SEMICOLON'),
-    (r',', 'COMMA')
+    (r',', 'COMMA'),
 ]
 
 
