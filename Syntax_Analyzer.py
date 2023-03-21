@@ -19,18 +19,18 @@ rules = [
     ('<include-list>', ['INCLUDE_DIRECTIVE']),
 
 
-    ('<declaration>', ['<function_declaration1>', "<declaration>"]),
+    ('<declaration>', ['<function_declaration>', "<declaration>"]),
     ('<declaration>', []),
-    ('<declaration>', ['<function_declaration2>', "<declaration>"]),
 
-    ('<function_declaration1>', ['<type_specifier>', '<identifier>', '<MB>', '<compound_statement>']),
 
-    ('<MB>', [ 'LEFT_PAREN', '<parameter_list>', 'RIGHT_PAREN']),
+    ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', '<parameter_list>', 'RIGHT_PAREN', '<compound_statement>']),
+
 
     ('<type_specifier>', ['KEYWORD']),
     ('<identifier>', ['IDENTIFIER']),
 
     ('<parameter_list>', ['COMMA']),
+
     ('<parameter>', ['<type_specifier>', '<identifier>']),
 
 
