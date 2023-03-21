@@ -5,7 +5,7 @@ int num (int a, int b){
         return result;
 }
 
-int  (char a, int b){
+char num (char a, int b){
         int result = a + b;
         return result;
 }
