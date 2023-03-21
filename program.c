@@ -4,6 +4,6 @@ int num (){
 
 }
 
-int num (int a, int b){
+int num (,){
 
 }
