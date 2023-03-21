@@ -19,7 +19,6 @@ rules = [
     ('<include-list>', ['INCLUDE_DIRECTIVE']),
     ('<declaration>', ['<function_declaration>', "<declaration>"]),
     ('<declaration>', []),
- 
     ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', '<parameter_list>', 'RIGHT_PAREN', '<compound_statement>']),
     ('<type_specifier>', ['KEYWORD']),
     ('<identifier>', ['IDENTIFIER']),
@@ -32,6 +31,7 @@ rules = [
     ('<compound_statement>', ['LEFT_BRACE', 'RIGHT_BRACE']),
 ]
 
+# ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<compound_statement>']),
 
 # Define a function that recursively generates a parse tree from the token stream using the production rules
 def parse(tokens, rule):
