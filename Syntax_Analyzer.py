@@ -54,7 +54,7 @@ def parse(tokens, rule):
                     pass
             if not match_found:
                 try:
-                    token = tokens.pop(0)
+                    token = tokens
                     print(f"\nExpected token type {production}, got {token[0]}: {token[1]}")
                     print("No matching subrule found for production rule: ", production)
                     raise ValueError("No matching subrule found for production rule: ", production)
