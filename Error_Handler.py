@@ -26,35 +26,39 @@ rules = [
     ('<compound_statement>', ['LEFT_BRACE', '<type_specifier>', 'IDENTIFIER', 'ASSIGN', 'IDENTIFIER', 'PLUS', 'IDENTIFIER', 'SEMICOLON', 'KEYWORD', 'IDENTIFIER', 'SEMICOLON', 'RIGHT_BRACE']),
 ]
 
-def parse(tokens, rule):
+def parse(tokens, rule, line_number=1):
     node = ParseTreeNode(rule[0])
-    print(rule[0])
-    if rule[0] not in [r[0] for r in rules]:
-        raise ValueError("Invalid production rule: " + rule[0])
-    subrules = [r for r in rules if r[0] == rule[0]]
-    match_found = False
-    for subrule in subrules:
-        try:
-            for production in subrule[1]:
-                if production.startswith('<'):
-                    # If the production is a non-terminal, recursively generate a subtree using the corresponding rule
-                    child = parse(tokens, [production])
+    for production in rule[1]:
+        if production.startswith('<'):
+            # If the production is a non-terminal, recursively generate a subtree using the corresponding rule
+            subrules = [r for r in rules if r[0] == production]
+            if not subrules:
+                raise ValueError(f"Invalid production rule '{production}' on line {line_number}")
+            match_found = False
+            for subrule in subrules:
+                try:
+                    child, line_number = parse(tokens, subrule, line_number)
                     node.add_child(child)
-                else:
-                    # If the production is a terminal, consume a token from the token stream and match it against the production
-                    if not tokens:
-                        raise ValueError("Unexpected end of input")
-                    token = tokens.pop(0)
-                    if token[0] != production:
-                        raise ValueError(f"Expected token type {production}, got {token[0]}: {token[1]}")
-                    node.add_child(ParseTreeNode(token))
-            match_found = True
-            break
-        except ValueError:
-            pass
-    if not match_found:
-        raise ValueError("No matching subrule found for production rule: " + rule[0])
-    return node
+                    match_found = True
+                    break
+                except ValueError as e:
+                    if "line" in str(e):
+                        raise e
+            if not match_found:
+                raise ValueError(f"No matching subrule found for production rule '{production}' on line {line_number}")
+        else:
+            # If the production is a terminal, consume a token from the token stream and match it against the production
+            if not tokens:
+                raise ValueError(f"Unexpected end of input on line {line_number}")
+            token = tokens.pop(0)
+            if token[0] != production:
+                raise ValueError(f"Expected token type {production}, got {token[0]}: {token[1]} on line {line_number}")
+            if token[0] == "NEWLINE":
+                line_number += 1
+            node.add_child(ParseTreeNode(token))
+
+    return node, line_number
+
 
 
 # Define a function that runs the syntax analyzer on the token stream
