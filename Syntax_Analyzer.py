@@ -29,6 +29,7 @@ rules = [
     ('<type_specifier>', ['KEYWORD']),
     ('<identifier>', ['IDENTIFIER']),
 
+    ('<parameter>', ['COMMA']),
     ('<parameter_list>', ['COMMA'] ),
 
     ('<compound_statement>', ['LEFT_BRACE', 'RIGHT_BRACE']),
