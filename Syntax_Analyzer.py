@@ -50,6 +50,7 @@ def parse(tokens, rule):
                     child = parse(tokens, subrule)
                     node.add_child(child)
                     match_found = True
+                    print('Match',subrule )
                     break
                 except ValueError:
                     pass
