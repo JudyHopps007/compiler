@@ -26,18 +26,18 @@ rules = [
     ('<compound_statement>', ['LEFT_BRACE', '<type_specifier>', 'IDENTIFIER', 'ASSIGN', 'IDENTIFIER', 'PLUS', 'IDENTIFIER', 'SEMICOLON', 'KEYWORD', 'IDENTIFIER', 'SEMICOLON', 'RIGHT_BRACE']),
 ]
 
-def parse(tokens, rule, line_number=1):
+def parse(tokens, rule):
     node = ParseTreeNode(rule[0])
     for production in rule[1]:
         if production.startswith('<'):
             # If the production is a non-terminal, recursively generate a subtree using the corresponding rule
             subrules = [r for r in rules if r[0] == production]
             if not subrules:
-                raise ValueError(f"Invalid production rule '{production}' on line {line_number}")
+                raise ValueError(f"Invalid production rule '{production}")
             match_found = False
             for subrule in subrules:
                 try:
-                    child, line_number = parse(tokens, subrule, line_number)
+                    child = parse(tokens, subrule)
                     node.add_child(child)
                     match_found = True
                     break
@@ -45,19 +45,18 @@ def parse(tokens, rule, line_number=1):
                     if "line" in str(e):
                         raise e
             if not match_found:
-                raise ValueError(f"No matching subrule found for production rule '{production}' on line {line_number}")
+                raise ValueError(f"No matching subrule found for production rule '{production}")
         else:
             # If the production is a terminal, consume a token from the token stream and match it against the production
             if not tokens:
-                raise ValueError(f"Unexpected end of input on line {line_number}")
+                raise ValueError(f"Unexpected end of input on line ")
             token = tokens.pop(0)
             if token[0] != production:
-                raise ValueError(f"Expected token type {production}, got {token[0]}: {token[1]} on line {line_number}")
-            if token[0] == "NEWLINE":
-                line_number += 1
+                raise ValueError(f"Expected token type {production}, got {token[0]}: {token[1]}")
+
             node.add_child(ParseTreeNode(token))
 
-    return node, line_number
+    return node
 
 
 
