@@ -22,8 +22,8 @@ rules = [
     ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', '<parameter_list>', 'RIGHT_PAREN', '<compound_statement>']),
     ('<type_specifier>', ['KEYWORD']),
     ('<identifier>', ['IDENTIFIER']),
-    ('<parameter_list>', ['<parameter_list>', 'COMMA', '<statement>']),
     ('<parameter_list>', ['<statement>']),
+    ('<parameter_list>', ['<parameter_list>', 'COMMA', '<statement>']),
     ('<parameter_list>', []),
     ('<statement>', ['<type_specifier>', 'IDENTIFIER']),
     ('<statement>', ['IDENTIFIER']),
@@ -54,7 +54,8 @@ def parse(tokens, rule):
                     pass
             if not match_found:
                 try:
-                    print(f"\nExpected token type {production}, got {tokens[0]}: {tokens[1]}")
+                    token = tokens.pop(0)
+                    print(f"\nExpected token type {production}, got {token[0]}: {token[1]}")
                     print("No matching subrule found for production rule: ", production)
                     raise ValueError("No matching subrule found for production rule: ", production)
                 except:
