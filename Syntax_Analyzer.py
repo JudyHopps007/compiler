@@ -33,8 +33,6 @@ rules = [
 ]
 
 
-
-
 # Define a function that recursively generates a parse tree from the token stream using the production rules
 def parse(tokens, rule):
     node = ParseTreeNode(rule[0])
