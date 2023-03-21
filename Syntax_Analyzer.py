@@ -29,6 +29,7 @@ rules = [
     ('<type_specifier>', ['KEYWORD']),
     ('<identifier>', ['IDENTIFIER']),
 
+
     ('<parameter_list>', ['COMMA']),
 
     ('<parameter>', ['<type_specifier>', '<identifier>']),
