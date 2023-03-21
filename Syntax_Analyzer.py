@@ -1,3 +1,7 @@
+import lexical_Analyzer
+
+tokens = lexical_Analyzer.lex('program.c')
+
 # Define a class to represent a node in the parse tree
 class ParseTreeNode:
     def __init__(self, value, children=None):
@@ -58,8 +62,6 @@ def parse(tokens, rule):
 
     return node
 
-
-
 # Define a function that runs the syntax analyzer on the token stream
 def syntax_analyze(tokens):
     tree = parse(tokens, rules[0])
@@ -68,11 +70,6 @@ def syntax_analyze(tokens):
     return tree
 
 
-
-# Example usage
-import lexical_Analyzer
-
-tokens = lexical_Analyzer.lex('program.c')
 print(tokens)
 tree = syntax_analyze(tokens)
 print("tree", tree.value)
