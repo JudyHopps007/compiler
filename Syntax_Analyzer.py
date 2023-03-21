@@ -51,10 +51,10 @@ def parse(tokens, rule):
             if not match_found:
                 #print("No matching subrule found for production rule: ", production)
 
-                token = tokens.pop(0)
-                #print(f"\nExpected token type {production}, got {token[0]}: {token[1]}")
+                #token = tokens.pop(0)
+                print(f"\nExpected token type {production}, got {tokens[0]}: {tokens[1]}")
 
-                raise ValueError(f"\nExpected token type {production}, got {token[0]}: {token[1]}")
+                raise ValueError("No matching subrule found for production rule: ", production)
         else:
             # If the production is a terminal, consume a token from the token stream and match it against the production
             if not tokens:
