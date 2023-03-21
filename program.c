@@ -1,7 +1,14 @@
 #include <stdio.h>
 
-
-
-char num (){
+int num (int a, int b){
 
 }
+
+char num (char a, int b){
+
+}
+
+char num (char a){
+
+}
+
