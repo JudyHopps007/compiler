@@ -27,7 +27,7 @@ rules = [
     ('<parameter_list>', []),
     ('<statement>', ['<type_specifier>', 'IDENTIFIER']),
     ('<statement>', ['IDENTIFIER']),
-    
+
     ('<compound_statement>', ['LEFT_BRACE', 'RIGHT_BRACE']),
 ]
 
