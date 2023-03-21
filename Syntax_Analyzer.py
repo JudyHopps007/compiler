@@ -19,6 +19,7 @@ rules = [
     ('<include-list>', ['INCLUDE_DIRECTIVE']),
 
     ('<declaration>', ['<function_declaration1>', "<declaration>"]),
+    ('<declaration>', ['<function_declaration2>', "<declaration>"]),
     ('<declaration>', []),
 
 
