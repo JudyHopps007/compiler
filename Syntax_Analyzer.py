@@ -23,9 +23,9 @@ rules = [
     ('<declaration>', []),
     ('<declaration>', ['<function_declaration2>', "<declaration>"]),
 
-    ('<function_declaration1>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', '<parameter_list>', 'RIGHT_PAREN', '<compound_statement>']),
-    ('<function_declaration2>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<compound_statement>']),
+    ('<function_declaration1>', ['<type_specifier>', '<identifier>', '<MB>', '<compound_statement>']),
 
+    ('<MB>', [ 'LEFT_PAREN', '<parameter_list>', 'RIGHT_PAREN']),
 
     ('<type_specifier>', ['KEYWORD']),
     ('<identifier>', ['IDENTIFIER']),
