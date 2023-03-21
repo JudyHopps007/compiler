@@ -25,7 +25,6 @@ rules = [
     ('<parameter_list>', ['<statement>']),
     ('<parameter_list>', ['<<parameter_list>>', 'COMMA', '<statement>']),
     ('<parameter_list>', []),
-    ('<parameter_list>', []),
     ('<statement>', ['<type_specifier>', 'IDENTIFIER']),
     ('<statement>', ['IDENTIFIER']),
 
