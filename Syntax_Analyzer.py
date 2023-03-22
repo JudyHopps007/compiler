@@ -30,7 +30,7 @@ rules = [
 
     ('<type_specifier>', ['KEYWORD']),
     ('<identifier>', ['IDENTIFIER']),
-    ('<identifier>', ['main']),
+    ('<identifier>', ['main_f']),
 
 
     ('<parameter_list>', ['<parameter>']),
