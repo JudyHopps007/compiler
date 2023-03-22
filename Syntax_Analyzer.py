@@ -20,10 +20,11 @@ rules = [
 
 
     ('<declaration>', ['<function_declaration>', "<declaration>"]),
-    ('<declaration>', ['<type_specifier>', '<identifier>', 'ASSIGN', 'SEMICOLON']),
+    ('<declaration>', ['<var_declaration>']),
     ('<declaration>', []),
 
     ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', '<parameter_list>', 'RIGHT_PAREN', '<compound_statement>']),
+    ('<var_declaration>',['<type_specifier>', '<identifier>', 'ASSIGN', 'SEMICOLON']),
 
     ('<main_function>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<compound_statement>']),
 
