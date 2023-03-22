@@ -15,15 +15,19 @@ class ParseTreeNode:
 # Define the production rules for the language
 # This is a simplified set of rules for illustration purposes only
 rules = [
-    ('<program>', ['<include_list>', '<external_declaration>']),
+    ('<program>', ['<include-list>',  '<declaration>']),
+    ('<include-list>', ['INCLUDE_DIRECTIVE']),
 
-    ('<external_declaration>', ['<function_declaration>']),
-    ('<external-declaration>', ['<declaration>']),
 
-    ('<declaration>', ['<type_specifier>', '<identifier>',  'ASSIGN', 'SEMICOLON']),
-    ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<compound_statement>']),
+    ('<declaration>', ['<function_declaration>', "<declaration>"]),
+    ('<declaration>', []),
 
-    ('<include_list>', ['INCLUDE_DIRECTIVE']),
+
+
+    ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', '<parameter_list>', 'RIGHT_PAREN', '<compound_statement>']),
+
+    ('<main_function>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<compound_statement>']),
+
     ('<type_specifier>', ['KEYWORD']),
     ('<identifier>', ['IDENTIFIER']),
     ('<identifier>', ['main_f']),
@@ -40,6 +44,8 @@ rules = [
 
     ('<compound_statement>', ['LEFT_BRACE', 'RIGHT_BRACE']),
 ]
+
+
 
 # ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<compound_statement>']),
 
