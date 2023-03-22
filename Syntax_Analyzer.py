@@ -15,47 +15,37 @@ class ParseTreeNode:
 # Define the production rules for the language
 # This is a simplified set of rules for illustration purposes only
 rules = [
-    ('<program>', ['<external-declaration>']),
-    ('<program>', ['<program>', '<external-declaration>']),
-    ('<external-declaration>', ['<function-definition>']),
-    ('<external-declaration>', ['<declaration>']),
-    ('<function-definition>', ['<declaration-specifiers>', '<declarator>', '<declaration-list>', '<compound-statement>']),
-    ('<declaration>', ['<declaration-specifiers>', '<init-declarator-list>', ';']),
-    ('<declaration-specifiers>', ['<type-specifier>']),
-    ('<declaration-specifiers>', ['<type-specifier>', '<declaration-specifiers>']),
-    ('<declarator>', ['<direct-declarator>']),
-    ('<declarator>', ['<pointer>', '<direct-declarator>']),
-    ('<direct-declarator>', ['<identifier>']),
-    ('<direct-declarator>', ['(', '<declarator>', ')']),
-    ('<direct-declarator>', ['<direct-declarator>', '[', '<constant-expression>', ']']),
-    ('<direct-declarator>', ['<direct-declarator>', '(', '<parameter-type-list>', ')']),
-    ('<direct-declarator>', ['<direct-declarator>', '(', '<identifier-list>', ')']),
-    ('<direct-declarator>', ['<direct-declarator>', '(', ')']),
-    ('<parameter-type-list>', ['<parameter-list>']),
-    ('<parameter-type-list>', ['<parameter-list>', ',', '...']),
-    ('<parameter-list>', ['<parameter-declaration>']),
-    ('<parameter-list>', ['<parameter-list>', ',', '<parameter-declaration>']),
-    ('<parameter-declaration>', ['<declaration-specifiers>', '<declarator>']),
-    ('<init-declarator-list>', ['<init-declarator>']),
-    ('<init-declarator-list>', ['<init-declarator-list>', ',', '<init-declarator>']),
-    ('<init-declarator>', ['<declarator>']),
-    ('<init-declarator>', ['<declarator>', '=', '<initializer>']),
-    ('<initializer>', ['<assignment-expression>']),
-    ('<initializer>', ['{', '<initializer-list>', '}']),
-    ('<initializer>', ['{', '<initializer-list>', ',', '}']),
-    ('<initializer-list>', ['<designation>', '<initializer>']),
-    ('<initializer-list>', ['<initializer>']),
-    ('<initializer-list>', ['<initializer-list>', ',', '<designation>', '<initializer>']),
-    ('<initializer-list>', ['<initializer-list>', ',', '<initializer>']),
-    ('<designation>', ['<designator-list>', '=']),
-    ('<designator-list>', ['<designator>']),
-    ('<designator-list>', ['<designator-list>', '<designator>']),
-    ('<designator>', ['[', '<constant-expression>', ']']),
-    ('<designator>', ['.', '<identifier>']),
-    ('<type-specifier>', ['KEYWORD']),
+    ('<program>', ['<include-list>',  '<declaration>']),
+    ('<program>', []),
+
+    ('<include-list>', ['INCLUDE_DIRECTIVE']),
+
+
+    ('<declaration>', ['<function_declaration>', "<declaration>"]),
+    ('<declaration>', []),
+
+
+
+    ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', '<parameter_list>', 'RIGHT_PAREN', '<compound_statement>']),
+
+    ('<main_function>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<compound_statement>']),
+
+    ('<type_specifier>', ['KEYWORD']),
+    ('<identifier>', ['IDENTIFIER']),
+    ('<identifier>', ['main_f']),
+
+
+    ('<parameter_list>', ['<parameter>']),
+    ('<parameter_list>', []),
+
+    ('<parameter>', ['<type_specifier>', '<identifier>']),
+
+
+    ('<comma>', ['COMMA']),
+
+
+    ('<compound_statement>', ['LEFT_BRACE', 'RIGHT_BRACE']),
 ]
-
-
 
 # ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<compound_statement>']),
 
