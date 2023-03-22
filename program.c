@@ -9,4 +9,4 @@ int num (int num){
 
 }
 
-int num = ;K
+int num = ;
