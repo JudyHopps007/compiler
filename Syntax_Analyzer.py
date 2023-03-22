@@ -33,8 +33,8 @@ rules = [
     ('<parameter_list>', ['<parameter>']),
     ('<parameter>', ['<type_specifier>', '<identifier>']),
 
-    ('<parameter>', ['<type_specifier>', '<identifier>', '<parameter>']),
-    ('<parameter>', ['<comma>', '<type_specifier>', '<identifier>']),
+    ('<parameter_3>', ['<comma>', '<type_specifier>', '<identifier>']),
+    ('<parameter_3>', []),
 
     ('<comma>', ['COMMA']),
 
