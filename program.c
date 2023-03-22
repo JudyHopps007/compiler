@@ -2,6 +2,6 @@
 
 
 
-int num (int num, char v){
+int num (int num, char v, int v){
 
 }
