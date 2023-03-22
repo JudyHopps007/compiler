@@ -5,6 +5,3 @@ int num (int num){
 
 }
 
-int num (int num, char v, int v){
-
-}
