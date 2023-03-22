@@ -52,10 +52,7 @@ rules = [
     ('<designator-list>', ['<designator-list>', '<designator>']),
     ('<designator>', ['[', '<constant-expression>', ']']),
     ('<designator>', ['.', '<identifier>']),
-    ('<type-specifier>', ['void']),
-    ('<type-specifier>', ['char']),
-    ('<type-specifier>', ['short']),
-    ('<type-specifier>', ['int'])
+    ('<type-specifier>', ['KEYWORD']),
 ]
 
 
