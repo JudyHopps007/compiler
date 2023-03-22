@@ -16,19 +16,19 @@ class ParseTreeNode:
 # This is a simplified set of rules for illustration purposes only
 rules = [
     ('<program>', ['<external-declaration>']),
-    ('<program>', ['<include-list>',  '<declaration>']),
+    ('<program>', ['<include_list>',  '<declaration>']),
     ('<program>', ['<program>', '<function_declaration']),
     ('<external-declaration>', ['<function-definition>']),
     ('<external-declaration>', ['<declaration>']),
+    ('<declaration>', ['<type_specifier>', '<identifier>',  'ASSIGN', 'SEMICOLON']),
 
 
 
 
 
-    ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', '<parameter_list>', 'RIGHT_PAREN', '<compound_statement>']),
+    ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<compound_statement>']),
 
-
-
+    ('<include_list>', ['INCLUDE_DIRECTIVE']),
     ('<type_specifier>', ['KEYWORD']),
     ('<identifier>', ['IDENTIFIER']),
     ('<identifier>', ['main_f']),
