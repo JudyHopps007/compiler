@@ -5,3 +5,5 @@ int main (int num){
 }
 
 
+int main (){
+}
