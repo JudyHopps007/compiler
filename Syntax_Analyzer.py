@@ -22,7 +22,7 @@ rules = [
     ('<declaration>', ["<VAR>"]),
     ('<declaration>', []),
 
-    ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', '<parameter_list>', 'RIGHT_PAREN', '<compound_statement>']),
+    ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', '<parameter_list>', 'RIGHT_PAREN', '<BLOCK>']),
 
 
     ('<type_specifier>', ['KEYWORD']),
@@ -39,7 +39,7 @@ rules = [
     ('<comma>', ['COMMA']),
 
 
-    ('<compound_statement>', ['LEFT_BRACE', 'RIGHT_BRACE']),
+    ('<BLOCK>', ['LEFT_BRACE', '<compound_statement>', 'RIGHT_BRACE']),
 ]
 
 
