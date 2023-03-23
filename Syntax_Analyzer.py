@@ -15,10 +15,10 @@ class ParseTreeNode:
 # Define the production rules for the language
 # This is a simplified set of rules for illustration purposes only
 rules = [
-    ('<program>', ['<include-list>',  '<declaration>']),
+    ('<program>', ['<include_list>',  '<declaration>']),
 
-    ('<include-list>', ['INCLUDE_DIRECTIVE', '<include-list>']),
-    ('<include-list>', []),
+    ('<include_list>', ['INCLUDE_DIRECTIVE']),
+    ('<include_list>', []),
 
 ]
 
