@@ -36,7 +36,7 @@ rules = [
 
     ('<parameter>', ['<type_specifier>', '<identifier>']),
 
-
+    ()
     ('<comma>', ['COMMA']),
 
 
