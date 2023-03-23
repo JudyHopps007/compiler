@@ -17,13 +17,13 @@ class ParseTreeNode:
 rules = [
     ('<program>', ['LEFT_PAREN', '<num>', 'RIGHT_PAREN']),
 
-    ('<num>', []),
+
     ('<num>', ['<parameter>']),
+
 
     ('<parameter>', ['<type_specifier>', '<identifier>', '<parameter_list>']),
     ('<parameter_list>', ['COMMA', '<type_specifier>', '<identifier>', '<parameter_list>']),
     ('<parameter_list>', []),
-
     ('<parameter>', []),
 
     ('<comma>', ['COMMA']),
