@@ -70,6 +70,7 @@ def parse(tokens, rule):
                     print(f"\nExpected token type {production}, got {token[0]}: {token[1]}")
                     print("No matching subrule found for production rule: ", production)
                     raise ValueError("No matching subrule found for production rule: ", production)
+            
                 except:
                     raise ValueError("No matching subrule found for production rule: ", production)
         else:
