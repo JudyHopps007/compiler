@@ -21,7 +21,7 @@ rules = [
     ('<declaration>', ['<function_declaration>', '<declaration>']),
     ('<declaration>', []),
 
-    ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', '<parameter_list>', 'RIGHT_PAREN', '<BLOCK>']),
+    ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', '<parameter>', 'RIGHT_PAREN', '<BLOCK>']),
     ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<BLOCK>', '<declaration>']),
 
 
@@ -69,7 +69,7 @@ def parse(tokens, rule):
             if not match_found:
                 try:
                     token = tokens
-                    print(f"\n===========================================================================")
+                    #print(f"\n===========================================================================")
                     print(f"Expected token type {production}, got {token[0]}: {token[1]}")
                     print("No matching subrule found for production rule: ", production)
                     raise ValueError("No matching subrule found for production rule: ", production)
