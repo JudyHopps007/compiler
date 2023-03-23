@@ -21,50 +21,33 @@ rules = [
 ]
 
 
-
-# First, create the predictive parsing table
-parsing_table = {}
-for non_terminal, productions in rules:
-    for lookahead in set(prod[0] for prod in productions if not prod.startswith('<')):
-        parsing_table.setdefault(non_terminal, {})[lookahead] = [prod for prod in productions if prod.startswith(lookahead)]
-
-# Then define the predictive parse function
-def predictive_parse(tokens):
-    stack = ['$', '<program>']
-    token_index = 0
-    tree = ParseTreeNode('<program>')
-    node_stack = [tree]
+def parse(tokens, table):
+    stack = ['<program>']
+    root = ParseTreeNode('<program>')
+    current_node = root
+    lookahead = tokens[0] if tokens else None
 
     while stack:
-        symbol = stack[-1]
-        token_type = tokens[token_index][0] if token_index < len(tokens) else '$'
-
-        if symbol.startswith('<'):
-            # Non-terminal symbol
-            if token_type not in parsing_table[symbol]:
-                raise ValueError(f"Unexpected token type {token_type}: {tokens[token_index][1]}")
-            production = parsing_table[symbol][token_type][0]
-            node = ParseTreeNode(production)
-            node_stack[-1].add_child(node)
-            node_stack.append(node)
+        current_symbol = stack[-1]
+        if current_symbol.startswith('<'):
+            # If the current symbol is a non-terminal, get the corresponding production from the table
+            production = table[current_symbol].get(lookahead)
+            if production is None:
+                raise ValueError(f"No production found for {current_symbol} and lookahead {lookahead}")
+            current_node.add_child(ParseTreeNode(production))
             stack.pop()
-            for s in reversed(production.split()[::-1]):
-                if s != '<epsilon>':
-                    stack.append(s)
-        elif symbol == token_type:
-            # Terminal symbol
-            node = ParseTreeNode(tokens[token_index])
-            node_stack[-1].add_child(node)
-            node_index += 1
-            stack.pop()
+            for symbol in reversed(production[1]):
+                stack.append(symbol)
+            current_node = current_node.children[-1]
         else:
-            raise ValueError(f"Expected symbol {symbol}, got token type {token_type}: {tokens[token_index][1]}")
+            # If the current symbol is a terminal, match it with the lookahead token
+            if not tokens:
+                raise ValueError("Unexpected end of input")
+            token = tokens.pop(0)
+            if current_symbol != token[0]:
+                raise ValueError(f"Expected {current_symbol}, got {token[0]}: {token[1]}")
+            current_node.add_child(ParseTreeNode(token))
+            stack.pop()
+        lookahead = tokens[0] if tokens else None
 
-    return tree
-
-
-table = ParseTable(rules)
-
-print(table)
-
-tree = parse(tokens, '<program>', table)
+    return root
