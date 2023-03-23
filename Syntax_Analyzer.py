@@ -18,12 +18,12 @@ rules = [
     #('<program>', ['LEFT_PAREN', '<num>', 'RIGHT_PAREN']),
 
 
-    ('<program>', ['<parameter>']),
+    ('<program>', ['<parameter_list>']),
 
-    ('<parameter>', ['LEFT_PAREN', '<type_specifier>', '<identifier>', '<parameter_list>', 'RIGHT_PAREN']),
-    ('<parameter>', []),
-    ('<parameter_list>', ['COMMA', '<type_specifier>', '<identifier>', '<parameter_list>']),
+    ('<parameter_list>', ['LEFT_PAREN', '<type_specifier>', '<identifier>', '<parameter>', 'RIGHT_PAREN']),
     ('<parameter_list>', []),
+    ('<parameter>', ['COMMA', '<type_specifier>', '<identifier>', '<parameter_list>']),
+    ('<parameter>', []),
 
 
     ('<comma>', ['COMMA']),
