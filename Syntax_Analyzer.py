@@ -24,11 +24,9 @@ rules = [
     ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', '<parameter_list>', 'RIGHT_PAREN', '<BLOCK>']),
     ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<BLOCK>', '<declaration>']),
 
-
     ('<type_specifier>', ['KEYWORD']),
     ('<identifier>', ['IDENTIFIER']),
     ('<main>', ['reserved_word']),
-
 
     ('<parameter_list>', ['<parameter>']),
     ('<parameter_list>', []),
