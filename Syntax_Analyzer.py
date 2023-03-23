@@ -29,10 +29,8 @@ rules = [
     ('<declaration>', []),
 
 
-
     ('<function_declaration>', ['<type_specifier>', '<identifier>', '<parameter_list>',  '<compound_statement>']),
 
-  
 
     ('<type_specifier>', ['KEYWORD']),
     ('<identifier>', ['IDENTIFIER']),
