@@ -22,7 +22,7 @@ rules = [
 
     ('<parameter_list>', ['LEFT_PAREN', '<type_specifier>', '<identifier>', '<parameter>', 'RIGHT_PAREN']),
     ('<parameter_list>', []),
-    ('<parameter>', ['COMMA', '<type_specifier>', '<identifier>', '<parameter_list>']),
+    ('<parameter>', ['COMMA', '<type_specifier>', '<identifier>', '<parameter>']),
     ('<parameter>', []),
 
 
