@@ -67,6 +67,10 @@ tokens = [
 ]
 
 #[('INCLUDE_DIRECTIVE', '#include <stdio.h>')]
+
+#('<program>', ['<include-list>', '<declaration>']),
+#('<include-list>', ['INCLUDE_DIRECTIVE']),
+
 print(tokens)
 table = {
     '<program>': {'INCLUDE_DIRECTIVE': ('<include-list>', '<declaration>')},
