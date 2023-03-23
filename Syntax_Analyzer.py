@@ -39,7 +39,7 @@ rules = [
     ('<comma>', ['COMMA']),
 
 
-    ('<BLOCK>', ['LEFT_BRACE', '<compound_statement>', 'RIGHT_BRACE']),
+    ('<BLOCK>', ['LEFT_BRACE',  'RIGHT_BRACE']),
 ]
 
 
