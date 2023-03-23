@@ -14,20 +14,13 @@ class ParseTreeNode:
 
 # Define the production rules for the language
 # This is a simplified set of rules for illustration purposes only
+
 rules = [
-    ('<parameter_list>', ['<parameter>']),
-    ('<parameter_list>', []),
-
-    ('<parameter>', ['<type_specifier>', '<identifier>']),
-    ('<parameter>', ['COMMA', '<type_specifier>', '<identifier>']),
-
-    ('<comma>', ['COMMA']),
-
-    ('<BLOCK>', ['LEFT_BRACE',  'RIGHT_BRACE']),
-    ('<type_specifier>', ['KEYWORD']),
-    ('<identifier>', ['IDENTIFIER']),
-
+    ('<program>', ['<include-list>', '<declaration>']),
+    ('<include-list>', ['INCLUDE_DIRECTIVE']),
 ]
+
+
 
 
 class ParseTable:
@@ -95,5 +88,7 @@ def parse(tokens, start_symbol, parse_table):
 
 
 table = ParseTable(rules)
+
+print(table)
 
 tree = parse(tokens, '<program>', table)
