@@ -20,9 +20,9 @@ rules = [
 
     ('<directive_declaration>', ['<include_list>']),
    #('<include_list>', ['INCLUDE_DIRECTIVE']),
-
-    ('<include_list>', ['INCLUDE_DIRECTIVE', '<include_list>']),
     ('<include_list>', []),
+    ('<include_list>', ['INCLUDE_DIRECTIVE', '<include_list>']),
+
 
     ('<declaration>', ['<function_declaration>', "<declaration>"]),
     ('<declaration>', []),
