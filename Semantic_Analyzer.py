@@ -52,7 +52,19 @@ def parse(tokens, table):
 
     return root
 
-tokens = [('INCLUDE_DIRECTIVE', '#include'), ('IDENTIFIER', 'stdio.h'), ('SEMICOLON', ';'), ('INT', 'int'), ('IDENTIFIER', 'main'), ('LPAREN', '('), ('RPAREN', ')'), ('LBRACE', '{'), ('RETURN', 'return'), ('NUMBER', '0'), ('SEMICOLON', ';'), ('RBRACE', '}')]
+tokens = [
+    ('INCLUDE_DIRECTIVE', '#include'),
+    ('IDENTIFIER', 'stdio.h'),
+    ('SEMICOLON', ';'),
+    ('INT', 'int'),
+    ('IDENTIFIER', 'main'),
+    ('LPAREN', '('),
+    ('RPAREN', ')'),
+    ('LBRACE', '{'), ('RETURN', 'return'),
+    ('NUMBER', '0'),
+    ('SEMICOLON', ';'),
+    ('RBRACE', '}')
+]
 table = {
     '<program>': {'INCLUDE_DIRECTIVE': ('<include-list>', '<declaration>')},
     '<include-list>': {'INCLUDE_DIRECTIVE': ('INCLUDE_DIRECTIVE',)}
