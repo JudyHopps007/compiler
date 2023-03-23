@@ -23,7 +23,7 @@ rules = [
     ('<declaration>', []),
 
     ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', '<parameter_list>', 'RIGHT_PAREN', '<compound_statement>']),
-    ("<VAR>", ['<type_specifier>', '<main>']),
+
 
     ('<type_specifier>', ['KEYWORD']),
     ('<identifier>', ['IDENTIFIER']),
