@@ -15,34 +15,18 @@ class ParseTreeNode:
 # Define the production rules for the language
 # This is a simplified set of rules for illustration purposes only
 rules = [
-    ('<program>', ['<include-list>',  '<declaration>']),
-    ('<include-list>', ['INCLUDE_DIRECTIVE']),
-
-
-    ('<declaration>', ['<function_declaration>', "<declaration>"]),
-    ('<declaration>', []),
-
-
-
-    ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', '<parameter_list>', 'RIGHT_PAREN', '<compound_statement>']),
-
-    ('<main_function>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<compound_statement>']),
-
-    ('<type_specifier>', ['KEYWORD']),
-    ('<identifier>', ['IDENTIFIER']),
-    ('<identifier>', ['main_f']),
-
-
-    ('<parameter_list>', ['<parameter>']),
+    ('<parameter>', ['<type_specifier>', '<identifier>', '<parameter_list>']),
+    ('<parameter_list>', ['COMMA', '<type_specifier>', '<identifier>', '<parameter_list>']),
     ('<parameter_list>', []),
 
-    ('<parameter>', ['<type_specifier>', '<identifier>']),
-
+    ('<parameter>', []),
 
     ('<comma>', ['COMMA']),
 
 
-    ('<compound_statement>', ['LEFT_BRACE', 'RIGHT_BRACE']),
+    ('<type_specifier>', ['KEYWORD']),
+    ('<identifier>', ['IDENTIFIER']),
+
 ]
 
 
