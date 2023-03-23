@@ -14,20 +14,30 @@ class ParseTreeNode:
 
 # Define the production rules for the language
 # This is a simplified set of rules for illustration purposes only
-rules = [
-    ('<parameter_list>', ['<parameter>', '<parameter_list>']),
-    ('<parameter_list>', []),
-
-    ('<parameter>', ['<type_specifier>', '<identifier>']),
-    ('<parameter2>', ['COMMA', '<type_specifier>', '<identifier>']),
-
-    ('<comma>', ['COMMA']),
-
-    ('<BLOCK>', ['LEFT_BRACE',  'RIGHT_BRACE']),
-    ('<type_specifier>', ['KEYWORD']),
-    ('<identifier>', ['IDENTIFIER']),
-
-]
+parsing_table = {
+    '<start>': {
+        'if': [('if_statement',)],
+        'while': [('while_statement',)],
+        'identifier': [('assignment_statement',)],
+        'print': [('print_statement',)],
+    },
+    'if_statement': {
+        'if': [('<', 'expression', '>', 'then', 'statement')],
+    },
+    'while_statement': {
+        'while': [('<', 'expression', '>', 'do', 'statement')],
+    },
+    'assignment_statement': {
+        'identifier': [('identifier', '=', 'expression')],
+    },
+    'print_statement': {
+        'print': [('print', 'expression')],
+    },
+    'expression': {
+        'identifier': [('identifier',)],
+        'number': [('number',)],
+    },
+}
 
 
 
