@@ -7,7 +7,6 @@ symbol_table = {}
 patterns = [
     (r'#include\s+<.*?>', 'INCLUDE_DIRECTIVE'),
     (r'\b(int|void|char|bool|float|long|return)\b', 'KEYWORD'),
-    (r'\b(main)\b', 'reserved_word'),
     (r'\b(if)\b', 'if'),
     (r'\b(true|false|1|0)\b', 'BOOLEAN'),
     (r'\b\d+\.\d+\b', 'floating_point'),
