@@ -16,12 +16,13 @@ class ParseTreeNode:
 # This is a simplified set of rules for illustration purposes only
 rules = [
     ('<program>', ['<directive_declaration>',  '<declaration>']),
+    #('<include_list>', ['INCLUDE_DIRECTIVE']),
 
+    ('<directive_declaration>', ['<include_list>', '<directive_declaration>']),
 
-    ('<directive_declaration>', ['<include_list>']),
-   #('<include_list>', ['INCLUDE_DIRECTIVE']),
+    ('<include_list>', ['INCLUDE_DIRECTIVE']),
     ('<include_list>', []),
-    ('<include_list>', ['INCLUDE_DIRECTIVE', '<include_list>']),
+
 
 
     ('<declaration>', ['<function_declaration>', "<declaration>"]),
