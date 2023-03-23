@@ -22,9 +22,10 @@ rules = [
 
 
     ('<parameter>', ['<type_specifier>', '<identifier>', '<parameter_list>']),
-    #('<parameter_list>', ['COMMA', '<type_specifier>', '<identifier>', '<parameter_list>']),
-    #('<parameter_list>', []),
-    #('<parameter>', []),
+    ('<parameter>', []),
+    ('<parameter_list>', ['COMMA', '<type_specifier>', '<identifier>', '<parameter_list>']),
+    ('<parameter_list>', []),
+
 
     ('<comma>', ['COMMA']),
 
