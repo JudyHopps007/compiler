@@ -16,14 +16,17 @@ class ParseTreeNode:
 # This is a simplified set of rules for illustration purposes only
 rules = [
     ('<parameter_list>', ['<parameter>']),
-    ('<parameter_list>', []),
+    #('<parameter_list>', []),
 
     ('<parameter>', ['<type_specifier>', '<identifier>']),
-    #('<parameter>', ['COMMA', '<type_specifier>', '<identifier>']),
+    ('<parameter>', ['COMMA', '<type_specifier>', '<identifier>']),
 
     ('<comma>', ['COMMA']),
 
     ('<BLOCK>', ['LEFT_BRACE',  'RIGHT_BRACE']),
+    ('<type_specifier>', ['KEYWORD']),
+    ('<identifier>', ['IDENTIFIER']),
+
 ]
 
 
