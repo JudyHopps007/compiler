@@ -44,53 +44,25 @@ parsing_table = {
 # ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<compound_statement>']),
 
 # Define a function that recursively generates a parse tree from the token stream using the production rules
-def parse(tokens, rule):
-    node = ParseTreeNode(rule[0])
-    print(rule[0])
-    for production in rule[1]:
-        if production.startswith('<'):
-            # If the production is a non-terminal, recursively generate a subtree using the corresponding rule
-            subrules = [r for r in rules if r[0] == production]
-            if not subrules:
-                raise ValueError("Invalid production rule: " + production)
-            match_found = False
-            for subrule in subrules:
-                try:
-                    child = parse(tokens, subrule)
-                    node.add_child(child)
-                    match_found = True
-                    print('\t \t Match',subrule )
-                    break
-                except ValueError:
-                    pass
-            if not match_found:
-                try:
-                    token = tokens
-                    #print(f"\n===========================================================================")
-                    print(f"Expected token type {production}, got {token[0]}: {token[1]}")
-                    print("No matching subrule found for production rule: ", production)
-                    raise ValueError("No matching subrule found for production rule: ", production)
-                except:
-                    raise ValueError("No matching subrule found for production rule: ", production)
+def parse(tokens, parsing_table):
+    stack = ['<start>']
+    i = 0
+    while stack:
+        symbol = stack.pop()
+        if symbol.startswith('<'):
+            rule = parsing_table[symbol][tokens[i][0]]
+            if not rule:
+                raise ValueError(f"Unexpected token: {tokens[i][1]}")
+            for s in reversed(rule[1]):
+                stack.append(s)
         else:
-            # If the production is a terminal, consume a token from the token stream and match it against the production
-            if not tokens:
-                raise ValueError("Unexpected end of input")
-            token = tokens.pop(0)
-            if token[0] != production:
-                raise ValueError(f"Expected token type {production}, got {token[0]}: {token[1]}")
-            node.add_child(ParseTreeNode(token))
-
-    return node
+            if symbol != tokens[i][0]:
+                raise ValueError(f"Expected token {symbol}, but got {tokens[i][0]}")
+            i += 1
+    return True
 
 # Define a function that runs the syntax analyzer on the token stream
-def syntax_analyze(tokens):
-    tree = parse(tokens, rules[0])
-    if tokens:
-        raise ValueError("Unexpected tokens at end of input")
-    return tree
 
 
-print(tokens)
-tree = syntax_analyze(tokens)
-print("tree", tree.value)
+
+parse(tokens, parsing_table)
