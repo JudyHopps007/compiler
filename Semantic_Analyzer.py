@@ -94,6 +94,6 @@ def parse(tokens, start_symbol, parse_table):
 
 
 
-print(tokens)
-tree = syntax_analyze(tokens)
-print("tree", tree.value)
+table = ParseTable(rules)
+
+tree = parse(tokens, '<program>', table)
