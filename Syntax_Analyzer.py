@@ -20,7 +20,7 @@ rules = [
 
     ('<program>', ['<parameter>']),
 
-    ('<parameter>', ['<type_specifier>', '<identifier>', '<parameter_list>']),
+    ('<parameter>', ['LEFT_PAREN', '<type_specifier>', '<identifier>', '<parameter_list>', 'RIGHT_PAREN']),
     ('<parameter>', []),
     ('<parameter_list>', ['COMMA', '<type_specifier>', '<identifier>', '<parameter_list>']),
     ('<parameter_list>', []),
