@@ -73,8 +73,8 @@ tokens = [
 
 print(tokens)
 table = {
-    '<program>': {'INCLUDE_DIRECTIVE': ('<include-list>', '<declaration>')},
-    '<include-list>': {'INCLUDE_DIRECTIVE': ('INCLUDE_DIRECTIVE',)}
+    '<program>': {'DIRECTIVE': ('<include-list>', '<declaration>')},
+    '<include-list>': {'DIRECTIVE': ('INCLUDE_DIRECTIVE')}
 }
 
 root = parse(tokens, table)
