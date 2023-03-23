@@ -1,6 +1,6 @@
 import lexical_Analyzer
 
-tokens = lexical_Analyzer.lex('program.c')
+#tokens = lexical_Analyzer.lex('program.c')
 
 # Define a class to represent a node in the parse tree
 class ParseTreeNode:
@@ -52,7 +52,7 @@ def parse(tokens, table):
 
     return root
 
-tokense = [
+tokens = [
     ('INCLUDE_DIRECTIVE', '#include'),
     ('IDENTIFIER', 'stdio.h'),
     ('SEMICOLON', ';'),
@@ -66,6 +66,7 @@ tokense = [
     ('RBRACE', '}')
 ]
 
+#[('INCLUDE_DIRECTIVE', '#include <stdio.h>')]
 print(tokens)
 table = {
     '<program>': {'INCLUDE_DIRECTIVE': ('<include-list>', '<declaration>')},
