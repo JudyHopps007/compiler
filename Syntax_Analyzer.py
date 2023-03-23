@@ -18,16 +18,13 @@ rules = [
     ('<program>', ['<include-list>',  '<declaration>']),
     ('<include-list>', ['INCLUDE_DIRECTIVE']),
 
-    ('<declaration>', ['<function_declaration>', '<declaration>',]),
+    ('<declaration>', ['<function_declaration>', '<declaration>']),
     ('<declaration>', []),
 
-    ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', '<parameter_list>', 'RIGHT_PAREN', '<BLOCK>']),
-    #('<var_declaration>', ['<type_specifier>', '<identifier>', 'ASSIGN', 'SEMICOLON']),
+    ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', '<parameter_list>', 'RIGHT_PAREN', '<compound_statement>']),
 
     ('<type_specifier>', ['KEYWORD']),
     ('<identifier>', ['IDENTIFIER']),
-    ('<identifier>', ['main_f']),
-
 
     ('<parameter_list>', ['<parameter>']),
     ('<parameter_list>', []),
@@ -38,7 +35,7 @@ rules = [
     ('<comma>', ['COMMA']),
 
 
-    ('<BLOCK>', ['LEFT_BRACE', 'RIGHT_BRACE']),
+    ('<compound_statement>', ['LEFT_BRACE', 'RIGHT_BRACE']),
 ]
 
 
