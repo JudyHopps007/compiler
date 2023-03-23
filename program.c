@@ -1,1 +1,6 @@
-int num , int num , int num,  int num , int num
+#include <stdio.h>
+
+int main (int num){
+
+}
+
