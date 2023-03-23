@@ -15,6 +15,7 @@ class ParseTreeNode:
 # Define the production rules for the language
 # This is a simplified set of rules for illustration purposes only
 rules = [
+    ('<program>', ['LEFT_PAREN', '<parameter>', 'RIGHT_PAREN']),
     ('<parameter>', ['<type_specifier>', '<identifier>', '<parameter_list>']),
     ('<parameter_list>', ['COMMA', '<type_specifier>', '<identifier>', '<parameter_list>']),
     ('<parameter_list>', []),
