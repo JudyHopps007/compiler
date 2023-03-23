@@ -20,11 +20,9 @@ rules = [
 
 
     ('<declaration>', ['<function_declaration>', "<declaration>"]),
-    ('<declaration>', []),
+   # ('<declaration>', []),
 
-
-
-    ('<function_declaration>', ['<type_specifier>', '<identifier>', '<parameter_list>',  '<compound_statement>']),
+    ('<function_declaration>', ['<type_specifier>', '<identifier>', '<parameter_list>',  '<compound_statement>', '<declaration>']),
 
     ('<type_specifier>', ['KEYWORD']),
     ('<identifier>', ['IDENTIFIER']),
