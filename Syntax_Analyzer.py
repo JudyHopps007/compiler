@@ -16,7 +16,7 @@ class ParseTreeNode:
 # This is a simplified set of rules for illustration purposes only
 rules = [
     ('<program>', ['<include-list>',  '<declaration>']),
-    ('<include-list>', ['INCLUDE_DIRECTIVE']),
+    ('<include-list>', ['INCLUDE_DIRECTIVE', '<include-list>']),
 
 
     ('<declaration>', ['<function_declaration>', "<declaration>"]),
