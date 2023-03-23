@@ -30,7 +30,7 @@ rules = [
 
 
     ('<parameter_list>', ['LEFT_PAREN', '<type_specifier>', '<identifier>', '<parameter>', 'RIGHT_PAREN', '<compound_statement>']),
-    ('<parameter_list>', []),
+    #('<parameter_list>', []),
     ('<parameter>', ['COMMA', '<type_specifier>', '<identifier>', '<parameter>']),
     ('<parameter>', []),
 

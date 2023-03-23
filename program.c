@@ -3,7 +3,4 @@
 
 int main (int num){
 
-}
-int main (int num){
 
-}
