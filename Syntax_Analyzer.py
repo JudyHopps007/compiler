@@ -18,8 +18,8 @@ rules = [
     ('<program>', ['<include-list>',  '<declaration>']),
     ('<include-list>', ['INCLUDE_DIRECTIVE']),
 
-
-    ('<declaration>', ['<function_declaration>', "<declaration>"]),
+    ('<test>', ['<declaration>']),
+    ('<declaration>', ['<function_declaration>', "<test>"]),
     ('<declaration>', ['<var_declaration>']),
     ('<declaration>', []),
 
