@@ -15,11 +15,10 @@ class ParseTreeNode:
 # Define the production rules for the language
 # This is a simplified set of rules for illustration purposes only
 rules = [
-    ('<program>', ['LEFT_PAREN', '<num>', 'RIGHT_PAREN']),
+    #('<program>', ['LEFT_PAREN', '<num>', 'RIGHT_PAREN']),
 
 
-    ('<num>', ['<parameter>']),
-
+    ('<program>', ['<parameter>']),
 
     ('<parameter>', ['<type_specifier>', '<identifier>', '<parameter_list>']),
     ('<parameter>', []),
