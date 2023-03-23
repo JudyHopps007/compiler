@@ -15,16 +15,16 @@ class ParseTreeNode:
 # Define the production rules for the language
 # This is a simplified set of rules for illustration purposes only
 rules = [
-    ('<program>', ['<include_list>',  '<declaration>']),
-    ('<include_list>', ['INCLUDE_DIRECTIVE']),
+    ('<program>', ['<include-list>',  '<declaration>']),
+    ('<include-list>', ['INCLUDE_DIRECTIVE']),
 
 
     ('<declaration>', ['<function_declaration>', "<declaration>"]),
     ('<declaration>', []),
 
 
-    ('<function_declaration>', ['<type_specifier>', '<identifier>', '<parameter_list>',  '<compound_statement>']),
 
+    ('<function_declaration>', ['<type_specifier>', '<identifier>', '<parameter_list>',  '<compound_statement>']),
 
     ('<type_specifier>', ['KEYWORD']),
     ('<identifier>', ['IDENTIFIER']),

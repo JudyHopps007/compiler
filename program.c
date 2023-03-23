@@ -1,6 +1,10 @@
 #include <stdio.h>
-#include <stdio.h>
 
-#include <stdio.h>
 
-int
+int main (int num, int num, int mun){
+
+}
+
+int main (int num){
+
+}
