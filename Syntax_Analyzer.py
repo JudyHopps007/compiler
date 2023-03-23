@@ -30,7 +30,7 @@ rules = [
     ('<main>', ['reserved_word']),
 
 
-    ('<parameter_list>', ['<parameter>','<parameter_list>']),
+    ('<parameter_list>', ['<parameter>', '<parameter_list>']),
     ('<parameter_list>', []),
 
     ('<parameter>', ['<type_specifier>', '<identifier>']),
