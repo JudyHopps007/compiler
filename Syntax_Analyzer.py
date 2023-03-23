@@ -17,10 +17,12 @@ class ParseTreeNode:
 rules = [
     ('<program>', ['<directive_declaration>',  '<declaration>']),
 
-    #('<include_list>', ['INCLUDE_DIRECTIVE', '<include_list>']),
-    #('<include_list>', []),
-    ('<directive_declaration>', ['include_list']),
-    ('<include_list>', ['INCLUDE_DIRECTIVE']),
+
+    ('<directive_declaration>', ['<include_list>']),
+   #('<include_list>', ['INCLUDE_DIRECTIVE']),
+
+    ('<include_list>', ['INCLUDE_DIRECTIVE', '<include_list>']),
+    ('<include_list>', []),
 
     ('<declaration>', ['<function_declaration>', "<declaration>"]),
     ('<declaration>', []),
