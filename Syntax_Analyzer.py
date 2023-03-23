@@ -19,10 +19,11 @@ rules = [
     ('<include-list>', ['INCLUDE_DIRECTIVE']),
 
     ('<declaration>', ['<function_declaration>', '<declaration>']),
+    ('<declaration>', ['<function_declaration2>', '<declaration>']),
     ('<declaration>', []),
 
     ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', '<parameter>', 'RIGHT_PAREN', '<BLOCK>']),
-    ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<BLOCK>', '<declaration>']),
+    ('<function_declaration2>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<BLOCK>', '<declaration>']),
 
 
     ('<type_specifier>', ['KEYWORD']),
