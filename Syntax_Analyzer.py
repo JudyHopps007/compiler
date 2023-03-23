@@ -15,15 +15,15 @@ class ParseTreeNode:
 # Define the production rules for the language
 # This is a simplified set of rules for illustration purposes only
 rules = [
-    ('<parameter_list>', ['<parameter>']),
+    ('<parameter>', ['<type_specifier>', '<identifier>', '<parameter_list>']),
+    ('<parameter_list>', ['COMMA', '<type_specifier>', '<identifier>', '<parameter_list>']),
     ('<parameter_list>', []),
 
-    ('<parameter>', ['<type_specifier>', '<identifier>']),
-    ('<parameter>', ['COMMA', '<type_specifier>', '<identifier>']),
+    ('<parameter>', []),
 
     ('<comma>', ['COMMA']),
 
-    ('<BLOCK>', ['LEFT_BRACE',  'RIGHT_BRACE']),
+
     ('<type_specifier>', ['KEYWORD']),
     ('<identifier>', ['IDENTIFIER']),
 

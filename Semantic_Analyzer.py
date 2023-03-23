@@ -75,6 +75,7 @@ print(tokens)
 table = {
     '<program>': {'DIRECTIVE': ('<include-list>', '<declaration>')},
     '<include-list>': {'DIRECTIVE': ('INCLUDE_DIRECTIVE')}
+
 }
 
 root = parse(tokens, table)
