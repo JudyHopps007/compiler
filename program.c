@@ -1,6 +1,6 @@
 #include <stdio.h>
 
 
-int nu
+int nu () { }
 
 

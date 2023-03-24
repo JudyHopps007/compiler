@@ -18,8 +18,7 @@ rules = [
     ('<program>', ['<include-list>',  '<declaration>']),
     ('<include-list>', ['INCLUDE_DIRECTIVE']),
 
-
-    ('<declaration>', ['<function_declaration>', "<declaration>"]),
+    ('<declaration>', ['<function_declaration>']),
     ('<declaration>', []),
 
     ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN' '<compound_statement>']),
@@ -28,10 +27,7 @@ rules = [
     ('<identifier>', ['IDENTIFIER']),
     ('<identifier>', ['main_f']),
 
-
-
     ('<comma>', ['COMMA']),
-
 
     ('<compound_statement>', ['LEFT_BRACE', 'RIGHT_BRACE']),
 ]
@@ -61,13 +57,12 @@ def parse(tokens, rule):
                     match_found = True
                     print('\t \t Match',subrule )
                     break
-                except ValueError:
-                    pass
+                except ValueError as e:
+                    print('r', e)
+
             if not match_found:
-                try:
                     raise ValueError("No matching subrule found for production rule: ", production)
-                except:
-                    raise ValueError("No matching subrule found for production rule: ", production)
+
         else:
             # If the production is a terminal, consume a token from the token stream and match it against the production
             if not tokens:
