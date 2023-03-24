@@ -67,4 +67,5 @@ rules = [
 import lexical_Analyzer
 
 tokens = lexical_Analyzer.lex('program.c')
-parse(tokens, '<program>', rules)
+p = ('<program>', ['<include-list>',  '<declaration>'])
+parse(tokens, p, rules)
