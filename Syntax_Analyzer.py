@@ -22,15 +22,16 @@ rules = [
     ('<declaration>', ['<function_declaration>', "<declaration>"]),
     ('<declaration>', []),
 
-    ('<function_declaration>', ['<type_specifier>', '<identifier>', '<parameter_list>']),
+
+
+    ('<function_declaration>', ['<type_specifier>', '<identifier>', '<parameter_list>',  '<compound_statement>']),
 
     ('<type_specifier>', ['KEYWORD']),
     ('<identifier>', ['IDENTIFIER']),
     ('<identifier>', ['main_f']),
 
-
-    ('<parameter_list>', ['LEFT_PAREN', '<type_specifier>', '<identifier>', '<parameter>', 'RIGHT_PAREN', '<compound_statement>']),
-    #('<parameter_list>', []),
+    ('<parameter_list>', ['LEFT_PAREN', '<type_specifier>', '<identifier>', '<parameter>', 'RIGHT_PAREN']),
+    ('<parameter_list>', []),
     ('<parameter>', ['COMMA', '<type_specifier>', '<identifier>', '<parameter>']),
     ('<parameter>', []),
 
@@ -39,6 +40,8 @@ rules = [
 
     ('<compound_statement>', ['LEFT_BRACE', 'RIGHT_BRACE']),
 ]
+
+
 
 
 
@@ -67,10 +70,6 @@ def parse(tokens, rule):
                     pass
             if not match_found:
                 try:
-                    token = tokens
-                    #print(f"\n===========================================================================")
-                    print(f"Expected token type {production}, got {token[0]}: {token[1]}")
-                    print("No matching subrule found for production rule: ", production)
                     raise ValueError("No matching subrule found for production rule: ", production)
                 except:
                     raise ValueError("No matching subrule found for production rule: ", production)
