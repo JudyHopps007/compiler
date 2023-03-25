@@ -1,6 +1,3 @@
 #include <stdio.h>
 
-
-int nu () { }
-
-
+int num (){}

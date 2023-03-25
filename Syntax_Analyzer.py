@@ -21,15 +21,17 @@ rules = [
     ('<declaration>', ['<function_declaration>']),
     ('<declaration>', []),
 
-    ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN' '<compound_statement>']),
+    ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<compound_statement>']),
 
     ('<type_specifier>', ['KEYWORD']),
     ('<identifier>', ['IDENTIFIER']),
     ('<identifier>', ['main_f']),
 
     ('<comma>', ['COMMA']),
-
     ('<compound_statement>', ['LEFT_BRACE', 'RIGHT_BRACE']),
+
+
+
 ]
 
 
@@ -82,6 +84,6 @@ def syntax_analyze(tokens):
     return tree
 
 
-print(tokens)
+print('\nTOKENS\n\t', tokens)
 tree = syntax_analyze(tokens)
 print("tree", tree.value)

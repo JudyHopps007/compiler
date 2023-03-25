@@ -91,6 +91,6 @@ def generate_symbol_table(tokens):
     return symbol_table
 
 symbol_table = generate_symbol_table(tokens)
-print("\n smb: ", symbol_table)
+print("\nSYMBOL_TABLE \n\t", symbol_table)
 # ============================================================
 

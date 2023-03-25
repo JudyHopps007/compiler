@@ -47,7 +47,6 @@ rules = [
     ('<program>', ['<include-list>',  '<declaration>']),
     ('<include-list>', ['INCLUDE_DIRECTIVE']),
 
-
     ('<declaration>', ['<function_declaration>', "<declaration>"]),
     ('<declaration>', []),
 
@@ -56,12 +55,7 @@ rules = [
     ('<type_specifier>', ['KEYWORD']),
     ('<identifier>', ['IDENTIFIER']),
     ('<identifier>', ['main_f']),
-
-
-
     ('<comma>', ['COMMA']),
-
-
     ('<compound_statement>', ['LEFT_BRACE', 'RIGHT_BRACE']),
 ]
 import lexical_Analyzer
