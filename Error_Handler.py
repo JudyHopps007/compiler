@@ -48,48 +48,46 @@ rules = [
 # ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<compound_statement>']),
 
 # Define a function that recursively generates a parse tree from the token stream using the production rules
-def parse(tokens, rules, kleene_dict=None):
-    node = ParseTreeNode(rules[0][0])
-    print(rules[0][0])
-    for production in rules[0][1]:
+def parse(tokens, rule, kleene_dict=None):
+    node = ParseTreeNode(rule[0])
+    print(rule[0])
+    for production in rule[1]:
         if production.endswith('*'):
             # If the production is a Kleene closure of a non-terminal
             non_terminal = production[:-1]
-            subrules = [(r, i) for i, r in enumerate(rules) if r[0] == non_terminal]
+            subrules = [r for r in rules if r[0] == non_terminal]
             if not subrules:
                 raise ValueError("Invalid production rule: " + non_terminal)
             while True:
                 try:
-                    child = parse(tokens, subrules[0][0], kleene_dict)
+                    child = parse(tokens, subrules[0], kleene_dict)
                     node.add_child(child)
-                    print('\t \t Match', subrules[0][0][0])
+                    print('\t \t Match', subrules[0])
                 except ValueError:
                     break
                 if not tokens:
                     break  # Added check for end of input
         elif production.startswith('<'):
-            # If the production is a non-terminal, recursively generate a subtree using the corresponding rule
-            subrules = [(r, i) for i, r in enumerate(rules) if r[0] == production]
+            # If the production is a non-terminal, recursively generate a subtree using the most similar rule
+            subrules = [r for r in rules if r[0] == production]
             if not subrules:
                 raise ValueError("Invalid production rule: " + production)
-            match_found = False
-            for subrule, index in subrules:
-                try:
-                    child = parse(tokens, subrule, kleene_dict)
-                    node.add_child(child)
-                    match_found = True
-                    print('\t \t Match', subrule[0])
-                    break
-                except ValueError as e:
-                    print('r', e)
-
-            if not match_found:
+            best_score = 0
+            best_subrule = None
+            for subrule in subrules:
+                score = similarity_score(subrule, rule)
+                if score > best_score:
+                    best_score = score
+                    best_subrule = subrule
+            if not best_subrule:
                 raise ValueError("No matching subrule found for production rule: ", production)
+            child = parse(tokens, best_subrule, kleene_dict)
+            node.add_child(child)
+            print('\t \t Match', best_subrule)
         else:
             # If the production is a terminal, consume a token from the token stream and match it against the production
             if not tokens:
                 raise ValueError("Unexpected end of input")
-
             token = tokens.pop(0)
             print('============', token)
             if token[0] != production:
@@ -97,10 +95,10 @@ def parse(tokens, rules, kleene_dict=None):
             node.add_child(ParseTreeNode(token))
 
     # Handle Kleene closure specified in the rule
-    if kleene_dict and rules[0][0] in kleene_dict:
+    if kleene_dict and rule[0] in kleene_dict:
         while True:
             try:
-                child = parse(tokens, rules[0], kleene_dict=None)
+                child = parse(tokens, rule, kleene_dict=None)
                 node.add_child(child)
                 print('\t \t Kleene closure')
             except ValueError:
@@ -109,6 +107,16 @@ def parse(tokens, rules, kleene_dict=None):
                 break  # Added check for end of input
 
     return node
+
+
+def similarity_score(rule1, rule2):
+    """
+    Compute a similarity score between two production rules based on how many common non-terminals they share.
+    """
+    non_terminals1 = set([p for p in rule1[1] if p.startswith('<')])
+    non_terminals2 = set([p for p in rule2[1] if p.startswith('<')])
+    common_non_terminals = non_terminals1.intersection(non_terminals2)
+    return len(common_non_terminals)
 
 
 
