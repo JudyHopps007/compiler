@@ -68,6 +68,7 @@ def parse(tokens, rule, kleene_dict=None):
     if similar_rules:
         most_similar_rule = max(similar_rules, key=lambda x: x[1])[0]
         rule = most_similar_rule
+        print('most_similar_rule', most_similar_rule)
 
     for production in rule[1]:
         if production.endswith('*'):
