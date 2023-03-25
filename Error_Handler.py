@@ -24,9 +24,9 @@ rules = [
     ('<function_declaration>', ['<type_specifier>', '<identifier>', '<parameter_list>*',  '<compound_statement>']),
 
     ('<parameter_list>', ['LEFT_PAREN','RIGHT_PAREN']),
-    ('<parameter_list>', ['LEFT_PAREN', '<type_specifier>', '<identifier>', 'RIGHT_PAREN']),
-    ('<parameter_list>', ['COMMA', '<type_specifier>', '<identifier>', '<parameter_list>']),
-    ('<more_parameters>', []),
+    #('<parameter_list>', ['LEFT_PAREN', '<type_specifier>', '<identifier>', 'RIGHT_PAREN']),
+    #('<parameter_list>', ['COMMA', '<type_specifier>', '<identifier>', '<parameter_list>']),
+    #('<more_parameters>', []),
 
     ('<type_specifier>', ['KEYWORD']),
     ('<identifier>', ['IDENTIFIER']),
@@ -62,7 +62,7 @@ def parse(tokens, rule, kleene_dict=None):
                 try:
                     count = 0
                     while True:
-                        parse(tokens[:], subrule)
+                        parse(tokens[:], subrule, kleene_dict)
                         count += 1
                 except ValueError:
                     if count > best_match_count:
@@ -121,7 +121,7 @@ def parse(tokens, rule, kleene_dict=None):
     if kleene_dict and rule[0] in kleene_dict:
         while True:
             try:
-                child = parse(tokens, rule, kleene_dict=None)
+                child = parse(tokens[:], rule, kleene_dict=None)
                 node.add_child(child)
                 print('\t \t Kleene closure')
             except ValueError:
@@ -130,6 +130,7 @@ def parse(tokens, rule, kleene_dict=None):
                 break
 
     return node
+
 
 
 # Define a function that runs the syntax analyzer on the token stream
