@@ -36,8 +36,6 @@ rules = [
 
     ('<comma>', ['COMMA']),
     ('<compound_statement>', ['LEFT_BRACE', 'RIGHT_BRACE']),
-
-
 ]
 
 
