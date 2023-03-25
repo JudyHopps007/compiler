@@ -22,24 +22,13 @@ rules = [
     ('<declaration>', []),
 
 
-    ('<function_declaration>', ['<type_specifier>', '<identifier>', '<parameter_list>',  '<compound_statement>']),
+    ('<function_declaration>', ['<type_specifier>', '<identifier>',   '<compound_statement>']),
 
-    #('<function_declaration_closure>', ['<type_specifier>', '<identifier>', '<parameter_list>',  '<compound_statement>']),
+    ('<function_declaration>', ['<type_specifier>', '<identifier>']),
 
-    ('<parameter_list>', ['LEFT_PAREN', 'RIGHT_PAREN']),
-    ('<parameter_list>', ['LEFT_PAREN', '<type_specifier>', '<identifier>', '<parameter>', 'RIGHT_PAREN']),
-    ('<parameter>', ['COMMA', '<type_specifier>', '<identifier>', '<parameter>']),
-    ('<parameter>', []),
-
-    ('<type_specifier>', ['KEYWORD']),
-    ('<identifier>', ['IDENTIFIER']),
-    ('<identifier>', ['main_f']),
-
-    ('<comma>', ['COMMA']),
     ('<compound_statement>', ['LEFT_BRACE', 'RIGHT_BRACE']),
-
-
 ]
+
 
 
 
