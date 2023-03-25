@@ -68,7 +68,7 @@ def parse(tokens, rule):
 
             if not match_found:
                     raise ValueError("No matching subrule found for production rule: ", production)
-
+            print('=========End 1 =======')
         else:
             # If the production is a terminal, consume a token from the token stream and match it against the production
             if not tokens:
