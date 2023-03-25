@@ -48,37 +48,37 @@ rules = [
 # ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<compound_statement>']),
 
 # Define a function that recursively generates a parse tree from the token stream using the production rules
-def parse(tokens, rule, kleene_dict=None):
-    node = ParseTreeNode(rule[0])
-    print(rule[0])
-    for production in rule[1]:
+def parse(tokens, rules, kleene_dict=None):
+    node = ParseTreeNode(rules[0][0])
+    print(rules[0][0])
+    for production in rules[0][1]:
         if production.endswith('*'):
             # If the production is a Kleene closure of a non-terminal
             non_terminal = production[:-1]
-            subrules = [r for r in rules if r[0] == non_terminal]
+            subrules = [(r, i) for i, r in enumerate(rules) if r[0] == non_terminal]
             if not subrules:
                 raise ValueError("Invalid production rule: " + non_terminal)
             while True:
                 try:
-                    child = parse(tokens, subrules[0], kleene_dict)
+                    child = parse(tokens, subrules[0][0], kleene_dict)
                     node.add_child(child)
-                    print('\t \t Match', subrules[0])
+                    print('\t \t Match', subrules[0][0][0])
                 except ValueError:
                     break
                 if not tokens:
                     break  # Added check for end of input
         elif production.startswith('<'):
             # If the production is a non-terminal, recursively generate a subtree using the corresponding rule
-            subrules = [r for r in rules if r[0] == production]
+            subrules = [(r, i) for i, r in enumerate(rules) if r[0] == production]
             if not subrules:
                 raise ValueError("Invalid production rule: " + production)
             match_found = False
-            for subrule in subrules:
+            for subrule, index in subrules:
                 try:
                     child = parse(tokens, subrule, kleene_dict)
                     node.add_child(child)
                     match_found = True
-                    print('\t \t Match', subrule)
+                    print('\t \t Match', subrule[0])
                     break
                 except ValueError as e:
                     print('r', e)
@@ -97,10 +97,10 @@ def parse(tokens, rule, kleene_dict=None):
             node.add_child(ParseTreeNode(token))
 
     # Handle Kleene closure specified in the rule
-    if kleene_dict and rule[0] in kleene_dict:
+    if kleene_dict and rules[0][0] in kleene_dict:
         while True:
             try:
-                child = parse(tokens, rule, kleene_dict=None)
+                child = parse(tokens, rules[0], kleene_dict=None)
                 node.add_child(child)
                 print('\t \t Kleene closure')
             except ValueError:
@@ -109,6 +109,7 @@ def parse(tokens, rule, kleene_dict=None):
                 break  # Added check for end of input
 
     return node
+
 
 
 # Define a function that runs the syntax analyzer on the token stream
