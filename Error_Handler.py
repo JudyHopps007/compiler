@@ -25,7 +25,7 @@ rules = [
 
     ('<function_declaration>', ['<type_specifier>', '<identifier>', '<parameter_list>',  '<compound_statement>']),
 
-    ('<function_declaration_closure>', ['<type_specifier>', '<identifier>']),
+    ('<function_declaration>', ['<type_specifier>', '<identifier>']),
 
     ('<parameter_list>', ['LEFT_PAREN', '<type_specifier>', '<identifier>', 'RIGHT_PAREN']),
     ('<more_parameters>', ['COMMA', '<type_specifier>', '<identifier>', '<more_parameters>']),
@@ -62,7 +62,7 @@ def parse(tokens, rule, kleene_dict=None):
     similar_rules = []
     for r in rules:
         if r[0] == rule[0]:
-            print('\tr:', r,"\n\trule:", rule)
+            print('\tr:', r, "\n\trule:", rule)
             similarity = calculate_similarity(r, rule)
             similar_rules.append((r, similarity))
     if similar_rules:
