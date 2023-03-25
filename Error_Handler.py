@@ -83,6 +83,9 @@ def parse(tokens, rule, kleene_dict=None):
                 continue
             else:
                 # If there are multiple matching subrules, choose the one that matches the next token in the input stream
+                if not tokens:
+                    raise ValueError(f"Unexpected end of input when parsing production rule: {production}")
+               
                 next_token_type = tokens[0][0]
                 matching_subrules = [subrule for subrule in matching_subrules if next_token_type in subrule[1][0]]
                 if not matching_subrules:
