@@ -72,19 +72,30 @@ def parse(tokens, rule, kleene_dict=None):
             subrules = [r for r in rules if r[0] == production]
             if not subrules:
                 raise ValueError("Invalid production rule: " + production)
-            match_found = False
+            matching_subrules = []
             for subrule in subrules:
                 try:
                     child = parse(tokens, subrule, kleene_dict)
+                    matching_subrules.append(subrule)
                     node.add_child(child)
-                    match_found = True
                     print('\t \t Match', subrule)
-                    break
                 except ValueError as e:
                     print('r', e)
 
-            if not match_found:
+            if not matching_subrules:
                 raise ValueError("No matching subrule found for production rule: ", production)
+            elif len(matching_subrules) == 1:
+                continue
+            else:
+                # If there are multiple matching subrules, choose the one that matches the next token in the input stream
+                next_token_type = tokens[0][0]
+                matching_subrules = [subrule for subrule in matching_subrules if next_token_type in subrule[1][0]]
+                if not matching_subrules:
+                    raise ValueError(f"No matching subrule found for production rule: {production} with next token type {next_token_type}")
+                subrule = matching_subrules[0]
+                child = parse(tokens, subrule, kleene_dict)
+                node.add_child(child)
+                print('\t \t Match', subrule)
         else:
             # If the production is a terminal, consume a token from the token stream and match it against the production
             if not tokens:
