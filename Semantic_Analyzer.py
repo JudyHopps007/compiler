@@ -23,8 +23,9 @@ rules = [
 
     ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<compound_statement>']),
 
-    ('<function_declaration>*', ['<function_declaration>']),
-    ('<function_declaration>*', []),
+    ('<parameter_list>', ['LEFT_PAREN', '<type_specifier>', '<identifier>', '<parameter>', '<more_parameters>', 'RIGHT_PAREN']),
+    ('<more_parameters>', ['COMMA', '<type_specifier>', '<identifier>', '<parameter>', '<more_parameters>']),
+    ('<more_parameters>', []),
 
     ('<type_specifier>', ['KEYWORD']),
     ('<identifier>', ['IDENTIFIER']),
