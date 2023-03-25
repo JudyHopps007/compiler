@@ -22,9 +22,8 @@ rules = [
     ('<declaration>', []),
 
 
-    ('<function_declaration>', ['<type_specifier>', '<identifier>', '<parameter_list>',  '<compound_statement>']),
+    ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN',   '<compound_statement>']),
 
-    #('<function_declaration_closure>', ['<type_specifier>', '<identifier>', '<parameter_list>',  '<compound_statement>']),
 
     ('<parameter_list>', ['LEFT_PAREN', '<type_specifier>', '<identifier>', '<more_parameters>', 'RIGHT_PAREN']),
     ('<more_parameters>', ['COMMA', '<type_specifier>', '<identifier>', '<more_parameters>']),
@@ -47,7 +46,6 @@ rules = [
 
 # ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<compound_statement>']),
 
-# Define a function that recursively generates a parse tree from the token stream using the production rules
 def parse(tokens, rule, kleene_dict=None):
     node = ParseTreeNode(rule[0])
     print(rule[0])
@@ -65,8 +63,6 @@ def parse(tokens, rule, kleene_dict=None):
                     print('\t \t Match', subrules[0])
                 except ValueError:
                     break
-                if not tokens:
-                    break  # Added check for end of input
         elif production.startswith('<'):
             # If the production is a non-terminal, recursively generate a subtree using the corresponding rule
             subrules = [r for r in rules if r[0] == production]
@@ -105,8 +101,6 @@ def parse(tokens, rule, kleene_dict=None):
                 print('\t \t Kleene closure')
             except ValueError:
                 break
-            if not tokens:
-                break  # Added check for end of input
 
     return node
 
