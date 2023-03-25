@@ -21,7 +21,7 @@ rules = [
     ('<declaration>', ['<function_declaration>']),
     ('<declaration>', []),
 
-    ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<compound_statement>', '<function_declaration>*']),
+    ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<compound_statement>']),
 
     ('<function_declaration>*', ['<function_declaration>']),
     ('<function_declaration>*', []),
