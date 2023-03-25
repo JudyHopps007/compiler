@@ -18,12 +18,12 @@ rules = [
     ('<program>', ['<include-list>',  '<declaration>']),
     ('<include-list>', ['INCLUDE_DIRECTIVE']),
 
-    ('<declaration>', ['<function_declaration>']),
+    ('<declaration>', ['<function_declaration>', '<function_declaration_closure>']),
     ('<declaration>', []),
 
     ('<function_declaration>', ['<type_specifier>', '<identifier>', '<parameter_list>',  '<compound_statement>']),
 
-    ('<parameter_list>', ['LEFT_PAREN', '<type_specifier>', '<identifier>', '<more_parameters>', 'RIGHT_PAREN']),
+    ('<parameter_list>', ['LEFT_PAREN', 'RIGHT_PAREN']),
     ('<more_parameters>', ['COMMA', '<type_specifier>', '<identifier>', '<more_parameters>']),
     ('<more_parameters>', []),
 
@@ -57,16 +57,26 @@ def parse(tokens, rule):
             match_found = False
             for subrule in subrules:
                 try:
-                    child = parse(tokens, subrule)
-                    node.add_child(child)
-                    match_found = True
-                    print('\t \t Match',subrule )
-                    break
+                    if production.endswith('_closure'):  # check if it's a Kleene closure production
+                        while True:
+                            try:
+                                child = parse(tokens, subrule)
+                                node.add_child(child)
+                            except ValueError:
+                                break
+                        match_found = True
+                        break
+                    else:
+                        child = parse(tokens, subrule)
+                        node.add_child(child)
+                        match_found = True
+                        print('\t \t Match',subrule )
+                        break
                 except ValueError as e:
                     print('r', e)
 
             if not match_found:
-                    raise ValueError("No matching subrule found for production rule: ", production)
+                raise ValueError("No matching subrule found for production rule: ", production)
 
         else:
             # If the production is a terminal, consume a token from the token stream and match it against the production
@@ -80,6 +90,7 @@ def parse(tokens, rule):
             node.add_child(ParseTreeNode(token))
 
     return node
+
 
 # Define a function that runs the syntax analyzer on the token stream
 def syntax_analyze(tokens):
