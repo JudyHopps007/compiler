@@ -16,7 +16,7 @@ class ParseTreeNode:
 # This is a simplified set of rules for illustration purposes only
 rules = [
     ('<program>', ['<include-list>',  '<declaration>']),
-    ('<include-list>', []),
+
     ('<include-list>', ['INCLUDE_DIRECTIVE']),
 
 
@@ -55,22 +55,10 @@ def calculate_similarity(rule1, rule2):
     common_non_terminals = set(rule1[1]).intersection(set(rule2[1]))
     return len(common_non_terminals)
 
+
 def parse(tokens, rule, kleene_dict=None):
     node = ParseTreeNode(rule[0])
     print(rule[0])
-
-    # Check for similar production rules and choose the most likely one
-    similar_rules = []
-    for r in rules:
-        if r[0] == rule[0]:
-            print('\tr:', r, "\n\trule:", rule)
-            similarity = calculate_similarity(r, rule)
-            similar_rules.append((r, similarity))
-    if similar_rules:
-        most_similar_rule = max(similar_rules, key=lambda x: x[1])[0]
-        rule = most_similar_rule
-        print('most_similar_rule', most_similar_rule)
-
     for production in rule[1]:
         if production.endswith('*'):
             # If the production is a Kleene closure of a non-terminal
@@ -92,18 +80,24 @@ def parse(tokens, rule, kleene_dict=None):
             subrules = [r for r in rules if r[0] == production]
             if not subrules:
                 raise ValueError("Invalid production rule: " + production)
-            match_found = False
-            for subrule in subrules:
-                try:
-                    child = parse(tokens, subrule, kleene_dict)
-                    node.add_child(child)
-                    match_found = True
-                    print('\t \t Match', subrule)
-                    break
-                except ValueError as e:
-                    print('r', e)
 
-            if not match_found:
+            # Find the most similar subrule based on the current token
+            token_type = tokens[0][0]
+            best_subrule = None
+            best_score = 0
+            for subrule in subrules:
+                if token_type in subrule[1]:
+                    score = calculate_similarity(production, subrule[0])
+                    if score > best_score:
+                        best_subrule = subrule
+                        best_score = score
+
+            if best_subrule:
+                # Use the best matching subrule
+                child = parse(tokens, best_subrule, kleene_dict)
+                node.add_child(child)
+                print('\t \t Match', best_subrule)
+            else:
                 raise ValueError("No matching subrule found for production rule: ", production)
         else:
             # If the production is a terminal, consume a token from the token stream and match it against the production
@@ -129,6 +123,7 @@ def parse(tokens, rule, kleene_dict=None):
                 break  # Added check for end of input
 
     return node
+
 
 def similarity_score(rule1, rule2):
     """
