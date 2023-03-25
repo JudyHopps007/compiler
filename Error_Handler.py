@@ -53,47 +53,58 @@ def parse(tokens, rule, kleene_dict=None):
             subrules = [r for r in rules if r[0] == non_terminal]
             if not subrules:
                 raise ValueError("Invalid production rule: " + non_terminal)
-            while True:
+
+            # Find the rule that matches the most tokens
+            best_match_rule = None
+            best_match_count = 0
+            for subrule in subrules:
                 try:
-                    child = parse(tokens, subrules[0], kleene_dict)
-                    node.add_child(child)
-                    print('\t \t Match', subrules[0])
+                    count = 0
+                    while True:
+                        parse(tokens[:], subrule)
+                        count += 1
                 except ValueError:
-                    break
-                if not tokens:
-                    break  # Added check for end of input
+                    if count > best_match_count:
+                        best_match_rule = subrule
+                        best_match_count = count
+
+            # Parse using the best matching rule
+            if best_match_rule is None:
+                # No matching rule found
+                if non_terminal in kleene_dict:
+                    # If this is a Kleene closure rule, continue without adding any children
+                    pass
+                else:
+                    raise ValueError("No matching subrule found for production rule: ", production)
+            else:
+                while True:
+                    try:
+                        child = parse(tokens, best_match_rule, kleene_dict)
+                        node.add_child(child)
+                        print('\t \t Match', best_match_rule)
+                    except ValueError:
+                        break
+                    if not tokens:
+                        break
+
         elif production.startswith('<'):
             # If the production is a non-terminal, recursively generate a subtree using the corresponding rule
             subrules = [r for r in rules if r[0] == production]
             if not subrules:
                 raise ValueError("Invalid production rule: " + production)
-            matching_subrules = []
+            match_found = False
             for subrule in subrules:
                 try:
                     child = parse(tokens, subrule, kleene_dict)
-                    matching_subrules.append(subrule)
                     node.add_child(child)
+                    match_found = True
                     print('\t \t Match', subrule)
+                    break
                 except ValueError as e:
                     print('r', e)
 
-            if not matching_subrules:
+            if not match_found:
                 raise ValueError("No matching subrule found for production rule: ", production)
-            elif len(matching_subrules) == 1:
-                continue
-            else:
-                # If there are multiple matching subrules, choose the one that matches the next token in the input stream
-                if not tokens:
-                    raise ValueError(f"Unexpected end of input when parsing production rule: {production}")
-
-                next_token_type = tokens[0][0]
-                matching_subrules = [subrule for subrule in matching_subrules if next_token_type in subrule[1][0]]
-                if not matching_subrules:
-                    raise ValueError(f"No matching subrule found for production rule: {production} with next token type {next_token_type}")
-                subrule = matching_subrules[0]
-                child = parse(tokens, subrule, kleene_dict)
-                node.add_child(child)
-                print('\t \t Match', subrule)
         else:
             # If the production is a terminal, consume a token from the token stream and match it against the production
             if not tokens:
@@ -115,9 +126,10 @@ def parse(tokens, rule, kleene_dict=None):
             except ValueError:
                 break
             if not tokens:
-                break  # Added check for end of input
+                break
 
     return node
+
 
 
 # Define a function that runs the syntax analyzer on the token stream
