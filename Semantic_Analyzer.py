@@ -28,7 +28,7 @@ rules = [
 
     ('<parameter_list>', ['LEFT_PAREN', '<type_specifier>', '<identifier>', '<more_parameters>*',  'RIGHT_PAREN']),
     ('<more_parameters>', ['COMMA', '<type_specifier>', '<identifier>']),
-
+    ('<more_parameters>', []),
 
     ('<type_specifier>', ['KEYWORD']),
     ('<identifier>', ['IDENTIFIER']),
