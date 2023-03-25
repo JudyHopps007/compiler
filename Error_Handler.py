@@ -48,50 +48,67 @@ rules = [
 # ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<compound_statement>']),
 
 # Define a function that recursively generates a parse tree from the token stream using the production rules
-def lex(filename):
-    with open(filename, 'r') as f:
-        program = f.read()
-    tokens = []
-    position = 0
-    while position < len(program):
-        best_match = None
-        best_pattern = None
-        best_token_type = None
-        best_probability = 0.0
+def parse(tokens, rule, kleene_dict=None):
+    node = ParseTreeNode(rule[0])
+    print(rule[0])
+    for production in rule[1]:
+        if production.endswith('*'):
+            # If the production is a Kleene closure of a non-terminal
+            non_terminal = production[:-1]
+            subrules = [r for r in rules if r[0] == non_terminal]
+            if not subrules:
+                raise ValueError("Invalid production rule: " + non_terminal)
+            while True:
+                try:
+                    child = parse(tokens, subrules[0], kleene_dict)
+                    node.add_child(child)
+                    print('\t \t Match', subrules[0])
+                except ValueError:
+                    break
+                if not tokens:
+                    break  # Added check for end of input
+        elif production.startswith('<'):
+            # If the production is a non-terminal, recursively generate a subtree using the corresponding rule
+            subrules = [r for r in rules if r[0] == production]
+            if not subrules:
+                raise ValueError("Invalid production rule: " + production)
+            match_found = False
+            for subrule in subrules:
+                try:
+                    child = parse(tokens, subrule, kleene_dict)
+                    node.add_child(child)
+                    match_found = True
+                    print('\t \t Match', subrule)
+                    break
+                except ValueError as e:
+                    print('r', e)
 
-        # Skip over empty lines
-        if program[position] == '\n':
-            position += 1
-            continue
-
-        # Skip over whitespace
-        if re.match(r'\s', program[position]):
-            position += 1
-            continue
-
-        for pattern, token_type, probability in patterns:
-            regex = re.compile(pattern)
-            match = regex.fullmatch(program[position:])
-
-            # get rid of code comments
-            if match:
-                if token_type != 'COMMENT': # the tokenization logic skips over comment tokens
-                    if probability > best_probability:
-                        best_match = match.group(0)
-                        best_pattern = pattern
-                        best_token_type = token_type
-                        best_probability = probability
-                position += len(match.group(0))
-                break
-
-        if not best_match:
-            print("Illegal character: " + program[position])
-            position += 1
+            if not match_found:
+                raise ValueError("No matching subrule found for production rule: ", production)
         else:
-            tokens.append((best_token_type, best_match))
+            # If the production is a terminal, consume a token from the token stream and match it against the production
+            if not tokens:
+                raise ValueError("Unexpected end of input")
 
-    return tokens
+            token = tokens.pop(0)
+            print('============', token)
+            if token[0] != production:
+                raise ValueError(f"Expected token type {production}, got {token[0]}: {token[1]}")
+            node.add_child(ParseTreeNode(token))
 
+    # Handle Kleene closure specified in the rule
+    if kleene_dict and rule[0] in kleene_dict:
+        while True:
+            try:
+                child = parse(tokens, rule, kleene_dict=None)
+                node.add_child(child)
+                print('\t \t Kleene closure')
+            except ValueError:
+                break
+            if not tokens:
+                break  # Added check for end of input
+
+    return node
 
 
 # Define a function that runs the syntax analyzer on the token stream
