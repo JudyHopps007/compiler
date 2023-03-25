@@ -62,7 +62,7 @@ def parse(tokens, rule, kleene_dict=None):
     similar_rules = []
     for r in rules:
         if r[0] == rule[0]:
-            print('r:', r,"\nrule:", rule)
+            print('\tr:', r,"\n\trule:", rule)
             similarity = calculate_similarity(r, rule)
             similar_rules.append((r, similarity))
     if similar_rules:
