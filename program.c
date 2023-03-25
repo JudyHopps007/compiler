@@ -1,6 +1,13 @@
 #include <stdio.h>
 
-int num (int num, int mun){
+int num (){
 
 }
 
+int num (){
+
+}
+
+int num (){
+
+}
