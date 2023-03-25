@@ -131,7 +131,6 @@ def parse(tokens, rule, kleene_dict=None):
     return node
 
 
-
 # Define a function that runs the syntax analyzer on the token stream
 def syntax_analyze(tokens):
     tree = parse(tokens, rules[0])
