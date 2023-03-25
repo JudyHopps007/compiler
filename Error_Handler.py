@@ -50,10 +50,15 @@ rules = [
 # ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<compound_statement>']),
 
 # Define a function that recursively generates a parse tree from the token stream using the production rules
-def calculate_similarity(rule1, rule2):
-    # Calculate similarity between two production rules by counting the number of common non-terminals in their productions
-    common_non_terminals = set(rule1[1]).intersection(set(rule2[1]))
-    return len(common_non_terminals)
+from difflib import SequenceMatcher
+
+def calculate_similarity(rule, production):
+    """
+    Calculates the similarity score between a rule and a production
+    using the SequenceMatcher class from the difflib module.
+    """
+    return SequenceMatcher(None, rule, production).ratio()
+
 
 
 def parse(tokens, rule, kleene_dict=None):
