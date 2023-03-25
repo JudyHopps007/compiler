@@ -23,7 +23,7 @@ rules = [
 
     ('<function_declaration>', ['<type_specifier>', '<identifier>', '<parameter_list>',  '<compound_statement>']),
 
-    ('<parameter_list>', ['LEFT_PAREN', '<type_specifier>', '<identifier>',  'RIGHT_PAREN']),
+    ('<parameter_list>', ['LEFT_PAREN', '<type_specifier>', '<identifier>', '<more_parameters>', 'RIGHT_PAREN']),
     ('<more_parameters>', ['COMMA', '<type_specifier>', '<identifier>', '<more_parameters>']),
     ('<more_parameters>', []),
 
