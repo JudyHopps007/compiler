@@ -69,7 +69,9 @@ def parse(tokens, rule):
             # If the production is a terminal, consume a token from the token stream and match it against the production
             if not tokens:
                 raise ValueError("Unexpected end of input")
+
             token = tokens.pop(0)
+            print('============',token)
             if token[0] != production:
                 raise ValueError(f"Expected token type {production}, got {token[0]}: {token[1]}")
             node.add_child(ParseTreeNode(token))
