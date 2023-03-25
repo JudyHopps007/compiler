@@ -1,3 +1,8 @@
+import lexical_Analyzer
+
+tokens = lexical_Analyzer.lex('program.c')
+
+# Define a class to represent a node in the parse tree
 class ParseTreeNode:
     def __init__(self, value, children=None):
         self.value = value
@@ -7,59 +12,85 @@ class ParseTreeNode:
         self.children.append(child)
 
 
-def find_matching_subrule(rules, production):
-    subrules = [r for r in rules if r[0] == production]
-    if not subrules:
-        raise ValueError(f"No matching subrule found for production rule: {production}")
-    for subrule in subrules:
-        try:
-            parse([], subrule)
-            return subrule
-        except ValueError:
-            pass
-    raise ValueError(f"No matching subrule found for production rule: {production}")
-
-
-def parse(tokens, rule, rules):
-    if not tokens:
-        raise ValueError("Unexpected end of input")
-    if not rule:
-        raise ValueError("Invalid rule")
-    node = ParseTreeNode(rule[0])
-    for production in rule[1]:
-        if production.startswith('<'):
-            # If the production is a non-terminal, recursively generate a subtree using the corresponding rule
-            subrule = find_matching_subrule(rules, production)
-            child = parse(tokens, subrule, rules)
-            node.add_child(child)
-        else:
-            # If the production is a terminal, consume a token from the token stream and match it against the production
-            if not tokens:
-                raise ValueError("Unexpected end of input")
-            token = tokens.pop(0)
-            if token[0] != production:
-                raise ValueError(f"Expected token type {production}, got {token[0]}: {token[1]}")
-            node.add_child(ParseTreeNode(token))
-    return node
-
-
+# Define the production rules for the language
+# This is a simplified set of rules for illustration purposes only
 rules = [
     ('<program>', ['<include-list>',  '<declaration>']),
     ('<include-list>', ['INCLUDE_DIRECTIVE']),
 
-    ('<declaration>', ['<function_declaration>', "<declaration>"]),
+    ('<declaration>', ['<function_declaration>']),
     ('<declaration>', []),
 
-    ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN' '<compound_statement>']),
+    #('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<compound_statement>']),
+    ('<function_declaration>', ['<type_specifier>', '<identifier>',  '<parameter_list>', '<compound_statement>']),
 
     ('<type_specifier>', ['KEYWORD']),
     ('<identifier>', ['IDENTIFIER']),
     ('<identifier>', ['main_f']),
+
     ('<comma>', ['COMMA']),
     ('<compound_statement>', ['LEFT_BRACE', 'RIGHT_BRACE']),
-]
-import lexical_Analyzer
 
-tokens = lexical_Analyzer.lex('program.c')
-p = ('<program>', ['<include-list>',  '<declaration>'])
-parse(tokens, p, rules)
+    #('<parameter_list>', ['LEFT_PAREN', 'RIGHT_PAREN']),
+    ('<parameter_list>', ['LEFT_PAREN', '<type_specifier>', '<identifier>', '<parameter>']),
+    ('<parameter>', ['COMMA', '<type_specifier>', '<identifier>', '<parameter>']),
+    ('<parameter>', []),
+
+]
+
+
+
+
+
+
+# ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<compound_statement>']),
+
+# Define a function that recursively generates a parse tree from the token stream using the production rules
+def parse(tokens, rule):
+    node = ParseTreeNode(rule[0])
+    for production in rule[1]:
+        if production.startswith('<'):
+            # If the production is a non-terminal, recursively generate a subtree using the corresponding rule
+            subrules = [r for r in rules if r[0] == production]
+            if not subrules:
+                raise ValueError("Invalid production rule: " + production)
+            match_found = False
+            for subrule in subrules:
+                try:
+                    child = parse(tokens, subrule)
+                    node.add_child(child)
+                    match_found = True
+                    break
+                except ValueError as e:
+                    pass
+
+            if not match_found:
+                raise ValueError("No matching subrule found for production rule: ", production)
+
+        else:
+            # If the production is a terminal, consume a token from the token stream and match it against the production
+            if not tokens:
+                raise ValueError("Unexpected end of input")
+
+            token = tokens.pop(0)
+            if token[0] != production:
+                raise ValueError(f"Expected token type {production}, got {token[0]}: {token[1]}")
+            node.add_child(ParseTreeNode(token))
+
+    # Ensure that there are no tokens remaining in the token stream
+    if tokens:
+        raise ValueError("Unexpected tokens at end of input")
+
+    return node
+
+# Define a function that runs the syntax analyzer on the token stream
+def syntax_analyze(tokens):
+    tree = parse(tokens, rules[0])
+    if tokens:
+        raise ValueError("Unexpected tokens at end of input")
+    return tree
+
+
+print('\nTOKENS\n\t', tokens)
+tree = syntax_analyze(tokens)
+print("tree", tree.value)
