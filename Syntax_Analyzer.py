@@ -31,7 +31,7 @@ rules = [
     ('<comma>', ['COMMA']),
     ('<compound_statement>', ['LEFT_BRACE', 'RIGHT_BRACE']),
 
-    ('<parameter_list>', ['LEFT_PAREN', 'RIGHT_PAREN']),
+    #('<parameter_list>', ['LEFT_PAREN', 'RIGHT_PAREN']),
     ('<parameter_list>', ['LEFT_PAREN', '<type_specifier>', '<identifier>', '<parameter>']),
     ('<parameter>', ['COMMA', '<type_specifier>', '<identifier>', '<parameter>']),
     ('<parameter>', []),
