@@ -18,7 +18,7 @@ rules = [
     ('<program>', ['<include-list>',  '<declaration>']),
     ('<include-list>', ['INCLUDE_DIRECTIVE']),
 
-    ('<declaration>', ['<function_declaration_closure>']),
+    ('<declaration>', [('<function_declaration>*')]),
     ('<declaration>', []),
 
     ('<function_declaration>', ['<type_specifier>', '<identifier>', '<parameter_list>',  '<compound_statement>']),
@@ -58,15 +58,16 @@ def parse(tokens, rule):
             match_found = False
             for subrule in subrules:
                 try:
-                    if production.endswith('_closure'):  # check if it's a Kleene closure production
+                    # Handle Kleene closure symbol
+                    if subrule[0] == production and subrule[1] == [production + '*']:
                         while True:
                             try:
-                                child = parse(tokens, subrule)
+                                child = parse(tokens, [production] + subrule[1][:-1])
                                 node.add_child(child)
+                                match_found = True
+                                print('\t \t Match',subrule )
                             except ValueError:
                                 break
-                        match_found = True
-                        break
                     else:
                         child = parse(tokens, subrule)
                         node.add_child(child)
@@ -77,7 +78,7 @@ def parse(tokens, rule):
                     print('r', e)
 
             if not match_found:
-                raise ValueError("No matching subrule found for production rule: ", production)
+                    raise ValueError("No matching subrule found for production rule: ", production)
 
         else:
             # If the production is a terminal, consume a token from the token stream and match it against the production
