@@ -32,6 +32,9 @@ patterns = [
     (r'\}', 'RIGHT_BRACE'),
     (r';', 'SEMICOLON'),
     (r',', 'COMMA'),
+    (r'\b(main)\b,', 'main_f'),
+
+
 ]
 
 
