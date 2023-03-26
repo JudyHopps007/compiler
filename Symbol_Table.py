@@ -38,7 +38,7 @@ print(len(rules[1]))
 
 
 def parse(tokens, rule):
-    for production in rule[0]:
+    for production in rule[1]:
         if production.startswith('<'):
             print('=== ', production)
 
