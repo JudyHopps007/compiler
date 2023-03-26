@@ -3,6 +3,6 @@
 int num (int num){
 
 }
-int num (int num){
 
-}
+
+#include <stdio.h>
