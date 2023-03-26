@@ -3,4 +3,6 @@
 int num (int num){
 
 }
-int main () { }
+int num (int num){
+
+}
