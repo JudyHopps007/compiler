@@ -8,7 +8,7 @@ rules = [
     ('<program>', ['<include_list>',  '<declaration>']),
     ('<include_list>', ['INCLUDE_DIRECTIVE']),
 
-    ('<declaration>', ['<function_declaration>', '<include_list>']),
+    ('<declaration>', ['<function_declaration>', '<declaration>']),
     ('<declaration>', []),
 
 
