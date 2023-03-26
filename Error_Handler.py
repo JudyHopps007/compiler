@@ -16,17 +16,13 @@ class ParseTreeNode:
 # This is a simplified set of rules for illustration purposes only
 rules = [
     ('<program>', ['<include-list>',  '<declaration>']),
-
     ('<include-list>', ['INCLUDE_DIRECTIVE']),
-
 
     ('<declaration>', ['<function_declaration>*']),
     ('<declaration>', []),
 
 
     ('<function_declaration>', ['<type_specifier>', '<identifier>', '<parameter_list>',  '<compound_statement>']),
-
-    ('<function_declaration>', ['<type_specifier>', '<identifier>']),
 
     ('<parameter_list>', ['LEFT_PAREN', '<type_specifier>', '<identifier>', 'RIGHT_PAREN']),
     ('<more_parameters>', ['COMMA', '<type_specifier>', '<identifier>', '<more_parameters>']),
@@ -42,25 +38,7 @@ rules = [
 
 ]
 
-
-
-
-
-
-# ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<compound_statement>']),
-
 # Define a function that recursively generates a parse tree from the token stream using the production rules
-from difflib import SequenceMatcher
-
-def calculate_similarity(rule, production):
-    """
-    Calculates the similarity score between a rule and a production
-    using the SequenceMatcher class from the difflib module.
-    """
-    return SequenceMatcher(None, rule, production).ratio()
-
-
-
 def parse(tokens, rule, kleene_dict=None):
     node = ParseTreeNode(rule[0])
     print(rule[0])
@@ -85,12 +63,6 @@ def parse(tokens, rule, kleene_dict=None):
             subrules = [r for r in rules if r[0] == production]
             if not subrules:
                 raise ValueError("Invalid production rule: " + production)
-
-            # Sort subrules based on similarity score
-            token = tokens[0] if tokens else None
-            if token:
-                subrules = sorted(subrules, key=lambda r: calculate_similarity(r[0], token[0]))
-
             match_found = False
             for subrule in subrules:
                 try:
@@ -128,18 +100,6 @@ def parse(tokens, rule, kleene_dict=None):
                 break  # Added check for end of input
 
     return node
-
-
-
-def similarity_score(rule1, rule2):
-    """
-    Compute a similarity score between two production rules based on how many common non-terminals they share.
-    """
-    non_terminals1 = set([p for p in rule1[1] if p.startswith('<')])
-    non_terminals2 = set([p for p in rule2[1] if p.startswith('<')])
-    common_non_terminals = non_terminals1.intersection(non_terminals2)
-    return len(common_non_terminals)
-
 
 
 # Define a function that runs the syntax analyzer on the token stream
