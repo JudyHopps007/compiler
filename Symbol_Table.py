@@ -36,4 +36,5 @@ print(rules[0])
 print(len(rules[1]))
 
 for production in rules[1]:
-    print(production)
+    if production.endswith('<'):
+        print(production)
