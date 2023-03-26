@@ -24,7 +24,6 @@ rules = [
 
     ('<function_declaration>', ['<type_specifier>', '<identifier>', '<parameter_list>',  '<compound_statement>']),
 
-
     ('<parameter_list>', ['LEFT_PAREN', '<type_specifier>', '<identifier>', 'RIGHT_PAREN']),
     ('<more_parameters>', ['COMMA', '<type_specifier>', '<identifier>', '<more_parameters>']),
     ('<more_parameters>', []),
@@ -38,13 +37,6 @@ rules = [
 
 
 ]
-
-
-
-
-
-
-# ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<compound_statement>']),
 
 # Define a function that recursively generates a parse tree from the token stream using the production rules
 def parse(tokens, rule, kleene_dict=None):
