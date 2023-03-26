@@ -32,27 +32,34 @@ rules = [
 
 
 def syntax_analyzer(tokens, rules):
-    stack = ['<program>']
-    i = 0
+    stack = ['<program>'] # initial stack with the starting symbol
+    i = 0 # index of the current token
+
     while stack:
-        top = stack.pop()
-        if top.startswith('<'):
-            # Non-terminal symbol
-            rule = None
-            for r in rules:
-                if r[0] == top:
-                    rule = r
+        symbol = stack.pop() # get the next symbol from the stack
+
+        if symbol.startswith('<'):
+            # symbol is a non-terminal, look up its production rule
+            for rule_lhs, rule_rhs in rules:
+                if rule_lhs == symbol:
+                    stack += reversed(rule_rhs) # push rhs symbols in reverse order to the stack
                     break
-            if rule is None:
-                raise ValueError(f"No rule found for non-terminal symbol {top}")
-            for symbol in reversed(rule[1]):
-                stack.append(symbol)
-        elif top == tokens[i][0]:
-            # Terminal symbol matches token
-            i += 1
         else:
-            raise ValueError(f"Unexpected token {tokens[i]} for expected symbol {top}")
-    if i != len(tokens):
-        raise ValueError(f"Unexpected token {tokens[i]} at end of input")
+            # symbol is a terminal, compare it with the current token
+            token_type, token_value = tokens[i]
+
+            if symbol == token_type:
+                i += 1 # advance to the next token
+            else:
+                print(f"Syntax error: expected {symbol}, but found {token_type} '{token_value}'")
+                return False
+
+    if i < len(tokens):
+        print(f"Syntax error: unexpected token {tokens[i][0]} '{tokens[i][1]}'")
+        return False
+    else:
+        print("Syntax analysis successful!")
+        return True
+
 
 syntax_analyzer(tokens, rules)
