@@ -8,7 +8,7 @@ rules = [
     ('<program>', ['<include_list>',  '<declaration>']),
     ('<include_list>', ['INCLUDE_DIRECTIVE']),
 
-    ('<declaration>', ['<function_declaration>*', '<include_list>']),
+    ('<declaration>', ['<function_declaration>', '<include_list>']),
     ('<declaration>', []),
 
 
@@ -32,34 +32,27 @@ rules = [
 
 
 def syntax_analyzer(tokens, rules):
-    stack = ['$']
-    input_list = [token[0] for token in tokens] + ['$']
-    input_index = 0
-    current_production = ('<program>', [])
-
-    while True:
-        top_of_stack = stack[-1]
-        if top_of_stack in ('$', '<declaration>', '<function_declaration>', '<parameter_list>', '<more_parameters>', '<type_specifier>', '<identifier>', '<comma>', '<compound_statement>'):
-            stack.pop()
-            current_production[1].append(top_of_stack)
-            for rule in rules:
-                if rule[0] == top_of_stack and current_production[1] == rule[1]:
-                    current_production = rule
+    stack = ['<program>']
+    i = 0
+    while stack:
+        top = stack.pop()
+        if top.startswith('<'):
+            # Non-terminal symbol
+            rule = None
+            for r in rules:
+                if r[0] == top:
+                    rule = r
                     break
-        elif top_of_stack == input_list[input_index]:
-            stack.pop()
-            input_index += 1
-        else:
-            # There is a syntax error
-            return False
-
-        if current_production[1] == []:
-            if current_production[0] == '<program>':
-                # The input is syntactically correct
-                return True
-            else:
-                stack.append(current_production[0])
-                current_production = ('', [])
-        else:
-            for symbol in reversed(current_production[1]):
+            if rule is None:
+                raise ValueError(f"No rule found for non-terminal symbol {top}")
+            for symbol in reversed(rule[1]):
                 stack.append(symbol)
+        elif top == tokens[i][0]:
+            # Terminal symbol matches token
+            i += 1
+        else:
+            raise ValueError(f"Unexpected token {tokens[i]} for expected symbol {top}")
+    if i != len(tokens):
+        raise ValueError(f"Unexpected token {tokens[i]} at end of input")
+
+syntax_analyzer(tokens, rules)
