@@ -93,7 +93,7 @@ def parse(tokens, rule, kleene_dict=None):
                 if longest_match:
                     node.add_child(longest_match)
                     tokens = tokens[len(longest_match.flatten()):]
-                    print('\t \t Match', longest_match.rule)
+                    #print('\t \t Match', longest_match.rules)
                 else:
                     raise ValueError("No matching subrule found for production rule: ", production)
             else:
