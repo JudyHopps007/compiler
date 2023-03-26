@@ -23,7 +23,6 @@ rules = [
 
 
     ('<function_declaration>', ['<type_specifier>', '<identifier>', '<parameter_list>',  '<compound_statement>']),
-    ('<function_declaration>', ['<type_specifier>', '<identifier>', '<parameter_list>']),
 
     ('<parameter_list>', ['LEFT_PAREN', '<type_specifier>', '<identifier>', 'RIGHT_PAREN']),
     ('<more_parameters>', ['COMMA', '<type_specifier>', '<identifier>', '<more_parameters>']),
@@ -40,7 +39,7 @@ rules = [
 ]
 
 # Define a function that recursively generates a parse tree from the token stream using the production rules
-def parse(tokens, rule, kleene_dict=None, priority_dict=None):
+def parse(tokens, rule, kleene_dict=None):
     node = ParseTreeNode(rule[0])
     print(rule[0])
     for production in rule[1]:
@@ -52,7 +51,7 @@ def parse(tokens, rule, kleene_dict=None, priority_dict=None):
                 raise ValueError("Invalid production rule: " + non_terminal)
             while True:
                 try:
-                    child = parse(tokens, subrules[0], kleene_dict, priority_dict)
+                    child = parse(tokens, subrules[0], kleene_dict)
                     node.add_child(child)
                     print('\t \t Match', subrules[0])
                 except ValueError:
@@ -65,30 +64,15 @@ def parse(tokens, rule, kleene_dict=None, priority_dict=None):
             if not subrules:
                 raise ValueError("Invalid production rule: " + production)
             match_found = False
-            if priority_dict and production in priority_dict:
-                priority_list = priority_dict[production]
-                for priority_rule in priority_list:
-                    subrule = [r for r in subrules if r == priority_rule]
-                    if not subrule:
-                        continue
-                    try:
-                        child = parse(tokens, subrule[0], kleene_dict, priority_dict)
-                        node.add_child(child)
-                        match_found = True
-                        print('\t \t Match', subrule[0])
-                        break
-                    except ValueError as e:
-                        print('r', e)
-            else:
-                for subrule in subrules:
-                    try:
-                        child = parse(tokens, subrule, kleene_dict, priority_dict)
-                        node.add_child(child)
-                        match_found = True
-                        print('\t \t Match', subrule)
-                        break
-                    except ValueError as e:
-                        print('r', e)
+            for subrule in subrules:
+                try:
+                    child = parse(tokens, subrule, kleene_dict)
+                    node.add_child(child)
+                    match_found = True
+                    print('\t \t Match', subrule)
+                    break
+                except ValueError as e:
+                    print('r', e)
 
             if not match_found:
                 raise ValueError("No matching subrule found for production rule: ", production)
@@ -107,7 +91,7 @@ def parse(tokens, rule, kleene_dict=None, priority_dict=None):
     if kleene_dict and rule[0] in kleene_dict:
         while True:
             try:
-                child = parse(tokens, rule, kleene_dict=None, priority_dict=None)
+                child = parse(tokens, rule, kleene_dict=None)
                 node.add_child(child)
                 print('\t \t Kleene closure')
             except ValueError:
@@ -116,6 +100,7 @@ def parse(tokens, rule, kleene_dict=None, priority_dict=None):
                 break  # Added check for end of input
 
     return node
+
 
 # Define a function that runs the syntax analyzer on the token stream
 def syntax_analyze(tokens):
