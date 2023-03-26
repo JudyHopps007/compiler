@@ -38,12 +38,10 @@ print(len(rules[1]))
 
 
 def parse(tokens, rule):
-    print(rule[0])
-    for production in rule[1]:
-        if production.endswith('*'):
-            pass
-        elif production.startswith('<'):
-           pass
+    for production in rule[0]:
+        if production.startswith('<'):
+            print('=== ', production)
+
         else:
             pass
 
