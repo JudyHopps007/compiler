@@ -11,6 +11,12 @@ class ParseTreeNode:
     def add_child(self, child):
         self.children.append(child)
 
+    def flatten(self):
+        result = [self]
+        for child in self.children:
+            result += child.flatten()
+        return result
+
 
 # Define the production rules for the language
 # This is a simplified set of rules for illustration purposes only
