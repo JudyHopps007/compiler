@@ -72,19 +72,30 @@ def parse(tokens, rule, kleene_dict=None):
             subrules = [r for r in rules if r[0] == production]
             if not subrules:
                 raise ValueError("Invalid production rule: " + production)
-            match_found = False
-            for subrule in subrules:
-                try:
-                    child = parse(tokens, subrule, kleene_dict)
-                    node.add_child(child)
-                    match_found = True
-                    print('\t \t Match', subrule)
-                    break
-                except ValueError as e:
-                    print('r', e)
 
-            if not match_found:
-                raise ValueError("No matching subrule found for production rule: ", production)
+            if len(subrules) > 1:
+                # If there are multiple subrules, find the one with the longest match
+                longest_match = None
+                for subrule in subrules:
+                    try:
+                        child = parse(tokens[:], subrule, kleene_dict)
+                        if not longest_match or len(child.flatten()) > len(longest_match.flatten()):
+                            longest_match = child
+                    except ValueError:
+                        pass
+
+                if longest_match:
+                    node.add_child(longest_match)
+                    tokens = tokens[len(longest_match.flatten()):]
+                    print('\t \t Match', longest_match.rule)
+                else:
+                    raise ValueError("No matching subrule found for production rule: ", production)
+            else:
+                # If there is only one subrule, recursively generate a subtree using it
+                subrule = subrules[0]
+                child = parse(tokens, subrule, kleene_dict)
+                node.add_child(child)
+                print('\t \t Match', subrule)
         else:
             # If the production is a terminal, consume a token from the token stream and match it against the production
             if not tokens:
@@ -109,6 +120,7 @@ def parse(tokens, rule, kleene_dict=None):
                 break  # Added check for end of input
 
     return node
+
 
 
 # Define a function that runs the syntax analyzer on the token stream
