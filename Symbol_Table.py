@@ -33,7 +33,7 @@ rules = [
 def praser(tokens, rules):
     pass
 print(rules[0])
-print(len(rules))
+print(len(rules[1]))
 
-for production in rules[0]:
+for production in rules[1]:
     print(production)
