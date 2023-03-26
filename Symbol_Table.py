@@ -35,7 +35,16 @@ def praser(tokens, rules):
 print(rules[0])
 print(len(rules[1]))
 
-for production in rules[0][1]:
-    if production.endswith('<'):
-        print(1)
-        print(production)
+
+
+def parse(tokens, rule):
+    print(rule[0])
+    for production in rule[1]:
+        if production.endswith('*'):
+            pass
+        elif production.startswith('<'):
+           pass
+        else:
+            pass
+
+parse(tokens, rules)
