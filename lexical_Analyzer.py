@@ -141,7 +141,7 @@ def generate_symbol_table(tokens):
                 'SCOPE': 'dguest_room_type'
             }
             symbol_table.append(dictionary)
-            with open('test.json', 'w') as json_file_write:
+            with open('symbol_table.json', 'w') as json_file_write:
                 json.dump(data,json_file_write, indent=4)
 
     return directives_table
