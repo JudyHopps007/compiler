@@ -18,9 +18,9 @@ with open('test.json', 'w') as json_file_write:
 """
 
 
-temp =  data['Symbol_table'][1]['IDENTIFIER'] == '21'
+temp =  data['Symbol_table']
 
 print(temp)
 
-
+print(len(temp))
 
