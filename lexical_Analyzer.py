@@ -124,8 +124,9 @@ def generate_symbol_table(tokens):
                 if data['Symbol_table'][k]['IDENTIFIER'] == token_value:
                     print('found')
                     if data['Symbol_table'][k]['DATA_TYPE'] == None:
-                        data_type = tokens[i - 1][1]
-                        print('data type: ', data_type)
+                        if tokens[i - 1][0] == 'KEYWORD':
+                            data_type = tokens[i - 1][1]
+                            print('data type: ', data_type)
 
                     if tokens[i+1][1] != '(':
                         if tokens[i+1][1] != ',':
