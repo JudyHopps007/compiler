@@ -1,1 +1,1 @@
-{"a": [{"datatype": "", "value": "", "scope": ""}], "new_key": "new_value"}
+{"a": [{"datatype": "", "value": "", "scope": ""}, {"datatype": "example", "value": "123", "scope": "test"}]}
