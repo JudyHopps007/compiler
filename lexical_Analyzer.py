@@ -124,17 +124,16 @@ def generate_symbol_table(tokens):
                 if data['Symbol_table'][k]['IDENTIFIER'] == token_value:
                     print('found')
                     if data['Symbol_table'][k]['DATA_TYPE'] == None:
-                        print('data type null',  tokens[i-1][1])
-                        data_type = tokens[i-1][1]
+                        data_type = tokens[i - 1][1]
+                        print('data type: ', data_type)
+
                     if tokens[i+1][1] != '(':
                         if tokens[i+1][1] != ',':
                               if data['Symbol_table'][k]['VALUE'] == None:
                                   p = 0
                                   value = ''
-                                  while tokens[i+2+ p][1] != ';':
+                                  while tokens[i+2 + p][1] != ';':
                                     value += tokens[i+2+ p][1]
-                                    print('value type null',  tokens[i+2][1])
-                                    print('next sym', tokens[i + 1][1])
                                     print('value: ', value)
                                     p += 1
 
