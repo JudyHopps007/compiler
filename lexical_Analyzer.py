@@ -89,7 +89,6 @@ with open("test.json", 'w') as f:
 
 with open('test.json') as json_file:
     data = json.load(json_file)
-
 symbol_table = data['Symbol_table']
 def generate_symbol_table(tokens):
 
@@ -102,19 +101,19 @@ def generate_symbol_table(tokens):
         if token_type == 'IDENTIFIER':
             data_type = None
             value = None
-            if any(d.get('IDENTIFIER') == token_value for d in data['Symbol_table']):
+            if any(d.get('IDENTIFIER') == token_value for d in symbol_table):
                 print("found ", token_value)
                 for k in range(len(symbol_table)):
-                    if data['Symbol_table'][k]['IDENTIFIER'] == token_value:
+                    if symbol_table[k]['IDENTIFIER'] == token_value:
                         #print('found')
-                        if data['Symbol_table'][k]['DATA_TYPE'] == None:
+                        if symbol_table[k]['DATA_TYPE'] == None:
                             if tokens[i - 1][0] == 'KEYWORD':
                                 data_type = tokens[i - 1][1]
 
                         if tokens[i+1][1] != '(':
                             if tokens[i+1][1] != ',':
                                 if tokens[i + 1][1] == '=':
-                                  if data['Symbol_table'][k]['VALUE'] == None:
+                                  if symbol_table[k]['VALUE'] == None:
                                       p = 0
                                       value = ''
                                       while tokens[i+2 + p][1] != ';':
