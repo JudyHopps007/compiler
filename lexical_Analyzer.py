@@ -126,9 +126,10 @@ def generate_symbol_table(tokens):
                     if data['Symbol_table'][k]['DATA_TYPE'] == None:
                         print('data type null',  tokens[i-1][1])
                         data_type = tokens[i-1][1]
-                    if data['Symbol_table'][k]['VALUE'] == None:
-                        print('value type null',  tokens[i+1][1])
-                        data_type = tokens[i-1][1]
+                    if tokens[i+1][1] != '(':
+                        if data['Symbol_table'][k]['VALUE'] == None:
+                            print('value type null',  tokens[i+2][1])
+                            data_type = tokens[i-1][1]
                     break
 
     return directives_table
