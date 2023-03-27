@@ -96,17 +96,15 @@ def generate_symbol_table(tokens):
     directives_table = []
     for i in range(len(tokens)):
         token_type, token_value = tokens[i]
-        #print('=============', token_type, token_value)
         if token_type == 'INCLUDE_DIRECTIVE':
             directives_table.append(token_value)
         if token_type == 'IDENTIFIER':
             data_type = None
             value = None
             if any(d.get('IDENTIFIER') == token_value for d in symbol_table):
-                print("found ", token_value)
+                #print("found ", token_value)
                 for k in range(len(symbol_table)):
                     if symbol_table[k]['IDENTIFIER'] == token_value:
-                        #print('found')
                         if symbol_table[k]['DATA_TYPE'] == None:
                             if tokens[i - 1][0] == 'KEYWORD':
                                 data_type = tokens[i - 1][1]
@@ -133,7 +131,6 @@ def generate_symbol_table(tokens):
                                 value = ''
                                 while tokens[i + 2 + p][1] != ';':
                                     value += tokens[i + 2 + p][1]
-
                                     p += 1
             dictionary = {
                 'IDENTIFIER': token_value,
@@ -143,9 +140,7 @@ def generate_symbol_table(tokens):
             }
             symbol_table.append(dictionary)
             with open('symbol_table.json', 'w') as json_file_write:
-                json.dump(data,json_file_write, indent=4)
-
-    return directives_table
+                json.dump(data, json_file_write, indent=4)
 
 
 table = generate_symbol_table(tokens)
