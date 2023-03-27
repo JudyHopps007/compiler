@@ -120,10 +120,10 @@ def generate_symbol_table(tokens):
         if token_type == 'INCLUDE_DIRECTIVE':
             directives_table.append(token_value)
         if token_type == 'IDENTIFIER':
-            for i in range(len(symbol_table)):
-                if data['Symbol_table'][i]['IDENTIFIER'] == token_value:
+            for k in range(len(symbol_table)):
+                if data['Symbol_table'][k]['IDENTIFIER'] == token_value:
                     print('found')
-                    if data['Symbol_table'][i]['DATA_TYPE'] == None:
+                    if data['Symbol_table'][k]['DATA_TYPE'] == None:
                         print('data type null',  tokens[i+1])
                         data_type = tokens[i+1]
                     break
