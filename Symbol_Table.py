@@ -13,5 +13,5 @@ with open('test.json') as json_file:
 
 temp = data['Guests']
 temp.append(dictionary)
-with open('test.json.json', 'w') as json_file_write:
+with open('test.json', 'w') as json_file_write:
    json.dump(data,json_file_write, indent=4)

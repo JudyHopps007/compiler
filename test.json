@@ -1,8 +1,15 @@
-{"a": [
-  { "datatype": "",
-     "value": "",
-     "scope": ""
-  }]
-
-  }
-
+{
+    "Guests": [
+        {
+            "datatype": "",
+            "value": "",
+            "scope": ""
+        },
+        {
+            "Guest_name": "guest_name",
+            "Guest_Phone": "guest_phone_number",
+            "Guest_Email": "guest_email",
+            "Guest_room": "dguest_room_type"
+        }
+    ]
+}
