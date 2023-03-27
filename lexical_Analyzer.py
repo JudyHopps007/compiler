@@ -119,8 +119,7 @@ def generate_symbol_table(tokens):
         if token_type == 'INCLUDE_DIRECTIVE':
             directives_table.append(token_value)
         if token_type == 'IDENTIFIER':
-            if token_value in symbol_table:
-                pass
+
 
     return directives_table
 
