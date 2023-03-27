@@ -10,6 +10,12 @@
             "Guest_Phone": "guest_phone_number",
             "Guest_Email": "guest_email",
             "Guest_room": "dguest_room_type"
+        },
+        {
+            "Guest_name": "guest_name",
+            "Guest_Phone": "guest_phone_number",
+            "Guest_Email": "guest_email",
+            "Guest_room": "dguest_room_type"
         }
     ]
 }
