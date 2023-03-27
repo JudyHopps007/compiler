@@ -2,10 +2,10 @@
 import json
 # Data to be written
 dictionary ={
-    'Guest_name' : 'guest_name',
-    'Guest_Phone' : 'guest_phone_number',
-    'Guest_Email' : 'guest_email',
-    'Guest_room' : 'dguest_room_type'
+    'IDENTIFIER' : 'guest_name',
+    'DATA_TYPE' : 'guest_phone_number',
+    'VALUE' : 'guest_email',
+    'SCOPE' : 'dguest_room_type'
 }
 
 with open('test.json') as json_file:
