@@ -142,7 +142,5 @@ def generate_symbol_table(tokens):
             with open('symbol_table.json', 'w') as json_file_write:
                 json.dump(data, json_file_write, indent=4)
 
+generate_symbol_table(tokens)
 
-table = generate_symbol_table(tokens)
-
-print(table)
