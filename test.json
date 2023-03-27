@@ -8,21 +8,21 @@
         },
         {
             "IDENTIFIER": "c",
-            "DATA_TYPE": "22",
-            "VALUE": "23",
-            "SCOPE": "24"
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": null
         },
         {
             "IDENTIFIER": null,
-            "DATA_TYPE": "guest_phone_number",
-            "VALUE": "guest_email",
-            "SCOPE": "dguest_room_type"
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": null
         },
         {
             "IDENTIFIER": null,
-            "DATA_TYPE": "guest_phone_number",
-            "VALUE": "guest_email",
-            "SCOPE": "dguest_room_type"
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": null
         }
     ]
 }
