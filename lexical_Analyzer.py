@@ -116,33 +116,54 @@ def generate_symbol_table(tokens):
     directives_table = []
     for i in range(len(tokens)):
         token_type, token_value = tokens[i]
-        print('=============', token_type, token_value)
+        #print('=============', token_type, token_value)
         if token_type == 'INCLUDE_DIRECTIVE':
             directives_table.append(token_value)
         if token_type == 'IDENTIFIER':
-            for k in range(len(symbol_table)):
-                if data['Symbol_table'][k]['IDENTIFIER'] == token_value:
-                    print('found')
-                    if data['Symbol_table'][k]['DATA_TYPE'] == None:
-                        if tokens[i - 1][0] == 'KEYWORD':
-                            data_type = tokens[i - 1][1]
-                            print('data type: ', data_type)
+            data_type = None
+            value = None
+            if any(d.get('IDENTIFIER') == token_value for d in data['Symbol_table']):
+                print("found ", token_value)
+                for k in range(len(symbol_table)):
+                    if data['Symbol_table'][k]['IDENTIFIER'] == token_value:
+                        #print('found')
+                        if data['Symbol_table'][k]['DATA_TYPE'] == None:
+                            if tokens[i - 1][0] == 'KEYWORD':
+                                data_type = tokens[i - 1][1]
 
-                    if tokens[i+1][1] != '(':
-                        if tokens[i+1][1] != ',':
+                        if tokens[i+1][1] != '(':
+                            if tokens[i+1][1] != ',':
+                                if tokens[i + 1][1] == '=':
+                                  if data['Symbol_table'][k]['VALUE'] == None:
+                                      p = 0
+                                      value = ''
+                                      while tokens[i+2 + p][1] != ';':
+                                        value += tokens[i+2+ p][1]
+                                        p += 1
+                        else:
+                            value = None
+
+            else:
+                    if tokens[i - 1][0] == 'KEYWORD':
+                        data_type = tokens[i - 1][1]
+                    if tokens[i + 1][1] != '(':
+                        if tokens[i + 1][1] != ',':
                             if tokens[i + 1][1] == '=':
-                              if data['Symbol_table'][k]['VALUE'] == None:
-                                  p = 0
-                                  value = ''
-                                  while tokens[i+2 + p][1] != ';':
-                                    value += tokens[i+2+ p][1]
-                                    print('value: ', value)
+                                p = 0
+                                value = ''
+                                while tokens[i + 2 + p][1] != ';':
+                                    value += tokens[i + 2 + p][1]
+
                                     p += 1
-                    else:
-                        value = None
-                        break
-
-
+            dictionary = {
+                'IDENTIFIER': token_value,
+                'DATA_TYPE': data_type,
+                'VALUE': value,
+                'SCOPE': 'dguest_room_type'
+            }
+            symbol_table.append(dictionary)
+            with open('test.json', 'w') as json_file_write:
+                json.dump(data,json_file_write, indent=4)
 
     return directives_table
 

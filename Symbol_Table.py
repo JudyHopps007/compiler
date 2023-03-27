@@ -1,4 +1,4 @@
-
+"""
 import json
 # Data to be written
 dictionary ={
@@ -24,4 +24,15 @@ print(temp)
 for i in range(len(temp)):
     print(data['Symbol_table'][i]['IDENTIFIER'])
     data['Symbol_table'][i]['IDENTIFIER'] = '34'
+"""
+import json
 
+# Load the JSON data from a file
+with open('test.json') as json_file:
+    data = json.load(json_file)
+
+# Check if the value 'addition' exists in the 'IDENTIFIER' field of any of the dictionaries in the 'Symbol_table' list
+if any(d.get('IDENTIFIER') == 'addition' for d in data['Symbol_table']):
+    print('Value found!')
+else:
+    print('Value not found.')
