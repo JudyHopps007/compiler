@@ -1,6 +1,6 @@
 import re  # generate regular expression
 import time  # measure the run time
-
+import json
 # ===================================================================== LEXICAL ANALYZER PHASE ==============================================================================================
 # ===========================================================================================================================================================================================
 
@@ -103,9 +103,13 @@ symbol_table = generate_symbol_table(tokens)
 
 # print("\nSYMBOL_TABLE \n\t", symbol_table)
 # =======================================================================================================================
-import json
+
+
+with open('test.json') as json_file:
+    data = json.load(json_file)
+temp = data['Symbol_table']
 def generate_symbol_table(tokens):
-    symbol_table = {}
+
     current_scope = []
     current_type = None
     directives_table = []
