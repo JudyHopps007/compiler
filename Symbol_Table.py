@@ -23,5 +23,5 @@ temp =  data['Symbol_table']
 print(temp)
 for i in range(len(temp)):
     print(data['Symbol_table'][i]['IDENTIFIER'])
-
+    data['Symbol_table'][i]['IDENTIFIER'] = '34'
 
