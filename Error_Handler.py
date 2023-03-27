@@ -30,7 +30,6 @@ rules = [
 
 ]
 
-
 def syntax_analyzer(tokens, rules):
     stack = ['<program>']
     i = 0
