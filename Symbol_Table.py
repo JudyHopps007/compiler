@@ -11,7 +11,7 @@ dictionary ={
 with open('test.json') as json_file:
     data = json.load(json_file)
 
-temp = data['Guests']
+temp = data['Symbol_table']
 temp.append(dictionary)
 with open('test.json', 'w') as json_file_write:
    json.dump(data,json_file_write, indent=4)

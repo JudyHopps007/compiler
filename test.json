@@ -1,5 +1,16 @@
 {
     "Symbol_table": [
-       
+        {
+            "IDENTIFIER": "guest_name",
+            "DATA_TYPE": "guest_phone_number",
+            "VALUE": "guest_email",
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "guest_name",
+            "DATA_TYPE": "guest_phone_number",
+            "VALUE": "guest_email",
+            "SCOPE": "dguest_room_type"
+        }
     ]
 }
