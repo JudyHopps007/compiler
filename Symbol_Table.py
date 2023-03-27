@@ -1,13 +1,13 @@
 import json
 with open('test.json', 'r') as f:
     data = json.load(f)
-
-print(data)
-
-# Append the new data to the dictionary
-new_data = {"datatype": "example", "value": "123", "scope": "test"}
-data["a"].append(new_data)
-
-# Write the updated dictionary back to the JSON file
-with open('data.json', 'w') as f:
-    json.dump(data, f)
+import json
+# Data to be written
+dictionary ={
+  "id": "04",
+  "name": "sunil",
+  "department": "HR"
+}
+# Serializing json
+json_object = json.dumps(dictionary, indent = 4)
+print(json_object)
