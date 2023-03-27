@@ -1,6 +1,6 @@
 import lexical_Analyzer
 
-tokens = lexical_Analyzer.lex('program.c')
+tokens = lexical_Analyzer.lexical_analyzer('program.c')
 
 print('\nTOKENS\n\t', tokens)
 
@@ -32,34 +32,51 @@ rules = [
 
 
 def syntax_analyzer(tokens, rules):
-    stack = ['<program>'] # initial stack with the starting symbol
-    i = 0 # index of the current token
+    stack = ['<program>']
+    i = 0
+    line = 1
+    column = 1
 
+    # Validate input
+    non_terminals = set(rule[0] for rule in rules)
+    for token_type, token_value in tokens:
+        if token_type not in non_terminals and token_type not in ['IDENTIFIER', 'NUMBER', 'STRING', 'BOOLEAN']:
+            raise ValueError(f"Invalid token type '{token_type}' at line {line}, column {column}")
+        column += len(token_value)
+
+        if token_value == '\n':
+            line += 1
+            column = 1
+
+    # Parse tokens
     while stack:
-        symbol = stack.pop() # get the next symbol from the stack
+        symbol = stack.pop()
 
         if symbol.startswith('<'):
-            # symbol is a non-terminal, look up its production rule
+            # Non-terminal symbol
             for rule_lhs, rule_rhs in rules:
                 if rule_lhs == symbol:
-                    stack += reversed(rule_rhs) # push rhs symbols in reverse order to the stack
+                    stack += reversed(rule_rhs)
                     break
         else:
-            # symbol is a terminal, compare it with the current token
+            # Terminal symbol
             token_type, token_value = tokens[i]
-
             if symbol == token_type:
-                i += 1 # advance to the next token
+                i += 1
             else:
-                print(f"Syntax error: expected {symbol}, but found {token_type} '{token_value}'")
-                return False
+                raise SyntaxError(f"Expected '{symbol}' at line {line}, column {column}, but found '{token_type}' '{token_value}'")
 
+            column += len(token_value)
+            if token_value == '\n':
+                line += 1
+                column = 1
+
+    # Check for extra tokens
     if i < len(tokens):
-        print(f"Syntax error: unexpected token {tokens[i][0]} '{tokens[i][1]}'")
-        return False
-    else:
-        print("Syntax analysis successful!")
-        return True
+        raise SyntaxError(f"Unexpected token '{tokens[i][0]}' '{tokens[i][1]}' at line {line}, column {column}")
+
+    # Parsing successful
+    return True
 
 
 syntax_analyzer(tokens, rules)

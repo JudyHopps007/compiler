@@ -1,10 +1,11 @@
-import re
+import re  # generate regular expression
+import time  # measure the run time
 
-symbol_table = {}
-
+# ===================================================================== LEXICAL ANALYZER PHASE ==============================================================================================
+# ===========================================================================================================================================================================================
 
 # Define regular expression patterns for different types of tokens(assigning tokens to lexemes)
-patterns = [
+patterns_rg = [
     (r'#include\s+<.*?>', 'INCLUDE_DIRECTIVE'),
     (r'\b(int|void|char|bool|float|long|return)\b', 'KEYWORD'),
     (r'\b(if)\b', 'if'),
@@ -32,53 +33,54 @@ patterns = [
     (r'\}', 'RIGHT_BRACE'),
     (r';', 'SEMICOLON'),
     (r',', 'COMMA'),
-    (r'\b(main)\b,', 'main_f'),
-
-
+    (r'\|\|', 'OR'),
+    (r'\&\&', 'AND'),
+    (r'\!', 'NOT'),
 ]
 
 
-# Define a function that reads a program from a text file and generates a list of tokens
-def lex(filename):
+# ================================================ Define a function that reads a program from a  and generates a list of tokens ===============================================================================================
+def lexical_analyzer(filename):
     with open(filename, 'r') as f:
         program = f.read()
     tokens = []
     position = 0
     while position < len(program):
         match = None
-
         # Skip over empty lines
         if program[position] == '\n':
             position += 1
             continue
-
         # Skip over whitespace
         if re.match(r'\s', program[position]):
             position += 1
             continue
-
-        for pattern, token_type in patterns:
+        for pattern, token_type in patterns_rg:
             regex = re.compile(pattern)
             match = regex.match(program, position)
-
             # get rid of code comments
             if match:
-                if token_type != 'COMMENT': # the tokenization logic skips over comment tokens
+                if token_type != 'COMMENT':  # the tokenization logic skips over comment tokens
                     tokens.append((token_type, match.group(0)))
                 position = match.end(0)
                 break
-
         if not match:
             print("Illegal character: " + program[position])
             position += 1
-
     return tokens
 
-# Example usage
-tokens = lex('program.c')
+
+start_run_time_time = time.time()  # Record the Start run time-time of lexical_analyzer
+tokens = lexical_analyzer('program.c')
+End_run_time_time = time.time()  # Record the End run time-time of lexical_analyzer
+Program_Run_time = End_run_time_time - start_run_time_time # Calculate the elapsed time
+print(f"\nProgram Runtime  :  {Program_Run_time} seconds")
+
+print("\nTOKENS \n\t", tokens)
 
 
-# ============================================================================================================
+# ==============================================================================SYMBOL TABLE PHASE================================================================================================================================
+# ================================================================================================================================================================================================================================
 def generate_symbol_table(tokens):
     symbol_table = {}
 
@@ -93,7 +95,7 @@ def generate_symbol_table(tokens):
 
     return symbol_table
 
+
 symbol_table = generate_symbol_table(tokens)
 print("\nSYMBOL_TABLE \n\t", symbol_table)
-# ============================================================
-
+# =======================================================================================================================
