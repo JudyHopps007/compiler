@@ -83,36 +83,12 @@ print("\nTOKENS \n\t", tokens)
 
 # ==============================================================================SYMBOL TABLE PHASE================================================================================================================================
 # ================================================================================================================================================================================================================================
-def generate_symbol_table(tokens):
-    symbol_table = {}
-
-    for token_type, value in tokens:
-        if token_type == 'IDENTIFIER':
-            if value not in symbol_table:
-                symbol_table[value] = {
-                    'type': None,
-                    'value': None,
-                    'line_number': None
-                }
-
-    return symbol_table
-
-
-symbol_table = generate_symbol_table(tokens)
-
-
-# print("\nSYMBOL_TABLE \n\t", symbol_table)
-# =======================================================================================================================
-
-
 with open('test.json') as json_file:
     data = json.load(json_file)
 
 symbol_table = data['Symbol_table']
 def generate_symbol_table(tokens):
 
-    current_scope = []
-    current_type = None
     directives_table = []
     for i in range(len(tokens)):
         token_type, token_value = tokens[i]
