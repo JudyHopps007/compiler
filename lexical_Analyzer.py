@@ -131,6 +131,7 @@ def generate_symbol_table(tokens):
                             print('value type null',  tokens[i+2][1])
                             data_type = tokens[i-1][1]
                         else:
+                            pass
 
                     break
 
