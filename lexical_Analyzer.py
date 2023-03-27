@@ -84,10 +84,10 @@ print("\nTOKENS \n\t", tokens)
 # ==============================================================================SYMBOL TABLE PHASE================================================================================================================================
 # ================================================================================================================================================================================================================================
 clear_json = {"Symbol_table": []}
-with open("test.json", 'w') as f:
+with open("symbol_table.json", 'w') as f:
     json.dump(clear_json, f)
 
-with open('test.json') as json_file:
+with open('symbol_table.json') as json_file:
     data = json.load(json_file)
 symbol_table = data['Symbol_table']
 def generate_symbol_table(tokens):
