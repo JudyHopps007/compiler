@@ -1,0 +1,7 @@
+{"intents": [
+  { "tag": "purity",
+     "inputs": ["Purity", "purity", "hi", "good day", "", "What’s up?"],
+     "responses": ["Hi, How is it going?"]
+  }
+
+  }

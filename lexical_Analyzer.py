@@ -103,6 +103,7 @@ symbol_table = generate_symbol_table(tokens)
 
 # print("\nSYMBOL_TABLE \n\t", symbol_table)
 # =======================================================================================================================
+import json
 def generate_symbol_table(tokens):
     symbol_table = {}
     current_scope = []
