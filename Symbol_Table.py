@@ -22,6 +22,6 @@ temp =  data['Symbol_table']
 
 print(temp)
 for i in range(len(temp)):
-    print(data['Symbol_table'][i])
+    print(data['Symbol_table'][i]['IDENTIFIER'])
 print(len(temp))
 

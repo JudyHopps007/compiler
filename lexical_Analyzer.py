@@ -107,8 +107,8 @@ symbol_table = generate_symbol_table(tokens)
 
 with open('test.json') as json_file:
     data = json.load(json_file)
-temp = data['Symbol_table']
-symbol_table_size = len(temp)
+
+symbol_table = data['Symbol_table']
 def generate_symbol_table(tokens):
 
     current_scope = []
@@ -120,6 +120,8 @@ def generate_symbol_table(tokens):
         if token_type == 'INCLUDE_DIRECTIVE':
             directives_table.append(token_value)
         if token_type == 'IDENTIFIER':
+            for i in range(len(symbol_table)):
+                pass
 
 
     return directives_table
