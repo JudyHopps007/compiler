@@ -136,11 +136,10 @@ def generate_symbol_table(tokens):
                                     value += tokens[i+2+ p][1]
                                     print('value: ', value)
                                     p += 1
-
                     else:
                             pass
 
-                    break
+                    
 
     return directives_table
 
