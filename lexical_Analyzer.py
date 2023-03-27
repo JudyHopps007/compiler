@@ -75,7 +75,7 @@ def lexical_analyzer(filename):
 start_run_time_time = time.time()  # Record the Start run time-time of lexical_analyzer
 tokens = lexical_analyzer('program.c')
 End_run_time_time = time.time()  # Record the End run time-time of lexical_analyzer
-Program_Run_time = End_run_time_time - start_run_time_time # Calculate the elapsed time
+Program_Run_time = End_run_time_time - start_run_time_time  # Calculate the elapsed time
 print(f"\nProgram Runtime  :  {Program_Run_time} seconds")
 
 print("\nTOKENS \n\t", tokens)
@@ -99,7 +99,9 @@ def generate_symbol_table(tokens):
 
 
 symbol_table = generate_symbol_table(tokens)
-#print("\nSYMBOL_TABLE \n\t", symbol_table)
+
+
+# print("\nSYMBOL_TABLE \n\t", symbol_table)
 # =======================================================================================================================
 def generate_symbol_table(tokens):
     symbol_table = {}
@@ -112,9 +114,8 @@ def generate_symbol_table(tokens):
         if token_type == 'INCLUDE_DIRECTIVE':
             directives_table.append(token_value)
         if token_type == 'IDENTIFIER':
-               if token_value in symbol_table:
-                    pass
-
+            if token_value in symbol_table:
+                pass
 
     return directives_table
 
