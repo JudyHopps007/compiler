@@ -129,6 +129,7 @@ def generate_symbol_table(tokens):
                     if tokens[i+1][1] != '(' or tokens[i+1][1] != ',':
                         if data['Symbol_table'][k]['VALUE'] == None:
                             print('value type null',  tokens[i+2][1])
+                            print('next sym', tokens[i + 1][1])
                             data_type = tokens[i-1][1]
                         else:
                             pass
