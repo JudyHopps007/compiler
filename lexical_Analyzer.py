@@ -9,6 +9,8 @@ patterns_rg = [
     (r'#include\s+<.*?>', 'INCLUDE_DIRECTIVE'),
     (r'\b(int|void|char|bool|float|long|return)\b', 'KEYWORD'),
     (r'\b(if)\b', 'if'),
+    (r'\b(if)\b', 'else'),
+    (r'\b(if)\b', 'while'),
     (r'\b(true|false|1|0)\b', 'BOOLEAN'),
     (r'\b\d+\.\d+\b', 'floating_point'),
     (r'\b\d+\b', 'integer'),
@@ -97,5 +99,26 @@ def generate_symbol_table(tokens):
 
 
 symbol_table = generate_symbol_table(tokens)
-print("\nSYMBOL_TABLE \n\t", symbol_table)
+#print("\nSYMBOL_TABLE \n\t", symbol_table)
 # =======================================================================================================================
+def generate_symbol_table(tokens):
+    symbol_table = {}
+    current_scope = []
+    current_type = None
+    directives_table = []
+    for i in range(len(tokens)):
+        token_type, token_value = tokens[i]
+        print('=============', token_type, token_value)
+        if token_type == 'INCLUDE_DIRECTIVE':
+            directives_table.append(token_value)
+        if token_type == 'IDENTIFIER':
+               if token_value in symbol_table:
+                    pass
+
+
+    return directives_table
+
+
+table = generate_symbol_table(tokens)
+
+print(table)
