@@ -2,15 +2,21 @@
     "Symbol_table": [
         {
             "IDENTIFIER": "addition",
-            "DATA_TYPE": "12",
-            "VALUE": "13",
-            "SCOPE": "14"
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": null
         },
         {
             "IDENTIFIER": "a",
             "DATA_TYPE": "22",
             "VALUE": "23",
             "SCOPE": "24"
+        },
+        {
+            "IDENTIFIER": null,
+            "DATA_TYPE": "guest_phone_number",
+            "VALUE": "guest_email",
+            "SCOPE": "dguest_room_type"
         },
         {
             "IDENTIFIER": null,
