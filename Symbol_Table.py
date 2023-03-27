@@ -1,15 +1,17 @@
+
 import json
-
-
 # Data to be written
-dictionary = {
-    "name": "sathiyajith",
-    "rollno": 56,
-    "cgpa": 8.6,
-    "phonenumber": "9976770500"
+dictionary ={
+    'Guest_name' : 'guest_name',
+    'Guest_Phone' : 'guest_phone_number',
+    'Guest_Email' : 'guest_email',
+    'Guest_room' : 'dguest_room_type'
 }
-# Serializing json
-json_object = json.dumps(dictionary, indent=4)
-# Writing to sample.json
-with open("test.json", "w") as outfile:
-    outfile.write(json_object)
+
+with open('test.json.json') as json_file:
+    data = json.load(json_file)
+
+temp = data['Guests']
+temp.append(dictionary)
+with open('test.json.json', 'w') as json_file_write:
+   json.dump(data,json_file_write, indent=4)
