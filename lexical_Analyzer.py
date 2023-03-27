@@ -83,15 +83,15 @@ print("\nTOKENS \n\t", tokens)
 
 # ==============================================================================SYMBOL TABLE PHASE================================================================================================================================
 # ================================================================================================================================================================================================================================
-clear_json = {"Symbol_table": []}
-with open("symbol_table.json", 'w') as f:
-    json.dump(clear_json, f)
 
-with open('symbol_table.json') as json_file:
-    data = json.load(json_file)
-symbol_table = data['Symbol_table']
 def generate_symbol_table(tokens):
+    clear_json = {"Symbol_table": []}
+    with open("symbol_table.json", 'w') as f:
+        json.dump(clear_json, f)
 
+    with open('symbol_table.json') as json_file:
+        data = json.load(json_file)
+    symbol_table = data['Symbol_table']
     directives_table = []
     for i in range(len(tokens)):
         token_type, token_value = tokens[i]
