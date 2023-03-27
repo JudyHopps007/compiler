@@ -8,7 +8,7 @@ dictionary ={
     'Guest_room' : 'dguest_room_type'
 }
 
-with open('test.json.json') as json_file:
+with open('test.json') as json_file:
     data = json.load(json_file)
 
 temp = data['Guests']
