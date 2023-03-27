@@ -137,9 +137,10 @@ def generate_symbol_table(tokens):
                                     print('value: ', value)
                                     p += 1
                     else:
-                            pass
+                        value = None
+                        break
 
-                    
+
 
     return directives_table
 
