@@ -129,6 +129,7 @@ def generate_symbol_table(tokens):
 
                     if tokens[i+1][1] != '(':
                         if tokens[i+1][1] != ',':
+                            if tokens[i + 1][1] == '=':
                               if data['Symbol_table'][k]['VALUE'] == None:
                                   p = 0
                                   value = ''
