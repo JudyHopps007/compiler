@@ -121,12 +121,8 @@ def generate_symbol_table(tokens):
             directives_table.append(token_value)
         if token_type == 'IDENTIFIER':
             for i in range(len(symbol_table)):
-                if data['Symbol_table'][i]['IDENTIFIER' == token_value:
+                if data['Symbol_table'][i]['IDENTIFIER'] == token_value:
                     print('found')
-
-
-
-
     return directives_table
 
 
