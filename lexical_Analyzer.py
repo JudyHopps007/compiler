@@ -108,6 +108,7 @@ symbol_table = generate_symbol_table(tokens)
 with open('test.json') as json_file:
     data = json.load(json_file)
 temp = data['Symbol_table']
+symbol_table_size = len(temp)
 def generate_symbol_table(tokens):
 
     current_scope = []

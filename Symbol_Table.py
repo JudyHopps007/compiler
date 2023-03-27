@@ -21,6 +21,7 @@ with open('test.json', 'w') as json_file_write:
 temp =  data['Symbol_table']
 
 print(temp)
-
+for i in range(len(temp)):
+    print(data['Symbol_table'][i])
 print(len(temp))
 
