@@ -11,9 +11,6 @@ class ParseTreeNode:
         self.children.append(child)
 
 
-
-
-
 # Define the production rules for the language
 # This is a simplified set of rules for illustration purposes only
 rules = [
@@ -40,12 +37,6 @@ rules = [
 ]
 
 
-
-
-
-
-# ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<compound_statement>']),
-
 # Define a function that recursively generates a parse tree from the token stream using the production rules
 def parse(tokens, rule):
     node = ParseTreeNode(rule[0])
@@ -69,7 +60,6 @@ def parse(tokens, rule):
 
             if not match_found:
                     raise ValueError("No matching subrule found for production rule: ", production)
-
         else:
             # If the production is a terminal, consume a token from the token stream and match it against the production
             if not tokens:
