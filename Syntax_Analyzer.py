@@ -1,5 +1,4 @@
 import lexical_Analyzer
-
 tokens = lexical_Analyzer.lex('program.c')
 
 # Define a class to represent a node in the parse tree
