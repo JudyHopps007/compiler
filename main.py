@@ -60,7 +60,7 @@ def main():
     app.state("zoomed")
     app.config(bg='gray')
     app.minsize(1000, 900)
-    app.tk.call('tk', 'scaling', -1)
+
 
     container = tk.Frame(app, bg="#232B2B")
     container.place(x=0, y=0, relwidth=1, relheight=1)
@@ -78,7 +78,6 @@ def main():
 
     Text_Frame =  tk.Frame(container, border=0, bg=nav_bar_bg)
     Text_Frame.place(x=0, y=35, relwidth=1, relheight=0.75)
-
 
     Editor_color = "#3A3A38"
     row_num_widget = tk.Text(Text_Frame, wrap="none", font=("Courier New", 12), width=4, padx=5, takefocus=0, border=0, background=Editor_color)
@@ -103,7 +102,7 @@ def main():
 
     # ======================================================== Terminal  Section ============================
     Text_Frame_2 = tk.Frame(container, border=0, bg=nav_bar_bg)
-    #Text_Frame_2.place(x=0, rely=0.79, relwidth=1, relheight=0.2)
+    Text_Frame_2.place(x=0, rely=0.79, relwidth=1, relheight=0.2)
 
     Terminal_display = tk.Text(Text_Frame_2, border=0, bg=Editor_color, font=("Courier New", 12), wrap="none")
     Terminal_display.place(x=51, y=0, relwidth=1, relheight=1)
