@@ -1,5 +1,5 @@
 import lexical_Analyzer
-tokens = lexical_Analyzer.lex('program.c')
+tokens = lexical_Analyzer.lexical_analyzer('program.c')
 
 # Define a class to represent a node in the parse tree
 class ParseTreeNode:
@@ -34,7 +34,6 @@ rules = [
     ('<parameter_list>', ['LEFT_PAREN', '<type_specifier>', '<identifier>', '<parameter>']),
     ('<parameter>', ['COMMA', '<type_specifier>', '<identifier>', '<parameter>']),
     ('<parameter>', []),
-
 ]
 
 
