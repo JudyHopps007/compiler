@@ -102,8 +102,6 @@ def main():
 
 
     # ======================================================== Terminal  Section ============================
-    abs_y = Text_Frame.winfo_y()
-    rel_y = abs_y / root.winfo_height()
     Text_Frame_2 = tk.Frame(container, border=0, bg=nav_bar_bg)
     Text_Frame_2.place(x=0, rely=0.79, relwidth=1, relheight=0.2)
 
