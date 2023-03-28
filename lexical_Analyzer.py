@@ -116,7 +116,7 @@ def generate_symbol_table(tokens):
                                       p = 0
                                       value = ''
                                       while tokens[i+2 + p][1] != ';':
-                                        value += tokens[i+2+ p][1]
+                                        value += tokens[i+2 + p][1]
                                         p += 1
                         else:
                             value = None

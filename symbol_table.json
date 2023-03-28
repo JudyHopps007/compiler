@@ -1,1 +1,430 @@
-{"Symbol_table": []}
+{
+    "Symbol_table": [
+        {
+            "IDENTIFIER": "addition",
+            "DATA_TYPE": "int",
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "a",
+            "DATA_TYPE": "int",
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "b",
+            "DATA_TYPE": "int",
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "result",
+            "DATA_TYPE": "int",
+            "VALUE": "a+b",
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "a",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "b",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "result",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "subtraction",
+            "DATA_TYPE": "int",
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "a",
+            "DATA_TYPE": "int",
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "b",
+            "DATA_TYPE": "int",
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "result",
+            "DATA_TYPE": "int",
+            "VALUE": "a-b",
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "a",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "b",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "result",
+            "DATA_TYPE": "return",
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "multiplication",
+            "DATA_TYPE": "float",
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "a",
+            "DATA_TYPE": "float",
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "b",
+            "DATA_TYPE": "float",
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "result",
+            "DATA_TYPE": "int",
+            "VALUE": "a*b",
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "a",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "b",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "result",
+            "DATA_TYPE": "return",
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "division",
+            "DATA_TYPE": "float",
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "a",
+            "DATA_TYPE": "float",
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "b",
+            "DATA_TYPE": "float",
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "result",
+            "DATA_TYPE": "int",
+            "VALUE": "a/ b",
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "a",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "b",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "result",
+            "DATA_TYPE": "return",
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "boolCheck",
+            "DATA_TYPE": "char",
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "a",
+            "DATA_TYPE": "int",
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "mychar",
+            "DATA_TYPE": "char",
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "a",
+            "DATA_TYPE": null,
+            "VALUE": "=1){mychar='T'",
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "mychar",
+            "DATA_TYPE": null,
+            "VALUE": "'T'",
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "mychar",
+            "DATA_TYPE": "return",
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "else",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "mychar",
+            "DATA_TYPE": null,
+            "VALUE": "'F'",
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "mychar",
+            "DATA_TYPE": "return",
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "main",
+            "DATA_TYPE": "void",
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "state",
+            "DATA_TYPE": "bool",
+            "VALUE": "true",
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "c",
+            "DATA_TYPE": "int",
+            "VALUE": "3",
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "d",
+            "DATA_TYPE": "int",
+            "VALUE": "5",
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "e",
+            "DATA_TYPE": "float",
+            "VALUE": "6.0",
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "f",
+            "DATA_TYPE": "float",
+            "VALUE": "12.0",
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "newResult1",
+            "DATA_TYPE": "float",
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "newResult2",
+            "DATA_TYPE": "int",
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "select",
+            "DATA_TYPE": "int",
+            "VALUE": "3",
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "while",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "state",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "select",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "newResult1",
+            "DATA_TYPE": null,
+            "VALUE": "division(f,e)",
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "division",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "f",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "e",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "else",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "select",
+            "DATA_TYPE": null,
+            "VALUE": "=2){newResult1=multiplication(f,e)",
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "newResult1",
+            "DATA_TYPE": null,
+            "VALUE": "multiplication(f,e)",
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "multiplication",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "f",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "e",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "else",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "select",
+            "DATA_TYPE": null,
+            "VALUE": "=3){newResult2=addition(c,d)",
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "newResult2",
+            "DATA_TYPE": null,
+            "VALUE": "addition(c,d)",
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "addition",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "c",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "d",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "else",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "newResult2",
+            "DATA_TYPE": null,
+            "VALUE": "subtraction(c,d)",
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "subtraction",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "c",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "d",
+            "DATA_TYPE": null,
+            "VALUE": null,
+            "SCOPE": "dguest_room_type"
+        },
+        {
+            "IDENTIFIER": "state",
+            "DATA_TYPE": null,
+            "VALUE": "false",
+            "SCOPE": "dguest_room_type"
+        }
+    ]
+}
