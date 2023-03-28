@@ -103,7 +103,7 @@ def main():
 
     # ======================================================== Terminal  Section ============================
     Text_Frame_2 = tk.Frame(container, border=0, bg=nav_bar_bg)
-    Text_Frame_2.place(x=0, rely=0.79, relwidth=1, relheight=0.2)
+    #Text_Frame_2.place(x=0, rely=0.79, relwidth=1, relheight=0.2)
 
     Terminal_display = tk.Text(Text_Frame_2, border=0, bg=Editor_color, font=("Courier New", 12), wrap="none")
     Terminal_display.place(x=51, y=0, relwidth=1, relheight=1)
