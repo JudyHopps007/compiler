@@ -46,22 +46,25 @@ patterns_rg = [
 
 # ========= Define a function that reads a program from a  and generates a list of tokens ===
 def lexical_analyzer(filename):
-    line_number_track = 1
-    with open(filename, 'r') as f:
+
+    with open(filename, 'r') as f:  # load the program file into the lexical analyzer
         program = f.read()
+
+    line_number_track = 1  # keep track of position
     token_list = []  # initialized to empty list
-    curser_position = 0  # initialized to position zero
+    curser_position = 0  # initialized to zero
     while curser_position < len(program):
         match = None
 
         if program[curser_position] == '\n':  # Skip over empty lines
-            line_number_track += 1
-            curser_position += 1 # incrementing cursor position
+            line_number_track += 1  # incrementing line number
+            curser_position += 1  # incrementing cursor position
             continue
 
         if re.match(r'\s', program[curser_position]):  # Skip over whitespace
             curser_position += 1
             continue
+
         for pattern, token_type in patterns_rg:
             regex = re.compile(pattern)
             match = regex.match(program, curser_position)
