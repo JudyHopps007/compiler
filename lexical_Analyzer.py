@@ -1,6 +1,6 @@
-import re  # generate regular expression
-import time  # measure the run time
-import json
+import re  # for generate regular expression
+import time  # for measure the run time
+import json  # for symbol table
 
 # ===================================================================== LEXICAL ANALYZER PHASE ==============================================================================================
 # ===========================================================================================================================================================================================
@@ -82,13 +82,13 @@ def lexical_analyzer(filename):
 
 
 start_run_time_time = time.time()  # Record the Start run time-time of lexical_analyzer
-tokens = lexical_analyzer('program.c')
+tokens = lexical_analyzer('program.c')  # calling the lexical_analyzer()
 End_run_time_time = time.time()  # Record the End run time-time of lexical_analyzer
-Program_Run_time = End_run_time_time - start_run_time_time  # Calculate the elapsed time
+Program_Run_time = End_run_time_time - start_run_time_time  # Calculate the elapsed time (run time of lexical_analyzer function)
 print(f"\nProgram Runtime  :  {Program_Run_time} seconds")
 
 print("\n============== TOKENS ================ \n")
-for token in tokens:
+for token in tokens:  # print each token at a time
     print(token)
 
 
@@ -146,7 +146,7 @@ def generate_symbol_table(tokens):
                 'IDENTIFIER': token_value,
                 'DATA_TYPE': data_type,
                 'VALUE': value,
-                'SCOPE': 'dguest_room_type'
+                'SCOPE': None
             }
             symbol_table.append(dictionary)
             with open('symbol_table.json', 'w') as json_file_write:
