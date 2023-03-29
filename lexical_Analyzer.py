@@ -77,7 +77,7 @@ def lexical_analyzer(filename):
 
         if not match:  # catch errors or illegal charachers that don't conform to the defined regular expressions
             print("Illegal character: " + program[curser_position], "Line : ", line_number_track)
-            curser_position += 1
+            curser_position += 1 # incrementing cursor position
     return token_list
 
 
@@ -95,7 +95,7 @@ for token in tokens:  # print each token at a time
 # ============================================================================== SYMBOL TABLE PHASE====================================================================================
 # =====================================================================================================================================================================================
 
-def generate_symbol_table(tokens):
+def generate_symbol_table(token_list):
     clear_json = {"Symbol_table": []}
     with open("symbol_table.json", 'w') as f:
         json.dump(clear_json, f)
@@ -104,43 +104,42 @@ def generate_symbol_table(tokens):
         data = json.load(json_file)
     symbol_table = data['Symbol_table']
     directives_table = []
-    for i in range(len(tokens)):
-        token_type, token_value = tokens[i]
+    for i in range(len(token_list)):
+        token_type, token_value = token_list[i]
         if token_type == 'INCLUDE_DIRECTIVE':
             directives_table.append(token_value)
         if token_type == 'IDENTIFIER':
             data_type = None
             value = None
             if any(d.get('IDENTIFIER') == token_value for d in symbol_table):
-                # print("found ", token_value)
                 for k in range(len(symbol_table)):
                     if symbol_table[k]['IDENTIFIER'] == token_value:
                         if symbol_table[k]['DATA_TYPE'] == None:
-                            if tokens[i - 1][0] == 'KEYWORD':
-                                data_type = tokens[i - 1][1]
+                            if token_list[i - 1][0] == 'KEYWORD':
+                                data_type = token_list[i - 1][1]
 
-                        if tokens[i + 1][1] != '(':
-                            if tokens[i + 1][1] != ',':
-                                if tokens[i + 1][1] == '=':
+                        if token_list[i + 1][1] != '(':
+                            if token_list[i + 1][1] != ',':
+                                if token_list[i + 1][1] == '=':
                                     if symbol_table[k]['VALUE'] == None:
                                         p = 0
                                         value = ''
-                                        while tokens[i + 2 + p][1] != ';':
-                                            value += tokens[i + 2 + p][1]
+                                        while token_list[i + 2 + p][1] != ';':
+                                            value += token_list[i + 2 + p][1]
                                             p += 1
                         else:
                             value = None
 
             else:
-                if tokens[i - 1][0] == 'KEYWORD':
-                    data_type = tokens[i - 1][1]
-                if tokens[i + 1][1] != '(':
-                    if tokens[i + 1][1] != ',':
-                        if tokens[i + 1][1] == '=':
+                if token_list[i - 1][0] == 'KEYWORD':
+                    data_type = token_list[i - 1][1]
+                if token_list[i + 1][1] != '(':
+                    if token_list[i + 1][1] != ',':
+                        if token_list[i + 1][1] == '=':
                             p = 0
                             value = ''
-                            while tokens[i + 2 + p][1] != ';':
-                                value += tokens[i + 2 + p][1]
+                            while token_list[i + 2 + p][1] != ';':
+                                value += token_list[i + 2 + p][1]
                                 p += 1
             dictionary = {
                 'IDENTIFIER': token_value,
