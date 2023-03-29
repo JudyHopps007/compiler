@@ -49,32 +49,32 @@ def lexical_analyzer(filename):
     line_number_track = 1
     with open(filename, 'r') as f:
         program = f.read()
-    token_list = []
-    position = 0
-    while position < len(program):
+    token_list = []  # initialized to empty list
+    curser_position = 0  # initialized to position zero
+    while curser_position < len(program):
         match = None
 
-        if program[position] == '\n':  # Skip over empty lines
+        if program[curser_position] == '\n':  # Skip over empty lines
             line_number_track += 1
-            position += 1
+            curser_position += 1 # incrementing cursor position
             continue
 
-        if re.match(r'\s', program[position]):  # Skip over whitespace
-            position += 1
+        if re.match(r'\s', program[curser_position]):  # Skip over whitespace
+            curser_position += 1
             continue
         for pattern, token_type in patterns_rg:
             regex = re.compile(pattern)
-            match = regex.match(program, position)
-            # get rid of code comments
+            match = regex.match(program, curser_position)
+            # get rid of code comments logic skips over comment token_list
             if match:
-                if token_type != 'COMMENT':  # the tokenization logic skips over comment token_list
-                    token_list.append((token_type, match.group(0)))
-                position = match.end(0)
+                if token_type != 'COMMENT':
+                    token_list.append((token_type, match.group(0))) # adding found token in the token_list
+                curser_position = match.end(0)
                 break
 
         if not match:  # catch errors or illegal charachers that don't conform to the defined regular expressions
-            print("Illegal character: " + program[position], "Line : ", line_number_track)
-            position += 1
+            print("Illegal character: " + program[curser_position], "Line : ", line_number_track)
+            curser_position += 1
     return token_list
 
 
