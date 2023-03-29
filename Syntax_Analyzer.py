@@ -2,6 +2,7 @@ import lexical_Analyzer
 
 tokens = lexical_Analyzer.lexical_analyzer('program.c')
 
+
 # Define a class to represent a node in the parse tree
 class ParseTreeNode:
     def __init__(self, value, children=None):
@@ -15,16 +16,15 @@ class ParseTreeNode:
 # Define the production rules for the language
 # This is a simplified set of rules for illustration purposes only
 rules = [
-    ('<program>', ['<include-list>',  '<declaration>']),
+    ('<program>', ['<include-list>', '<declaration>']),
     ('<include-list>', ['INCLUDE_DIRECTIVE']),
 
     ('<declaration>', ['<function_declaration>*', '<include-list>']),
     ('<declaration>', []),
 
+    ('<function_declaration>', ['<type_specifier>', '<identifier>', '<parameter_list>', '<compound_statement>']),
 
-    ('<function_declaration>', ['<type_specifier>', '<identifier>', '<parameter_list>',  '<compound_statement>']),
-
-    #('<function_declaration_closure>', ['<type_specifier>', '<identifier>', '<parameter_list>',  '<compound_statement>']),
+    # ('<function_declaration_closure>', ['<type_specifier>', '<identifier>', '<parameter_list>',  '<compound_statement>']),
 
     ('<parameter_list>', ['LEFT_PAREN', '<type_specifier>', '<identifier>', 'RIGHT_PAREN']),
     ('<more_parameters>', ['COMMA', '<type_specifier>', '<identifier>', '<more_parameters>']),
@@ -37,12 +37,7 @@ rules = [
     ('<comma>', ['COMMA']),
     ('<compound_statement>', ['LEFT_BRACE', 'RIGHT_BRACE']),
 
-
 ]
-
-
-
-
 
 
 # ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<compound_statement>']),

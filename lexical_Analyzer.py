@@ -46,20 +46,20 @@ patterns_rg = [
 
 # ========= Define a function that reads a program from a  and generates a list of tokens ===
 def lexical_analyzer(filename):
-    line_number = 1
+    line_number_track = 1
     with open(filename, 'r') as f:
         program = f.read()
-    tokens = []
+    token_list = []
     position = 0
     while position < len(program):
         match = None
-        # Skip over empty lines
-        if program[position] == '\n':
-            line_number += 1
+
+        if program[position] == '\n':  # Skip over empty lines
+            line_number_track += 1
             position += 1
             continue
-        # Skip over whitespace
-        if re.match(r'\s', program[position]):
+
+        if re.match(r'\s', program[position]):  # Skip over whitespace
             position += 1
             continue
         for pattern, token_type in patterns_rg:
@@ -67,14 +67,15 @@ def lexical_analyzer(filename):
             match = regex.match(program, position)
             # get rid of code comments
             if match:
-                if token_type != 'COMMENT':  # the tokenization logic skips over comment tokens
-                    tokens.append((token_type, match.group(0)))
+                if token_type != 'COMMENT':  # the tokenization logic skips over comment token_list
+                    token_list.append((token_type, match.group(0)))
                 position = match.end(0)
                 break
-        if not match:
-            print("Illegal character: " + program[position], "Line : ", line_number)
+
+        if not match:  # catch errors or illegal charachers that don't conform to the defined regular expressions
+            print("Illegal character: " + program[position], "Line : ", line_number_track)
             position += 1
-    return tokens
+    return token_list
 
 
 start_run_time_time = time.time()  # Record the Start run time-time of lexical_analyzer
@@ -84,9 +85,8 @@ Program_Run_time = End_run_time_time - start_run_time_time  # Calculate the elap
 print(f"\nProgram Runtime  :  {Program_Run_time} seconds")
 
 print("\n============== TOKENS ================ \n")
-for i in tokens:
-    print(i)
-
+for token in tokens:
+    print(token)
 
 
 # ============================================================================== SYMBOL TABLE PHASE====================================================================================
@@ -109,36 +109,36 @@ def generate_symbol_table(tokens):
             data_type = None
             value = None
             if any(d.get('IDENTIFIER') == token_value for d in symbol_table):
-                #print("found ", token_value)
+                # print("found ", token_value)
                 for k in range(len(symbol_table)):
                     if symbol_table[k]['IDENTIFIER'] == token_value:
                         if symbol_table[k]['DATA_TYPE'] == None:
                             if tokens[i - 1][0] == 'KEYWORD':
                                 data_type = tokens[i - 1][1]
 
-                        if tokens[i+1][1] != '(':
-                            if tokens[i+1][1] != ',':
+                        if tokens[i + 1][1] != '(':
+                            if tokens[i + 1][1] != ',':
                                 if tokens[i + 1][1] == '=':
-                                  if symbol_table[k]['VALUE'] == None:
-                                      p = 0
-                                      value = ''
-                                      while tokens[i+2 + p][1] != ';':
-                                        value += tokens[i+2 + p][1]
-                                        p += 1
+                                    if symbol_table[k]['VALUE'] == None:
+                                        p = 0
+                                        value = ''
+                                        while tokens[i + 2 + p][1] != ';':
+                                            value += tokens[i + 2 + p][1]
+                                            p += 1
                         else:
                             value = None
 
             else:
-                    if tokens[i - 1][0] == 'KEYWORD':
-                        data_type = tokens[i - 1][1]
-                    if tokens[i + 1][1] != '(':
-                        if tokens[i + 1][1] != ',':
-                            if tokens[i + 1][1] == '=':
-                                p = 0
-                                value = ''
-                                while tokens[i + 2 + p][1] != ';':
-                                    value += tokens[i + 2 + p][1]
-                                    p += 1
+                if tokens[i - 1][0] == 'KEYWORD':
+                    data_type = tokens[i - 1][1]
+                if tokens[i + 1][1] != '(':
+                    if tokens[i + 1][1] != ',':
+                        if tokens[i + 1][1] == '=':
+                            p = 0
+                            value = ''
+                            while tokens[i + 2 + p][1] != ';':
+                                value += tokens[i + 2 + p][1]
+                                p += 1
             dictionary = {
                 'IDENTIFIER': token_value,
                 'DATA_TYPE': data_type,
@@ -149,5 +149,5 @@ def generate_symbol_table(tokens):
             with open('symbol_table.json', 'w') as json_file_write:
                 json.dump(data, json_file_write, indent=4)
 
-generate_symbol_table(tokens)
 
+generate_symbol_table(tokens)
