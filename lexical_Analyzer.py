@@ -6,17 +6,19 @@ import json
 # ===========================================================================================================================================================================================
 
 # Define regular expression patterns for different types of tokens(assigning tokens to lexemes)
+# (r"['][a-zA-Z0-9_?]*[\s]*[']", 'STRING'),
 patterns_rg = [
-    (r'#include\s+<.*?>', 'INCLUDE_DIRECTIVE'),
+    (r'#include', 'INCLUDE_ID'),
+    (r'<[A-Za-z]+.h>', 'INCLUDE_DIRECTIVE'),
     (r'\b(int|void|char|bool|float|long|return)\b', 'KEYWORD'),
     (r'\b(if)\b', 'if'),
-    (r'\b(if)\b', 'else'),
-    (r'\b(if)\b', 'while'),
-    (r'\b(true|false|1|0)\b', 'BOOLEAN'),
-    (r'\b\d+\.\d+\b', 'floating_point'),
-    (r'\b\d+\b', 'integer'),
+    (r'\b(else)\b', 'else'),
+    (r'\b(while)\b', 'while'),
+    (r'\b(true|false)\b', 'BOOLEAN'),
+    (r'[0-9]+[.][0-9]+', 'floating_point'),
+    (r'\b[0-9]+\b', 'integer'),
     (r"'.'", 'char'),
-    (r'\b([a-zA-Z_][a-zA-Z0-9_]*)\b', 'IDENTIFIER'),
+    (r'[a-zA-Z_][a-zA-Z0-9_]*', 'IDENTIFIER'),
     (r'\+', 'PLUS'),
     (r'-', 'MINUS'),
     (r'\*', 'MULTIPLY'),
@@ -44,6 +46,7 @@ patterns_rg = [
 
 # ========= Define a function that reads a program from a  and generates a list of tokens ===
 def lexical_analyzer(filename):
+    line_number = 1
     with open(filename, 'r') as f:
         program = f.read()
     tokens = []
@@ -52,6 +55,7 @@ def lexical_analyzer(filename):
         match = None
         # Skip over empty lines
         if program[position] == '\n':
+            line_number += 1
             position += 1
             continue
         # Skip over whitespace
@@ -68,7 +72,7 @@ def lexical_analyzer(filename):
                 position = match.end(0)
                 break
         if not match:
-            print("Illegal character: " + program[position])
+            print("Illegal character: " + program[position], "Line : ", line_number)
             position += 1
     return tokens
 
@@ -79,7 +83,10 @@ End_run_time_time = time.time()  # Record the End run time-time of lexical_analy
 Program_Run_time = End_run_time_time - start_run_time_time  # Calculate the elapsed time
 print(f"\nProgram Runtime  :  {Program_Run_time} seconds")
 
-print("\nTOKENS \n\t", tokens)
+print("\n============== TOKENS ================ \n")
+for i in tokens:
+    print(i)
+
 
 
 # ============================================================================== SYMBOL TABLE PHASE====================================================================================

@@ -29,7 +29,6 @@ char boolCheck(int a){
     }
 }
 
-
 void main(){
 bool state = true;
    int c = 3;
@@ -53,5 +52,3 @@ while (state){
        state = false;
 }
 }
-
-
