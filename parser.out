@@ -1,21 +1,50 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
+Unused terminals:
+
+    ('COMMA', ',')
+    ('IDENTIFIER', 'a')
+    ('IDENTIFIER', 'addition')
+    ('IDENTIFIER', 'b')
+    ('INCLUDE_DIRECTIVE', '<stdio.h>')
+    ('INCLUDE_ID', '#include')
+    ('KEYWORD', 'int')
+    ('LEFT_BRACE', '{')
+    ('LEFT_PAREN', '(')
+    ('RIGHT_BRACE', '}')
+    ('RIGHT_PAREN', ')')
+
 Grammar
 
-Rule 0     S' -> declaration
-Rule 1     declaration -> TYPE ID ;
-Rule 2     declaration -> TYPE ID = NUMBER ;
+Rule 0     S' -> program
+Rule 1     program -> INCLUDE_DIRECTIVE program
+Rule 2     program -> function_definition program
+Rule 3     program -> empty
+Rule 4     function_definition -> type IDENTIFIER LEFT_PAREN parameter_list RIGHT_PAREN compound_statement
+Rule 5     type -> KEYWORD
+Rule 6     type -> IDENTIFIER
+Rule 7     parameter_list -> type IDENTIFIER
+Rule 8     parameter_list -> parameter_list COMMA type IDENTIFIER
+Rule 9     compound_statement -> LEFT_BRACE statement_list RIGHT_BRACE
+Rule 10    statement_list -> statement
+Rule 11    statement_list -> statement_list statement
+Rule 12    statement -> expression_statement
+Rule 13    statement -> compound_statement
+Rule 14    statement -> if_statement
+Rule 15    statement -> iteration_statement
+Rule 16    statement -> return_statement
+Rule 17    expression_statement -> expression SEMICOLON
+Rule 18    expression_statement -> SEMICOLON
+Rule 19    if_statement -> if_clause
+Rule 20    if_statement -> if_clause else_clause
+Rule 21    if_clause -> if LEFT_PAREN expression RIGHT_PAREN statement
+Rule 22    else_clause -> else statement
+Rule 23    iteration_statement -> while LEFT_PAREN expression RIGHT_PAREN statement
+Rule 24    return_statement -> return expression SEMICOLON
+Rule 25    return_statement -> return SEMICOLON
+Rule 26    expression -> assignment_expression
+Rule 27    assignment_expression -> IDENTIFIER ASSIGN expression
+Rule 28    empty -> <empty>
 
 Terminals, with rules where they appear
-
-;                    : 1 2
-=                    : 2
-ID                   : 1 2
-TYPE                 : 1 2
-error                : 
-
-Nonterminals, with rules where they appear
-
-NUMBER               : 2
-declaration          : 0
 

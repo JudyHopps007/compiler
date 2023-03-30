@@ -2,8 +2,8 @@ import re  # for generate regular expression
 import time  # for measure the run time
 import json  # for symbol table
 
-# ===================================================================== LEXICAL ANALYZER PHASE ==============================================================================================
-# ===========================================================================================================================================================================================
+# ====================================== LEXICAL ANALYZER PHASE =====================================================
+# ===================================================================================================================
 
 # Define regular expression patterns for different types of tokens(assigning tokens to lexemes)
 # (r"['][a-zA-Z0-9_?]*[\s]*[']", 'STRING'),
@@ -16,8 +16,8 @@ patterns_rg = [
     (r'\b(while)\b', 'while'),
     (r'\b(true|false)\b', 'BOOLEAN'),
     (r'[0-9]+[.][0-9]+', 'floating_point'),
-    (r'\b[0-9]+\b', 'integer'),
-    (r"'.'", 'char'),
+    (r'\b[0-9]+\b', 'INTEGER'),
+    (r"'.'", 'CHAR'),
     (r'[a-zA-Z_][a-zA-Z0-9_]*', 'IDENTIFIER'),
     (r'\+', 'PLUS'),
     (r'-', 'MINUS'),
@@ -87,13 +87,13 @@ End_run_time_time = time.time()  # Record the End run time-time of lexical_analy
 Program_Run_time = End_run_time_time - start_run_time_time  # Calculate the elapsed time (run time of lexical_analyzer function)
 print(f"\nProgram Runtime  :  {Program_Run_time} seconds")
 
-print("\n============== TOKENS ================ \n ")
+print("\n============== TOKENS ================ \n ", tokens)
 for token in tokens:  # print each token at a time
     print(token)
 
 
-# ============================================================================== SYMBOL TABLE PHASE====================================================================================
-# =====================================================================================================================================================================================
+# ===================================== SYMBOL TABLE PHASE===============================================================================
+# =======================================================================================================================================
 
 def generate_symbol_table(token_list):
     clear_json = {"Symbol_table": []}
