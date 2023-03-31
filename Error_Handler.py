@@ -21,53 +21,6 @@ grammar = Grammar(
     """
 )
 
-# Define a visitor class to traverse the parse tree
-class CVisitor(NodeVisitor):
-    def visit_program(self, node, children):
-        return children
-
-    def visit_declaration(self, node, children):
-        return ("declaration", children[0], children[1])
-
-    def visit_type(self, node, children):
-        return node.text
-
-    def visit_identifier(self, node, children):
-        return ("identifier", node.text)
-
-    def visit_statement(self, node, children):
-        return ("statement", children[0])
-
-    def visit_expression(self, node, children):
-        return ("expression", children)
-
-    def visit_term(self, node, children):
-        return ("term", children)
-
-    def visit_factor(self, node, children):
-        if len(children) == 1:
-            return children[0]
-        else:
-            return ("expression", children[1])
-
-    def visit_integer(self, node, children):
-        return ("integer", int(node.text))
-
-    def visit_float(self, node, children):
-        return ("float", float(node.text))
-
-    def visit_char(self, node, children):
-        return ("char", node.text.strip("'"))
-
-    def visit_bool(self, node, children):
-        return ("bool", node.text)
-
-    def visit_add_op(self, node, children):
-        return node.text
-
-    def visit_mul_op(self, node, children):
-        return node.text
-
 # Define a function to parse a list of tokens
 def parse_tokens(tokens):
     # Combine the tokens into a single string
@@ -79,8 +32,7 @@ def parse_tokens(tokens):
     parse_tree = grammar.parse(input_string)
 
     # Use the visitor class to traverse the parse tree and generate the output
-    visitor = CVisitor()
-    output = visitor.visit(parse_tree)
+
 
     return output
 
