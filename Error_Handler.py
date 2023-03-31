@@ -4,7 +4,7 @@ from parsimonious.nodes import NodeVisitor
 # Define the grammar
 grammar = Grammar(
     """
-    program = (declaration / statement)*
+    program = (declaration)*
     declaration = identifier
     identifier = ~"[a-zA-Z_][a-zA-Z0-9_]*"
     """
