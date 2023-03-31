@@ -89,5 +89,5 @@ import lexical_Analyzer
 import json
 tokens = lexical_Analyzer.lexical_analyzer('program.c')
 
-output = parse_tokens(tokens)
-print(json.dumps(output, indent=4))
+#output = parse_tokens(tokens)
+#print(json.dumps(output, indent=4))
