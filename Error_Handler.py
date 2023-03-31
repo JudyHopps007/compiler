@@ -1,53 +1,56 @@
 import lexical_Analyzer
 
 tokens = lexical_Analyzer.lexical_analyzer('program.c')
-import pyparsing as pp
+from pyparsing import Word, alphas, nums, Literal, Group, ZeroOrMore, Forward, Suppress
 
-# Define the grammar using pyparsing constructs
-expr = pp.Forward()
-identifier = pp.Regex(r'[a-zA-Z_][a-zA-Z0-9_]*')
-integer = pp.Regex(r'\d+')
-floating_point = pp.Regex(r'\d+\.\d+')
-char_literal = pp.QuotedString("'", escChar='\\')
-string_literal = pp.QuotedString('"', escChar='\\')
-type_name = pp.oneOf('int void char bool float long')
-operator = pp.oneOf('+ - * / % = == != < > <= >= && || !')
-left_paren = pp.Literal('(').suppress()
-right_paren = pp.Literal(')').suppress()
-left_brace = pp.Literal('{').suppress()
-right_brace = pp.Literal('}').suppress()
-semicolon = pp.Literal(';').suppress()
-comma = pp.Literal(',').suppress()
+# Define the grammar rules
+identifier = Word(alphas + '_', alphas + nums + '_')
+integer = Word(nums)
+floating_point = Word(nums) + Literal('.') + Word(nums)
+boolean = Literal('true') | Literal('false')
+string = Literal('"') + ZeroOrMore(Word(alphas + nums)) + Literal('"')
+char = Literal("'") + Word(alphas + nums) + Literal("'")
+operator = Literal('+') | Literal('-') | Literal('*') | Literal('/') | Literal('%') | \
+    Literal('==') | Literal('!=') | Literal('<') | Literal('>') | Literal('<=') | Literal('>=') | \
+    Literal('=') | Literal('&&') | Literal('||') | Literal('!')
+keyword = Literal('if') | Literal('else') | Literal('while') | Literal('return') | \
+    Literal('int') | Literal('void') | Literal('char') | Literal('bool') | Literal('float') | Literal('long')
 
-arg = pp.Group(expr + pp.ZeroOrMore(comma + expr))
-func_call = pp.Group(identifier + left_paren + pp.Optional(arg) + right_paren)
+expression = Forward()
+expression_list = Group(expression + ZeroOrMore(Suppress(',') + expression))
+argument_list = Group(expression_list)
+function_call = identifier + Suppress('(') + argument_list + Suppress(')')
+factor = (integer | floating_point | boolean | string | char | function_call | identifier |
+          Group(Suppress('(') + expression + Suppress(')')))
+unary_expression = Group(operator + factor)
+multiplicative_expression = Group(factor + ZeroOrMore((Literal('*') | Literal('/') | Literal('%')) + factor))
+additive_expression = Group(multiplicative_expression + ZeroOrMore((Literal('+') | Literal('-')) + multiplicative_expression))
+relational_expression = Group(additive_expression + ZeroOrMore((Literal('<') | Literal('>') | Literal('<=') | Literal('>=')) + additive_expression))
+equality_expression = Group(relational_expression + ZeroOrMore((Literal('==') | Literal('!=')) + relational_expression))
+logical_and_expression = Group(equality_expression + ZeroOrMore(Literal('&&') + equality_expression))
+logical_or_expression = Group(logical_and_expression + ZeroOrMore(Literal('||') + logical_and_expression))
+expression << logical_or_expression
 
-func_decl = pp.Group(type_name + identifier + left_paren + pp.Optional(arg) + right_paren + left_brace + pp.ZeroOrMore(expr) + right_brace)
-var_decl = pp.Group(type_name + identifier + semicolon)
+assignment_expression = Group(identifier + Suppress('=') + expression)
+expression_statement = Group(expression + Suppress(';'))
+compound_statement = Group(Suppress('{') + ZeroOrMore(expression_statement) + Suppress('}'))
+selection_statement = Group(Literal('if') + Suppress('(') + expression + Suppress(')') + compound_statement +
+                             ZeroOrMore(Literal('else') + compound_statement))
+iteration_statement = Group(Literal('while') + Suppress('(') + expression + Suppress(')') + compound_statement)
+return_statement = Group(Literal('return') + expression + Suppress(';'))
+statement = Forward()
+statement << (expression_statement | compound_statement | selection_statement | iteration_statement | return_statement)
+declaration = Group(keyword + identifier + Suppress(';'))
+function_declaration = Group(keyword + identifier + Suppress('(') + argument_list + Suppress(')') + compound_statement)
 
-if_stmt = pp.Group(pp.Keyword('if') + left_paren + expr + right_paren + left_brace + pp.ZeroOrMore(expr) + right_brace + pp.Optional(pp.Keyword('else') + left_brace + pp.ZeroOrMore(expr) + right_brace))
-while_loop = pp.Group(pp.Keyword('while') + left_paren + expr + right_paren + left_brace + pp.ZeroOrMore(expr) + right_brace)
+program = ZeroOrMore(function_declaration | declaration | statement)
 
-expression_term = floating_point | integer | char_literal | string_literal | func_call | identifier
-unary_expression = pp.Forward()
-unary_expression <<= operator + expression_term | expression_term
-multiplicative_expression = unary_expression + pp.ZeroOrMore(pp.oneOf('* / %').suppress() + unary_expression)
-additive_expression = multiplicative_expression + pp.ZeroOrMore(pp.oneOf('+ -').suppress() + multiplicative_expression)
-relational_expression = additive_expression + pp.ZeroOrMore(pp.oneOf('< > <= >=').suppress() + additive_expression)
-equality_expression = relational_expression + pp.ZeroOrMore(pp.oneOf('== !=').suppress() + relational_expression)
-logical_and_expression = equality_expression + pp.ZeroOrMore(pp.Keyword('&&').suppress() + equality_expression)
-logical_or_expression = logical_and_expression + pp.ZeroOrMore(pp.Keyword('||').suppress() + logical_and_expression)
-expr <<= logical_or_expression
-
-program = pp.ZeroOrMore(func_decl | var_decl | if_stmt | while_loop)
-
-# Define a function that takes a list of tokens generated by the lexical analyzer and returns a parse tree
-def syntax_analyzer(tokens):
+# Define a function to parse the list of tokens
+def parse_tokens(tokens):
     try:
-        parse_tree = program.parse(tokens)
-        return parse_tree.asList()
-    except pp.ParseException as e:
-        print("Syntax Error: ", e)
-        return None
+        program.parse(tokens)
+        print('Parsing successful')
+    except Exception as e:
+        print('Parsing failed:', e)
 
-syntax_analyzer(tokens)
+parse_tokens(tokens)
