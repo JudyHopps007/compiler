@@ -1,23 +1,24 @@
 import re  # for generate regular expression
-import time  # for measure the run time
-import json  # for symbol table
+import time  # for measuring 'p' run time
+import json  # for symbol table {access and storage}
 
 # ====================================== LEXICAL ANALYZER PHASE =====================================================
 # ===================================================================================================================
 
 # Define regular expression patterns for different types of tokens(assigning tokens to lexemes)
-# (r"['][a-zA-Z0-9_?]*[\s]*[']", 'STRING'),
+
 patterns_rg = [
     (r'#include', 'INCLUDE_ID'),
     (r'<[A-Za-z]+.h>', 'INCLUDE_DIRECTIVE'),
     (r'\b(int|void|char|bool|float|long|return)\b', 'KEYWORD'),
-    (r'\b(if)\b', 'if'),
-    (r'\b(else)\b', 'else'),
-    (r'\b(while)\b', 'while'),
+    (r'\b(if)\b', 'IF'),
+    (r'\b(else)\b', 'ELSE'),
+    (r'\b(while)\b', 'WHILE'),
     (r'\b(true|false)\b', 'BOOLEAN'),
-    (r'[0-9]+[.][0-9]+', 'floating_point'),
+    (r'[0-9]+[.][0-9]+', 'FLOATING_POINT'),
     (r'\b[0-9]+\b', 'INTEGER'),
     (r"'.'", 'CHAR'),
+    (r"[\"][^']*[\"]", 'STRING'),
     (r'[a-zA-Z_][a-zA-Z0-9_]*', 'IDENTIFIER'),
     (r'\+', 'PLUS'),
     (r'-', 'MINUS'),
@@ -71,12 +72,12 @@ def lexical_analyzer(filename):
             # get rid of code comments logic skips over comment token_list
             if match:
                 if token_type != 'COMMENT':
-                    token_list.append((token_type, match.group(0))) # adding found token in the token_list
+                    token_list.append((token_type, match.group(0)))  # adding found token in the token_list
                 curser_position = match.end(0)
                 break
 
         if not match:  # catch errors or illegal charachers that don't conform to the defined regular expressions
-            print("Illegal character: " + program[curser_position], "Line : ", line_number_track)
+            print("Illegal character: " + program[curser_position], "at Line ", line_number_track)
             curser_position += 1 # incrementing cursor position
     return token_list
 
