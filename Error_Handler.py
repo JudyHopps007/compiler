@@ -84,6 +84,10 @@ def parse_tokens(tokens):
 
     return output
 
-tokens = lexical_analyzer("input.c")
+
+import lexical_Analyzer
+import json
+tokens = lexical_Analyzer.lexical_analyzer('program.c')
+
 output = parse_tokens(tokens)
 print(json.dumps(output, indent=4))
