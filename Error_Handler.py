@@ -70,3 +70,24 @@ multiplicative_expression = unary_expression + ZeroOrMore((mult_op + unary_expre
 additive_expression = multiplicative_expression + ZeroOrMore((add_op + multiplicative_expression))
 relational_expression = additive_expression + ZeroOrMore((rel_op + additive_expression))
 equality_expression = relational_expression + ZeroOrMore((oneOf("
+
+# Define a function to parse a list of tokens using the given CFG
+def parse(tokens, cfg):
+    start_symbol = cfg['start_symbol']
+    grammar = cfg['grammar']
+    parser = pp.Forward()
+    for rule in grammar[start_symbol]:
+        parser |= pp.Forward() + pp.Group(pp.OneOrMore(rule)) + pp.Forward()
+    for symbol, rules in grammar.items():
+        if symbol != start_symbol:
+            subparser = pp.Forward()
+            for rule in rules:
+                subparser |= pp.Group(pp.OneOrMore(rule))
+            parser |= subparser
+    parser.ignore(pp.ZeroOrMore(pp.White()))
+    try:
+        parsed = parser.parse(tokens)
+        return parsed[0]
+    except pp.ParseException as e:
+        print(f'Error parsing tokens: {e}')
+        return None
