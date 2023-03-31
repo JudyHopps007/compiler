@@ -1,3 +1,7 @@
+import lexical_Analyzer
+
+tokens = lexical_Analyzer.lexical_analyzer('program.c')
+
 import pyparsing as pp
 
 # Define PyParsing grammar for C programming language
@@ -39,3 +43,6 @@ def parse_tokens(tokens):
         print('No syntax errors found')
     except pp.ParseException as e:
         print(f'Syntax error: {e}')
+
+
+parse_tokens(tokens)
