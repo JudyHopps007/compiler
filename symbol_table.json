@@ -5,12 +5,6 @@
             "DATA_TYPE": "int",
             "VALUE": null,
             "SCOPE": null
-        },
-        {
-            "IDENTIFIER": "printf",
-            "DATA_TYPE": null,
-            "VALUE": null,
-            "SCOPE": null
         }
     ]
 }

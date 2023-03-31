@@ -2,7 +2,6 @@ import lexical_Analyzer
 
 tokens = lexical_Analyzer.lexical_analyzer('program.c')
 
-
 # Define a class to represent a node in the parse tree
 class ParseTreeNode:
     def __init__(self, value, children=None):
@@ -16,39 +15,33 @@ class ParseTreeNode:
 # Define the production rules for the language
 # This is a simplified set of rules for illustration purposes only
 rules = [
-    ('<program>', ['<include-list>', '<declaration>']),
-    ('<include-list>', ['INCLUDE_DIRECTIVE']),
-    ('<declaration>', ['<function_declaration>*', '<include-list>']),
-    ('<declaration>', []),
-    ('<function_declaration>', ['<type_specifier>', '<identifier>', '<parameter_list>', '<compound_statement>']),
-
-    # ('<function_declaration_closure>', ['<type_specifier>', '<identifier>', '<parameter_list>',  '<compound_statement>']),
-
-    ('<parameter_list>', ['LEFT_PAREN', '<type_specifier>', '<identifier>', 'RIGHT_PAREN']),
+    ('<program>', ['<include-list>*', '<declaration>']),
+    ('<include-list>', ['INCLUDE_ID', 'INCLUDE_DIRECTIVE']),
+    ('<declaration>', ['<function_declaration>*']),
+    ('<function_declaration>', ['<type_specifier>', '<identifier>', '<parameter_list>',  '<compound_statement>']),
+    ('<parameter_list>', ['LEFT_PAREN',  'RIGHT_PAREN']),
+    ('<parameters>', ['<type_specifier>', '<identifier>']),
     ('<more_parameters>', ['COMMA', '<type_specifier>', '<identifier>', '<more_parameters>']),
     ('<more_parameters>', []),
-
     ('<type_specifier>', ['KEYWORD']),
     ('<identifier>', ['IDENTIFIER']),
-    ('<identifier>', ['main_f']),
-
     ('<comma>', ['COMMA']),
     ('<compound_statement>', ['LEFT_BRACE', 'RIGHT_BRACE']),
+
 
 ]
 
 
-# ('<function_declaration>', ['<type_specifier>', '<identifier>', 'LEFT_PAREN', 'RIGHT_PAREN', '<compound_statement>']),
-
 # Define a function that recursively generates a parse tree from the token stream using the production rules
 def parse(tokens, rule, kleene_dict=None):
     node = ParseTreeNode(rule[0])
-    print(rule[0])
+    print("start", rule[0])
     for production in rule[1]:
         if production.endswith('*'):
             # If the production is a Kleene closure of a non-terminal
             non_terminal = production[:-1]
             subrules = [r for r in rules if r[0] == non_terminal]
+            print('sub', subrules)
             if not subrules:
                 raise ValueError("Invalid production rule: " + non_terminal)
             while True:
@@ -63,6 +56,7 @@ def parse(tokens, rule, kleene_dict=None):
         elif production.startswith('<'):
             # If the production is a non-terminal, recursively generate a subtree using the corresponding rule
             subrules = [r for r in rules if r[0] == production]
+            print('sub', subrules)
             if not subrules:
                 raise ValueError("Invalid production rule: " + production)
             match_found = False

@@ -15,25 +15,19 @@ class ParseTreeNode:
 # Define the production rules for the language
 # This is a simplified set of rules for illustration purposes only
 rules = [
-    ('<program>', ['<include-list>*',  '<declaration>']),
+    ('<program>', ['<include-list>*', '<declaration>']),
     ('<include-list>', ['INCLUDE_ID', 'INCLUDE_DIRECTIVE']),
-    ('<declaration>', ['<function_declaration>*', '<include-list>']),
-    ('<declaration>', []),
+    ('<declaration>', ['<function_declaration>*']),
     ('<function_declaration>', ['<type_specifier>', '<identifier>', '<parameter_list>',  '<compound_statement>']),
-    ('<parameter_list>', ['LEFT_PAREN', '<type_specifier>', '<identifier>', 'RIGHT_PAREN']),
+    ('<parameter_list>', ['LEFT_PAREN',  'RIGHT_PAREN']),
+    ('<parameters>', ['<type_specifier>', '<identifier>']),
     ('<more_parameters>', ['COMMA', '<type_specifier>', '<identifier>', '<more_parameters>']),
     ('<more_parameters>', []),
     ('<type_specifier>', ['KEYWORD']),
     ('<identifier>', ['IDENTIFIER']),
-    ('<identifier>', ['main_f']),
     ('<comma>', ['COMMA']),
     ('<compound_statement>', ['LEFT_BRACE', 'RIGHT_BRACE']),
-
-
 ]
-
-
-# Define a function that recursively generates a parse tree from the token stream using the production rules
 def parse(tokens, rule, kleene_dict=None):
     node = ParseTreeNode(rule[0])
     print(rule[0])
@@ -46,7 +40,7 @@ def parse(tokens, rule, kleene_dict=None):
                 raise ValueError("Invalid production rule: " + non_terminal)
             while True:
                 try:
-                    child = parse(tokens, subrules[0], kleene_dict)
+                    child = parse(tokens, subrules[0], kleene_dict)  # pass kleene_dict to recursive call
                     node.add_child(child)
                     print('\t \t Match', subrules[0])
                 except ValueError:
@@ -61,7 +55,7 @@ def parse(tokens, rule, kleene_dict=None):
             match_found = False
             for subrule in subrules:
                 try:
-                    child = parse(tokens, subrule, kleene_dict)
+                    child = parse(tokens, subrule, kleene_dict)  # pass kleene_dict to recursive call
                     node.add_child(child)
                     match_found = True
                     print('\t \t Match', subrule)
@@ -86,7 +80,7 @@ def parse(tokens, rule, kleene_dict=None):
     if kleene_dict and rule[0] in kleene_dict:
         while True:
             try:
-                child = parse(tokens, rule, kleene_dict=None)
+                child = parse(tokens, rule, kleene_dict=kleene_dict)  # pass kleene_dict to recursive call
                 node.add_child(child)
                 print('\t \t Kleene closure')
             except ValueError:
@@ -95,6 +89,7 @@ def parse(tokens, rule, kleene_dict=None):
                 break  # Added check for end of input
 
     return node
+
 
 
 # Define a function that runs the syntax analyzer on the token stream
