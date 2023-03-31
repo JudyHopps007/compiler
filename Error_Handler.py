@@ -1,93 +1,53 @@
 import lexical_Analyzer
 
 tokens = lexical_Analyzer.lexical_analyzer('program.c')
+import pyparsing as pp
 
-import re  # generate regular expression
-import time  # measure the run time
-import json
-from pyparsing import *
+# Define the grammar using pyparsing constructs
+expr = pp.Forward()
+identifier = pp.Regex(r'[a-zA-Z_][a-zA-Z0-9_]*')
+integer = pp.Regex(r'\d+')
+floating_point = pp.Regex(r'\d+\.\d+')
+char_literal = pp.QuotedString("'", escChar='\\')
+string_literal = pp.QuotedString('"', escChar='\\')
+type_name = pp.oneOf('int void char bool float long')
+operator = pp.oneOf('+ - * / % = == != < > <= >= && || !')
+left_paren = pp.Literal('(').suppress()
+right_paren = pp.Literal(')').suppress()
+left_brace = pp.Literal('{').suppress()
+right_brace = pp.Literal('}').suppress()
+semicolon = pp.Literal(';').suppress()
+comma = pp.Literal(',').suppress()
 
+arg = pp.Group(expr + pp.ZeroOrMore(comma + expr))
+func_call = pp.Group(identifier + left_paren + pp.Optional(arg) + right_paren)
 
-# Define regular expression patterns for different types of tokens(assigning tokens to lexemes)
-patterns_rg = [
-    (r'#include', 'INCLUDE_ID'),
-    (r'<[A-Za-z]+.h>', 'INCLUDE_DIRECTIVE'),
-    (r'\b(int|void|char|bool|float|long|return)\b', 'KEYWORD'),
-    (r'\b(if)\b', 'if'),
-    (r'\b(else)\b', 'else'),
-    (r'\b(while)\b', 'while'),
-    (r'\b(true|false)\b', 'BOOLEAN'),
-    (r'[0-9]+[.][0-9]+', 'floating_point'),
-    (r'\b[0-9]+\b', 'integer'),
-    (r"'.'", 'char'),
-    (r'[a-zA-Z_][a-zA-Z0-9_]*', 'IDENTIFIER'),
-    (r'\+', 'PLUS'),
-    (r'-', 'MINUS'),
-    (r'\*', 'MULTIPLY'),
-    (r'(\/\/[^\n\r]*[\n\r])|\/\*[\s\S]*?\*\/', 'COMMENT'),
-    (r'/(?![\/\*])[\n\s]*', 'DIVIDE'),
-    (r'%', 'MODULUS'),
-    (r'=', 'ASSIGN'),
-    (r'==', 'EQUAL'),
-    (r'!=', 'NOT_EQUAL'),
-    (r'<', 'LESS_THAN'),
-    (r'>', 'GREATER_THAN'),
-    (r'<=', 'LESS_THAN_EQUAL'),
-    (r'>=', 'GREATER_THAN_EQUAL'),
-    (r'\(', 'LEFT_PAREN'),
-    (r'\)', 'RIGHT_PAREN'),
-    (r'\{', 'LEFT_BRACE'),
-    (r'\}', 'RIGHT_BRACE'),
-    (r';', 'SEMICOLON'),
-    (r',', 'COMMA'),
-    (r'\|\|', 'OR'),
-    (r'\&\&', 'AND'),
-    (r'\!', 'NOT'),
-]
+func_decl = pp.Group(type_name + identifier + left_paren + pp.Optional(arg) + right_paren + left_brace + pp.ZeroOrMore(expr) + right_brace)
+var_decl = pp.Group(type_name + identifier + semicolon)
 
-# Define grammar for the C programming language
-identifier = Regex(r'[a-zA-Z_][a-zA-Z0-9_]*')
-number = Regex(r'[0-9]+(\.[0-9]+)?')
-string = Regex(r'\".*\"')
-boolean = oneOf("true false")
-type_name = oneOf("int char void bool float long")
+if_stmt = pp.Group(pp.Keyword('if') + left_paren + expr + right_paren + left_brace + pp.ZeroOrMore(expr) + right_brace + pp.Optional(pp.Keyword('else') + left_brace + pp.ZeroOrMore(expr) + right_brace))
+while_loop = pp.Group(pp.Keyword('while') + left_paren + expr + right_paren + left_brace + pp.ZeroOrMore(expr) + right_brace)
 
-expression = Forward()
+expression_term = floating_point | integer | char_literal | string_literal | func_call | identifier
+unary_expression = pp.Forward()
+unary_expression <<= operator + expression_term | expression_term
+multiplicative_expression = unary_expression + pp.ZeroOrMore(pp.oneOf('* / %').suppress() + unary_expression)
+additive_expression = multiplicative_expression + pp.ZeroOrMore(pp.oneOf('+ -').suppress() + multiplicative_expression)
+relational_expression = additive_expression + pp.ZeroOrMore(pp.oneOf('< > <= >=').suppress() + additive_expression)
+equality_expression = relational_expression + pp.ZeroOrMore(pp.oneOf('== !=').suppress() + relational_expression)
+logical_and_expression = equality_expression + pp.ZeroOrMore(pp.Keyword('&&').suppress() + equality_expression)
+logical_or_expression = logical_and_expression + pp.ZeroOrMore(pp.Keyword('||').suppress() + logical_and_expression)
+expr <<= logical_or_expression
 
-# Define the various operations allowed in expressions
-unary_op = oneOf("! -")
-mult_op = oneOf("* / %")
-add_op = oneOf("+ -")
-rel_op = oneOf("< > <= >= == !=")
-log_op = oneOf("&& ||")
+program = pp.ZeroOrMore(func_decl | var_decl | if_stmt | while_loop)
 
-primary_expression = (identifier | number | string | boolean | Group("(" + expression + ")"))
-
-# Define expressions
-postfix_expression = primary_expression + ZeroOrMore((Group("[" + expression + "]")) | (Group("." + identifier)) | (Group("->" + identifier)) | (Group("(" + Optional(delimitedList(expression)) + ")")))
-unary_expression = Optional(unary_op) + postfix_expression
-multiplicative_expression = unary_expression + ZeroOrMore((mult_op + unary_expression))
-additive_expression = multiplicative_expression + ZeroOrMore((add_op + multiplicative_expression))
-relational_expression = additive_expression + ZeroOrMore((rel_op + additive_expression))
-equality_expression = relational_expression + ZeroOrMore((oneOf("
-
-# Define a function to parse a list of tokens using the given CFG
-def parse(tokens, cfg):
-    start_symbol = cfg['start_symbol']
-    grammar = cfg['grammar']
-    parser = pp.Forward()
-    for rule in grammar[start_symbol]:
-        parser |= pp.Forward() + pp.Group(pp.OneOrMore(rule)) + pp.Forward()
-    for symbol, rules in grammar.items():
-        if symbol != start_symbol:
-            subparser = pp.Forward()
-            for rule in rules:
-                subparser |= pp.Group(pp.OneOrMore(rule))
-            parser |= subparser
-    parser.ignore(pp.ZeroOrMore(pp.White()))
+# Define a function that takes a list of tokens generated by the lexical analyzer and returns a parse tree
+def syntax_analyzer(tokens):
     try:
-        parsed = parser.parse(tokens)
-        return parsed[0]
+        parse_tree = program.parse(tokens)
+        return parse_tree.asList()
     except pp.ParseException as e:
-        print(f'Error parsing tokens: {e}')
+        print("Syntax Error: ", e)
         return None
+
+syntax_analyzer(tokens)
