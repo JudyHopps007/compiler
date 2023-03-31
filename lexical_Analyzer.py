@@ -153,4 +153,4 @@ def generate_symbol_table(token_list):
                 json.dump(data, json_file_write, indent=4)
 
 
-generate_symbol_table(tokens)
+#generate_symbol_table(tokens)
