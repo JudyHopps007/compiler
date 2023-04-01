@@ -15,11 +15,11 @@ def parse_tokens(tokens):
     # Combine the tokens into a single string
     input_string = ""
     for token in tokens:
-        input_string += token[1] + ""
+        input_string += token[1] + " "
 
     # Parse the input string using the grammar
     parse_tree = grammar.parse(input_string)
-
+    print(parse_tree)
     # Use the visitor class to traverse the parse tree and generate the output
 
 
