@@ -1,6 +1,6 @@
 from antlr4 import *
-from Syntax_DIR.CLexer import CLexer
-from Syntax_DIR.CParser import CParser
+from CLexer import CLexer
+from CParser import CParser
 from lexical_Analyzer import lexical_analyzer
 
 tokens = lexical_analyzer("program.c")  # get the list of tokens from the lexical analyzer
@@ -22,5 +22,4 @@ def Syntax_Analyzer(token_list):
 
 
 tree = Syntax_Analyzer(tokens)
-
-print('\n================ Parser Tree ===================\n', tree)
+print(tree)

@@ -1,6 +1,6 @@
 import lexical_Analyzer
 
-tokens = lexical_Analyzer.lexical_analyzer('program.c')
+tokens = lexical_Analyzer.lexical_analyzer('../program.c')
 
 # Define a class to represent a node in the parse tree
 class ParseTreeNode:
@@ -15,10 +15,10 @@ class ParseTreeNode:
 # Define the production rules for the language
 # This is a simplified set of rules for illustration purposes only
 rules = [
-    ('<program>', [ '<declaration>']),
+    ('<program>', ['<include-list>*']),
     ('<include-list>', ['INCLUDE_ID', 'INCLUDE_DIRECTIVE']),
     ('<declaration>', ['<function_declaration>*']),
-    ('<function_declaration>', ['<type_specifier>', '<identifier>', '<parameter_list>',  '<compound_statement>']),
+    ('<function_declaration>', ['<type_specifier>', '<identifier>']),
     ('<parameter_list>', ['LEFT_PAREN',  'RIGHT_PAREN']),
     ('<parameters>', ['<type_specifier>', '<identifier>']),
     ('<more_parameters>', ['COMMA', '<type_specifier>', '<identifier>', '<more_parameters>']),
@@ -27,54 +27,31 @@ rules = [
     ('<identifier>', ['IDENTIFIER']),
     ('<comma>', ['COMMA']),
     ('<compound_statement>', ['LEFT_BRACE', 'RIGHT_BRACE']),
-
-
 ]
-
-
-# Define a function that recursively generates a parse tree from the token stream using the production rules
-class ParseTreeNode:
-    def __init__(self, value):
-        self.value = value
-        self.children = []
-
-    def add_child(self, node):
-        self.children.append(node)
-
-    def __str__(self):
-        return f"{self.value} ({', '.join(str(c) for c in self.children)})"
-
-    def __repr__(self):
-        return self.__str__()
-
-
-class ParseTreeNode:
-    def __init__(self, value):
-        self.value = value
-        self.children = []
-
-    def add_child(self, node):
-        self.children.append(node)
-
-    def __repr__(self):
-        return str(self.value)
-
-
-def parse(tokens, rule, rules, kleene_dict=None):
+def parse(tokens, rule, kleene_dict=None):
     node = ParseTreeNode(rule[0])
+    print(rule[0])
     for production in rule[1]:
         if production.endswith('*'):
             # If the production is a Kleene closure of a non-terminal
             non_terminal = production[:-1]
-            subrules = [r for r in rules if r[0] == rule[0]]
+            subrules = [r for r in rules if r[0] == non_terminal]
+            if not subrules:
+                raise ValueError("Invalid production rule: " + non_terminal)
             while True:
                 try:
-                    child = parse(tokens, subrules[0], rules, kleene_dict=rule)
+                    child = parse(tokens, subrules[0], kleene_dict)  # pass kleene_dict to recursive call
                     node.add_child(child)
+                    print('\t \t Match', subrules[0])
+
                 except ValueError:
                     break
                 if not tokens:
+                    break  # Added check for end of input
+                    # Check if the next token matches the start of the current production rule
+                if tokens and tokens[0][0] != subrules[0][1][0]:
                     break
+
         elif production.startswith('<'):
             # If the production is a non-terminal, recursively generate a subtree using the corresponding rule
             subrules = [r for r in rules if r[0] == production]
@@ -83,42 +60,37 @@ def parse(tokens, rule, rules, kleene_dict=None):
             match_found = False
             for subrule in subrules:
                 try:
-                    child = parse(tokens, subrule, rules, kleene_dict=kleene_dict)
+                    child = parse(tokens, subrule, kleene_dict)  # pass kleene_dict to recursive call
                     node.add_child(child)
                     match_found = True
+                    print('\t \t Match', subrule)
                     break
-                except ValueError:
-                    pass
+                except ValueError as e:
+                    print('r', e)
+
             if not match_found:
                 raise ValueError("No matching subrule found for production rule: ", production)
         else:
             # If the production is a terminal, consume a token from the token stream and match it against the production
             if not tokens:
                 raise ValueError("Unexpected end of input")
+
             token = tokens.pop(0)
+            print('============', token)
             if token[0] != production:
                 raise ValueError(f"Expected token type {production}, got {token[0]}: {token[1]}")
             node.add_child(ParseTreeNode(token))
-    # Handle Kleene closure specified in the rule
-    if kleene_dict and rule[0] in kleene_dict:
-        while True:
-            try:
-                child = parse(tokens, rule, rules, kleene_dict=rule)
-                node.add_child(child)
-            except ValueError:
-                break
-            if not tokens:
-                break
-    return node
+        return node
 
 
-def syntax_analyze(tokens, rules):
-    tree = parse(tokens, rules[0], rules)
+# Define a function that runs the syntax analyzer on the token stream
+def syntax_analyze(tokens):
+    tree = parse(tokens, rules[0])
     if tokens:
         raise ValueError("Unexpected tokens at end of input")
     return tree
 
 
 print('\nTOKENS\n\t', tokens)
-tree = syntax_analyze(tokens, rules)
+tree = syntax_analyze(tokens)
 print("tree", tree)
