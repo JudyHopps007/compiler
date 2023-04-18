@@ -82,15 +82,17 @@ def lexical_analyzer(filename):
     return token_list
 
 
-start_run_time_time = time.time()  # Record the Start run time-time of lexical_analyzer
-tokens = lexical_analyzer('program.c')  # calling the lexical_analyzer()
-End_run_time_time = time.time()  # Record the End run time-time of lexical_analyzer
-Program_Run_time = End_run_time_time - start_run_time_time  # Calculate the elapsed time (run time of lexical_analyzer function)
-print(f"\nProgram Runtime  :  {Program_Run_time} seconds")
+# start_run_time_time = time.time()  # Record the Start run time-time of lexical_analyzer
+# tokens = lexical_analyzer('program.c')  # calling the lexical_analyzer()
+# End_run_time_time = time.time()  # Record the End run time-time of lexical_analyzer
+# Program_Run_time = End_run_time_time - start_run_time_time  # Calculate the elapsed time (run time of lexical_analyzer function)
+# print(f"\nProgram Runtime  :  {Program_Run_time} seconds")
 
-print("\n============== TOKENS ================ \n ", tokens)
-for token in tokens:  # print each token at a time
-    print(token)
+
+
+# print("\n============== TOKENS ================ \n ", tokens)
+# for token in tokens:  # print each token at a time
+#     print(token)
 
 
 # ===================================== SYMBOL TABLE PHASE===============================================================================

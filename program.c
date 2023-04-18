@@ -1,6 +1,6 @@
-int main (int a ){
+// #include <stdio.h>;
 
+int main(){
+    int a =0;
 }
-int main (int a ){
 
-}
