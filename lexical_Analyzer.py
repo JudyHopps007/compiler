@@ -4,7 +4,10 @@ import json  # for symbol table {access and storage}
 
 # ====================================== LEXICAL ANALYZER PHASE =====================================================
 
-patterns_rg = [  # Define regular expression patterns for different types of tokens(assigning tokens to lexemes
+
+# Define regular expression patterns for different types of tokens(assigning tokens to lexemes)
+
+patterns_rg = [
     (r'#include', 'INCLUDE_ID'),
     (r'<[A-Za-z]+.h>', 'INCLUDE_DIRECTIVE'),
     (r'\b(int|void|char|bool|float|long|return)\b', 'KEYWORD'),
@@ -42,8 +45,9 @@ patterns_rg = [  # Define regular expression patterns for different types of tok
 ]
 
 
-# lexical_analyzer function that reads a program from a  and generates a list of tokens
+# ========= Define a function that reads a program from a  and generates a list of tokens ===
 def lexical_analyzer(filename):
+
     with open(filename, 'r') as f:  # load the program file into the lexical analyzer
         program = f.read()
 
@@ -86,7 +90,7 @@ print(f"\nLexical Program Runtime  :  {Program_Run_time} seconds")
 
 print("\n================ ============= TOKENS ========================= ================ \n ")
 for token in tokens:
-    print(token)  # print each token at a time
+    print(token) # print each token at a time
 
 
 # ===================================== SYMBOL TABLE PHASE===============================================================================
@@ -147,4 +151,4 @@ def generate_symbol_table(token_list):
                 json.dump(data, json_file_write, indent=4)
 
 
-#generate_symbol_table(tokens)
+generate_symbol_table(tokens)
