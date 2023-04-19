@@ -3,11 +3,8 @@ import time  # for measuring 'p' run time
 import json  # for symbol table {access and storage}
 
 # ====================================== LEXICAL ANALYZER PHASE =====================================================
-# ===================================================================================================================
 
-# Define regular expression patterns for different types of tokens(assigning tokens to lexemes)
-
-patterns_rg = [
+patterns_rg = [  # Define regular expression patterns for different types of tokens(assigning tokens to lexemes
     (r'#include', 'INCLUDE_ID'),
     (r'<[A-Za-z]+.h>', 'INCLUDE_DIRECTIVE'),
     (r'\b(int|void|char|bool|float|long|return)\b', 'KEYWORD'),
@@ -26,8 +23,8 @@ patterns_rg = [
     (r'(\/\/[^\n\r]*[\n\r])|\/\*[\s\S]*?\*\/', 'COMMENT'),
     (r'/(?![\/\*])[\n\s]*', 'DIVIDE'),
     (r'%', 'MODULUS'),
-    (r'=', 'ASSIGN'),
     (r'==', 'EQUAL'),
+    (r'=', 'ASSIGN'),
     (r'!=', 'NOT_EQUAL'),
     (r'<', 'LESS_THAN'),
     (r'>', 'GREATER_THAN'),
@@ -45,9 +42,8 @@ patterns_rg = [
 ]
 
 
-# ========= Define a function that reads a program from a  and generates a list of tokens ===
+# lexical_analyzer function that reads a program from a  and generates a list of tokens
 def lexical_analyzer(filename):
-
     with open(filename, 'r') as f:  # load the program file into the lexical analyzer
         program = f.read()
 
@@ -86,16 +82,14 @@ start_run_time_time = time.time()  # Record the Start run time-time of lexical_a
 tokens = lexical_analyzer('program.c')  # calling the lexical_analyzer()
 End_run_time_time = time.time()  # Record the End run time-time of lexical_analyzer
 Program_Run_time = End_run_time_time - start_run_time_time  # Calculate the elapsed time (run time of lexical_analyzer function)
-print(f"\nProgram Runtime  :  {Program_Run_time} seconds")
+print(f"\nLexical Program Runtime  :  {Program_Run_time} seconds")
 
-print("\n============== TOKENS ================ \n ", tokens)
-for token in tokens:  # print each token at a time
-    print(token)
+print("\n================ ============= TOKENS ========================= ================ \n ")
+for token in tokens:
+    print(token)  # print each token at a time
 
 
 # ===================================== SYMBOL TABLE PHASE===============================================================================
-# =======================================================================================================================================
-
 def generate_symbol_table(token_list):
     clear_json = {"Symbol_table": []}
     with open("symbol_table.json", 'w') as f:
@@ -153,4 +147,4 @@ def generate_symbol_table(token_list):
                 json.dump(data, json_file_write, indent=4)
 
 
-#generate_symbol_table(tokens)
+generate_symbol_table(tokens)

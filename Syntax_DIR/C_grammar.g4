@@ -38,6 +38,8 @@ operator: '+' | '-' | '*' | '/' | '%' | '&&' | '||';
 
 CONDITIONAL_OPERATOR : '==' | '!=' | '<' | '>' | '<=' | '>=';
 
+LOGICAL_OPERATOR: '&&' | '||' | '!';
+
 type_specifier: 'int' | 'float' | 'char' | 'double' | 'void' | 'bool' | 'long';
 
 IDENTIFIER: [a-zA-Z_][a-zA-Z0-9_]*;

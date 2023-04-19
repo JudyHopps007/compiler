@@ -6,7 +6,6 @@ import json  # for symbol table {access and storage}
 # ===================================================================================================================
 
 # Define regular expression patterns for different types of tokens(assigning tokens to lexemes)
-
 patterns_rg = [
     #(r'#include', 'INCLUDE_ID'),
     #(r'<[A-Za-z]+.h>', 'INCLUDE_DIRECTIVE'),
