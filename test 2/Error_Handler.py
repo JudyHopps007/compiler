@@ -1,96 +1,69 @@
-import lexical_Analyzer
+token =   [('PREPROCESSOR_DIRECTIVE', '#include <stdio.h>'), ('KEYWORD', 'int'), ('IDENTIFIER', 'main'), ('LEFT_PAREN', '('), ('RIGHT_PAREN', ')'), ('LEFT_BRACE', '{'), ('KEYWORD', 'int'), ('IDENTIFIER', 'a'), ('ASSIGN', '='), ('INTEGER', '10'), ('SEMICOLON', ';'), ('KEYWORD', 'int'), ('IDENTIFIER', 'b'), ('ASSIGN', '='), ('INTEGER', '20'), ('SEMICOLON', ';'), ('KEYWORD', 'int'), ('IDENTIFIER', 'c'), ('ASSIGN', '='), ('IDENTIFIER', 'a'), ('PLUS', '+'), ('IDENTIFIER', 'b'), ('SEMICOLON', ';'), ('IDENTIFIER', 'printf'), ('LEFT_PAREN', '('), ('STRING', '"The sum of a and b is %d\\n"'), ('COMMA', ','), ('IDENTIFIER', 'c'), ('RIGHT_PAREN', ')'), ('SEMICOLON', ';'), ('KEYWORD', 'return'), ('INTEGER', '0'), ('SEMICOLON', ';'), ('RIGHT_BRACE', '}')]
 
-tokens = lexical_Analyzer.lexical_analyzer('../program.c')
+production_rules = {
+        'program': [('declaration', 'program'), ('declaration',)],
+        'declaration': [('INCLUDE_ID',), ('INCLUDE_DIRECTIVE',), ('KEYWORD', 'IDENTIFIER', '(', 'parameters', ')', '{', 'statements', '}',)],
+        'parameters': [('void',), ('parameter_list',)],
+        'parameter_list': [('parameter',), ('parameter_list', ',', 'parameter')],
+        'parameter': [('KEYWORD', 'IDENTIFIER')],
+        'statements': [('statement',), ('statement', 'statements')],
+        'statement': [('expression_statement',), ('if_statement',), ('while_statement',)],
+        'expression_statement': [('assignment_expression', ';'), ('expression', ';')],
+        'assignment_expression': [('IDENTIFIER', '=', 'assignment_expression'), ('logical_or_expression',)],
+        'expression': [('logical_or_expression',)],
+        'logical_or_expression': [('logical_and_expression',), ('logical_or_expression', '||', 'logical_and_expression')],
+        'logical_and_expression': [('equality_expression',), ('logical_and_expression', '&&', 'equality_expression')],
+        'equality_expression': [('relational_expression',), ('equality_expression', '==', 'relational_expression'), ('equality_expression', '!=', 'relational_expression')],
+        'relational_expression': [('additive_expression',), ('relational_expression', '<', 'additive_expression'), ('relational_expression', '>', 'additive_expression'), ('relational_expression', '<=', 'additive_expression'), ('relational_expression', '>=', 'additive_expression')],
+        'additive_expression': [('multiplicative_expression',), ('additive_expression', '+', 'multiplicative_expression'), ('additive_expression', '-', 'multiplicative_expression')],
+        'multiplicative_expression': [('unary_expression',), ('multiplicative_expression', '*', 'unary_expression'), ('multiplicative_expression', '/', 'unary_expression'), ('multiplicative_expression', '%', 'unary_expression')],
+        'unary_expression': [('postfix_expression',), ('-', 'unary_expression'), ('!', 'unary_expression')],
+        'postfix_expression': [('primary_expression',), ('postfix_expression', '(', 'argument_expression_list', ')')],
+        'primary_expression': [('IDENTIFIER',), ('INTEGER',), ('FLOATING_POINT',), ('CHAR',), ('STRING',), ('(', 'expression', ')')],
+        'argument_expression_list': [('assignment_expression',), ('argument_expression_list', ',', 'assignment_expression')],
+        'if_statement': [('IF', '(', 'expression', ')', '{', 'statements', '}', 'else_clause')],
+        'else_clause': [('ELSE', '{', 'statements', '}'), ()],
+        'while_statement': [('WHILE', '(', 'expression', ')', '{', 'statements', '}')],
+    }
 
-# Define a class to represent a node in the parse tree
-class ParseTreeNode:
-    def __init__(self, value, children=None):
-        self.value = value
-        self.children = children if children else []
-
-    def add_child(self, child):
-        self.children.append(child)
 
 
-# Define the production rules for the language
-# This is a simplified set of rules for illustration purposes only
-rules = [
-    ('<program>', ['<include-list>*']),
-    ('<include-list>', ['INCLUDE_ID', 'INCLUDE_DIRECTIVE']),
-    ('<declaration>', ['<function_declaration>*']),
-    ('<function_declaration>', ['<type_specifier>', '<identifier>']),
-    ('<parameter_list>', ['LEFT_PAREN',  'RIGHT_PAREN']),
-    ('<parameters>', ['<type_specifier>', '<identifier>']),
-    ('<more_parameters>', ['COMMA', '<type_specifier>', '<identifier>', '<more_parameters>']),
-    ('<more_parameters>', []),
-    ('<type_specifier>', ['KEYWORD']),
-    ('<identifier>', ['IDENTIFIER']),
-    ('<comma>', ['COMMA']),
-    ('<compound_statement>', ['LEFT_BRACE', 'RIGHT_BRACE']),
-]
-def parse(tokens, rule, kleene_dict=None):
-    node = ParseTreeNode(rule[0])
-    print(rule[0])
-    for production in rule[1]:
-        if production.endswith('*'):
-            # If the production is a Kleene closure of a non-terminal
-            non_terminal = production[:-1]
-            subrules = [r for r in rules if r[0] == non_terminal]
-            if not subrules:
-                raise ValueError("Invalid production rule: " + non_terminal)
-            while True:
-                try:
-                    child = parse(tokens, subrules[0], kleene_dict)  # pass kleene_dict to recursive call
-                    node.add_child(child)
-                    print('\t \t Match', subrules[0])
+def parse(tokens, production_rules):
+        # Initialize the parse stack.
+        stack = ['$']
 
-                except ValueError:
-                    break
-                if not tokens:
-                    break  # Added check for end of input
-                    # Check if the next token matches the start of the current production rule
-                if tokens and tokens[0][0] != subrules[0][1][0]:
-                    break
+        # Initialize the parse tree.
+        tree = []
 
-        elif production.startswith('<'):
-            # If the production is a non-terminal, recursively generate a subtree using the corresponding rule
-            subrules = [r for r in rules if r[0] == production]
-            if not subrules:
-                raise ValueError("Invalid production rule: " + production)
-            match_found = False
-            for subrule in subrules:
-                try:
-                    child = parse(tokens, subrule, kleene_dict)  # pass kleene_dict to recursive call
-                    node.add_child(child)
-                    match_found = True
-                    print('\t \t Match', subrule)
-                    break
-                except ValueError as e:
-                    print('r', e)
+        # Iterate over the tokens.
+        for token in tokens:
+            # Pop the top of the stack.
+            sym = stack.pop()
 
-            if not match_found:
-                raise ValueError("No matching subrule found for production rule: ", production)
+            # If the top of the stack is a nonterminal,
+            # try to match it against the current token.
+            if sym in production_rules:
+                for rule in production_rules[sym]:
+                    if token == rule[0]:
+                        stack.append(rule[1])
+                        tree.append(rule[0])
+                        break
+                else:
+                    # If the token does not match any of the production rules for the top of the stack,
+                    # the parse fails.
+                    print('Parse error at token', token)
+                    return None
+            else:
+                # If the top of the stack is a terminal,
+                # push it onto the parse tree.
+                tree.append(sym)
+
+        # If the parse stack is empty, the parse succeeds.
+        if not stack:
+            return tree
         else:
-            # If the production is a terminal, consume a token from the token stream and match it against the production
-            if not tokens:
-                raise ValueError("Unexpected end of input")
+            # If the parse stack is not empty, the parse fails.
+            print('Parse error, parse stack is not empty')
+            return None
 
-            token = tokens.pop(0)
-            print('============', token)
-            if token[0] != production:
-                raise ValueError(f"Expected token type {production}, got {token[0]}: {token[1]}")
-            node.add_child(ParseTreeNode(token))
-        return node
-
-
-# Define a function that runs the syntax analyzer on the token stream
-def syntax_analyze(tokens):
-    tree = parse(tokens, rules[0])
-    if tokens:
-        raise ValueError("Unexpected tokens at end of input")
-    return tree
-
-
-print('\nTOKENS\n\t', tokens)
-tree = syntax_analyze(tokens)
-print("tree", tree)
+parse(token, production_rules)

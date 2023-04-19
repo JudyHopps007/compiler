@@ -1,4 +1,4 @@
-# Generated from C_grammar.g4 by ANTLR 4.12.0
+# Generated from C.g4 by ANTLR 4.12.0
 from antlr4 import *
 from io import StringIO
 import sys
@@ -127,7 +127,7 @@ class CLexer(Lexer):
                   "T__20", "T__21", "T__22", "T__23", "T__24", "T__25", 
                   "T__26", "T__27", "ID", "INT", "WS" ]
 
-    grammarFileName = "C_grammar.g4"
+    grammarFileName = "C.g4"
 
     def __init__(self, input=None, output:TextIO = sys.stdout):
         super().__init__(input, output)

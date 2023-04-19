@@ -8,8 +8,9 @@ import json  # for symbol table {access and storage}
 # Define regular expression patterns for different types of tokens(assigning tokens to lexemes)
 
 patterns_rg = [
-    (r'#include', 'INCLUDE_ID'),
-    (r'<[A-Za-z]+.h>', 'INCLUDE_DIRECTIVE'),
+    #(r'#include', 'INCLUDE_ID'),
+    #(r'<[A-Za-z]+.h>', 'INCLUDE_DIRECTIVE'),
+    (r'#include <[A-Za-z]+.h>', 'PREPROCESSOR_DIRECTIVE'),
     (r'\b(int|void|char|bool|float|long|return)\b', 'KEYWORD'),
     (r'\b(if)\b', 'IF'),
     (r'\b(else)\b', 'ELSE'),
@@ -92,65 +93,81 @@ print("\n============== TOKENS ================ \n ", tokens)
 for token in tokens:  # print each token at a time
     print(token)
 
+def parse(tokens):
 
-# ===================================== SYMBOL TABLE PHASE===============================================================================
-# =======================================================================================================================================
+    # Create a stack to store the parsed tokens
+    stack = []
 
-def generate_symbol_table(token_list):
-    clear_json = {"Symbol_table": []}
-    with open("symbol_table.json", 'w') as f:
-        json.dump(clear_json, f)
+    # Iterate over the tokens
+    for token in tokens:
+        # If the token is a keyword or an identifier, push it onto the stack
+        if token[0] in ["KEYWORD", "IDENTIFIER"]:
+            stack.append(token)
 
-    with open('symbol_table.json') as json_file:
-        data = json.load(json_file)
-    symbol_table = data['Symbol_table']
-    directives_table = []
-    for i in range(len(token_list)):
-        token_type, token_value = token_list[i]
-        if token_type == 'INCLUDE_DIRECTIVE':
-            directives_table.append(token_value)
-        if token_type == 'IDENTIFIER':
-            data_type = None
-            value = None
-            if any(d.get('IDENTIFIER') == token_value for d in symbol_table):
-                for k in range(len(symbol_table)):
-                    if symbol_table[k]['IDENTIFIER'] == token_value:
-                        if symbol_table[k]['DATA_TYPE'] == None:
-                            if token_list[i - 1][0] == 'KEYWORD':
-                                data_type = token_list[i - 1][1]
+        # If the token is an operator, pop two tokens off the stack and push the result of the operation onto the stack
+        elif token[0] in ["PLUS", "MINUS", "MULTIPLY", "DIVIDE", "EQUAL", "NOT_EQUAL", "LESS_THAN", "GREATER_THAN", "LESS_THAN_EQUAL", "GREATER_THAN_EQUAL"]:
+            right_operand = stack.pop()
+            left_operand = stack.pop()
+            result = eval(left_operand[1] + token[1] + right_operand[1])
+            stack.append((token[0], result))
 
-                        if token_list[i + 1][1] != '(':
-                            if token_list[i + 1][1] != ',':
-                                if token_list[i + 1][1] == '=':
-                                    if symbol_table[k]['VALUE'] == None:
-                                        p = 0
-                                        value = ''
-                                        while token_list[i + 2 + p][1] != ';':
-                                            value += token_list[i + 2 + p][1]
-                                            p += 1
-                        else:
-                            value = None
+        # If the token is a left parenthesis, push it onto the stack
+        elif token[0] == "LEFT_PAREN":
+            stack.append(token)
 
-            else:
-                if token_list[i - 1][0] == 'KEYWORD':
-                    data_type = token_list[i - 1][1]
-                if token_list[i + 1][1] != '(':
-                    if token_list[i + 1][1] != ',':
-                        if token_list[i + 1][1] == '=':
-                            p = 0
-                            value = ''
-                            while token_list[i + 2 + p][1] != ';':
-                                value += token_list[i + 2 + p][1]
-                                p += 1
-            dictionary = {
-                'IDENTIFIER': token_value,
-                'DATA_TYPE': data_type,
-                'VALUE': value,
-                'SCOPE': None
-            }
-            symbol_table.append(dictionary)
-            with open('symbol_table.json', 'w') as json_file_write:
-                json.dump(data, json_file_write, indent=4)
+        # If the token is a right parenthesis, pop the top two tokens off the stack and push the result of the expression onto the stack
+        elif token[0] == "RIGHT_PAREN":
+            if len(stack) == 0:
+                raise SyntaxError("Unbalanced parentheses")
+            right_operand = stack.pop()
+            left_operand = stack.pop()
+            print("we ", right_operand)
+            print("we ",left_operand)
+            #result = eval(left_operand[1] + token[1] + right_operand[1])
+            #stack.append((token[0], result))
 
+        # If the token is a semicolon, pop the top token off the stack
+        elif token[0] == "SEMICOLON":
+            stack.pop()
 
-#generate_symbol_table(tokens)
+        # If the token is a keyword that indicates the beginning of a statement, pop the top token off the stack and push the result of the statement onto the stack
+        elif token[0] in ["IF", "ELSE", "WHILE", "RETURN"]:
+            statement = stack.pop()
+            stack.append((token[0], statement))
+
+        # If the token is a keyword that indicates the beginning of a declaration, pop the top token off the stack and push the result of the declaration onto the stack
+        elif token[0] in ["INT", "FLOAT", "CHAR", "VOID"]:
+            declaration = stack.pop()
+            stack.append((token[0], declaration))
+
+        # If the token is a keyword that indicates the beginning of a type, pop the top token off the stack and push the result of the type onto the stack
+        elif token[0] in ["STRUCT", "UNION"]:
+            type = stack.pop()
+            stack.append((token[0], type))
+
+        # If the token is an identifier that indicates the beginning of a variable, pop the top token off the stack and push the result of the variable onto the stack
+        elif token[0] == "IDENTIFIER" and token[1].isalpha():
+            variable = stack.pop()
+            stack.append((token[0], variable))
+
+        # If the token is an identifier that indicates the beginning of a function, pop the top token off the stack and push the result of the function onto the stack
+        elif token[0] == "IDENTIFIER" and token[1].isalpha() and token[1].isupper():
+            function = stack.pop()
+            stack.append((token[0], function))
+
+        # If the token is a preprocessor directive, push it onto the stack
+        elif token[0] == "PREPROCESSOR_DIRECTIVE":
+            stack.append(token)
+
+        # If the token is anything else, raise an error
+        else:
+            raise ValueError("Unexpected token: " + token[1])
+
+    # If the stack is not empty, there is a syntax error
+    if len(stack) > 0:
+        raise SyntaxError("Syntax error: Unbalanced parentheses")
+
+    # Return the top token on the stack, which is the result of the parse
+    return stack[-1]
+
+parse(tokens)

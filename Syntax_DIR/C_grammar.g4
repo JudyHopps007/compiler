@@ -1,37 +1,60 @@
-grammar C;
+grammar C_grammar;
 
-program: (function | declaration)*;
+program: (include_list | declaration | function)* main_function?;
 
-function: type ID '(' params ')' compound_statement;
+include_list: '#include' INCLUDE_DIRECTIVE;
 
-declaration: type ID ';';
+function: type_specifier IDENTIFIER '(' params ')' compound_statement;
 
-params: (type ID (',' type ID)*)?;
+main_function: type_specifier 'main' '(' params ')' compound_statement;
 
-compound_statement: '{' (statement)* '}';
+declaration: type_specifier IDENTIFIER ';';
 
-statement: (declaration | assignment | if_statement | while_statement | return_statement | compound_statement | expression_statement) ';';
+params: (type_specifier IDENTIFIER (',' type_specifier IDENTIFIER)*)?;
 
-assignment: ID '=' expression;
+compound_statement: '{' statement '}';
 
-if_statement: 'if' '(' expression ')' statement ('else' statement)?;
+statement: (declaration | initializing | function_call | assignment | if_statement | while_statement | return_statement)*;
 
-while_statement: 'while' '(' expression ')' statement;
+assignment: (IDENTIFIER '=' expression ';') | (IDENTIFIER '=' function_call) ;
 
-return_statement: 'return' expression?;
+function_call: IDENTIFIER '(' expression (',' expression)*  ')' ';';
 
-expression_statement: expression;
+initializing: type_specifier IDENTIFIER '=' expression ';';
 
-expression: (term (op term)*)?;
+if_statement: 'if' '(' condition ')' '{' statement '}' ('else if' '(' condition ')' '{' statement '}')* ('else' '{' statement '}')?;
 
-term: ID | INT | '(' expression ')';
+while_statement: 'while' '(' condition ')' '{' statement '}';
 
-op: '+' | '-' | '*' | '/' | '%' | '>' | '<' | '>=' | '<=' | '==' | '!=' | '&&' | '||';
+condition : (expression CONDITIONAL_OPERATOR expression) | IDENTIFIER;
 
-type: 'int' | 'float' | 'char' | 'double';
+return_statement: 'return' expression ';';
 
-ID: [a-zA-Z][a-zA-Z0-9_]*;
+expression: (term (operator term)*) | CHAR_LITERAL | STRING_LITERAL;
 
-INT: [0-9]+;
+term: IDENTIFIER | INTEGER | FLOAT| BOOLEAN;
+
+operator: '+' | '-' | '*' | '/' | '%' | '&&' | '||';
+
+CONDITIONAL_OPERATOR : '==' | '!=' | '<' | '>' | '<=' | '>=';
+
+type_specifier: 'int' | 'float' | 'char' | 'double' | 'void' | 'bool' | 'long';
+
+IDENTIFIER: [a-zA-Z_][a-zA-Z0-9_]*;
+
+INTEGER: [0-9]+;
+
+FLOAT: [0-9]+ '.' [0-9]+;
+
+INCLUDE_DIRECTIVE : '<' [A-Za-z]+ '.h>';
+
+CHAR_LITERAL : '\'' . '\'';
+
+STRING_LITERAL : '"' ~('"')* '"';
+
+BOOLEAN: 'true' | 'false';
+
+SING_LINE_COMMENT: '//' ~[\n\r]* -> skip;
 
 WS: [ \t\r\n]+ -> skip;
+
