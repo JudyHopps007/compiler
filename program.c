@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include <stdio.h>
 #include <stdbool.h>
 
@@ -52,3 +53,11 @@ while (state){
        state = false;
 }
 }
+=======
+// #include <stdio.h>;
+
+int main(){
+    int a =0;
+}
+
+>>>>>>> 5078a877a968746e6858c18b9e814a3a1aee9007
