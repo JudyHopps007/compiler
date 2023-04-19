@@ -28,6 +28,7 @@ char boolCheck(int a){
     }
 }
 
+
 void main(){
 bool state = true;
    int c = 3;
