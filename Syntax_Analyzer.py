@@ -12,7 +12,7 @@ from collections import deque
 
 
 def print_parse_tree(parse_tree_string: str, prefix: str = '', is_last: bool = True) -> None:
-    tokens = deque(parse_tree_string.split("("))
+    tokens = deque(parse_tree_string.split("()"))
     node = tokens.popleft()
     print(f"{prefix}{'└── ' if is_last else '├── '}{node}")
 
