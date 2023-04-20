@@ -92,6 +92,7 @@ def main():
 
     # Link the scrollbar to the Text widget
     Editor.config(yscrollcommand=scrollbar.set)
+    row_num_widget.config(yscrollcommand=scrollbar.set)
     scrollbar.config(command=Editor.yview, bg="blue")
 
     #Editor.bind("<Return>", on_return_press)
