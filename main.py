@@ -87,8 +87,7 @@ def main():
     Editor = tk.Text(Text_Frame, border=0, bg=Editor_color, font=("Courier New", 12), wrap="none", fg='white')
     Editor.place(x=51, y=0, relwidth=1, relheight=1)
 
-    scrollbar = tk.Scrollbar(Text_Frame)
-    scrollbar.pack(side="right", fill="y")
+
 
     # Define a function to synchronize the scrolling of the two widgets
     def sync_scrollbar(*args):
@@ -100,14 +99,6 @@ def main():
         widget.bind("<Configure>", lambda event: sync_scrollbar(event.widget.yview()[0]))
         widget.bind("<MouseWheel>", lambda event: sync_scrollbar(event.widget.yview()[0]))
 
-    # Link the scrollbar to the Text widget
-    Editor.config(yscrollcommand=scrollbar.set)
-    scrollbar.config(command=Editor.yview)
-
-
-
-    row_num_widget.config(yscrollcommand=scrollbar.set)
-    #scrollbar.config(command=sync_scrollbar, bg="blue")
 
 
     #Editor.bind("<Return>", on_return_press)
