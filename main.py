@@ -87,7 +87,7 @@ def main():
     Editor = tk.Text(Text_Frame, border=0, bg=Editor_color, font=("Courier New", 12), wrap="none", fg='white')
     Editor.place(x=51, y=0, relwidth=1, relheight=1)
 
-    scrollbar = tk.Scrollbar(Text_Frame, troughcolor=Editor_color, bg=Editor_color)
+    scrollbar = tk.Scrollbar(Text_Frame)
     scrollbar.pack(side="right", fill="y")
 
     # Link the scrollbar to the Text widget
