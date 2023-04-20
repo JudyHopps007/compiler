@@ -91,17 +91,13 @@ def main():
     scrollbar.pack(side="right", fill="y")
 
     # Define a function to synchronize the scrolling of the two widgets
-    def sync_scrollbar(current_widget, other_widget, scrollbar, *args):
-        current_widget.yview_moveto(args[0])
-        other_widget.yview_moveto(args[0])
-        scrollbar.set(args[0], args[1])
-
-    # Set the scrollbar command to the synchronization function
-    scrollbar.config(command=lambda *args: sync_scrollbar(Editor, row_num_widget, scrollbar, *args))
-
+    def sync_scrollbar(*args):
+        Editor.yview(*args)
+        row_num_widget.yview(*args)
+    
     # Link the scrollbar to the Text widget
     Editor.config(yscrollcommand=scrollbar.set)
-    #scrollbar.config(command=sync_scrollbar, bg="blue")
+    scrollbar.config(command=sync_scrollbar, bg="blue")
 
 
 
