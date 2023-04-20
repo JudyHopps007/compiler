@@ -102,7 +102,7 @@ def main():
 
     # Link the scrollbar to the Text widget
     Editor.config(yscrollcommand=scrollbar.set)
-    scrollbar.config(command=sync_scrollbar, bg="blue")
+    scrollbar.config(command=sync_scrollbar)
 
 
 
