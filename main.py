@@ -95,9 +95,13 @@ def main():
         Editor.yview(*args)
         row_num_widget.yview(*args)
 
+    # Bind the <B1-Motion> event of both Text widgets to the synchronization function
+    Editor.bind('<B1-Motion>', sync_scrollbar)
+    row_num_widget.bind('<B1-Motion>', sync_scrollbar)
+
     # Link the scrollbar to the Text widget
     Editor.config(yscrollcommand=scrollbar.set)
-    scrollbar.config(command=sync_scrollbar, bg="blue")
+    #scrollbar.config(command=sync_scrollbar, bg="blue")
 
 
 
