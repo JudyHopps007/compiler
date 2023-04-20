@@ -87,6 +87,9 @@ def main():
     Editor = tk.Text(Text_Frame, border=0, bg=Editor_color, font=("Courier New", 12), wrap="none", fg='white')
     Editor.place(x=51, y=0, relwidth=1, relheight=1)
 
+    # Editor.bind("<Return>", on_return_press)
+    Editor.bind("<Key>", update_row_numbers)  # Bind the update_row_numbers function to changes in the text widget
+    Editor.bind("<KeyRelease>", colorize_text)
 
 
     # Define a function to synchronize the scrolling of the two widgets
@@ -101,11 +104,22 @@ def main():
 
 
 
-    #Editor.bind("<Return>", on_return_press)
-    Editor.bind("<Key>", update_row_numbers) # Bind the update_row_numbers function to changes in the text widget
-    Editor.bind("<KeyRelease>", colorize_text)
 
 
+    # Define a function to highlight the current line in both widgets
+    def highlight_current_line(event=None):
+        # Get the current line of the first Text widget
+        current_line = Editor.index(tk.INSERT).split(".")[0]
+        # Remove any previous highlighting tags from the second Text widget
+        row_num_widget.tag_remove("highlight", "1.0", tk.END)
+        # Add a highlighting tag to the current line in the second Text widget
+        row_num_widget.tag_add("highlight", f"{current_line}.0", f"{current_line}.end")
+
+    # Bind the <KeyRelease> event of the first Text widget to the highlight function
+    Editor.bind("<KeyRelease>", highlight_current_line)
+
+    # Configure the highlighting tag for the second Text widget
+    row_num_widget.tag_configure("highlight", background="yellow")
 
     # ======================================================== Terminal  Section ============================
     Text_Frame_2 = tk.Frame(container, border=0, bg=nav_bar_bg)
