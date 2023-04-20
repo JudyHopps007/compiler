@@ -93,8 +93,14 @@ def main():
     # Link the scrollbar to the Text widget
     Editor.config(yscrollcommand=scrollbar.set)
     scrollbar.config(command=Editor.yview, bg="blue")
+
+    # Define a function to synchronize the scrolling of the two widgets
+    def sync_scrollbar(*args):
+        Editor.yview(*args)
+        row_num_widget.yview(*args)
+
     row_num_widget.config(yscrollcommand=scrollbar.set)
-    scrollbar.config(command=row_num_widget.yview, bg="blue")
+    scrollbar.config(command=sync_scrollbar, bg="blue")
 
 
     #Editor.bind("<Return>", on_return_press)
