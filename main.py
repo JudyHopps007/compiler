@@ -92,8 +92,10 @@ def main():
 
     # Link the scrollbar to the Text widget
     Editor.config(yscrollcommand=scrollbar.set)
-    row_num_widget.config(yscrollcommand=scrollbar.set)
     scrollbar.config(command=Editor.yview, bg="blue")
+    row_num_widget.config(yscrollcommand=scrollbar.set)
+    scrollbar.config(command=row_num_widget.yview, bg="blue")
+
 
     #Editor.bind("<Return>", on_return_press)
     Editor.bind("<Key>", update_row_numbers) # Bind the update_row_numbers function to changes in the text widget
