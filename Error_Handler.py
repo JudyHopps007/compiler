@@ -1,6 +1,7 @@
-from Syntax_DIR.C_grammarLexer import C_grammarLexer
-from Syntax_DIR.C_grammarParser import C_grammarParser
-from antlr4 import *
+from Syntax_DIR.C_grammarLexer import C_grammarLexer  # import lexer for token feed
+from Syntax_DIR.C_grammarParser import C_grammarParser  # import parser file  for syntax function feed
+from antlr4 import * # importing antlr library for addition methods
+
 
 class MyErrorListener(ParseTreeListener):
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
