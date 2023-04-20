@@ -92,9 +92,14 @@ def main():
 
     # Define a function to synchronize the scrolling of the two widgets
     def sync_scrollbar(*args):
-        Editor.yview(*args)
-        row_num_widget.yview(*args)
-    
+        Editor.yview_moveto(args[0])
+        row_num_widget.yview_moveto(args[0])
+
+    # Bind the <Configure> and <MouseWheel> events of both widgets to the synchronization function
+    for widget in (Editor, row_num_widget):
+        widget.bind("<Configure>", lambda event: sync_scrollbar(event.widget.yview()[0]))
+        widget.bind("<MouseWheel>", lambda event: sync_scrollbar(event.widget.yview()[0]))
+
     # Link the scrollbar to the Text widget
     Editor.config(yscrollcommand=scrollbar.set)
     scrollbar.config(command=sync_scrollbar, bg="blue")
