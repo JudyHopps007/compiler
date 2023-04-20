@@ -106,7 +106,20 @@ def main():
 
 
 
-   
+    # Define a function to highlight the current line in both widgets
+    def highlight_current_line(event=None):
+        # Get the current line of the first Text widget
+        current_line = Editor.index(tk.INSERT).split(".")[0]
+        # Remove any previous highlighting tags from the second Text widget
+        row_num_widget.tag_remove("highlight", "1.0", tk.END)
+        # Add a highlighting tag to the current line in the second Text widget
+        row_num_widget.tag_add("highlight", f"{current_line}.0", f"{current_line}.end")
+
+    # Bind the <KeyRelease> event of the first Text widget to the highlight function
+    Editor.bind("<KeyRelease>", highlight_current_line)
+
+    # Configure the highlighting tag for the second Text widget
+    row_num_widget.tag_configure("highlight", background="yellow")
 
     # ======================================================== Terminal  Section ============================
     Text_Frame_2 = tk.Frame(container, border=0, bg=nav_bar_bg)
