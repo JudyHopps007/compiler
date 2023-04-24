@@ -7,7 +7,6 @@ import json  # for symbol table {access and storage}
 
 # Define regular expression patterns for different types of tokens(assigning tokens to lexemes)
 patterns_rg = [
-    (r'(\/\/[^\n\r]*[\n\r])|\/\*[\s\S]*?\*\/', 'COMMENT'),
     (r'#include', 'INCLUDE_ID'),
     (r'<[A-Za-z]+.h>', 'INCLUDE_DIRECTIVE'),
     (r'\b(int|void|char|bool|float|long|return)\b', 'KEYWORD'),
@@ -23,15 +22,16 @@ patterns_rg = [
     (r'\+', 'PLUS'),
     (r'-', 'MINUS'),
     (r'\*', 'MULTIPLY'),
+    (r'(\/\/[^\n\r]*[\n\r])|\/\*[\s\S]*?\*\/', 'COMMENT'),
     (r'/(?![\/\*])[\n\s]*', 'DIVIDE'),
     (r'%', 'MODULUS'),
     (r'==', 'EQUAL'),
     (r'=', 'ASSIGN'),
     (r'!=', 'NOT_EQUAL'),
-    (r'<=', 'LESS_THAN_EQUAL'),
     (r'<', 'LESS_THAN'),
-    (r'>=', 'GREATER_THAN_EQUAL'),
     (r'>', 'GREATER_THAN'),
+    (r'<=', 'LESS_THAN_EQUAL'),
+    (r'>=', 'GREATER_THAN_EQUAL'),
     (r'\(', 'LEFT_PAREN'),
     (r'\)', 'RIGHT_PAREN'),
     (r'\{', 'LEFT_BRACE'),

@@ -74,6 +74,9 @@ def serializedATN():
         107,116,145,153,168,180,185
     ]
 
+atn = ATNDeserializer().deserialize(serializedATN())
+print(atn)
+
 class C_grammarParser ( Parser ):
 
     grammarFileName = "C_grammar.g4"

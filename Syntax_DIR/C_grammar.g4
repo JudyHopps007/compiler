@@ -30,9 +30,9 @@ condition : (expression CONDITIONAL_OPERATOR expression) | IDENTIFIER;
 
 return_statement: 'return' expression ';';
 
-expression: (term (operator term)*) | CHAR_LITERAL | STRING_LITERAL;
+expression: (term (operator term)*) | CHAR_LITERAL | STRING_LITERAL| BOOLEAN;
 
-term: IDENTIFIER | INTEGER | FLOAT| BOOLEAN;
+term: IDENTIFIER | INTEGER | FLOAT;
 
 operator: '+' | '-' | '*' | '/' | '%' | '&&' | '||';
 
