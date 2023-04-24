@@ -43,6 +43,7 @@ patterns_rg = [
     (r'\!', 'NOT'),
 ]
 
+test = []
 
 # ========= Define a function that reads a program from a  and generates a list of tokens ===
 def lexical_analyzer(filename):
@@ -51,6 +52,7 @@ def lexical_analyzer(filename):
         program = f.read()
 
     line_number_track = 1  # keep track of position
+    token_track = 0
     token_list = []  # initialized to empty list
     curser_position = 0  # initialized to zero
     while curser_position < len(program):
@@ -59,6 +61,7 @@ def lexical_analyzer(filename):
         if program[curser_position] == '\n':  # Skip over empty lines
             line_number_track += 1  # incrementing line number
             curser_position += 1  # incrementing cursor position
+            token_track += 1
             continue
 
         if re.match(r'\s', program[curser_position]):  # Skip over whitespace
@@ -72,6 +75,7 @@ def lexical_analyzer(filename):
             if match:
                 if token_type != 'COMMENT':
                     token_list.append((token_type, match.group(0)))  # adding found token in the token_list
+                    test.append((token_type, match.group(0), token_track))
                 curser_position = match.end(0)
                 break
 
