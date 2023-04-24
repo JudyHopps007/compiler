@@ -92,10 +92,10 @@ Program_Run_time = End_run_time_time - start_run_time_time  # Calculate the elap
 print(f"\nLexical Program Runtime  :  {Program_Run_time} seconds")
 
 print("\n================ ============= TOKENS ========================= ================ \n ")
-for token in tokens:
-    print(token) # print each token at a time
+#for token in tokens:
+    # print(token) # print each token at a time
 
-
+print("\n================ ============= TOKENS ========================= ================ \n ")
 for token in test:
     print(token) # print each token at a time
 
