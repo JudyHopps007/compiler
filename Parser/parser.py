@@ -638,6 +638,6 @@ def parse_program(tokens, postion):
             print("Syntax Error ds : ", tokens[current_token])
         current_token += 1
 
-print("\n\n ======================================== parser output ========================================")
+print("\n\n======================================== parser output ======================================== \n\n" )
 parse_program(tokens, 0)
 print(Error_list)
