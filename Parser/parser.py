@@ -87,17 +87,17 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                                 # print(f"Function: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body} {f_rb}")
                                 statment_block += f"\n\t\t\t\t\tFunction: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body} {f_rb}"
                             else:
-                                #print("Syntax Error: <missing '}',  function block not closed")
+                                # print("Syntax Error: <missing '}',  function block not closed")
                                 Error_list += "\nSyntax Error: <missing '}',  function block not closed"
-                                #print(f"Function: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >")
+                                # print(f"Function: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >")
                                 statment_block += f"\n\t\t\t\t\tFunction: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >"
                         else:
-                            #print("Syntax Error: Functon definition   <missing '{'>")
+                            # print("Syntax Error: Functon definition   <missing '{'>")
                             Error_list += "\nSyntax Error: Functon definition   <missing '{'>"
-                            #print(f"Function: {type}  {name} {f_lp} {function_parameter} <missing LEFT_BRACE>...")
+                            # print(f"Function: {type}  {name} {f_lp} {function_parameter} <missing LEFT_BRACE>...")
                             statment_block += f"\n\t\t\t\t\tFunction: {type}  {name} {f_lp} {function_parameter} <missing LEFT_BRACE>..."
                     else:
-                        #print("Syntax Error: <missing '('")
+                        # print("Syntax Error: <missing '('")
                         Error_list += "\nSyntax Error: <missing '('"
 
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "ASSIGN":  # initialization
@@ -110,31 +110,31 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     if len(express) != 0:
                         if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                             s_tm = tokens[current_token][1]
-                            #print(f"initialization: {type} {namr} {asg} {express} {s_tm}")
+                            # print(f"initialization: {type} {namr} {asg} {express} {s_tm}")
                             statment_block += f"\n\t\t\t\t\tinitialization: {type} {namr} {asg} {express} {s_tm}"
                         else:
-                            #print(f"initialization: {type} {namr} {asg} {express} <missing ';'>")
+                            # print(f"initialization: {type} {namr} {asg} {express} <missing ';'>")
                             statment_block += f"\n\t\t\t\t\tinitialization: {type} {namr} {asg} {express} <missing ';'>"
-                            #print(f"Syntax Error: missing statement terminator")
+                            # print(f"Syntax Error: missing statement terminator")
                             Error_list += "\nSyntax Error: missing statement terminator"
                             continue
                     else:
                         print("Syntax Error: variable Initialization error, no value was assigned ")
                         if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                             s_tm = tokens[current_token][1]
-                            #print(f"initialization: {type} {namr} {asg} ~{None}~ {s_tm}")
+                            # print(f"initialization: {type} {namr} {asg} ~{None}~ {s_tm}")
                             statment_block += f"\n\t\t\t\t\tinitialization: {type} {namr} {asg} ~{None}~ {s_tm}"
                         else:
-                            #print(f"initialization: {type} {namr} {asg} ~{None}~ <missing ';'>")
+                            # print(f"initialization: {type} {namr} {asg} ~{None}~ <missing ';'>")
                             statment_block += f"\n\t\t\t\t\tinitialization: {type} {namr} {asg} ~{None}~ <missing ';'>"
-                            #print(f"Syntax Error: missing statement terminator")
+                            # print(f"Syntax Error: missing statement terminator")
                             Error_list += "\nSyntax Error: missing statement terminator"
                             continue
                 else:
-                    #print(f"Declaration: {type}  {name} <missing ';' >")
+                    # print(f"Declaration: {type}  {name} <missing ';' >")
                     statment_block += f"\n\t\t\t\t\tDeclaration: {type}  {name} <missing ';' >"
-                    #print(" Syntax Error : unterminated statement ", tokens[current_token + 1][0])
-                    Error_list += "\nSyntax Error : unterminated statement  "+ tokens[current_token + 1][0]
+                    # print(" Syntax Error : unterminated statement ", tokens[current_token + 1][0])
+                    Error_list += "\nSyntax Error : unterminated statement  " + tokens[current_token + 1][0]
                     current_token += 1
             else:
                 # print(" Syntax Error : expected token IDENTIFIER")
@@ -166,11 +166,11 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                                 gm += r_b + ' '
                                 # current_token += 2
                                 if current_token == len(tokens):
-                                    #print(f"IF statement : {gm}")
+                                    # print(f"IF statement : {gm}")
                                     statment_block += f"\n\t\t\t\t\tIF statement : {gm}"
                                     break
                                 elif tokens[current_token + 1][0] != 'ELSE':
-                                    #print(f"IF statement : {gm}")
+                                    # print(f"IF statement : {gm}")
                                     statment_block += f"\n\t\t\t\t\tIF statement : {gm}"
                                     break
                                 else:
@@ -188,24 +188,24 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                                                 e_rb = tokens[current_token][1]
                                                 gm += e_rb + ' '
                                                 if else_if == 0:
-                                                    #print(f"IF-ELSE statement: {gm}")
+                                                    # print(f"IF-ELSE statement: {gm}")
                                                     statment_block += f"\n\t\t\t\t\tIF-ELSE statement: {gm}"
                                                 else:
-                                                    #print(f"IF-ELSE-IF statement: {gm}")
+                                                    # print(f"IF-ELSE-IF statement: {gm}")
                                                     statment_block += f"\n\t\t\t\t\tIF-ELSE statement: {gm}"
                                                 break
                                             else:
-                                                #print(f"IF statement: {gm} < missing 'RIGHT_BRACE'>")
+                                                # print(f"IF statement: {gm} < missing 'RIGHT_BRACE'>")
                                                 statment_block += f"\n\t\t\t\t\tIF statement: {gm} < missing 'RIGHT_BRACE'>"
-                                                #print("Syntax Error: incomplete else statment  missing <RIGHT_BRACE>")
+                                                # print("Syntax Error: incomplete else statment  missing <RIGHT_BRACE>")
                                                 Error_list += "\nSyntax Error: incomplete else statment  missing <RIGHT_BRACE>"
                                                 break
                                         else:
                                             else_key = tokens[current_token + 1][1]
                                             gm += else_key + ' '
-                                            #print(f"IF statement: {gm} < missing 'LEFT_BRACE' 'RIGHT_BRACE'>")
+                                            # print(f"IF statement: {gm} < missing 'LEFT_BRACE' 'RIGHT_BRACE'>")
                                             statment_block += f"\n\t\t\t\t\tIF statement: {gm} < missing 'LEFT_BRACE' 'RIGHT_BRACE'>"
-                                            #print("Syntax Error: incomplete else statment ")
+                                            # print("Syntax Error: incomplete else statment ")
                                             Error_list += "\nSyntax Error: incomplete else statment "
                                             break
                                     elif tokens[current_token + 1][0] == 'ELSE' and tokens[current_token + 2][0] == 'IF':
@@ -214,27 +214,27 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                                         else_if += 1
                                         current_token += 2
                             else:
-                                #print(" Syntax Error : if-statment expected  RIGHT_BRACE   ")
+                                # print(" Syntax Error : if-statment expected  RIGHT_BRACE   ")
                                 Error_list += "\nSyntax Error : if-statment expected  RIGHT_BRACE   "
-                                #(f"IF statement: {gm} < missing 'RIGHT_BRACE'>")
+                                # (f"IF statement: {gm} < missing 'RIGHT_BRACE'>")
                                 statment_block += f"\n\t\t\t\t\tIF statement: {gm} < missing 'RIGHT_BRACE'>"
                                 break
                         else:
-                            #print(" Syntax Error : if-statment expected  LEFT_BRACE  < missing '{'> ")
+                            # print(" Syntax Error : if-statment expected  LEFT_BRACE  < missing '{'> ")
                             Error_list += "\nSyntax Error : if-statment expected  LEFT_BRACE  < missing '{'> "
-                            #print(f"IF statement: {gm} ... <statement incomplete> ...")
+                            # print(f"IF statement: {gm} ... <statement incomplete> ...")
                             statment_block += f"\n\t\t\t\t\tIF statement: {gm} ... <statement incomplete> ..."
                             break
                     else:
-                        #print(" Syntax Error : if-statment expected  LEFT_PAREN  < missing ')'> ")
+                        # print(" Syntax Error : if-statment expected  LEFT_PAREN  < missing ')'> ")
                         Error_list += "\nSyntax Error : if-statment expected  LEFT_PAREN  < missing ')'> "
-                        #print(f"IF statement: {gm} ... <statement incomplete> ...")
+                        # print(f"IF statement: {gm} ... <statement incomplete> ...")
                         statment_block += f"\n\t\t\t\t\tIF statement: {gm} ... <statement incomplete> ..."
                         break
                 else:
-                    #print(" Syntax Error : if-statment expected  LEFT_PAREN  < missing '{}'> ")
+                    # print(" Syntax Error : if-statment expected  LEFT_PAREN  < missing '{}'> ")
                     Error_list += "\nSyntax Error : if-statment expected  LEFT_PAREN  < missing '{}'> "
-                    #print(f"IF statement: {gm} ... <missing LEFT_PAREN> ...")
+                    # print(f"IF statement: {gm} ... <missing LEFT_PAREN> ...")
                     statment_block += f"\n\t\t\t\t\tIF statement: {gm} ... <missing LEFT_PAREN> ..."
                     break
 
@@ -256,16 +256,16 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                             block_track -= 1
                             wh_rb = tokens[current_token][1]
                             wh_condition = condition_statment
-                            #print(F"WHILE-STATEMENT: {while_key} {wh_lp} {wh_condition} {wh_rp} {wh_lb}  {while_body} {wh_rb}")
+                            # print(F"WHILE-STATEMENT: {while_key} {wh_lp} {wh_condition} {wh_rp} {wh_lb}  {while_body} {wh_rb}")
                             statment_block += f"\n\t\t\t\t\tWHILE-STATEMENT: {while_key} {wh_lp} {wh_condition} {wh_rp} {wh_lb} {while_body} {wh_rb}"
                         else:
-                            #print(F"WHILE-STATEMENT: {while_key} {wh_lp} <missing RIGHT_BRACE>")
+                            # print(F"WHILE-STATEMENT: {while_key} {wh_lp} <missing RIGHT_BRACE>")
                             statment_block += f"\n\t\t\t\t\tWHILE-STATEMENT: {while_key} {wh_lp} <missing RIGHT_BRACE>"
                 else:
-                    #print(F"WHILE-STATEMENT: {while_key} {wh_lp} <error incomplete-while-statement>")
+                    # print(F"WHILE-STATEMENT: {while_key} {wh_lp} <error incomplete-while-statement>")
                     statment_block += f"\n\t\t\t\t\tWHILE-STATEMENT: {while_key} {wh_lp} <error incomplete-while-statement>"
             else:
-                #print(F"WHILE-STATEMENT: {while_key}  <error incomplete-while-statement>")
+                # print(F"WHILE-STATEMENT: {while_key}  <error incomplete-while-statement>")
                 statment_block += f"\n\t\t\t\t\tWHILE-STATEMENT: {while_key}  <error incomplete-while-statement>"
 
         elif tokens[current_token][0] == 'IDENTIFIER':
@@ -279,11 +279,11 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     r_p = tokens[current_token][1]
                     if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
                         s_tm = tokens[current_token + 1][1]
-                        #print(f"Function Assignment: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} {s_tm}")
+                        # print(f"Function Assignment: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} {s_tm}")
                         statment_block += f"\n\t\t\t\t\tFunction Assignment: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} {s_tm}"
                         current_token += 1
                     else:
-                        #print(f"Function Assignment: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} <missing ';'>")
+                        # print(f"Function Assignment: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} <missing ';'>")
                         statment_block += f"\n\t\t\t\t\tFunction Assignment: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} <missing ';'>"
                 else:
                     current_token, express = expression(tokens, current_token + 1)
@@ -292,17 +292,17 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                         if current_token < len(tokens) and tokens[current_token][0] != "SEMICOLON":
                             # print("Syntax Error: statement terminator missing")
                             Error_list += "\nSyntax Error: statement terminator missing"
-                            #print(f"Variable assignment: {name} {asg} {express}  <missing ';'>")
+                            # print(f"Variable assignment: {name} {asg} {express}  <missing ';'>")
                             statment_block += f"\n\t\t\t\t\tVariable assignment: {name} {asg} {express}  <missing ';'>"
                         else:
-                            #print(f"Variable assignment: {name} {asg} {express} {tokens[current_token][1]}")
+                            # print(f"Variable assignment: {name} {asg} {express} {tokens[current_token][1]}")
                             statment_block += f"\n\t\t\t\t\tVariable assignment: {name} {asg} {express} {tokens[current_token][1]}"
                     else:
-                        #print("Syntax Error: variable assignment error, no value was assigned ")
+                        # print("Syntax Error: variable assignment error, no value was assigned ")
                         Error_list += "\nSyntax Error: variable assignment error, no value was assigned "
                         if tokens[current_token][0] == "SEMICOLON":
                             s_tm = tokens[current_token][1]
-                            #print(f"Variable assignment: {name} {asg} {None} {s_tm}")
+                            # print(f"Variable assignment: {name} {asg} {None} {s_tm}")
                             statment_block += f"\n\t\t\t\t\tVariable assignment: {name} {asg} {None} {s_tm}"
 
 
@@ -314,13 +314,13 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     f_rp = tokens[current_token][1]
                     if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":
                         tm = tokens[current_token + 1][1]
-                        #print(f"Function Call: {name} {l_p} {function_parameter} {f_rp} {tm}")
+                        # print(f"Function Call: {name} {l_p} {function_parameter} {f_rp} {tm}")
                         statment_block += f"\n\t\t\t\t\tFunction Call: {name} {l_p} {function_parameter} {f_rp} {tm}"
                         current_token += 1
                     else:
-                        #print(f"Function Call: {name} {l_p} {function_parameter} {f_rp}  < missing ';'>")
+                        # print(f"Function Call: {name} {l_p} {function_parameter} {f_rp}  < missing ';'>")
                         statment_block += f"\n\t\t\t\t\tFunction Call: {name} {l_p} {function_parameter} {f_rp}  < missing ';'>"
-                        #print('Syntax Error: function call missing statement terminator')
+                        # print('Syntax Error: function call missing statement terminator')
                         Error_list += "\nSyntax Error: function call missing statement terminator"
 
         elif tokens[current_token][1] == 'return':
@@ -328,27 +328,27 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
             express_n = ''
             if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                 if len(express) != 0:
-                    #print("RETURN-STATMENT  : return ", express, tokens[current_token][1])
+                    # print("RETURN-STATMENT  : return ", express, tokens[current_token][1])
                     statment_block += f"\n\t\t\t\t\tRETURN-STATMENT  : return " + express + tokens[current_token][1]
                 else:
-                    #print("RETURN-STATMENT  : return  <error 'no value'>", tokens[current_token][1])
+                    # print("RETURN-STATMENT  : return  <error 'no value'>", tokens[current_token][1])
                     statment_block += f"\n\t\t\t\t\tRETURN-STATMENT  : return  <error 'no value'> " + tokens[current_token][1]
-                    #print("Syntax error: no return value was specified")
+                    # print("Syntax error: no return value was specified")
                     Error_list += "\nSyntax error: no return value was specified"
             else:
                 if len(express_n) != 0:
-                    #print(f"RETURN-STATMENT  : return {express} < missing ';'>")
+                    # print(f"RETURN-STATMENT  : return {express} < missing ';'>")
                     statment_block += f"\n\t\t\t\t\tRETURN-STATMENT  : return {express} < missing ';'>"
-                    #print("Syntax error: no return value was specified")
+                    # print("Syntax error: no return value was specified")
                     Error_list += "\nSyntax error: no return value was specified"
                 else:
                     print(f"RETURN-STATMENT  : return  <missing return-value>  <missing ';'>")
-                    #print("Syntax error: no return value was specified, missing statement terminator for return statement")
+                    # print("Syntax error: no return value was specified, missing statement terminator for return statement")
                     Error_list += "\nSyntax error: no return value was specified, missing statement terminator for return statement"
 
 
         else:
-            #print("Syntax Error  : ", tokens[current_token])
+            # print("Syntax Error  : ", tokens[current_token])
             Error_list += f"\nSyntax Error  : {current_token} " + tokens[current_token][0]
 
     return current_token, statment_block
@@ -635,9 +635,10 @@ def parse_program(tokens, postion):
                     print(f"RETURN-STATMENT  : return  <missing return-value>  <missing ';'>")
                     print("Syntax error: no return value was specified, missing statement terminator for return statement")
         else:
-            print("Syntax Error ds : ", tokens[current_token])
+            print("Syntax Error : ", tokens[current_token])
         current_token += 1
 
-print("\n\n======================================== parser output ======================================== \n\n" )
+
+print("\n\n======================================== parser output ======================================== \n\n")
 parse_program(tokens, 0)
 print(Error_list)
