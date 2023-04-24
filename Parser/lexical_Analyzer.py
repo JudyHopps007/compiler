@@ -52,7 +52,7 @@ def lexical_analyzer(filename):
         program = f.read()
 
     line_number_track = 1  # keep track of position
-    token_track = 0
+    token_track = 1
     token_list = []  # initialized to empty list
     curser_position = 0  # initialized to zero
     while curser_position < len(program):
@@ -93,6 +93,10 @@ print(f"\nLexical Program Runtime  :  {Program_Run_time} seconds")
 
 print("\n================ ============= TOKENS ========================= ================ \n ")
 for token in tokens:
+    print(token) # print each token at a time
+
+
+for token in test:
     print(token) # print each token at a time
 
 
