@@ -12,6 +12,7 @@ def parameter_RFC(token, pos):
     parame = ''  # keep store parameters that are found
     pos += 1
     i = 0
+    if token[pos][0]
     while token[pos][0] != 'RIGHT_PAREN':
         if token[pos][0] == 'KEYWORD':
             if token[pos + 1][0] == 'IDENTIFIER':
