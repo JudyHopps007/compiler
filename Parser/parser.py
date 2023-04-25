@@ -546,7 +546,7 @@ def parse_program(tokens, postion):
                                             print("Syntax Error: incomplete else statment ")
                                             break
 
-                                    elif tokens[current_token + 1][0] == 'ELSE' and tokens[current_token + 2][0] == 'IF':
+                                    elif (current_token + 2) < len(tokens) and tokens[current_token + 1][0] == 'ELSE' and tokens[current_token + 2][0] == 'IF':
                                         else_key = tokens[current_token + 1][1]
                                         gm += else_key + " "
                                         else_if += 1
