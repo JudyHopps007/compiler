@@ -1,3 +1,2 @@
 
-num = ssff
-dsdsd();
+num = dsdsd()
