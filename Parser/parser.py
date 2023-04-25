@@ -446,6 +446,7 @@ def parse_program(tokens, postion):
                             print("Syntax Error: Functon definition   <missing '{'> at line ", tokens[current_token][2])
                             print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} <missing LEFT_BRACE>...")
                     else:
+                        print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} <missing ')'>...")
                         print("Syntax Error: <missing ')'")
 
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "ASSIGN":  # initialization
