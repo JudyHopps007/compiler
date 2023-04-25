@@ -245,7 +245,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                         break
                 else:
                     # print(" Syntax Error : if-statment expected  LEFT_PAREN  < missing '{}'> ")
-                    Error_list += "\nSyntax Error : if-statment expected  LEFT_PAREN  < missing '{}'> "
+                    Error_list += "\nSyntax Error : if-statment expected  LEFT_PAREN  < missing '{}'>  at line  " + tokens[current_token-1][2]
                     # print(f"IF statement: {gm} ... <missing LEFT_PAREN> ...")
                     statment_block += f"\n\t\t\t\t\tIF STATEMENT: {gm} ... <missing LEFT_PAREN> ..."
                     break
@@ -358,12 +358,11 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                 else:
                     print(f"RETURN-STATEMENT  : return  <missing return-value>  <missing ';'>")
                     # print("Syntax error: no return value was specified, missing statement terminator for return statement")
-                    Error_list += "\nSyntax error: no return value was specified, missing statement terminator for return statement"
+                    Error_list += "\nSyntax error: no return value was specified, and  missing a 'statement' terminator for return statement" + tokens[current_token-1][2]
 
 
         else:
             if current_token < len(tokens):
-                # print("Syntax Error  : ", tokens[current_token])
                 try:
                     Error_list += f"\nSyntax Error : '{tokens[current_token][1]}'  at line  {tokens[current_token][2]}"
                 except:
