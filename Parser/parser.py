@@ -639,7 +639,7 @@ def parse_program(tokens, postion):
                     print("RETURN-STATEMENT  : return ", express, tokens[current_token][1])
                 else:
                     print("RETURN-STATEMENT  : return  <error 'no value'>", tokens[current_token][1])
-                    print("Syntax error: no return value was specified at line ")
+                    print("Syntax error: no return value was specified at line ", tokens[current_token][2])
             else:
                 if len(express_n) != 0:
                     print(f"RETURN-STATEMENT  : return {express} < missing ';'>")
