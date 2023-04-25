@@ -1,4 +1,2 @@
-if() { } else {}
-dfdf();
-
+while
 
