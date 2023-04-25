@@ -72,6 +72,8 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
             print('bbb ', tokens[current_token])
             statment_block += '\n\t\t\t\t\t'
             block_track -= 1
+            print('bbb--- ', block_track)
+
         elif current_token < len(tokens) and tokens[current_token][0] == "KEYWORD" and tokens[current_token][1] != 'return':
             type = tokens[current_token][1]
             if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "IDENTIFIER":
