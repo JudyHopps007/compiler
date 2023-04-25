@@ -146,7 +146,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     # print(f"Declaration: {type}  {name} <missing ';' >")
                     statment_block += f"\n\t\t\t\t\tDECLARATION: {type}  {name} <missing ';' >"
                     # print(" Syntax Error : unterminated statement ", tokens[current_token + 1][0])
-                    Error_list += "\nSyntax Error : unterminated statement  " + tokens[current_token + 1][0]
+                    Error_list += f"\nSyntax Error : unterminated statement for '{tokens[current_token + 1][1]}' at line {tokens[current_token + 1][2]} "
                     current_token += 1
             else:
                 statment_block += f"\n\t\t\t\t\tDECLARATION: {type}  {name} <missing ';' >"
