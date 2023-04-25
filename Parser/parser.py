@@ -519,8 +519,8 @@ def parse_program(tokens, postion):
                                     break
                                 else:
                                     if tokens[current_token + 1][0] == 'ELSE' and tokens[current_token + 2][0] != 'IF':
-                                        if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'LEFT_BRACE':
-                                            else_key = tokens[current_token + 1][1]
+                                        else_key = tokens[current_token + 1][1]
+                                        if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'LEFT_BRACE':                                            
                                             gm += else_key + ' '
                                             e_lb = tokens[current_token + 2][1]
                                             gm += e_lb + ' '
