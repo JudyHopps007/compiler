@@ -311,7 +311,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                             statment_block += f"\n\t\t\t\t\tVARIABLE ASSIGNMENT: {name} {asg} {express} {tokens[current_token][1]}"
                         else:
                             statment_block += f"\n\t\t\t\t\tVARIABLE ASSIGNMENT1: {name} {asg} {express}  <missing ';'>"
-                            Error_list += "\n
+                            Error_list += "\nSyntax Error: statement terminator missing at line " + tokens[current_token - 1][2]
                     else:
                         # print("Syntax Error: variable assignment error, no value was assigned ")
                         Error_list += "\nSyntax Error: variable assignment error, no value was assigned "
