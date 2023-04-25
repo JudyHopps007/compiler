@@ -21,6 +21,7 @@ def parameter_RFC(token, pos):
                         pos += 1
                     else:
                         parame += token[pos][1] + ' ' + token[pos + 1][1] + ' ' + "  <error-remove ','> "
+                        print("syntax: coma error in parameters ','> at line", token[pos + 2][2])
                         pos += 1
                 elif token[pos + 2][0] == 'KEYWORD':
                     parame += token[pos][1] + '  ' + token[pos + 1][1] + "  <missing ','>  "
