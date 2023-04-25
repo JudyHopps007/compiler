@@ -441,7 +441,7 @@ def parse_program(tokens, postion):
                                 print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body} {f_rb}")
                             else:
                                 print("Syntax Error: <missing '}',  function block not closed at line ", tokens[current_token-1][2])
-                                print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >")
+                                print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body} fg  <missing RIGHT_BRACE' >")
                         else:
                             print("Syntax Error: Functon definition   <missing '{'> at line ", tokens[current_token][2])
                             print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} <missing LEFT_BRACE>...")
