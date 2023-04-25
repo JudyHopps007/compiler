@@ -149,7 +149,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     Error_list += "\nSyntax Error : unterminated statement  " + tokens[current_token + 1][0]
                     current_token += 1
             else:
-                statment_block += f"\n\t\t\t\t\t
+                statment_block += f"\n\t\t\t\t\tDECLARATION: {type}  {name} <missing ';' >"
                 # print(" Syntax Error : expected token IDENTIFIER")
                 Error_list += "\nSyntax Error : expected token IDENTIFIER"
 
