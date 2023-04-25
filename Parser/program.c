@@ -1,8 +1,3 @@
-
-int addition(sdsd){
-     int nufgfg
- }
-
-
+if() {
 
 

@@ -149,9 +149,8 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     Error_list += f"\nSyntax Error : unterminated statement for '{tokens[current_token + 1][1]}' at line {tokens[current_token + 1][2]} "
                     current_token += 1
             else:
-                statment_block += f"\n\t\t\t\t\tDECLARATION: {type}  {name} <missing ';' >"
                 # print(" Syntax Error : expected token IDENTIFIER")
-                Error_list += "\nSyntax Error : expected token IDENTIFIER"
+                Error_list += "Syntax Error : expected token 'IDENTIFIER' goten at line  ",  tokens[current_token][2]
 
         elif current_token  < len(tokens) and tokens[current_token][0] == 'IF':
             gm = ""
