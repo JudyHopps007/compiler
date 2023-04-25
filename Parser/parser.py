@@ -107,6 +107,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                             statment_block += f"\n\t\t\t\t\tFUNCTION: {type}  {name} {f_lp} {function_parameter} <missing LEFT_BRACE>..."
                     else:
                         # print("Syntax Error: <missing '('")
+                        statment_block += f"\n\t\t\t\t\tFUNCTION: {type}  {name} {f_lp} {function_parameter} <missing ')'>..."
                         Error_list += "\nSyntax Error: <missing '('"
 
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "ASSIGN":  # initialization
