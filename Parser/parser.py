@@ -627,7 +627,7 @@ def parse_program(tokens, postion):
                         print(f"FUNCTION CALL: {name} {l_p} {function_parameter} {f_rp} {tm}")
                         current_token += 1
                     else:
-                        print(f"FUNCTION CALL: {name} {l_p} {function_parameter} {f_rp}  < missing ';'>")
+                        print(f"FUNCTION CALL ed: {name} {l_p} {function_parameter} {f_rp}  < missing ';'>")
                         print('Syntax Error: function call missing statement terminator')
 
         elif tokens[current_token][1] == 'return':
