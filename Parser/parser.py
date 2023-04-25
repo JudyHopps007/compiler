@@ -426,6 +426,7 @@ def parse_program(tokens, postion):
 
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "LEFT_PAREN":  # handle functions
                     f_lp = tokens[current_token + 2][1]
+                    print('dffwsd')
                     function_parameter, pos = parameter_RFC(tokens, (current_token + 2))
                     current_token = pos
                     if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_PAREN":
