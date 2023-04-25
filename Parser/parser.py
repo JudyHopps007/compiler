@@ -195,7 +195,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                                             gm += e_lb + ' '
                                             current_token, else_statment_body = statments(tokens, current_token + 2)
                                             gm += else_statment_body + ' '
-                                            if tokens[current_token][0] == 'RIGHT_BRACE':
+                                            if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_BRACE':
                                                 block_track -= 1
                                                 e_rb = tokens[current_token][1]
                                                 gm += e_rb + ' '
@@ -538,7 +538,7 @@ def parse_program(tokens, postion):
                                                 break
                                             else:
                                                 print(f"IF-STATEMENT: {gm} <missing 'RIGHT_BRACE'>")
-                                                print("Syntax Error: incomplete else statment  missing <RIGHT_BRACE>")
+                                                print("Syntax Error: incomplete else statment  missing <RIGHT_BRACE> at line ", tokens[current_token][2])
                                                 break
                                         else:
                                             else_key = tokens[current_token + 1][1]
