@@ -270,7 +270,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                         else:
                             # print(F"WHILE-STATEMENT: {while_key} {wh_lp} <missing RIGHT_BRACE>")
                             statment_block += f"\n\t\t\t\t\tWHILE-STATEMENT: {while_key} {wh_lp} {condition_statment} {wh_rp} {wh_lb}  {while_body} <missing RIGHT_BRACE>"
-                            Error_list += "\nSyntax Error: missing '}'"
+                            Error_list += "\nSyntax Error: missing '}' at line ", tokens[current_token-1][2]
                 else:
                     # print(F"WHILE-STATEMENT: {while_key} {wh_lp} <error incomplete-while-statement>")
                     statment_block += f"\n\t\t\t\t\tWHILE-STATEMENT: {while_key} {wh_lp} <error incomplete-while-statement>"
@@ -586,7 +586,7 @@ def parse_program(tokens, postion):
                             print(F"WHILE-STATEMENT: {while_key} {wh_lp} {condition_statment} {wh_rp} {wh_lb}  {while_body} {wh_rb}")
                         else:
                             print(F"WHILE-STATEMENT: {while_key} {wh_lp} {condition_statment} {wh_rp} {wh_lb}  {while_body} <missing RIGHT_BRACE>")
-                            print(F"Syntax Error: missing '}' at line ", tokens[current_token-1][2])
+                            print("Syntax Error: missing '}' at line ", tokens[current_token-1][2])
 
                 else:
                     print(F"WHILE-STATEMENT: {while_key} {wh_lp} <error incomplete-while-statement> <missing ')'...>")
