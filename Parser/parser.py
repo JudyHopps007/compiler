@@ -1,24 +1,32 @@
-import lexical_Analyzer
+import lexical_Analyzer # importing scanner source file for token list
+import time   # for measuring 'parser' run time
+
 
 tokens = lexical_Analyzer.lexical_analyzer('program.c')
-Error_list = ""
-express_n = ""
+Error_list = ""  # keep store track of syntax errors generated
+express_n = ""  # keep store of expression statments  errors generated
 print("\n\n")
 
 
 def parameter_RFC(token, pos):
-    parame = ''
+    parame = '' # keep store parameters that are found
     pos += 1
     i = 0
     while token[pos][0] != 'RIGHT_PAREN':
         if token[pos][0] == 'KEYWORD':
             if token[pos + 1][0] == 'IDENTIFIER':
                 if token[pos + 2][0] == 'COMMA':
-                    parame += token[pos][1] + ' ' + token[pos + 1][1] + ' ' + token[pos + 2][1]
+                    if token[pos + 3][0] != 'RIGHT_PAREN':
+                        parame += token[pos][1] + ' ' + token[pos + 1][1] + ' ' + token[pos + 2][1]
+                        pos += 1
+                    else:
+                        parame += token[pos][1] + ' ' + token[pos + 1][1] + ' ' + token[pos + 2][1]
+                        pos += 1
+                elif token[pos + 2][0] == 'KEYWORD':
+                    parame += token[pos][1] + '  ' + token[pos + 1][1] + "  <missing ','>  "
                     pos += 1
                 else:
-                    parame += token[pos][1] + '  ' + token[pos + 1][1]
-                    pos += 1
+                    print("syntax: <missing ','> at line", token[pos + 2][2])
             else:
                 print("Error Expected IDENTIFIER")
         elif token[pos][0] == 'IDENTIFIER':
@@ -33,7 +41,7 @@ def parameter_RFC(token, pos):
 
 def condition_statement_RFC(tokens, position):
     global express_n
-    condition_statment = ''
+    condition_statment = '' # store condition statements
     current_token = position
     current_token, left_operand, = expression(tokens, current_token)
     condition_statment += left_operand
@@ -52,7 +60,7 @@ def condition_statement_RFC(tokens, position):
 
 def statments(token, postion):  # statement: (declaration | initializing | function_call | assignment | if_statement | while_statement | return_statement)*;
     global express_n, Error_list
-    statment_block = ''
+    statment_block = '' # store statements in block
     block_track = 1
     current_token = postion
     while block_track != 0:
@@ -451,23 +459,23 @@ def parse_program(tokens, postion):
                             print(f"INITIALIZATION: {type} {namr} {asg} {express} {s_tm}")
                         else:
                             print(f"INITIALIZATION: {type} {namr} {asg} {express} <missing ';'>")
-                            print(f"Syntax Error: missing statement terminator")
+                            print(f"Syntax Error: missing statement terminator at line {tokens[current_token-1][2]} after '{tokens[current_token-1][1]}'" )
                             continue
                     else:
-                        print("Syntax Error: variable Initialization error, no value was assigned ")
+                        print(f"Syntax Error: variable Initialization error, no value was assigned at line {tokens[current_token][2]} ")
                         if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                             s_tm = tokens[current_token][1]
                             print(f"INITIALIZATION: {type} {namr} {asg} ~{None}~ {s_tm}")
                         else:
                             print(f"INITIALIZATION: {type} {namr} {asg} ~{None}~ <missing ';'>")
-                            print(f"Syntax Error: missing statement terminator")
+                            print(f"Syntax Error: missing statement terminator at line {tokens[current_token][2]}")
                             continue
                 else:
                     print(f"DECLARATION: {type}  {name} <missing ';' >")
-                    print(" Syntax Error : unterminated statement ", tokens[current_token + 1][0])
+                    print(f"Syntax Error : unterminated statement for '{tokens[current_token + 1][1]}' at line {tokens[current_token + 1][2]} ")
                     current_token += 1
             else:
-                print("Syntax Error : expected token IDENTIFIER goten ")
+                print("Syntax Error : expected token 'IDENTIFIER' goten at line  ",  tokens[current_token][2])
 
         elif tokens[current_token][0] == 'IF':
             gm = ""
@@ -495,6 +503,9 @@ def parse_program(tokens, postion):
                                 # current_token += 2
                                 if current_token == len(tokens):
                                     print(f"IF STATEMENT {gm}")
+                                    break
+                                elif (current_token + 1) >= len(tokens) :
+                                    print(f"IF STATEMENT: {gm}")
                                     break
                                 elif tokens[current_token + 1][0] != 'ELSE':
                                     print(f"IF STATEMENT: {gm}")
@@ -535,15 +546,15 @@ def parse_program(tokens, postion):
                                         else_if += 1
                                         current_token += 2
                             else:
-                                print(" Syntax Error : if-statment expected  RIGHT_BRACE   ")
+                                print(" Syntax Error : if-statement expected  RIGHT_BRACE  at line  ", tokens[current_token-1][2] )
                                 print(f"IF STATEMENT: {gm} < missing 'RIGHT_BRACE'>")
                                 break
                         else:
-                            print(" Syntax Error : if-statment expected  LEFT_BRACE  < missing '{'> ")
+                            print(" Syntax Error : if-statement expected  LEFT_BRACE  < missing '{'>  at line  ", tokens[current_token-1][2])
                             print(f"IF STATEMENT: {gm} ... <statement incomplete> ...")
                             break
                     else:
-                        print(" Syntax Error : if-statment expected  LEFT_PAREN  < missing ')'> ")
+                        print(" Syntax Error : if-statement expected  LEFT_PAREN  < missing ')'> ")
                         print(f"IF STATEMENT: {gm} ... <statement incomplete> ...")
                         break
                 else:
@@ -572,8 +583,6 @@ def parse_program(tokens, postion):
                     print(F"WHILE-STATEMENT: {while_key} {wh_lp} <error incomplete-while-statement>")
             else:
                 print(F"WHILE-STATEMENT: {while_key}  <error incomplete-while-statement>")
-
-
 
         elif tokens[current_token][0] == 'IDENTIFIER':
             name = tokens[current_token][1]
@@ -620,7 +629,6 @@ def parse_program(tokens, postion):
                         print(f"FUNCTION CALL: {name} {l_p} {function_parameter} {f_rp}  < missing ';'>")
                         print('Syntax Error: function call missing statement terminator')
 
-
         elif tokens[current_token][1] == 'return':
             current_token, express = expression(tokens, current_token)
             express_n = ''
@@ -642,6 +650,15 @@ def parse_program(tokens, postion):
         current_token += 1
 
 
-print("\n\n======================================== parser output ======================================== \n\n")
-parse_program(tokens, 0)
+start_run_time_time = time.time()  # Record the Start run time-time of Syntax_analyzer
+print("\n\n======================================== parser output == ====================================== \n\n")
+parse_program(tokens, 0)   # calling the parser function and passing token list
+End_run_time_time = time.time()  # Record the End run time-time of lexical_analyzer
+Program_Run_time = End_run_time_time - start_run_time_time  # Calculate the elapsed time (run time of lexical_analyzer function)
+print("\n\n================================================================================ \n\n")
+print(f"\nParser Program Runtime  :  {Program_Run_time} seconds")
+
+start_run_time_time = time.time()  # Record the Start run time-time of lexical_analyzer
+
+
 print(Error_list)
