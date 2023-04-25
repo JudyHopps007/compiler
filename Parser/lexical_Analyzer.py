@@ -92,6 +92,7 @@ End_run_time_time = time.time()  # Record the End run time-time of lexical_analy
 Program_Run_time = End_run_time_time - start_run_time_time  # Calculate the elapsed time (run time of lexical_analyzer function)
 print(f"\nLexical Program Runtime  :  {Program_Run_time} seconds")
 
+
 print("\n================ ============= TOKENS ========================= ================ \n ")
 for token in tokens:
      print(token) # print each token at a time

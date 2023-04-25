@@ -125,11 +125,11 @@ class C_grammarListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by C_grammarParser#condition.
+    # Enter a parse tree produced by C_grammarParser#condition_statement_RFC.
     def enterCondition(self, ctx:C_grammarParser.ConditionContext):
         pass
 
-    # Exit a parse tree produced by C_grammarParser#condition.
+    # Exit a parse tree produced by C_grammarParser#condition_statement_RFC.
     def exitCondition(self, ctx:C_grammarParser.ConditionContext):
         pass
 

@@ -1,3 +1,5 @@
+# Generated from C_grammar.g4 by ANTLR 4.12.0
+# encoding: utf-8
 from antlr4 import *
 from io import StringIO
 import sys
@@ -8,7 +10,7 @@ else:
 
 def serializedATN():
     return [
-        4,1,38,194,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
+        4,1,39,195,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
         6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,
         2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,1,0,1,0,1,0,5,
         0,42,8,0,10,0,12,0,45,9,0,1,0,3,0,48,8,0,1,1,1,1,1,1,1,2,1,2,1,2,
@@ -22,60 +24,57 @@ def serializedATN():
         1,11,1,11,1,11,3,11,154,8,11,1,12,1,12,1,12,1,12,1,12,1,12,1,12,
         1,12,1,13,1,13,1,13,1,13,1,13,3,13,169,8,13,1,14,1,14,1,14,1,14,
         1,15,1,15,1,15,1,15,5,15,179,8,15,10,15,12,15,182,9,15,1,15,1,15,
-        3,15,186,8,15,1,16,1,16,1,17,1,17,1,18,1,18,1,18,0,0,19,0,2,4,6,
-        8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,0,3,2,0,30,32,36,36,
-        1,0,15,21,1,0,22,28,195,0,43,1,0,0,0,2,49,1,0,0,0,4,52,1,0,0,0,6,
-        59,1,0,0,0,8,66,1,0,0,0,10,81,1,0,0,0,12,83,1,0,0,0,14,96,1,0,0,
-        0,16,107,1,0,0,0,18,109,1,0,0,0,20,122,1,0,0,0,22,128,1,0,0,0,24,
-        155,1,0,0,0,26,168,1,0,0,0,28,170,1,0,0,0,30,185,1,0,0,0,32,187,
-        1,0,0,0,34,189,1,0,0,0,36,191,1,0,0,0,38,42,3,2,1,0,39,42,3,8,4,
-        0,40,42,3,4,2,0,41,38,1,0,0,0,41,39,1,0,0,0,41,40,1,0,0,0,42,45,
-        1,0,0,0,43,41,1,0,0,0,43,44,1,0,0,0,44,47,1,0,0,0,45,43,1,0,0,0,
-        46,48,3,6,3,0,47,46,1,0,0,0,47,48,1,0,0,0,48,1,1,0,0,0,49,50,5,1,
-        0,0,50,51,5,33,0,0,51,3,1,0,0,0,52,53,3,36,18,0,53,54,5,30,0,0,54,
-        55,5,2,0,0,55,56,3,10,5,0,56,57,5,3,0,0,57,58,3,12,6,0,58,5,1,0,
-        0,0,59,60,3,36,18,0,60,61,5,4,0,0,61,62,5,2,0,0,62,63,3,10,5,0,63,
-        64,5,3,0,0,64,65,3,12,6,0,65,7,1,0,0,0,66,67,3,36,18,0,67,68,5,30,
-        0,0,68,69,5,5,0,0,69,9,1,0,0,0,70,71,3,36,18,0,71,78,5,30,0,0,72,
-        73,5,6,0,0,73,74,3,36,18,0,74,75,5,30,0,0,75,77,1,0,0,0,76,72,1,
-        0,0,0,77,80,1,0,0,0,78,76,1,0,0,0,78,79,1,0,0,0,79,82,1,0,0,0,80,
-        78,1,0,0,0,81,70,1,0,0,0,81,82,1,0,0,0,82,11,1,0,0,0,83,84,5,7,0,
-        0,84,85,3,14,7,0,85,86,5,8,0,0,86,13,1,0,0,0,87,95,3,8,4,0,88,95,
-        3,20,10,0,89,95,3,18,9,0,90,95,3,16,8,0,91,95,3,22,11,0,92,95,3,
-        24,12,0,93,95,3,28,14,0,94,87,1,0,0,0,94,88,1,0,0,0,94,89,1,0,0,
-        0,94,90,1,0,0,0,94,91,1,0,0,0,94,92,1,0,0,0,94,93,1,0,0,0,95,98,
-        1,0,0,0,96,94,1,0,0,0,96,97,1,0,0,0,97,15,1,0,0,0,98,96,1,0,0,0,
-        99,100,5,30,0,0,100,101,5,9,0,0,101,102,3,30,15,0,102,103,5,5,0,
-        0,103,108,1,0,0,0,104,105,5,30,0,0,105,106,5,9,0,0,106,108,3,18,
-        9,0,107,99,1,0,0,0,107,104,1,0,0,0,108,17,1,0,0,0,109,110,5,30,0,
-        0,110,111,5,2,0,0,111,116,3,30,15,0,112,113,5,6,0,0,113,115,3,30,
-        15,0,114,112,1,0,0,0,115,118,1,0,0,0,116,114,1,0,0,0,116,117,1,0,
-        0,0,117,119,1,0,0,0,118,116,1,0,0,0,119,120,5,3,0,0,120,121,5,5,
-        0,0,121,19,1,0,0,0,122,123,3,36,18,0,123,124,5,30,0,0,124,125,5,
-        9,0,0,125,126,3,30,15,0,126,127,5,5,0,0,127,21,1,0,0,0,128,129,5,
-        10,0,0,129,130,5,2,0,0,130,131,3,26,13,0,131,132,5,3,0,0,132,133,
-        5,7,0,0,133,134,3,14,7,0,134,145,5,8,0,0,135,136,5,11,0,0,136,137,
-        5,2,0,0,137,138,3,26,13,0,138,139,5,3,0,0,139,140,5,7,0,0,140,141,
-        3,14,7,0,141,142,5,8,0,0,142,144,1,0,0,0,143,135,1,0,0,0,144,147,
-        1,0,0,0,145,143,1,0,0,0,145,146,1,0,0,0,146,153,1,0,0,0,147,145,
-        1,0,0,0,148,149,5,12,0,0,149,150,5,7,0,0,150,151,3,14,7,0,151,152,
-        5,8,0,0,152,154,1,0,0,0,153,148,1,0,0,0,153,154,1,0,0,0,154,23,1,
-        0,0,0,155,156,5,13,0,0,156,157,5,2,0,0,157,158,3,26,13,0,158,159,
-        5,3,0,0,159,160,5,7,0,0,160,161,3,14,7,0,161,162,5,8,0,0,162,25,
-        1,0,0,0,163,164,3,30,15,0,164,165,5,29,0,0,165,166,3,30,15,0,166,
-        169,1,0,0,0,167,169,5,30,0,0,168,163,1,0,0,0,168,167,1,0,0,0,169,
-        27,1,0,0,0,170,171,5,14,0,0,171,172,3,30,15,0,172,173,5,5,0,0,173,
-        29,1,0,0,0,174,180,3,32,16,0,175,176,3,34,17,0,176,177,3,32,16,0,
-        177,179,1,0,0,0,178,175,1,0,0,0,179,182,1,0,0,0,180,178,1,0,0,0,
-        180,181,1,0,0,0,181,186,1,0,0,0,182,180,1,0,0,0,183,186,5,34,0,0,
-        184,186,5,35,0,0,185,174,1,0,0,0,185,183,1,0,0,0,185,184,1,0,0,0,
-        186,31,1,0,0,0,187,188,7,0,0,0,188,33,1,0,0,0,189,190,7,1,0,0,190,
-        35,1,0,0,0,191,192,7,2,0,0,192,37,1,0,0,0,14,41,43,47,78,81,94,96,
-        107,116,145,153,168,180,185
+        1,15,3,15,187,8,15,1,16,1,16,1,17,1,17,1,18,1,18,1,18,0,0,19,0,2,
+        4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,0,3,1,0,31,33,1,
+        0,15,21,1,0,22,28,197,0,43,1,0,0,0,2,49,1,0,0,0,4,52,1,0,0,0,6,59,
+        1,0,0,0,8,66,1,0,0,0,10,81,1,0,0,0,12,83,1,0,0,0,14,96,1,0,0,0,16,
+        107,1,0,0,0,18,109,1,0,0,0,20,122,1,0,0,0,22,128,1,0,0,0,24,155,
+        1,0,0,0,26,168,1,0,0,0,28,170,1,0,0,0,30,186,1,0,0,0,32,188,1,0,
+        0,0,34,190,1,0,0,0,36,192,1,0,0,0,38,42,3,2,1,0,39,42,3,8,4,0,40,
+        42,3,4,2,0,41,38,1,0,0,0,41,39,1,0,0,0,41,40,1,0,0,0,42,45,1,0,0,
+        0,43,41,1,0,0,0,43,44,1,0,0,0,44,47,1,0,0,0,45,43,1,0,0,0,46,48,
+        3,6,3,0,47,46,1,0,0,0,47,48,1,0,0,0,48,1,1,0,0,0,49,50,5,1,0,0,50,
+        51,5,34,0,0,51,3,1,0,0,0,52,53,3,36,18,0,53,54,5,31,0,0,54,55,5,
+        2,0,0,55,56,3,10,5,0,56,57,5,3,0,0,57,58,3,12,6,0,58,5,1,0,0,0,59,
+        60,3,36,18,0,60,61,5,4,0,0,61,62,5,2,0,0,62,63,3,10,5,0,63,64,5,
+        3,0,0,64,65,3,12,6,0,65,7,1,0,0,0,66,67,3,36,18,0,67,68,5,31,0,0,
+        68,69,5,5,0,0,69,9,1,0,0,0,70,71,3,36,18,0,71,78,5,31,0,0,72,73,
+        5,6,0,0,73,74,3,36,18,0,74,75,5,31,0,0,75,77,1,0,0,0,76,72,1,0,0,
+        0,77,80,1,0,0,0,78,76,1,0,0,0,78,79,1,0,0,0,79,82,1,0,0,0,80,78,
+        1,0,0,0,81,70,1,0,0,0,81,82,1,0,0,0,82,11,1,0,0,0,83,84,5,7,0,0,
+        84,85,3,14,7,0,85,86,5,8,0,0,86,13,1,0,0,0,87,95,3,8,4,0,88,95,3,
+        20,10,0,89,95,3,18,9,0,90,95,3,16,8,0,91,95,3,22,11,0,92,95,3,24,
+        12,0,93,95,3,28,14,0,94,87,1,0,0,0,94,88,1,0,0,0,94,89,1,0,0,0,94,
+        90,1,0,0,0,94,91,1,0,0,0,94,92,1,0,0,0,94,93,1,0,0,0,95,98,1,0,0,
+        0,96,94,1,0,0,0,96,97,1,0,0,0,97,15,1,0,0,0,98,96,1,0,0,0,99,100,
+        5,31,0,0,100,101,5,9,0,0,101,102,3,30,15,0,102,103,5,5,0,0,103,108,
+        1,0,0,0,104,105,5,31,0,0,105,106,5,9,0,0,106,108,3,18,9,0,107,99,
+        1,0,0,0,107,104,1,0,0,0,108,17,1,0,0,0,109,110,5,31,0,0,110,111,
+        5,2,0,0,111,116,3,30,15,0,112,113,5,6,0,0,113,115,3,30,15,0,114,
+        112,1,0,0,0,115,118,1,0,0,0,116,114,1,0,0,0,116,117,1,0,0,0,117,
+        119,1,0,0,0,118,116,1,0,0,0,119,120,5,3,0,0,120,121,5,5,0,0,121,
+        19,1,0,0,0,122,123,3,36,18,0,123,124,5,31,0,0,124,125,5,9,0,0,125,
+        126,3,30,15,0,126,127,5,5,0,0,127,21,1,0,0,0,128,129,5,10,0,0,129,
+        130,5,2,0,0,130,131,3,26,13,0,131,132,5,3,0,0,132,133,5,7,0,0,133,
+        134,3,14,7,0,134,145,5,8,0,0,135,136,5,11,0,0,136,137,5,2,0,0,137,
+        138,3,26,13,0,138,139,5,3,0,0,139,140,5,7,0,0,140,141,3,14,7,0,141,
+        142,5,8,0,0,142,144,1,0,0,0,143,135,1,0,0,0,144,147,1,0,0,0,145,
+        143,1,0,0,0,145,146,1,0,0,0,146,153,1,0,0,0,147,145,1,0,0,0,148,
+        149,5,12,0,0,149,150,5,7,0,0,150,151,3,14,7,0,151,152,5,8,0,0,152,
+        154,1,0,0,0,153,148,1,0,0,0,153,154,1,0,0,0,154,23,1,0,0,0,155,156,
+        5,13,0,0,156,157,5,2,0,0,157,158,3,26,13,0,158,159,5,3,0,0,159,160,
+        5,7,0,0,160,161,3,14,7,0,161,162,5,8,0,0,162,25,1,0,0,0,163,164,
+        3,30,15,0,164,165,5,29,0,0,165,166,3,30,15,0,166,169,1,0,0,0,167,
+        169,5,31,0,0,168,163,1,0,0,0,168,167,1,0,0,0,169,27,1,0,0,0,170,
+        171,5,14,0,0,171,172,3,30,15,0,172,173,5,5,0,0,173,29,1,0,0,0,174,
+        180,3,32,16,0,175,176,3,34,17,0,176,177,3,32,16,0,177,179,1,0,0,
+        0,178,175,1,0,0,0,179,182,1,0,0,0,180,178,1,0,0,0,180,181,1,0,0,
+        0,181,187,1,0,0,0,182,180,1,0,0,0,183,187,5,35,0,0,184,187,5,36,
+        0,0,185,187,5,37,0,0,186,174,1,0,0,0,186,183,1,0,0,0,186,184,1,0,
+        0,0,186,185,1,0,0,0,187,31,1,0,0,0,188,189,7,0,0,0,189,33,1,0,0,
+        0,190,191,7,1,0,0,191,35,1,0,0,0,192,193,7,2,0,0,193,37,1,0,0,0,
+        14,41,43,47,78,81,94,96,107,116,145,153,168,180,186
     ]
-
-atn = ATNDeserializer().deserialize(serializedATN())
-print(atn)
 
 class C_grammarParser ( Parser ):
 
@@ -100,9 +99,9 @@ class C_grammarParser ( Parser ):
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                      "<INVALID>", "CONDITIONAL_OPERATOR", "IDENTIFIER", 
-                      "INTEGER", "FLOAT", "INCLUDE_DIRECTIVE", "CHAR_LITERAL", 
-                      "STRING_LITERAL", "BOOLEAN", "SING_LINE_COMMENT", 
+                      "<INVALID>", "CONDITIONAL_OPERATOR", "LOGICAL_OPERATOR", 
+                      "IDENTIFIER", "INTEGER", "FLOAT", "INCLUDE_DIRECTIVE", 
+                      "CHAR_LITERAL", "STRING_LITERAL", "BOOLEAN", "SING_LINE_COMMENT", 
                       "WS" ]
 
     RULE_program = 0
@@ -128,7 +127,7 @@ class C_grammarParser ( Parser ):
     ruleNames =  [ "program", "include_list", "function", "main_function", 
                    "declaration", "params", "compound_statement", "statement", 
                    "assignment", "function_call", "initializing", "if_statement", 
-                   "while_statement", "condition", "return_statement", "expression", 
+                   "while_statement", "condition_statement_RFC", "return_statement", "expression",
                    "term", "operator", "type_specifier" ]
 
     EOF = Token.EOF
@@ -161,15 +160,16 @@ class C_grammarParser ( Parser ):
     T__26=27
     T__27=28
     CONDITIONAL_OPERATOR=29
-    IDENTIFIER=30
-    INTEGER=31
-    FLOAT=32
-    INCLUDE_DIRECTIVE=33
-    CHAR_LITERAL=34
-    STRING_LITERAL=35
-    BOOLEAN=36
-    SING_LINE_COMMENT=37
-    WS=38
+    LOGICAL_OPERATOR=30
+    IDENTIFIER=31
+    INTEGER=32
+    FLOAT=33
+    INCLUDE_DIRECTIVE=34
+    CHAR_LITERAL=35
+    STRING_LITERAL=36
+    BOOLEAN=37
+    SING_LINE_COMMENT=38
+    WS=39
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -222,6 +222,12 @@ class C_grammarParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitProgram" ):
                 listener.exitProgram(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitProgram" ):
+                return visitor.visitProgram(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -299,6 +305,12 @@ class C_grammarParser ( Parser ):
             if hasattr( listener, "exitInclude_list" ):
                 listener.exitInclude_list(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitInclude_list" ):
+                return visitor.visitInclude_list(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -353,6 +365,12 @@ class C_grammarParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitFunction" ):
                 listener.exitFunction(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFunction" ):
+                return visitor.visitFunction(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -414,6 +432,12 @@ class C_grammarParser ( Parser ):
             if hasattr( listener, "exitMain_function" ):
                 listener.exitMain_function(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitMain_function" ):
+                return visitor.visitMain_function(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -469,6 +493,12 @@ class C_grammarParser ( Parser ):
             if hasattr( listener, "exitDeclaration" ):
                 listener.exitDeclaration(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitDeclaration" ):
+                return visitor.visitDeclaration(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -523,6 +553,12 @@ class C_grammarParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitParams" ):
                 listener.exitParams(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitParams" ):
+                return visitor.visitParams(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -588,6 +624,12 @@ class C_grammarParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitCompound_statement" ):
                 listener.exitCompound_statement(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitCompound_statement" ):
+                return visitor.visitCompound_statement(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -680,6 +722,12 @@ class C_grammarParser ( Parser ):
             if hasattr( listener, "exitStatement" ):
                 listener.exitStatement(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitStatement" ):
+                return visitor.visitStatement(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -693,7 +741,7 @@ class C_grammarParser ( Parser ):
             self.state = 96
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 1606444032) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 2680185856) != 0):
                 self.state = 94
                 self._errHandler.sync(self)
                 la_ = self._interp.adaptivePredict(self._input,5,self._ctx)
@@ -775,6 +823,12 @@ class C_grammarParser ( Parser ):
             if hasattr( listener, "exitAssignment" ):
                 listener.exitAssignment(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAssignment" ):
+                return visitor.visitAssignment(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -846,6 +900,12 @@ class C_grammarParser ( Parser ):
             if hasattr( listener, "exitFunction_call" ):
                 listener.exitFunction_call(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFunction_call" ):
+                return visitor.visitFunction_call(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -916,6 +976,12 @@ class C_grammarParser ( Parser ):
             if hasattr( listener, "exitInitializing" ):
                 listener.exitInitializing(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitInitializing" ):
+                return visitor.visitInitializing(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -975,6 +1041,12 @@ class C_grammarParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitIf_statement" ):
                 listener.exitIf_statement(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitIf_statement" ):
+                return visitor.visitIf_statement(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1071,6 +1143,12 @@ class C_grammarParser ( Parser ):
             if hasattr( listener, "exitWhile_statement" ):
                 listener.exitWhile_statement(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitWhile_statement" ):
+                return visitor.visitWhile_statement(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1134,6 +1212,12 @@ class C_grammarParser ( Parser ):
             if hasattr( listener, "exitCondition" ):
                 listener.exitCondition(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitCondition" ):
+                return visitor.visitCondition(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1193,6 +1277,12 @@ class C_grammarParser ( Parser ):
             if hasattr( listener, "exitReturn_statement" ):
                 listener.exitReturn_statement(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitReturn_statement" ):
+                return visitor.visitReturn_statement(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1244,6 +1334,9 @@ class C_grammarParser ( Parser ):
         def STRING_LITERAL(self):
             return self.getToken(C_grammarParser.STRING_LITERAL, 0)
 
+        def BOOLEAN(self):
+            return self.getToken(C_grammarParser.BOOLEAN, 0)
+
         def getRuleIndex(self):
             return C_grammarParser.RULE_expression
 
@@ -1255,6 +1348,12 @@ class C_grammarParser ( Parser ):
             if hasattr( listener, "exitExpression" ):
                 listener.exitExpression(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitExpression" ):
+                return visitor.visitExpression(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1264,10 +1363,10 @@ class C_grammarParser ( Parser ):
         self.enterRule(localctx, 30, self.RULE_expression)
         self._la = 0 # Token type
         try:
-            self.state = 185
+            self.state = 186
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [30, 31, 32, 36]:
+            if token in [31, 32, 33]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 174
                 self.term()
@@ -1284,15 +1383,20 @@ class C_grammarParser ( Parser ):
                     _la = self._input.LA(1)
 
                 pass
-            elif token in [34]:
+            elif token in [35]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 183
                 self.match(C_grammarParser.CHAR_LITERAL)
                 pass
-            elif token in [35]:
+            elif token in [36]:
                 self.enterOuterAlt(localctx, 3)
                 self.state = 184
                 self.match(C_grammarParser.STRING_LITERAL)
+                pass
+            elif token in [37]:
+                self.enterOuterAlt(localctx, 4)
+                self.state = 185
+                self.match(C_grammarParser.BOOLEAN)
                 pass
             else:
                 raise NoViableAltException(self)
@@ -1322,9 +1426,6 @@ class C_grammarParser ( Parser ):
         def FLOAT(self):
             return self.getToken(C_grammarParser.FLOAT, 0)
 
-        def BOOLEAN(self):
-            return self.getToken(C_grammarParser.BOOLEAN, 0)
-
         def getRuleIndex(self):
             return C_grammarParser.RULE_term
 
@@ -1336,6 +1437,12 @@ class C_grammarParser ( Parser ):
             if hasattr( listener, "exitTerm" ):
                 listener.exitTerm(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitTerm" ):
+                return visitor.visitTerm(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1346,9 +1453,9 @@ class C_grammarParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 187
+            self.state = 188
             _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 76235669504) != 0)):
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 15032385536) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -1381,6 +1488,12 @@ class C_grammarParser ( Parser ):
             if hasattr( listener, "exitOperator" ):
                 listener.exitOperator(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitOperator" ):
+                return visitor.visitOperator(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1391,7 +1504,7 @@ class C_grammarParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 189
+            self.state = 190
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 4161536) != 0)):
                 self._errHandler.recoverInline(self)
@@ -1426,6 +1539,12 @@ class C_grammarParser ( Parser ):
             if hasattr( listener, "exitType_specifier" ):
                 listener.exitType_specifier(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitType_specifier" ):
+                return visitor.visitType_specifier(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1436,7 +1555,7 @@ class C_grammarParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 191
+            self.state = 192
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 532676608) != 0)):
                 self._errHandler.recoverInline(self)

@@ -6,7 +6,7 @@ express_n = ""
 print("\n\n")
 
 
-def parma(token, pos):
+def parameter_RFC(token, pos):
     parame = ''
     pos += 1
     i = 0
@@ -31,7 +31,7 @@ def parma(token, pos):
     return parame, pos
 
 
-def condition(tokens, position):
+def condition_statement_RFC(tokens, position):
     global express_n
     condition_statment = ''
     current_token = position
@@ -72,7 +72,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
 
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "LEFT_PAREN":  # handle functions
                     f_lp = tokens[current_token + 2][1]
-                    function_parameter, pos = parma(tokens, (current_token + 2))
+                    function_parameter, pos = parameter_RFC(tokens, (current_token + 2))
                     current_token = pos
                     if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_PAREN":
                         block_track += 1
@@ -149,7 +149,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                 if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_PAREN':
                     l_p = tokens[current_token + 1][1]
                     gm += l_p + ' '
-                    current_token, if_condition = condition(tokens, current_token + 1)
+                    current_token, if_condition = condition_statement_RFC(tokens, current_token + 1)
                     gm += if_condition + ' '
                     if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_PAREN':
                         r_p = tokens[current_token][1]
@@ -242,7 +242,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
             while_key = tokens[current_token][0]
             if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_PAREN':
                 wh_lp = tokens[current_token + 1][1]
-                current_token, condition_statment = condition(tokens, current_token + 1)
+                current_token, condition_statment = condition_statement_RFC(tokens, current_token + 1)
                 if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_PAREN':
                     wh_rp = tokens[current_token][1]
                     if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_BRACE':
@@ -272,7 +272,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                 if (current_token + 2) < len(tokens) and (current_token + 3) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER' and tokens[current_token + 3][0] == 'LEFT_PAREN':  # function_assignment_call
                     f_name = tokens[current_token + 2][1]
                     l_p = tokens[current_token + 3][1]
-                    f_parameter, current_token = parma(tokens, (current_token + 3))
+                    f_parameter, current_token = parameter_RFC(tokens, (current_token + 3))
                     r_p = tokens[current_token][1]
                     if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
                         s_tm = tokens[current_token + 1][1]
@@ -305,7 +305,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
 
             elif tokens[current_token + 1][0] == 'LEFT_PAREN':
                 l_p = tokens[current_token + 1][1]
-                function_parameter, pos = parma(tokens, (current_token + 1))
+                function_parameter, pos = parameter_RFC(tokens, (current_token + 1))
                 current_token = pos
                 if tokens[current_token][0] == "RIGHT_PAREN":
                     f_rp = tokens[current_token][1]
@@ -402,7 +402,7 @@ def parse_program(tokens, postion):
                 # handle include list
                 include_directive = tokens[current_token][1] + ' ' + tokens[current_token + 1][1]
                 current_token += 1
-                print(f"include list: {include_directive}")
+                print(f"INCLUDE-LIST: {include_directive}")
             else:
                 print(f"SYNTAX ERROR: INCLUDE_DIRECTIVE: '{tokens[current_token + 1][1]}' at line {tokens[current_token + 1][2]}")
                 current_token += 1
@@ -413,12 +413,12 @@ def parse_program(tokens, postion):
                 name = tokens[current_token + 1][1]
                 if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "SEMICOLON":  # handle declaration
                     terminator = tokens[current_token + 2][1]
-                    print(f"Declaration {type} {name} {terminator}")
+                    print(f"DECLARATION {type} {name} {terminator}")
                     current_token += 2
 
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "LEFT_PAREN":  # handle functions
                     f_lp = tokens[current_token + 2][1]
-                    function_parameter, pos = parma(tokens, (current_token + 2))
+                    function_parameter, pos = parameter_RFC(tokens, (current_token + 2))
                     current_token = pos
                     if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_PAREN":
                         f_rp = tokens[current_token][1]
@@ -428,13 +428,13 @@ def parse_program(tokens, postion):
                             # call function body
                             if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_BRACE":
                                 f_rb = tokens[current_token][1]
-                                print(f"Function: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body} {f_rb}")
+                                print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body} {f_rb}")
                             else:
                                 print("Syntax Error: <missing '}',  function block not closed at line ", tokens[current_token-1][2])
-                                print(f"Function: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >")
+                                print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >")
                         else:
                             print("Syntax Error: Functon definition   <missing '{'> at line ", tokens[current_token][2])
-                            print(f"Function: {type}  {name} {f_lp} {function_parameter} <missing LEFT_BRACE>...")
+                            print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} <missing LEFT_BRACE>...")
                     else:
                         print("Syntax Error: <missing '('")
 
@@ -448,26 +448,26 @@ def parse_program(tokens, postion):
                     if len(express) != 0:
                         if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                             s_tm = tokens[current_token][1]
-                            print(f"initialization: {type} {namr} {asg} {express} {s_tm}")
+                            print(f"INITIALIZATION: {type} {namr} {asg} {express} {s_tm}")
                         else:
-                            print(f"initialization: {type} {namr} {asg} {express} <missing ';'>")
+                            print(f"INITIALIZATION: {type} {namr} {asg} {express} <missing ';'>")
                             print(f"Syntax Error: missing statement terminator")
                             continue
                     else:
                         print("Syntax Error: variable Initialization error, no value was assigned ")
                         if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                             s_tm = tokens[current_token][1]
-                            print(f"initialization: {type} {namr} {asg} ~{None}~ {s_tm}")
+                            print(f"INITIALIZATION: {type} {namr} {asg} ~{None}~ {s_tm}")
                         else:
-                            print(f"initialization: {type} {namr} {asg} ~{None}~ <missing ';'>")
+                            print(f"INITIALIZATION: {type} {namr} {asg} ~{None}~ <missing ';'>")
                             print(f"Syntax Error: missing statement terminator")
                             continue
                 else:
-                    print(f"Declaration: {type}  {name} <missing ';' >")
+                    print(f"DECLARATION: {type}  {name} <missing ';' >")
                     print(" Syntax Error : unterminated statement ", tokens[current_token + 1][0])
                     current_token += 1
             else:
-                print(" Syntax Error : expected token IDENTIFIER goten ")
+                print("Syntax Error : expected token IDENTIFIER goten ")
 
         elif tokens[current_token][0] == 'IF':
             gm = ""
@@ -478,7 +478,7 @@ def parse_program(tokens, postion):
                 if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_PAREN':
                     l_p = tokens[current_token + 1][1]
                     gm += l_p + ' '
-                    current_token, if_condition = condition(tokens, current_token + 1)
+                    current_token, if_condition = condition_statement_RFC(tokens, current_token + 1)
                     gm += if_condition + ' '
                     if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_PAREN':
                         r_p = tokens[current_token][1]
@@ -494,10 +494,10 @@ def parse_program(tokens, postion):
                                 gm += r_b + ' '
                                 # current_token += 2
                                 if current_token == len(tokens):
-                                    print(f"IF statement 1: {gm}")
+                                    print(f"IF STATEMENT {gm}")
                                     break
                                 elif tokens[current_token + 1][0] != 'ELSE':
-                                    print(f"IF statement 2: {gm}")
+                                    print(f"IF STATEMENT: {gm}")
                                     break
                                 else:
                                     if tokens[current_token + 1][0] == 'ELSE' and tokens[current_token + 2][0] != 'IF':
@@ -512,14 +512,14 @@ def parse_program(tokens, postion):
                                                 e_rb = tokens[current_token][1]
                                                 gm += e_rb + ' '
                                                 if else_if == 0:
-                                                    print(f"IF-ELSE statement: {gm}")
+                                                    print(f"IF-ELSE STATEMENT: {gm}")
 
                                                 else:
-                                                    print(f"IF-ELSE-IF statement: {gm}")
+                                                    print(f"IF-ELSE-IF STATEMENT: {gm}")
 
                                                 break
                                             else:
-                                                print(f"IF statement: {gm} < missing 'RIGHT_BRACE'>")
+                                                print(f"IF-STATEMENT: {gm} < missing 'RIGHT_BRACE'>")
                                                 print("Syntax Error: incomplete else statment  missing <RIGHT_BRACE>")
                                                 break
                                         else:
@@ -536,27 +536,27 @@ def parse_program(tokens, postion):
                                         current_token += 2
                             else:
                                 print(" Syntax Error : if-statment expected  RIGHT_BRACE   ")
-                                print(f"IF statement: {gm} < missing 'RIGHT_BRACE'>")
+                                print(f"IF STATEMENT: {gm} < missing 'RIGHT_BRACE'>")
                                 break
                         else:
                             print(" Syntax Error : if-statment expected  LEFT_BRACE  < missing '{'> ")
-                            print(f"IF statement: {gm} ... <statement incomplete> ...")
+                            print(f"IF STATEMENT: {gm} ... <statement incomplete> ...")
                             break
                     else:
                         print(" Syntax Error : if-statment expected  LEFT_PAREN  < missing ')'> ")
-                        print(f"IF statement: {gm} ... <statement incomplete> ...")
+                        print(f"IF STATEMENT: {gm} ... <statement incomplete> ...")
                         break
                 else:
                     print('fff ===', tokens[current_token + 1])
                     print(" Syntax Error : if-statment expected  LEFT_PAREN  < missing '{}'> ")
-                    print(f"IF statement: {gm} ... <missing LEFT_PAREN> ...")
+                    print(f"IF STATEMENT: {gm} ... <missing LEFT_PAREN> ...")
                     break
 
         elif tokens[current_token][0] == 'WHILE':
             while_key = tokens[current_token][0]
             if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_PAREN':
                 wh_lp = tokens[current_token + 1][1]
-                current_token, condition_statment = condition(tokens, current_token + 1)
+                current_token, condition_statment = condition_statement_RFC(tokens, current_token + 1)
                 if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_PAREN':
                     wh_rp = tokens[current_token][1]
                     if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_BRACE':
@@ -582,12 +582,12 @@ def parse_program(tokens, postion):
                 if (current_token + 2) < len(tokens) and (current_token + 3) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER' and tokens[current_token + 3][0] == 'LEFT_PAREN':  # function_assignment_call
                     f_name = tokens[current_token + 2][1]
                     l_p = tokens[current_token + 3][1]
-                    f_parameter, current_token = parma(tokens, (current_token + 3))
+                    f_parameter, current_token = parameter_RFC(tokens, (current_token + 3))
                     r_p = tokens[current_token][1]
 
                     if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
                         s_tm = tokens[current_token + 1][1]
-                        print(f"Function Assignment: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} {s_tm}")
+                        print(f"FUNCTION ASSIGNMENT: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} {s_tm}")
                         current_token += 1
                     else:
                         print(f"Function Assignment: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} <missing ';'>")
@@ -608,7 +608,7 @@ def parse_program(tokens, postion):
 
             elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_PAREN':
                 l_p = tokens[current_token + 1][1]
-                function_parameter, pos = parma(tokens, (current_token + 1))
+                function_parameter, pos = parameter_RFC(tokens, (current_token + 1))
                 current_token = pos
                 if tokens[current_token][0] == "RIGHT_PAREN":
                     f_rp = tokens[current_token][1]

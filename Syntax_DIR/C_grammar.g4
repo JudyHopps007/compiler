@@ -22,11 +22,11 @@ function_call: IDENTIFIER '(' expression (',' expression)*  ')' ';';
 
 initializing: type_specifier IDENTIFIER '=' expression ';';
 
-if_statement: 'if' '(' condition ')' '{' statement '}' ('else if' '(' condition ')' '{' statement '}')* ('else' '{' statement '}')?;
+if_statement: 'if' '(' condition_statement_RFC ')' '{' statement '}' ('else if' '(' condition_statement_RFC ')' '{' statement '}')* ('else' '{' statement '}')?;
 
-while_statement: 'while' '(' condition ')' '{' statement '}';
+while_statement: 'while' '(' condition_statement_RFC ')' '{' statement '}';
 
-condition : (expression CONDITIONAL_OPERATOR expression) | IDENTIFIER;
+condition_statement_RFC : (expression CONDITIONAL_OPERATOR expression) | IDENTIFIER;
 
 return_statement: 'return' expression ';';
 
