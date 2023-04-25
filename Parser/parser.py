@@ -9,7 +9,7 @@ print("\n\n")
 
 
 def parameter_RFC(token, pos):
-    parame = '' # keep store parameters that are found
+    parame = ''  # keep store parameters that are found
     pos += 1
     i = 0
     while token[pos][0] != 'RIGHT_PAREN':
@@ -24,7 +24,7 @@ def parameter_RFC(token, pos):
                         print("syntax error: ',' error in parameters  at line", token[pos + 2][2])
                         pos += 1
                 elif token[pos + 2][0] == 'KEYWORD':
-                    parame += token[pos][1] + '  ' + token[pos + 1][1] + "  <missing ','>  "   
+                    parame += token[pos][1] + '  ' + token[pos + 1][1] + "  <missing ','>  "
                     pos += 1
                 else:
                     print("syntax: <missing ','> at line", token[pos + 2][2])
