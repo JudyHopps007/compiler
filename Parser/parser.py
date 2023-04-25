@@ -64,7 +64,9 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
     statment_block = '' # store statements in block
     block_track = 1
     current_token = postion
+
     while block_track != 0:
+        print(tokens[current_token])
         current_token += 1
         if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_BRACE':
             statment_block += '\n\t\t\t\t\t'
