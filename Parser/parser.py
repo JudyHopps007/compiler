@@ -8,37 +8,37 @@ express_n = ""  # keep store of expression statments  errors generated
 print("\n\n")
 
 
-def parameter_RFC(token, pos):
+def parameter_RFC(token, current_token):
     parame = ''  # keep store parameters that are found
-    pos += 1
+    current_token += 1
     i = 0
-    if token[pos][0]
-    while token[pos][0] != 'RIGHT_PAREN':
-        if token[pos][0] == 'KEYWORD':
-            if token[pos + 1][0] == 'IDENTIFIER':
-                if token[pos + 2][0] == 'COMMA':
-                    if token[pos + 3][0] != 'RIGHT_PAREN':
-                        parame += token[pos][1] + ' ' + token[pos + 1][1] + ' ' + token[pos + 2][1]
-                        pos += 1
+    if current_token < len(tokens):
+        while token[current_token][0] != 'RIGHT_PAREN':
+            if token[current_token][0] == 'KEYWORD':
+                if token[current_token + 1][0] == 'IDENTIFIER':
+                    if token[current_token + 2][0] == 'COMMA':
+                        if token[current_token + 3][0] != 'RIGHT_PAREN':
+                            parame += token[current_token][1] + ' ' + token[current_token + 1][1] + ' ' + token[current_token + 2][1]
+                            current_token += 1
+                        else:
+                            parame += token[current_token][1] + ' ' + token[current_token + 1][1] + ' ' + "  <error-remove ','> "
+                            print("syntax error: ',' error in parameters  at line", token[current_token + 2][2])
+                            current_token += 1
+                    elif token[current_token + 2][0] == 'KEYWORD':
+                        parame += token[current_token][1] + '  ' + token[current_token + 1][1] + "  <missing ','>  "
+                        current_token += 1
                     else:
-                        parame += token[pos][1] + ' ' + token[pos + 1][1] + ' ' + "  <error-remove ','> "
-                        print("syntax error: ',' error in parameters  at line", token[pos + 2][2])
-                        pos += 1
-                elif token[pos + 2][0] == 'KEYWORD':
-                    parame += token[pos][1] + '  ' + token[pos + 1][1] + "  <missing ','>  "
-                    pos += 1
+                        print("syntax: <missing ','> at line", token[current_token + 2][2])
                 else:
-                    print("syntax: <missing ','> at line", token[pos + 2][2])
-            else:
-                print("Error Expected IDENTIFIER")
-        elif token[pos][0] == 'IDENTIFIER':
-            if token[pos + 1][0] == 'COMMA':
-                parame += token[pos][1] + ' ' + token[pos + 1][1]
-            else:
-                parame += token[pos][1]
-        pos += 1
-        i += 1
-    return parame, pos
+                    print("Error Expected IDENTIFIER")
+            elif token[current_token][0] == 'IDENTIFIER':
+                if token[current_token + 1][0] == 'COMMA':
+                    parame += token[current_token][1] + ' ' + token[current_token + 1][1]
+                else:
+                    parame += token[current_token][1]
+            current_token += 1
+            i += 1
+    return parame, current_token
 
 
 def condition_statement_RFC(tokens, position):
