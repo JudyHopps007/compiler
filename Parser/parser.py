@@ -368,7 +368,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     print()
             else:
                 break
-
+    print('bub ', tokens[current_token])
     return current_token, statment_block
 
 
@@ -404,7 +404,7 @@ def expression(tokens, position):
             print(f"Syntax error -- Expression Error Cause:  {tokens[current_token][1]}")
             break
         current_token += 1
-    print('bub ', tokens[current_token])
+
     return current_token, express_n
 
 
