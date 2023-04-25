@@ -277,7 +277,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
             else:
                 # print(F"WHILE-STATEMENT: {while_key}  <error incomplete-while-statement>")
                 statment_block += f"\n\t\t\t\t\tWHILE-STATEMENT: {while_key}  <error incomplete-while-statement>"
-                Error_list += "\nSyntax error: while statment incomplete at line ', tokens[current_token][2]"
+                Error_list += "\nSyntax error: while statment incomplete at line " + tokens[current_token][2]
 
         elif current_token  < len(tokens) and tokens[current_token][0] == 'IDENTIFIER':
             name = tokens[current_token][1]
