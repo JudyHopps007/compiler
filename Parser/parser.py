@@ -46,7 +46,7 @@ def condition_statement_RFC(tokens, position):
         current_token, left_operand, = expression(tokens, current_token)
         condition_statment += left_operand
         express_n = ''
-        if current_token < len(tokens) and tokens[current_token][0] == 'EQUAL' or tokens[current_token][0] == 'NOT_EQUAL' or tokens[current_token][0] == 'LESS_THAN' or tokens[current_token][0] == 'GREATER_THAN' or tokens[current_token][0] == 'LESS_THAN_EQUAL' or tokens[current_token][0] == 'GREATER_THAN_EQUAL':
+        if current_token < len(tokens) and (tokens[current_token][0] == 'EQUAL' or tokens[current_token][0] == 'NOT_EQUAL' or tokens[current_token][0] == 'LESS_THAN' or tokens[current_token][0] == 'GREATER_THAN' or tokens[current_token][0] == 'LESS_THAN_EQUAL' or tokens[current_token][0] == 'GREATER_THAN_EQUAL'):
             conditional_operator = tokens[current_token][1]
             condition_statment += " " + conditional_operator
             current_token, right_operand, = expression(tokens, current_token)
