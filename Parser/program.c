@@ -1,2 +1,2 @@
 
-num = dsdsd()
+dsdsd()

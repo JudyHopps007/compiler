@@ -599,7 +599,7 @@ def parse_program(tokens, postion):
                         current_token += 1
                     else:
                         print(f"FUNCTION ASSIGNMENT: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} <missing ';'>")
-                        print("Suntax error: missing semicolon at line ", tokens[current_token][2])
+                        print("Syntax error: function-call-assignment  missing semicolon at line ", tokens[current_token][2])
                 else:
                     current_token, express = expression(tokens, current_token + 1)
                     express_n = ''
@@ -628,7 +628,7 @@ def parse_program(tokens, postion):
                         print(f"FUNCTION CALL: {name} {l_p} {function_parameter} {f_rp} {tm}")
                         current_token += 1
                     else:
-                        print(f"FUNCTION CALL : {name} {l_p} {function_parameter} {f_rp}  < missing ';'>")
+                        print(f"FUNCTION CALL :f {name} {l_p} {function_parameter} {f_rp}  < missing ';'>")
                         print('Syntax Error: function call missing statement terminator')
 
         elif tokens[current_token][1] == 'return':
