@@ -303,12 +303,14 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     if len(express) != 0:
                         if current_token < len(tokens) and tokens[current_token][0] != "SEMICOLON":
                             # print("Syntax Error: statement terminator missing")
-                            Error_list += "\nSyntax Error: statement terminator missing"
+                            Error_list += "\nSyntax Error: statement terminator missing at line " + tokens[current_token-1][2]
                             # print(f"Variable assignment: {name} {asg} {express}  <missing ';'>")
                             statment_block += f"\n\t\t\t\t\tVARIABLE ASSIGNMENT: {name} {asg} {express}  <missing ';'>"
-                        else:
+                        elif current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                             # print(f"Variable assignment: {name} {asg} {express} {tokens[current_token][1]}")
                             statment_block += f"\n\t\t\t\t\tVARIABLE ASSIGNMENT: {name} {asg} {express} {tokens[current_token][1]}"
+                        else:
+                            Error_list += "\n
                     else:
                         # print("Syntax Error: variable assignment error, no value was assigned ")
                         Error_list += "\nSyntax Error: variable assignment error, no value was assigned "
