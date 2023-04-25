@@ -579,7 +579,7 @@ def parse_program(tokens, postion):
                         else:
                             print(F"WHILE-STATEMENT: {while_key} {wh_lp} <missing RIGHT_BRACE>")
                 else:
-                    print(F"WHILE-STATEMENT: {while_key} {wh_lp} <error incomplete-while-statement>at line ", tokens[current_token-1][2])
+                    print(F"WHILE-STATEMENT: {while_key} {wh_lp} <error incomplete-while-statement> <missing ')'...>  at line ", tokens[current_token-1][2])
             else:
                 print(F"WHILE-STATEMENT: {while_key}  <error incomplete-while-statement> at line ", tokens[current_token][2] )
 
