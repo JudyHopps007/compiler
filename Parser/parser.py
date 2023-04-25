@@ -69,7 +69,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
         print(tokens[current_token])
         current_token += 1
         if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_BRACE':
-            print('bbb ',tokens[current_token])
+            print('bbb ', tokens[current_token])
             statment_block += '\n\t\t\t\t\t'
             block_track -= 1
         elif current_token < len(tokens) and tokens[current_token][0] == "KEYWORD" and tokens[current_token][1] != 'return':
@@ -404,6 +404,7 @@ def expression(tokens, position):
             print(f"Syntax error -- Expression Error Cause:  {tokens[current_token][1]}")
             break
         current_token += 1
+    print('bub ', tokens[current_token])
     return current_token, express_n
 
 
@@ -439,7 +440,7 @@ def parse_program(tokens, postion):
                         if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "LEFT_BRACE":
                             f_lb = tokens[current_token + 1][1]
                             current_token, function_body = statments(tokens, current_token + 1)
-                            print('dfdf',tokens[current_token])
+                            #print('dfdf',tokens[current_token])
                             # call function body
                             print(tokens[current_token-1][0])
                             if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_BRACE":
