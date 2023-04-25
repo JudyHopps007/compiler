@@ -553,7 +553,7 @@ def parse_program(tokens, postion):
                             print(f"IF STATEMENT: {gm} ... <statement incomplete> ...")
                             break
                     else:
-                        print(" Syntax Error : if-statement expected  LEFT_PAREN  < missing ')'> ")
+                        print(" Syntax Error : if-statement expected  LEFT_PAREN  < missing ')'> at line  ", tokens[current_token-1][2])
                         print(f"IF STATEMENT: {gm} ... <statement incomplete> ...")
                         break
                 else:
