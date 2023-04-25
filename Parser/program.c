@@ -1,3 +1,3 @@
-dffdf = eererer;
-while () {
+dffdf = eererer
+
 
