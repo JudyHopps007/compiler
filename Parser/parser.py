@@ -612,7 +612,7 @@ def parse_program(tokens, postion):
                         else:
                             print(f"VARIABLE ASSIGNMENT1: {name} {asg} {express}  <missing ';'>")
                     else:
-                        print("Syntax Error: variable assignment error, no value was assigned ", {tokens[current_token-1][2]} )
+                        print("Syntax Error: variable assignment error, no value was assigned ", tokens[current_token-1][2])
                         if tokens[current_token][0] == "SEMICOLON":
                             s_tm = tokens[current_token][1]
                             print(f"VARIABLE ASSIGNMENT: {name} {asg} {None} {s_tm}")
@@ -628,8 +628,8 @@ def parse_program(tokens, postion):
                         print(f"FUNCTION CALL: {name} {l_p} {function_parameter} {f_rp} {tm}")
                         current_token += 1
                     else:
-                        print(f"FUNCTION CALL :f {name} {l_p} {function_parameter} {f_rp}  < missing ';'>")
-                        print('Syntax Error: function call missing statement terminator')
+                        print(f"FUNCTION CALL : {name} {l_p} {function_parameter} {f_rp}  < missing ';'>")
+                        print('Syntax Error: function call missing statement terminator at line ', tokens[current_token][2] )
 
         elif tokens[current_token][1] == 'return':
             current_token, express = expression(tokens, current_token)
