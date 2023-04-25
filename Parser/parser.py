@@ -69,6 +69,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
         print(tokens[current_token])
         current_token += 1
         if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_BRACE':
+            print('bbb ',tokens[current_token])
             statment_block += '\n\t\t\t\t\t'
             block_track -= 1
         elif current_token < len(tokens) and tokens[current_token][0] == "KEYWORD" and tokens[current_token][1] != 'return':
