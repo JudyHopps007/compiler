@@ -296,6 +296,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     else:
                         # print(f"Function Assignment: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} <missing ';'>")
                         statment_block += f"\n\t\t\t\t\tFUNCTION ASSIGNMENT: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} <missing ';'>"
+                        
                 else:
                     current_token, express = expression(tokens, current_token + 1)
                     express_n = ''
