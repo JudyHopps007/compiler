@@ -537,7 +537,7 @@ def parse_program(tokens, postion):
 
                                                 break
                                             else:
-                                                print(f"IF-STATEMENT: {gm} < missing 'RIGHT_BRACE'>")
+                                                print(f"IF-STATEMENT: {gm} fg <missing 'RIGHT_BRACE'>")
                                                 print("Syntax Error: incomplete else statment  missing <RIGHT_BRACE>")
                                                 break
                                         else:
