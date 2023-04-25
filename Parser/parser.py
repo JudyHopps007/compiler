@@ -140,7 +140,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                             # print(f"initialization: {type} {namr} {asg} ~{None}~ <missing ';'>")
                             statment_block += f"\n\t\t\t\t\tINITIALIZATION: {type} {namr} {asg} ~{None}~ <missing ';'>"
                             # print(f"Syntax Error: missing statement terminator")
-                            Error_list += "\nSyntax Error: missing statement terminator"
+                            Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token][2]}"
                             continue
                 else:
                     # print(f"Declaration: {type}  {name} <missing ';' >")
@@ -149,6 +149,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     Error_list += "\nSyntax Error : unterminated statement  " + tokens[current_token + 1][0]
                     current_token += 1
             else:
+                statment_block += f"\n\t\t\t\t\t
                 # print(" Syntax Error : expected token IDENTIFIER")
                 Error_list += "\nSyntax Error : expected token IDENTIFIER"
 
