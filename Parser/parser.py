@@ -233,13 +233,13 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                                 break
                         else:
                             # print(" Syntax Error : if-statment expected  LEFT_BRACE  < missing '{'> ")
-                            Error_list += "\nSyntax Error : if-statment expected  LEFT_BRACE  < missing '{'> "
+                            Error_list += "\nSyntax Error : if-statement expected  LEFT_BRACE   < missing '{'>  at line  " + tokens[current_token-1][2]
                             # print(f"IF statement: {gm} ... <statement incomplete> ...")
                             statment_block += f"\n\t\t\t\t\tIF STATEMENT: {gm} ... <statement incomplete> ..."
                             break
                     else:
                         # print(" Syntax Error : if-statment expected  LEFT_PAREN  < missing ')'> ")
-                        Error_list += "\nSyntax Error : if-statment expected  LEFT_PAREN  < missing ')'> "
+                        Error_list += "\nSyntax Error : if-statement expected  LEFT_PAREN   < missing ')'> at line  " + tokens[current_token-1][2]
                         # print(f"IF statement: {gm} ... <statement incomplete> ...")
                         statment_block += f"\n\t\t\t\t\tIF STATEMENT: {gm} ... <statement incomplete> ..."
                         break
