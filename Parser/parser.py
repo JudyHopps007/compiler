@@ -574,10 +574,9 @@ def parse_program(tokens, postion):
                         current_token, while_body = statments(tokens, current_token + 1)
                         if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_BRACE':
                             wh_rb = tokens[current_token][1]
-                            wh_condition = condition_statment
-                            print(F"WHILE-STATEMENT: {while_key} {wh_lp} {wh_condition} {wh_rp} {wh_lb}  {while_body} {wh_rb}")
+                            print(F"WHILE-STATEMENT: {while_key} {wh_lp} {condition_statment} {wh_rp} {wh_lb}  {while_body} {wh_rb}")
                         else:
-                            print(F"WHILE-STATEMENT: {while_key} {wh_lp} <missing RIGHT_BRACE>")
+                            print(F"WHILE-STATEMENT: {while_key} {wh_lp} {condition_statment} {wh_rp} {wh_lb}  {while_body} <missing RIGHT_BRACE>")
                 else:
                     print(F"WHILE-STATEMENT: {while_key} {wh_lp} <error incomplete-while-statement> <missing ')'...>  at line ", tokens[current_token-1][2])
             else:
@@ -609,7 +608,7 @@ def parse_program(tokens, postion):
                         else:
                             print(f"VARIABLE ASSIGNMENT: {name} {asg} {express} {tokens[current_token][1]}")
                     else:
-                        print("Syntax Error: variable assignment error, no value was assigned ")
+                        print("Syntax Error: variable assignment error, no value was assigned " )
                         if tokens[current_token][0] == "SEMICOLON":
                             s_tm = tokens[current_token][1]
                             print(f"VARIABLE ASSIGNMENT: {name} {asg} {None} {s_tm}")
