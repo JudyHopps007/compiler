@@ -1,3 +1,3 @@
-dffdf
+dffdf = eererer;
 while () {
 
