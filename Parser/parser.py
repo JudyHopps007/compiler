@@ -586,6 +586,8 @@ def parse_program(tokens, postion):
                             print(F"WHILE-STATEMENT: {while_key} {wh_lp} {condition_statment} {wh_rp} {wh_lb}  {while_body} {wh_rb}")
                         else:
                             print(F"WHILE-STATEMENT: {while_key} {wh_lp} {condition_statment} {wh_rp} {wh_lb}  {while_body} <missing RIGHT_BRACE>")
+                            print(F"Syntax Error: missing '}' at line ", tokens[current_token-1][2])
+
                 else:
                     print(F"WHILE-STATEMENT: {while_key} {wh_lp} <error incomplete-while-statement> <missing ')'...>")
                     print(F"Syntax error: while statment <error incomplete-while-statement> <missing ')'...>  at line ", tokens[current_token-1][2])
