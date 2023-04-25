@@ -572,7 +572,7 @@ def parse_program(tokens, postion):
                     if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_BRACE':
                         wh_lb = tokens[current_token + 1][1]
                         current_token, while_body = statments(tokens, current_token + 1)
-                        if tokens[current_token][0] == 'RIGHT_BRACE':
+                        if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_BRACE':
                             wh_rb = tokens[current_token][1]
                             wh_condition = condition_statment
                             print(F"WHILE-STATEMENT: {while_key} {wh_lp} {wh_condition} {wh_rp} {wh_lb}  {while_body} {wh_rb}")
