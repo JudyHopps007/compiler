@@ -314,10 +314,9 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                             Error_list += "\nSyntax Error: statement terminator missing at line " + tokens[current_token - 1][2]
                     else:
                         # print("Syntax Error: variable assignment error, no value was assigned ")
-                        Error_list += "\nSyntax Error: variable assignment error, no value was assigned "
+                        Error_list += "\nSyntax Error: variable assignment error, no value was assigned " + tokens[current_token-1][2]
                         if tokens[current_token][0] == "SEMICOLON":
                             s_tm = tokens[current_token][1]
-                            # print(f"Variable assignment: {name} {asg} {None} {s_tm}")
                             statment_block += f"\n\t\t\t\t\tVARIABLE ASSIGNMENT: {name} {asg} {None} {s_tm}"
 
 
