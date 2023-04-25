@@ -97,7 +97,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                                 statment_block += f"\n\t\t\t\t\tFUNCTION: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body} {f_rb}"
                             else:
                                 # print("Syntax Error: <missing '}',  function block not closed")
-                                Error_list += "\nSyntax Error: <missing '}',  function block not closed at line " + tokens[current_token-1][2]
+                                Error_list += "\nSyntax Error: <missing '}',  function block not closed"
                                 # print(f"Function: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >")
                                 statment_block += f"\n\t\t\t\t\tFUNCTION: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >"
                         else:
@@ -108,7 +108,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     else:
                         # print("Syntax Error: <missing '('")
                         statment_block += f"\n\t\t\t\t\tFUNCTION: {type}  {name} {f_lp} {function_parameter} <missing ')'>..."
-                        Error_list += "\nSyntax Error: incomplete function statement, <missing ')' '{' ...'}' at line " + tokens[current_token-1][2]
+                        Error_list += "\nSyntax Error: incomplete function statment, <missing ')' '{' ...'}' at line ", tokens[current_token-1][2]
 
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "ASSIGN":  # initialization
                     type = tokens[current_token][1]
@@ -427,7 +427,7 @@ def parse_program(tokens, postion):
                     current_token += 2
 
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "LEFT_PAREN":  # handle functions
-                    f_lp = tokens[current_token + 2][1]                    
+                    f_lp = tokens[current_token + 2][1]
                     function_parameter, pos = parameter_RFC(tokens, (current_token + 2))
                     current_token = pos
                     if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_PAREN":
@@ -447,7 +447,7 @@ def parse_program(tokens, postion):
                             print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} <missing LEFT_BRACE>...")
                     else:
                         print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} <missing ')'>...")
-                        print("Syntax Error: incomplete function statment, <missing ')' '{' ...'}' at line", tokens[current_token-1][2])
+                        print("Syntax Error: incomplete function statment, <missing ')' '{' ...'}' at line ", tokens[current_token-1][2])
 
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "ASSIGN":  # initialization
                     type = tokens[current_token][1]
