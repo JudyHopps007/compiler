@@ -618,7 +618,7 @@ def parse_program(tokens, postion):
                     express_n = ''
                     if len(express) != 0:
                         if current_token < len(tokens) and tokens[current_token][0] != "SEMICOLON":
-                            print("Syntax Error: statement terminator missing")
+                            print("Syntax Error: statement terminator missing at line ", tokens[current_token-1][2])
                             print(f"VARIABLE ASSIGNMENT2: {name} {asg} {express}  <missing ';'>")
                         elif current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                             print(f"VARIABLE ASSIGNMENT: {name} {asg} {express} {tokens[current_token][1]}")
