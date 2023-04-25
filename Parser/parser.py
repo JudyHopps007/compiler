@@ -557,7 +557,7 @@ def parse_program(tokens, postion):
                         print(f"IF STATEMENT: {gm} ... <statement incomplete> ...")
                         break
                 else:
-                    print('fff ===', tokens[current_token + 1])
+                    print('fff ===', tokens[current_token])
                     print(" Syntax Error : if-statment expected  LEFT_PAREN  < missing '{}'> ")
                     print(f"IF STATEMENT: {gm} ... <missing LEFT_PAREN> ...")
                     break
