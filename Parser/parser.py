@@ -372,7 +372,6 @@ def expression(tokens, position):
     while current_token < len(tokens):
         token_type, token_value, line_number = tokens[current_token]
         if token_type == 'IDENTIFIER' :
-            print(tokens[current_token], tokens[current_token+1])
             express_n += token_value + ' '
         elif token_type == 'INTEGER':
             express_n += token_value + ' '
