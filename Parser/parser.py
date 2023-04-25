@@ -227,7 +227,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                                         current_token += 2
                             else:
                                 # print(" Syntax Error : if-statment expected  RIGHT_BRACE   ")
-                                Error_list += "\nSyntax Error : if-statment expected  RIGHT_BRACE   "
+                                Error_list += "\nSyntax Error : if-statement expected  RIGHT_BRACE  at line  " + tokens[current_token-1][2]
                                 # (f"IF statement: {gm} < missing 'RIGHT_BRACE'>")
                                 statment_block += f"\n\t\t\t\t\tIF STATEMENT: {gm} < missing 'RIGHT_BRACE'>"
                                 break
