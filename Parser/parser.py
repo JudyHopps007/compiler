@@ -335,7 +335,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                         # print(f"Function Call: {name} {l_p} {function_parameter} {f_rp}  < missing ';'>")
                         statment_block += f"\n\t\t\t\t\tFUNCTION CALL: {name} {l_p} {function_parameter} {f_rp}  < missing ';'>"
                         # print('Syntax Error: function call missing statement terminator')
-                        Error_list += "\nSyntax Error: function call missing statement terminator"
+                        Error_list += "\nSyntax Error: function call missing statement terminator at line " + tokens[current_token][2]
 
         elif current_token  < len(tokens) and tokens[current_token][1] == 'return':
             current_token, express = expression(tokens, current_token)
@@ -348,7 +348,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     # print("RETURN-STATMENT  : return  <error 'no value'>", tokens[current_token][1])
                     statment_block += f"\n\t\t\t\t\tRETURN-STATEMENT  : return  <error 'no value'> " + tokens[current_token][1]
                     # print("Syntax error: no return value was specified")
-                    Error_list += "\nSyntax error: no return value was specified"
+                    Error_list += "\nSyntax error: no return value was specified at line " + tokens[current_token][2]
             else:
                 if len(express_n) != 0:
                     # print(f"RETURN-STATMENT  : return {express} < missing ';'>")
