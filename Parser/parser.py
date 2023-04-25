@@ -131,7 +131,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                             Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token-1][2]} after '{tokens[current_token-1][1]}'"
                             continue
                     else:
-                        print("Syntax Error: variable Initialization error, no value was assigned ")
+                        Error_list += f"\nSyntax Error: variable Initialization error, no value was assigned at line {tokens[current_token][2]} "
                         if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                             s_tm = tokens[current_token][1]
                             # print(f"initialization: {type} {namr} {asg} ~{None}~ {s_tm}")
