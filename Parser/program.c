@@ -1,5 +1,5 @@
 
-int nufgfg;
+int nufgfg
 
 
 
