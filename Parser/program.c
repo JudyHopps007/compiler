@@ -1,7 +1,6 @@
 
 int addition(sdsd){
- nudf();
- vadad= dfef;
+     int trer(sdsd){
  }
 
 
