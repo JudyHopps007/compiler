@@ -97,7 +97,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                                 statment_block += f"\n\t\t\t\t\tFUNCTION: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body} {f_rb}"
                             else:
                                 # print("Syntax Error: <missing '}',  function block not closed")
-                                Error_list += "\nSyntax Error: <missing '}',  function block not closed"
+                                Error_list += "\nSyntax Error: <missing '}',  function block not closed at line " + tokens[current_token-1][2]
                                 # print(f"Function: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >")
                                 statment_block += f"\n\t\t\t\t\tFUNCTION: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >"
                         else:
