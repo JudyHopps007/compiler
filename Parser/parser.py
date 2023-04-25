@@ -66,14 +66,10 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
     current_token = postion
 
     while block_track != 0:
-        print(tokens[current_token])
         current_token += 1
         if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_BRACE':
-            print('bbb ', tokens[current_token])
             statment_block += '\n\t\t\t\t\t'
             block_track -= 1
-            print('bbb--- ', block_track)
-
         elif current_token < len(tokens) and tokens[current_token][0] == "KEYWORD" and tokens[current_token][1] != 'return':
             type = tokens[current_token][1]
             if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "IDENTIFIER":
@@ -89,7 +85,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     function_parameter, pos = parameter_RFC(tokens, (current_token + 2))
                     current_token = pos
                     if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_PAREN":
-                        block_track += 1
+
                         f_rp = tokens[current_token][1]
                         if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "LEFT_BRACE":
                             block_track -= 1
@@ -370,7 +366,6 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     print()
             else:
                 break
-    print('bub ', tokens[current_token])
     return current_token, statment_block
 
 
