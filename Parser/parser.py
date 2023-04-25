@@ -128,7 +128,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                             # print(f"initialization: {type} {namr} {asg} {express} <missing ';'>")
                             statment_block += f"\n\t\t\t\t\tINITIALIZATION: {type} {namr} {asg} {express} <missing ';'>"
                             # print(f"Syntax Error: missing statement terminator")
-                            Error_list += "\nSyntax Error: missing statement terminator"
+                            Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token-1][2]} after '{tokens[current_token-1][1]}'"
                             continue
                     else:
                         print("Syntax Error: variable Initialization error, no value was assigned ")
