@@ -629,7 +629,7 @@ def parse_program(tokens, postion):
                         current_token += 1
                     else:
                         print(f"FUNCTION CALL : {name} {l_p} {function_parameter} {f_rp}  < missing ';'>")
-                        print('Syntax Error: function call missing statement terminator at line ', tokens[current_token][2] )
+                        print('Syntax Error: function call missing statement terminator at line ', tokens[current_token][2])
 
         elif tokens[current_token][1] == 'return':
             current_token, express = expression(tokens, current_token)
@@ -639,7 +639,7 @@ def parse_program(tokens, postion):
                     print("RETURN-STATEMENT  : return ", express, tokens[current_token][1])
                 else:
                     print("RETURN-STATEMENT  : return  <error 'no value'>", tokens[current_token][1])
-                    print("Syntax error: no return value was specified")
+                    print("Syntax error: no return value was specified at line ")
             else:
                 if len(express_n) != 0:
                     print(f"RETURN-STATEMENT  : return {express} < missing ';'>")
