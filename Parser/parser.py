@@ -645,7 +645,7 @@ def parse_program(tokens, postion):
                     print("Syntax error: nreturn statment missing semicolon  at line ", tokens[current_token-1][2])
                 else:
                     print(f"RETURN-STATEMENT  : return  <missing return-value>  <missing ';'>")
-                    print("Syntax error: no return value was specified, missing statement terminator for return statement ", tokens[current_token-1][2])
+                    print("Syntax error: no return value was specified, and  missing a 'statement' terminator for return statement", tokens[current_token-1][2])
         else:
             print(f"Syntax Error : '{tokens[current_token][1]}'  at line  {tokens[current_token][2]}", )
         current_token += 1
