@@ -20,7 +20,7 @@ def parameter_RFC(token, pos):
                         parame += token[pos][1] + ' ' + token[pos + 1][1] + ' ' + token[pos + 2][1]
                         pos += 1
                     else:
-                        parame += token[pos][1] + ' ' + token[pos + 1][1] + ' ' + token[pos + 2][1]
+                        parame += token[pos][1] + ' ' + token[pos + 1][1] + ' ' + "  <error-remove ','> "
                         pos += 1
                 elif token[pos + 2][0] == 'KEYWORD':
                     parame += token[pos][1] + '  ' + token[pos + 1][1] + "  <missing ','>  "

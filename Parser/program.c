@@ -1,5 +1,5 @@
 
-int addition(int a, int b){
+int addition(int a,){
 int result = a + b;
 return result;
 }
