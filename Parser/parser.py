@@ -588,6 +588,7 @@ def parse_program(tokens, postion):
                     print(F"WHILE-STATEMENT: {while_key} {wh_lp} <error incomplete-while-statement> <missing ')'...>  at line ", tokens[current_token-1][2])
             else:
                 print(F"WHILE-STATEMENT: {while_key}  <error incomplete-while-statement> at line ", tokens[current_token][2] )
+                print('Syntax error: while statment incomplete at line ', tokens[current_token][2] )
 
         elif tokens[current_token][0] == 'IDENTIFIER':
             name = tokens[current_token][1]
