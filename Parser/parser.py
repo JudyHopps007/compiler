@@ -40,15 +40,13 @@ def parameter_RFC(token, pos):
 
 
 def condition_statement_RFC(tokens, position):
-    if position < len(tokens):
         global express_n
         condition_statment = '' # store condition statements
         current_token = position
         current_token, left_operand, = expression(tokens, current_token)
         condition_statment += left_operand
         express_n = ''
-        token_type = tokens[current_token][0]
-        if token_type == 'EQUAL' or token_type == 'NOT_EQUAL' or token_type == 'LESS_THAN' or token_type == 'GREATER_THAN' or token_type == 'LESS_THAN_EQUAL' or token_type == 'GREATER_THAN_EQUAL':
+        if current_token < len(tokens) and tokens[current_token][0] == 'EQUAL' or tokens[current_token][0] == 'NOT_EQUAL' or tokens[current_token][0] == 'LESS_THAN' or tokens[current_token][0] == 'GREATER_THAN' or tokens[current_token][0] == 'LESS_THAN_EQUAL' or tokens[current_token][0] == 'GREATER_THAN_EQUAL':
             conditional_operator = tokens[current_token][1]
             condition_statment += " " + conditional_operator
             current_token, right_operand, = expression(tokens, current_token)
