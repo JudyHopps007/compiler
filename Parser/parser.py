@@ -556,11 +556,11 @@ def parse_program(tokens, postion):
                                 print(f"IF STATEMENT: {gm} < missing 'RIGHT_BRACE'>")
                                 break
                         else:
-                            print(" Syntax Error : if-statement expected  LEFT_BRACE  < missing '{'>  at line  ", tokens[current_token-1][2])
+                            print(" Syntax Error : if-statement expected  LEFT_BRACE   < missing '{'>  at line  ", tokens[current_token-1][2])
                             print(f"IF STATEMENT: {gm} ... <statement incomplete> ...")
                             break
                     else:
-                        print(" Syntax Error : if-statement expected  LEFT_PAREN  < missing ')'> at line  ", tokens[current_token-1][2])
+                        print(" Syntax Error : if-statement expected  LEFT_PAREN   < missing ')'> at line  ", tokens[current_token-1][2])
                         print(f"IF STATEMENT: {gm} ... <statement incomplete> ...")
                         break
                 else:
