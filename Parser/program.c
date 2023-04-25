@@ -20,7 +20,7 @@ return result;
 char boolCheck(int a){
     char mychar;
    if(a == 1){
-      mychar = 'T'
+      mychar = 'T';
       return mychar;
    }
    else{
@@ -30,7 +30,7 @@ char boolCheck(int a){
 }
 
 void main(){
-bool state = ;
+bool state = true;
    int c = 3;
 int d = 5;
 float e = 6.0;
