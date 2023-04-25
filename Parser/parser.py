@@ -40,22 +40,23 @@ def parameter_RFC(token, pos):
 
 
 def condition_statement_RFC(tokens, position):
-    global express_n
-    condition_statment = '' # store condition statements
-    current_token = position
-    current_token, left_operand, = expression(tokens, current_token)
-    condition_statment += left_operand
-    express_n = ''
-    token_type = tokens[current_token][0]
-    if token_type == 'EQUAL' or token_type == 'NOT_EQUAL' or token_type == 'LESS_THAN' or token_type == 'GREATER_THAN' or token_type == 'LESS_THAN_EQUAL' or token_type == 'GREATER_THAN_EQUAL':
-        conditional_operator = tokens[current_token][1]
-        condition_statment += " " + conditional_operator
-        current_token, right_operand, = expression(tokens, current_token)
-        condition_statment += " " + right_operand
+    if position < len(tokens):
+        global express_n
+        condition_statment = '' # store condition statements
+        current_token = position
+        current_token, left_operand, = expression(tokens, current_token)
+        condition_statment += left_operand
         express_n = ''
-    if len(condition_statment) == 0:
-        print("Syntax Error: Condition statement not provided")
-    return current_token, condition_statment
+        token_type = tokens[current_token][0]
+        if token_type == 'EQUAL' or token_type == 'NOT_EQUAL' or token_type == 'LESS_THAN' or token_type == 'GREATER_THAN' or token_type == 'LESS_THAN_EQUAL' or token_type == 'GREATER_THAN_EQUAL':
+            conditional_operator = tokens[current_token][1]
+            condition_statment += " " + conditional_operator
+            current_token, right_operand, = expression(tokens, current_token)
+            condition_statment += " " + right_operand
+            express_n = ''
+        if len(condition_statment) == 0:
+            print("Syntax Error: Condition statement not provided")
+        return current_token, condition_statment
 
 
 def statments(token, postion):  # statement: (declaration | initializing | function_call | assignment | if_statement | while_statement | return_statement)*;
