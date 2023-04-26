@@ -24,15 +24,14 @@ def parameter_RFC(token, current_token):
                         elif token[current_token + 2][0] == 'RIGHT_PAREN':
                             parame += token[current_token + 1][1] + ' ' + " <remove ','> "
 
-
-
             elif token[current_token][0] == 'IDENTIFIER':
                 parame += token[current_token][1] + ' '
                 if token[current_token + 1][0] == 'COMMA':
-                    parame += token[current_token + 1][1]
-                    current_token += 1
-                else:
-                    parame += token[current_token][1]
+                    if token[current_token + 2][0] != 'RIGHT_PAREN':
+                        parame += token[current_token + 1][1] + ' '
+                        current_token += 1
+                    elif token[current_token + 2][0] == 'RIGHT_PAREN':
+                        parame += token[current_token + 1][1] + ' ' + " <remove ','> "
             current_token += 1
             i += 1
     return parame, current_token
