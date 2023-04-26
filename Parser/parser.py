@@ -22,7 +22,8 @@ def parameter_RFC(token, current_token):
             elif token[current_token][0] == 'IDENTIFIER':
                 parame += token[current_token][1] + ' '
                 if token[current_token + 1][0] == 'COMMA':
-                     + token[current_token + 1][1]
+                    parame += token[current_token + 1][1]
+                    current_token += 1
                 else:
                     parame += token[current_token][1]
             current_token += 1
