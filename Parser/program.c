@@ -1,6 +1,6 @@
 
 
-int addition(int a, 'f'){
+int addition(int a, ){
 
 }
 int subtraction(int a, int b){
