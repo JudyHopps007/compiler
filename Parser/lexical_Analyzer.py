@@ -76,6 +76,8 @@ def lexical_analyzer(filename):
                 if token_type != 'COMMENT':
                     token_list.append((token_type, match.group(0)))  # adding found token in the token_list
                     token_list2.append((token_type, match.group(0), token_track))
+                else:
+                    token_track += 1
                 curser_position = match.end(0)
                 break
 
