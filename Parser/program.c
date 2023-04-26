@@ -1,42 +1,4 @@
 
-
-int addition(int a, int b){
-
-}
-int subtraction(int a, int b){
-
-}
-float multiplication(float a, float b){
-int result = a * b;
-return result;
-}
-float division(float a, float b){
-int result = a / b;
-return result;
-}
-char boolCheck(int a){
-    char mychar;
-   if(a == 1){
-      mychar = 'T';
-      return mychar;
-   }
-   else{
-      mychar = 'F';
-      return mychar;
-    }
-}
-
-void main(){
-bool state = true;
-   int c = 3;
-int d = 5;
-float e = 6.0;
-float f = 12.0;
-float newResult1;
-int newResult2;
-
-int select = 3;
-while (state){
        if(select == 1){
             newResult1 = division(f, e);
        }else if (select == 2){
@@ -46,7 +8,6 @@ while (state){
        }else{
             newResult2 = subtraction(c, d);
        }
-       state = false;
-}
-}
+
+
 
