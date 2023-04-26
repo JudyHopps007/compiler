@@ -569,7 +569,7 @@ def parse_program(tokens, postion):
                         break
                 else:
 
-                    print(" Syntax Error : illigel if-statement format  ", tokens[current_token - 1][2])
+                    print(" Syntax Error : illigel if-statement format  ", tokens[current_token][2])
                     print(f"IF STATEMENT: {gm} ... <missing LEFT_PAREN> ...")
                     break
 
