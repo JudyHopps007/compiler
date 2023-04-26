@@ -7,7 +7,7 @@
             newResult2 = addition(c, d);
        }else{
             newResult2 = subtraction(c, d);
-       }
+       
 
 
 
