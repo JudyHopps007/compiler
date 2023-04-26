@@ -34,6 +34,8 @@ def parameter_RFC(token, current_token):
                         parame += token[current_token + 1][1] + ' ' + " <remove ','> "
             else:
                 print( "Syntax Error: illegal function parameter definition at line ", token[current_token][2])
+                parame += "<illegal-character>" + ' '
+
             current_token += 1
             i += 1
     return parame, current_token
