@@ -370,7 +370,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     Error_list += f"\nSyntax Error : '{tokens[current_token][1]}'  at line  {tokens[current_token][2]}"
                 except:
                     Error_list += f"\nSyntax Error : 'statement incomplete at line "
-                    print()
+
             else:
                 break
     return current_token, statment_block
