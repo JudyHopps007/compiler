@@ -668,11 +668,11 @@ def parse_program(tokens, postion):
 
 
 start_run_time_time = time.time()  # Record the Start run time-time of Syntax_analyzer
-print("\n\n======================================== parser output == ====================================== \n\n")
+print("\n\n======================================== PARSER OUTPUT ======================================== \n\n")
 parse_program(tokens, 0)  # calling the parser function and passing token list
 End_run_time_time = time.time()  # Record the End run time-time of lexical_analyzer
-Program_Run_time = End_run_time_time - start_run_time_time  # Calculate the elapsed time (run time of lexical_analyzer function)
-print("\n\n================================================================================ \n\n")
+Program_Run_time = End_run_time_time - start_run_time_time  # Calculate the elapsed time (run time of parser function)
+print("\n\n================================================================================================")
 print(f"\nParser Program Runtime  :  {Program_Run_time} seconds")
 
 start_run_time_time = time.time()  # Record the Start run time-time of lexical_analyzer
