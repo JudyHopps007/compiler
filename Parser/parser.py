@@ -434,7 +434,7 @@ def parse_program(tokens, postion):
                 if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "SEMICOLON":  # handle declaration
                     terminator = tokens[current_token + 2][1]
                     print(f"DECLARATION:  {type} {name} {terminator}")
-                    parser_tree.append( ("DECLARATION", ("type_specifer", f"{type}") ('IDENTIFIER',  ) ) )
+                    parser_tree.append( ("DECLARATION", ("type_specifer", f"{type}"), ('IDENTIFIER', F"{name}")))
                     current_token += 2
 
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "LEFT_PAREN":  # handle functions
