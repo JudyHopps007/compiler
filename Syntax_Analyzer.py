@@ -39,7 +39,6 @@ def Syntax_Analyzer(token_list):
     parser = C_grammarParser(stream)  # create a parser instance from the token stream
     parser.removeErrorListeners()
     tree = parser.program()  # call the appropriate method on the parser to parse the input
-    Error_Handler.syntax_error_check()  # checking for syntax error
     return tree.toStringTree(recog=parser)  # return the parse tree
 
 
@@ -53,4 +52,7 @@ print('\n================ ============= PARSER TREE ============================
 print(parser_tree)
 
 print('\n================ ============= PARSER TREE STRUCTURE ==================== ==================\n')
+
+
+parser_tree = Syntax_Analyzer()  # calling the parser function and passing token list
 print_parse_tree(parser_tree)

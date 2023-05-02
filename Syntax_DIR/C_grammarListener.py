@@ -17,60 +17,6 @@ class C_grammarListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by C_grammarParser#include_list.
-    def enterInclude_list(self, ctx:C_grammarParser.Include_listContext):
-        pass
-
-    # Exit a parse tree produced by C_grammarParser#include_list.
-    def exitInclude_list(self, ctx:C_grammarParser.Include_listContext):
-        pass
-
-
-    # Enter a parse tree produced by C_grammarParser#function.
-    def enterFunction(self, ctx:C_grammarParser.FunctionContext):
-        pass
-
-    # Exit a parse tree produced by C_grammarParser#function.
-    def exitFunction(self, ctx:C_grammarParser.FunctionContext):
-        pass
-
-
-    # Enter a parse tree produced by C_grammarParser#main_function.
-    def enterMain_function(self, ctx:C_grammarParser.Main_functionContext):
-        pass
-
-    # Exit a parse tree produced by C_grammarParser#main_function.
-    def exitMain_function(self, ctx:C_grammarParser.Main_functionContext):
-        pass
-
-
-    # Enter a parse tree produced by C_grammarParser#declaration.
-    def enterDeclaration(self, ctx:C_grammarParser.DeclarationContext):
-        pass
-
-    # Exit a parse tree produced by C_grammarParser#declaration.
-    def exitDeclaration(self, ctx:C_grammarParser.DeclarationContext):
-        pass
-
-
-    # Enter a parse tree produced by C_grammarParser#params.
-    def enterParams(self, ctx:C_grammarParser.ParamsContext):
-        pass
-
-    # Exit a parse tree produced by C_grammarParser#params.
-    def exitParams(self, ctx:C_grammarParser.ParamsContext):
-        pass
-
-
-    # Enter a parse tree produced by C_grammarParser#compound_statement.
-    def enterCompound_statement(self, ctx:C_grammarParser.Compound_statementContext):
-        pass
-
-    # Exit a parse tree produced by C_grammarParser#compound_statement.
-    def exitCompound_statement(self, ctx:C_grammarParser.Compound_statementContext):
-        pass
-
-
     # Enter a parse tree produced by C_grammarParser#statement.
     def enterStatement(self, ctx:C_grammarParser.StatementContext):
         pass
@@ -89,6 +35,69 @@ class C_grammarListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by C_grammarParser#conditional.
+    def enterConditional(self, ctx:C_grammarParser.ConditionalContext):
+        pass
+
+    # Exit a parse tree produced by C_grammarParser#conditional.
+    def exitConditional(self, ctx:C_grammarParser.ConditionalContext):
+        pass
+
+
+    # Enter a parse tree produced by C_grammarParser#loop.
+    def enterLoop(self, ctx:C_grammarParser.LoopContext):
+        pass
+
+    # Exit a parse tree produced by C_grammarParser#loop.
+    def exitLoop(self, ctx:C_grammarParser.LoopContext):
+        pass
+
+
+    # Enter a parse tree produced by C_grammarParser#print_statement.
+    def enterPrint_statement(self, ctx:C_grammarParser.Print_statementContext):
+        pass
+
+    # Exit a parse tree produced by C_grammarParser#print_statement.
+    def exitPrint_statement(self, ctx:C_grammarParser.Print_statementContext):
+        pass
+
+
+    # Enter a parse tree produced by C_grammarParser#function_definition.
+    def enterFunction_definition(self, ctx:C_grammarParser.Function_definitionContext):
+        pass
+
+    # Exit a parse tree produced by C_grammarParser#function_definition.
+    def exitFunction_definition(self, ctx:C_grammarParser.Function_definitionContext):
+        pass
+
+
+    # Enter a parse tree produced by C_grammarParser#procedure_definition.
+    def enterProcedure_definition(self, ctx:C_grammarParser.Procedure_definitionContext):
+        pass
+
+    # Exit a parse tree produced by C_grammarParser#procedure_definition.
+    def exitProcedure_definition(self, ctx:C_grammarParser.Procedure_definitionContext):
+        pass
+
+
+    # Enter a parse tree produced by C_grammarParser#parameter_list.
+    def enterParameter_list(self, ctx:C_grammarParser.Parameter_listContext):
+        pass
+
+    # Exit a parse tree produced by C_grammarParser#parameter_list.
+    def exitParameter_list(self, ctx:C_grammarParser.Parameter_listContext):
+        pass
+
+
+    # Enter a parse tree produced by C_grammarParser#parameter.
+    def enterParameter(self, ctx:C_grammarParser.ParameterContext):
+        pass
+
+    # Exit a parse tree produced by C_grammarParser#parameter.
+    def exitParameter(self, ctx:C_grammarParser.ParameterContext):
+        pass
+
+
     # Enter a parse tree produced by C_grammarParser#function_call.
     def enterFunction_call(self, ctx:C_grammarParser.Function_callContext):
         pass
@@ -98,39 +107,21 @@ class C_grammarListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by C_grammarParser#initializing.
-    def enterInitializing(self, ctx:C_grammarParser.InitializingContext):
+    # Enter a parse tree produced by C_grammarParser#procedure_call.
+    def enterProcedure_call(self, ctx:C_grammarParser.Procedure_callContext):
         pass
 
-    # Exit a parse tree produced by C_grammarParser#initializing.
-    def exitInitializing(self, ctx:C_grammarParser.InitializingContext):
-        pass
-
-
-    # Enter a parse tree produced by C_grammarParser#if_statement.
-    def enterIf_statement(self, ctx:C_grammarParser.If_statementContext):
-        pass
-
-    # Exit a parse tree produced by C_grammarParser#if_statement.
-    def exitIf_statement(self, ctx:C_grammarParser.If_statementContext):
+    # Exit a parse tree produced by C_grammarParser#procedure_call.
+    def exitProcedure_call(self, ctx:C_grammarParser.Procedure_callContext):
         pass
 
 
-    # Enter a parse tree produced by C_grammarParser#while_statement.
-    def enterWhile_statement(self, ctx:C_grammarParser.While_statementContext):
+    # Enter a parse tree produced by C_grammarParser#argument_list.
+    def enterArgument_list(self, ctx:C_grammarParser.Argument_listContext):
         pass
 
-    # Exit a parse tree produced by C_grammarParser#while_statement.
-    def exitWhile_statement(self, ctx:C_grammarParser.While_statementContext):
-        pass
-
-
-    # Enter a parse tree produced by C_grammarParser#condition_statement_RFC.
-    def enterCondition(self, ctx:C_grammarParser.ConditionContext):
-        pass
-
-    # Exit a parse tree produced by C_grammarParser#condition_statement_RFC.
-    def exitCondition(self, ctx:C_grammarParser.ConditionContext):
+    # Exit a parse tree produced by C_grammarParser#argument_list.
+    def exitArgument_list(self, ctx:C_grammarParser.Argument_listContext):
         pass
 
 
@@ -143,12 +134,129 @@ class C_grammarListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by C_grammarParser#array_declaration.
+    def enterArray_declaration(self, ctx:C_grammarParser.Array_declarationContext):
+        pass
+
+    # Exit a parse tree produced by C_grammarParser#array_declaration.
+    def exitArray_declaration(self, ctx:C_grammarParser.Array_declarationContext):
+        pass
+
+
+    # Enter a parse tree produced by C_grammarParser#list_declaration.
+    def enterList_declaration(self, ctx:C_grammarParser.List_declarationContext):
+        pass
+
+    # Exit a parse tree produced by C_grammarParser#list_declaration.
+    def exitList_declaration(self, ctx:C_grammarParser.List_declarationContext):
+        pass
+
+
+    # Enter a parse tree produced by C_grammarParser#expression_list.
+    def enterExpression_list(self, ctx:C_grammarParser.Expression_listContext):
+        pass
+
+    # Exit a parse tree produced by C_grammarParser#expression_list.
+    def exitExpression_list(self, ctx:C_grammarParser.Expression_listContext):
+        pass
+
+
+    # Enter a parse tree produced by C_grammarParser#array_access.
+    def enterArray_access(self, ctx:C_grammarParser.Array_accessContext):
+        pass
+
+    # Exit a parse tree produced by C_grammarParser#array_access.
+    def exitArray_access(self, ctx:C_grammarParser.Array_accessContext):
+        pass
+
+
+    # Enter a parse tree produced by C_grammarParser#list_access.
+    def enterList_access(self, ctx:C_grammarParser.List_accessContext):
+        pass
+
+    # Exit a parse tree produced by C_grammarParser#list_access.
+    def exitList_access(self, ctx:C_grammarParser.List_accessContext):
+        pass
+
+
+    # Enter a parse tree produced by C_grammarParser#class_declaration.
+    def enterClass_declaration(self, ctx:C_grammarParser.Class_declarationContext):
+        pass
+
+    # Exit a parse tree produced by C_grammarParser#class_declaration.
+    def exitClass_declaration(self, ctx:C_grammarParser.Class_declarationContext):
+        pass
+
+
+    # Enter a parse tree produced by C_grammarParser#class_body.
+    def enterClass_body(self, ctx:C_grammarParser.Class_bodyContext):
+        pass
+
+    # Exit a parse tree produced by C_grammarParser#class_body.
+    def exitClass_body(self, ctx:C_grammarParser.Class_bodyContext):
+        pass
+
+
+    # Enter a parse tree produced by C_grammarParser#member.
+    def enterMember(self, ctx:C_grammarParser.MemberContext):
+        pass
+
+    # Exit a parse tree produced by C_grammarParser#member.
+    def exitMember(self, ctx:C_grammarParser.MemberContext):
+        pass
+
+
+    # Enter a parse tree produced by C_grammarParser#attribute_declaration.
+    def enterAttribute_declaration(self, ctx:C_grammarParser.Attribute_declarationContext):
+        pass
+
+    # Exit a parse tree produced by C_grammarParser#attribute_declaration.
+    def exitAttribute_declaration(self, ctx:C_grammarParser.Attribute_declarationContext):
+        pass
+
+
+    # Enter a parse tree produced by C_grammarParser#method_declaration.
+    def enterMethod_declaration(self, ctx:C_grammarParser.Method_declarationContext):
+        pass
+
+    # Exit a parse tree produced by C_grammarParser#method_declaration.
+    def exitMethod_declaration(self, ctx:C_grammarParser.Method_declarationContext):
+        pass
+
+
     # Enter a parse tree produced by C_grammarParser#expression.
     def enterExpression(self, ctx:C_grammarParser.ExpressionContext):
         pass
 
     # Exit a parse tree produced by C_grammarParser#expression.
     def exitExpression(self, ctx:C_grammarParser.ExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by C_grammarParser#log_expr.
+    def enterLog_expr(self, ctx:C_grammarParser.Log_exprContext):
+        pass
+
+    # Exit a parse tree produced by C_grammarParser#log_expr.
+    def exitLog_expr(self, ctx:C_grammarParser.Log_exprContext):
+        pass
+
+
+    # Enter a parse tree produced by C_grammarParser#relation.
+    def enterRelation(self, ctx:C_grammarParser.RelationContext):
+        pass
+
+    # Exit a parse tree produced by C_grammarParser#relation.
+    def exitRelation(self, ctx:C_grammarParser.RelationContext):
+        pass
+
+
+    # Enter a parse tree produced by C_grammarParser#arith_expr.
+    def enterArith_expr(self, ctx:C_grammarParser.Arith_exprContext):
+        pass
+
+    # Exit a parse tree produced by C_grammarParser#arith_expr.
+    def exitArith_expr(self, ctx:C_grammarParser.Arith_exprContext):
         pass
 
 
@@ -161,21 +269,75 @@ class C_grammarListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by C_grammarParser#operator.
-    def enterOperator(self, ctx:C_grammarParser.OperatorContext):
+    # Enter a parse tree produced by C_grammarParser#factor.
+    def enterFactor(self, ctx:C_grammarParser.FactorContext):
         pass
 
-    # Exit a parse tree produced by C_grammarParser#operator.
-    def exitOperator(self, ctx:C_grammarParser.OperatorContext):
+    # Exit a parse tree produced by C_grammarParser#factor.
+    def exitFactor(self, ctx:C_grammarParser.FactorContext):
         pass
 
 
-    # Enter a parse tree produced by C_grammarParser#type_specifier.
-    def enterType_specifier(self, ctx:C_grammarParser.Type_specifierContext):
+    # Enter a parse tree produced by C_grammarParser#identifier.
+    def enterIdentifier(self, ctx:C_grammarParser.IdentifierContext):
         pass
 
-    # Exit a parse tree produced by C_grammarParser#type_specifier.
-    def exitType_specifier(self, ctx:C_grammarParser.Type_specifierContext):
+    # Exit a parse tree produced by C_grammarParser#identifier.
+    def exitIdentifier(self, ctx:C_grammarParser.IdentifierContext):
+        pass
+
+
+    # Enter a parse tree produced by C_grammarParser#number.
+    def enterNumber(self, ctx:C_grammarParser.NumberContext):
+        pass
+
+    # Exit a parse tree produced by C_grammarParser#number.
+    def exitNumber(self, ctx:C_grammarParser.NumberContext):
+        pass
+
+
+    # Enter a parse tree produced by C_grammarParser#datatype.
+    def enterDatatype(self, ctx:C_grammarParser.DatatypeContext):
+        pass
+
+    # Exit a parse tree produced by C_grammarParser#datatype.
+    def exitDatatype(self, ctx:C_grammarParser.DatatypeContext):
+        pass
+
+
+    # Enter a parse tree produced by C_grammarParser#add_op.
+    def enterAdd_op(self, ctx:C_grammarParser.Add_opContext):
+        pass
+
+    # Exit a parse tree produced by C_grammarParser#add_op.
+    def exitAdd_op(self, ctx:C_grammarParser.Add_opContext):
+        pass
+
+
+    # Enter a parse tree produced by C_grammarParser#mul_op.
+    def enterMul_op(self, ctx:C_grammarParser.Mul_opContext):
+        pass
+
+    # Exit a parse tree produced by C_grammarParser#mul_op.
+    def exitMul_op(self, ctx:C_grammarParser.Mul_opContext):
+        pass
+
+
+    # Enter a parse tree produced by C_grammarParser#rel_op.
+    def enterRel_op(self, ctx:C_grammarParser.Rel_opContext):
+        pass
+
+    # Exit a parse tree produced by C_grammarParser#rel_op.
+    def exitRel_op(self, ctx:C_grammarParser.Rel_opContext):
+        pass
+
+
+    # Enter a parse tree produced by C_grammarParser#log_op.
+    def enterLog_op(self, ctx:C_grammarParser.Log_opContext):
+        pass
+
+    # Exit a parse tree produced by C_grammarParser#log_op.
+    def exitLog_op(self, ctx:C_grammarParser.Log_opContext):
         pass
 
 

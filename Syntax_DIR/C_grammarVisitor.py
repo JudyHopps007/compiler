@@ -14,36 +14,6 @@ class C_grammarVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by C_grammarParser#include_list.
-    def visitInclude_list(self, ctx:C_grammarParser.Include_listContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by C_grammarParser#function.
-    def visitFunction(self, ctx:C_grammarParser.FunctionContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by C_grammarParser#main_function.
-    def visitMain_function(self, ctx:C_grammarParser.Main_functionContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by C_grammarParser#declaration.
-    def visitDeclaration(self, ctx:C_grammarParser.DeclarationContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by C_grammarParser#params.
-    def visitParams(self, ctx:C_grammarParser.ParamsContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by C_grammarParser#compound_statement.
-    def visitCompound_statement(self, ctx:C_grammarParser.Compound_statementContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by C_grammarParser#statement.
     def visitStatement(self, ctx:C_grammarParser.StatementContext):
         return self.visitChildren(ctx)
@@ -54,28 +24,53 @@ class C_grammarVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by C_grammarParser#conditional.
+    def visitConditional(self, ctx:C_grammarParser.ConditionalContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by C_grammarParser#loop.
+    def visitLoop(self, ctx:C_grammarParser.LoopContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by C_grammarParser#print_statement.
+    def visitPrint_statement(self, ctx:C_grammarParser.Print_statementContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by C_grammarParser#function_definition.
+    def visitFunction_definition(self, ctx:C_grammarParser.Function_definitionContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by C_grammarParser#procedure_definition.
+    def visitProcedure_definition(self, ctx:C_grammarParser.Procedure_definitionContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by C_grammarParser#parameter_list.
+    def visitParameter_list(self, ctx:C_grammarParser.Parameter_listContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by C_grammarParser#parameter.
+    def visitParameter(self, ctx:C_grammarParser.ParameterContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by C_grammarParser#function_call.
     def visitFunction_call(self, ctx:C_grammarParser.Function_callContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by C_grammarParser#initializing.
-    def visitInitializing(self, ctx:C_grammarParser.InitializingContext):
+    # Visit a parse tree produced by C_grammarParser#procedure_call.
+    def visitProcedure_call(self, ctx:C_grammarParser.Procedure_callContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by C_grammarParser#if_statement.
-    def visitIf_statement(self, ctx:C_grammarParser.If_statementContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by C_grammarParser#while_statement.
-    def visitWhile_statement(self, ctx:C_grammarParser.While_statementContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by C_grammarParser#condition_statement_RFC.
-    def visitCondition(self, ctx:C_grammarParser.ConditionContext):
+    # Visit a parse tree produced by C_grammarParser#argument_list.
+    def visitArgument_list(self, ctx:C_grammarParser.Argument_listContext):
         return self.visitChildren(ctx)
 
 
@@ -84,8 +79,73 @@ class C_grammarVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by C_grammarParser#array_declaration.
+    def visitArray_declaration(self, ctx:C_grammarParser.Array_declarationContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by C_grammarParser#list_declaration.
+    def visitList_declaration(self, ctx:C_grammarParser.List_declarationContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by C_grammarParser#expression_list.
+    def visitExpression_list(self, ctx:C_grammarParser.Expression_listContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by C_grammarParser#array_access.
+    def visitArray_access(self, ctx:C_grammarParser.Array_accessContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by C_grammarParser#list_access.
+    def visitList_access(self, ctx:C_grammarParser.List_accessContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by C_grammarParser#class_declaration.
+    def visitClass_declaration(self, ctx:C_grammarParser.Class_declarationContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by C_grammarParser#class_body.
+    def visitClass_body(self, ctx:C_grammarParser.Class_bodyContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by C_grammarParser#member.
+    def visitMember(self, ctx:C_grammarParser.MemberContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by C_grammarParser#attribute_declaration.
+    def visitAttribute_declaration(self, ctx:C_grammarParser.Attribute_declarationContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by C_grammarParser#method_declaration.
+    def visitMethod_declaration(self, ctx:C_grammarParser.Method_declarationContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by C_grammarParser#expression.
     def visitExpression(self, ctx:C_grammarParser.ExpressionContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by C_grammarParser#log_expr.
+    def visitLog_expr(self, ctx:C_grammarParser.Log_exprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by C_grammarParser#relation.
+    def visitRelation(self, ctx:C_grammarParser.RelationContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by C_grammarParser#arith_expr.
+    def visitArith_expr(self, ctx:C_grammarParser.Arith_exprContext):
         return self.visitChildren(ctx)
 
 
@@ -94,13 +154,43 @@ class C_grammarVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by C_grammarParser#operator.
-    def visitOperator(self, ctx:C_grammarParser.OperatorContext):
+    # Visit a parse tree produced by C_grammarParser#factor.
+    def visitFactor(self, ctx:C_grammarParser.FactorContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by C_grammarParser#type_specifier.
-    def visitType_specifier(self, ctx:C_grammarParser.Type_specifierContext):
+    # Visit a parse tree produced by C_grammarParser#identifier.
+    def visitIdentifier(self, ctx:C_grammarParser.IdentifierContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by C_grammarParser#number.
+    def visitNumber(self, ctx:C_grammarParser.NumberContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by C_grammarParser#datatype.
+    def visitDatatype(self, ctx:C_grammarParser.DatatypeContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by C_grammarParser#add_op.
+    def visitAdd_op(self, ctx:C_grammarParser.Add_opContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by C_grammarParser#mul_op.
+    def visitMul_op(self, ctx:C_grammarParser.Mul_opContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by C_grammarParser#rel_op.
+    def visitRel_op(self, ctx:C_grammarParser.Rel_opContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by C_grammarParser#log_op.
+    def visitLog_op(self, ctx:C_grammarParser.Log_opContext):
         return self.visitChildren(ctx)
 
 

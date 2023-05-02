@@ -2,20 +2,13 @@ from Syntax_DIR.C_grammarLexer import C_grammarLexer  # import lexer for token f
 from Syntax_DIR.C_grammarParser import C_grammarParser  # import parser file  for syntax function feed
 from antlr4 import * # importing antlr library for addition methods
 
-class MyErrorListener(ParseTreeListener):
-    def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
-        if offendingSymbol:
-            offending_token = offendingSymbol.text
-        else:
-            offending_token = "unknown"
-        error_message = f"Syntax error at line {line}, column {column}. Encountered '{offending_token}': {msg}"
-        print(error_message)
 
-def syntax_error_check():
+def Syntax_Analyzer(token_list):
     input_file = FileStream("program.c")
     lexer = C_grammarLexer(input_file)
-    stream = CommonTokenStream(lexer)
-    parser = C_grammarParser(stream)
+    stream = CommonTokenStream(lexer)  # create a CommonTokenStream from the lexer
+
+    parser = C_grammarParser(stream)  # create a parser instance from the token stream
     parser.removeErrorListeners()
-    parser.addErrorListener(MyErrorListener())
-    parser.program()  # call the appropriate method on the parser to parse the input
+    tree = parser.program()  # call the appropriate method on the parser to parse the input
+    return tree.toStringTree(recog=parser)  # return the parse tree
