@@ -53,6 +53,4 @@ print(parser_tree)
 
 print('\n================ ============= PARSER TREE STRUCTURE ==================== ==================\n')
 
-
-parser_tree = Syntax_Analyzer()  # calling the parser function and passing token list
 print_parse_tree(parser_tree)
