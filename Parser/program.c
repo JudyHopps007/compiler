@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
-
+int nudm;
 int addition(int a, int b){
 int result = a + b;
 return result;
