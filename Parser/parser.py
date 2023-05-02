@@ -6,7 +6,7 @@ Error_list = ""  # keep store track of syntax errors generated
 express_n = ""  # keep store of expression statments  errors generated
 print("\n\n")
 
-parser_tree = ""
+parser_tree = ()
 def parameter_RFC(token, current_token):
     parame = ''  # keep store parameters that are found
     current_token += 1
@@ -422,7 +422,7 @@ def parse_program(tokens, postion):
                 include_directive = tokens[current_token][1] + ' ' + tokens[current_token + 1][1]
                 current_token += 1
                 print(f"INCLUDE_LIST: {include_directive}")
-                parser_tree += ()
+                parser_tree.append(('INCLUDE_LIST', include_directive ))
             else:
                 print(f"SYNTAX ERROR: INCLUDE_DIRECTIVE: '{tokens[current_token + 1][1]}' at line {tokens[current_token + 1][2]}")
                 current_token += 1
