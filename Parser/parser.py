@@ -474,9 +474,10 @@ def parse_program(tokens, postion):
                         if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                             s_tm = tokens[current_token][1]
                             print(f"INITIALIZATION: {type} {namr} {asg} {express} {s_tm}")
-                            parser_tree.append(('INITIALIZATION', ("type_specifer", f"{type}"), ("function_name", F"{name}"), ("IDENTIFER", f"{function_parameter}"), ("function_body", f"{function_body}")))
+                            parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type}"), ("function_name", F"{name}"), ("IDENTIFIER", f"{namr}"), ("expression", f"{s_tm}")))
                         else:
                             print(f"INITIALIZATION: {type} {namr} {asg} {express} <missing ';'>")
+                            parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type}"), ("function_name", F"{name}"), ("IDENTIFIER", f"{namr}"), ("expression", f"{s_tm}")))
                             print(f"Syntax Error: missing statement terminator at line {tokens[current_token - 1][2]} after '{tokens[current_token - 1][1]}'")
                             continue
                     else:
@@ -544,6 +545,7 @@ def parse_program(tokens, postion):
                                                 if else_if == 0:
                                                     print(f"IF-ELSE STATEMENT: {gm}")
 
+
                                                 else:
                                                     print(f"IF-ELSE-IF STATEMENT: {gm}")
 
@@ -593,6 +595,7 @@ def parse_program(tokens, postion):
                         if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_BRACE':
                             wh_rb = tokens[current_token][1]
                             print(F"WHILE-STATEMENT: {while_key} {wh_lp} {condition_statment} {wh_rp} {wh_lb}  {while_body} {wh_rb}")
+
                         else:
                             print(F"WHILE-STATEMENT: {while_key} {wh_lp} {condition_statment} {wh_rp} {wh_lb}  {while_body} <missing RIGHT_BRACE>")
                             print("Syntax Error: missing '}' at line ", tokens[current_token - 1][2])
