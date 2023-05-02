@@ -458,7 +458,8 @@ def parse_program(tokens, postion):
                         else:
                             print("Syntax Error: Functon definition   <missing '{'> at line ", tokens[current_token][2])
                             print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} <missing LEFT_BRACE>...")
-                            
+
+
                     else:
                         print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} <missing ')'>...")
                         print("Syntax Error: incomplete function statment, <missing ')' '{' ...'}' at line ", tokens[current_token - 1][2])
@@ -473,6 +474,7 @@ def parse_program(tokens, postion):
                         if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                             s_tm = tokens[current_token][1]
                             print(f"INITIALIZATION: {type} {namr} {asg} {express} {s_tm}")
+                            parser_tree.append(('INITIALIZATION', ("type_specifer", f"{type}"), ("function_name", "{name}"), ("IDENTIFER", f"{function_parameter}"), ("function_body", f"{function_body}")))
                         else:
                             print(f"INITIALIZATION: {type} {namr} {asg} {express} <missing ';'>")
                             print(f"Syntax Error: missing statement terminator at line {tokens[current_token - 1][2]} after '{tokens[current_token - 1][1]}'")
