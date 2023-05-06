@@ -778,8 +778,11 @@ def Intemidiet_Code_Generator(list_of_tuples):
             for child in children:
                 if child[0] == 'condition':
                     for x in child[1]:
-                        print('dfdf', x)
-                        print(type(x))
+                        if isinstance(child, tuple):
+                            print(x[0])
+                        else:
+                            print('dfdf', x)
+
 
 
             print(temp)
