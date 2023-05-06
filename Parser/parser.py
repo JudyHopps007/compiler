@@ -745,6 +745,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     for child in child[1]:
                         temp.append(child)
                         Intemidiet_Code_Generator(temp)
+                        temp = []
                         if child[0] == 'return_statement':
                             print(f"return {child[1]}")
                             print("func end")
