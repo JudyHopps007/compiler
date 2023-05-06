@@ -349,6 +349,8 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     statment_block += f"\n\t\t\t\t\tRETURN-STATEMENT  : return  <error 'no value'> " + tokens[current_token][1]
                     Error_list += f"\nSyntax error: no return value was specified at line {tokens[current_token][2]}"
                     break
+            elif current_token < len(tokens) and tokens[current_token][0] == "RIGHT_BRACE":
+                break
             else:
                 if len(express) != 0:
                     statment_block += f"\n\t\t\t\t\tRETURN-STATEMENT  : return {express} < missing ';'>"
@@ -357,10 +359,8 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     print(f"RETURN-STATEMENT  : return  <missing return-value>  <missing ';'>")
                     Error_list += f"\nSyntax error: no return value was specified, and  missing a 'statement' terminator for return statement {tokens[current_token - 1][2]}"
         else:
-            print("hexd")
-            print("yuyu", tokens[current_token][0])
+
             if current_token < len(tokens):
-                print("hexd")
                 try:
                     Error_list += f"\nSyntax Error : '{tokens[current_token][1]}'  at line  {tokens[current_token][2]}"
                 except:
