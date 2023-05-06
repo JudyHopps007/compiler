@@ -372,6 +372,7 @@ def expression(tokens, position):
     current_token = position + 1
     while current_token < len(tokens):
         token_type, token_value, line_number = tokens[current_token]
+        print(token_value)
         if token_type == 'IDENTIFIER':
             express_n += token_value + ' '
         elif token_type == 'INTEGER':
@@ -402,7 +403,7 @@ def expression(tokens, position):
             Error_list += f"\nSyntax error -- Expression Error Caused by  {tokens[current_token][1]}  at line  {tokens[current_token][2]}"
             break
         current_token += 1
-
+    print(tokens[current_token])
     return current_token, express_n
 
 
@@ -738,4 +739,4 @@ def Intemidiet_Code_Generator(list_of_tuples):
     return "\n".join(intermediate_code)
 
 
-Intemidiet_Code_Generator(parser_tree)
+#Intemidiet_Code_Generator(parser_tree)
