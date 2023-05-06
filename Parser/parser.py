@@ -728,6 +728,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
         elif node_name == "FUNCTION":
             i = 0
             for child in children:
+                print(child[0])
                 if child[0] == 'function_name':
                     print("func begin", child[1])
                 elif child[0] == 'function_parameter':
@@ -746,7 +747,8 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         temp.append(child)
                         Intemidiet_Code_Generator(temp)
                         temp = []
-            print("func end")
+                elif child[0] == 'return_statement':
+                     print("func end")
 
         elif node_name == "WHILE-STATEMENT":
             for child in children:
