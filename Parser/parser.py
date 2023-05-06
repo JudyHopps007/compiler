@@ -386,6 +386,7 @@ def expression(tokens, position):
     global express_n, Error_list
     global express_n, node
     node = []
+    temp = []
     express_n += ''
     current_token = position + 1
     while current_token < len(tokens):
@@ -393,16 +394,22 @@ def expression(tokens, position):
         print(token_value)
         if token_type == 'IDENTIFIER':
             express_n += token_value + ' '
+            temp.append(token_value)
         elif token_type == 'INTEGER':
             express_n += token_value + ' '
+            temp.append(token_value)
         elif token_type == 'CHAR':
             express_n += token_value + ' '
+            temp.append(token_value)
         elif token_type == 'STRING':
             express_n += token_value + ' '
+            temp.append(token_value)
         elif token_type == 'BOOLEAN':
             express_n += token_value + ' '
+            temp.append(token_value)
         elif token_type == 'FLOATING_POINT':
             express_n += token_value + ' '
+            temp.append(token_value)
         elif token_type == 'LEFT_PAREN':
             express_n += token_value + ' '
             expression(tokens, current_token)  # Handle nested expressions recursively
@@ -411,6 +418,7 @@ def expression(tokens, position):
             express_n += tokens[current_token][1] + ' '
         elif token_type == 'PLUS' or token_type == "MINUS" or token_type == "MULTIPLY" or token_type == "DIVIDE" or token_type == "MODULUS":
             if (tokens[current_token + 1][0] != 'SEMICOLON') and (tokens[current_token + 1][0] != 'KEYWORD'):
+                temp.append(token_value)
                 express_n += token_value + ' '
             else:
                 Error_list += f"\nSyntax error -- Expression Error Caused by  {tokens[current_token][1]}  : at line  {tokens[current_token][2]}"
@@ -421,7 +429,7 @@ def expression(tokens, position):
             Error_list += f"\nSyntax error -- Expression Error Caused by  {tokens[current_token][1]}  at line  {tokens[current_token][2]}"
             break
         current_token += 1
-    print("weweewe", tokens[current_token])
+    print(temp)
     return current_token, express_n
 
 
