@@ -405,11 +405,11 @@ def expression(tokens, position):
             if (tokens[current_token + 1][0] != 'SEMICOLON') and (tokens[current_token + 1][0] != 'KEYWORD'):
                 express_n += token_value + ' '
             else:
-                print(f"Syntax error -- Expression Error Cause:  {tokens[current_token][1]}")
+                print(f"Syntax error -- Expression Error Cause:  {tokens[current_token][1]} at line  {tokens[current_token][2]}")
         elif token_type == 'SEMICOLON' or token_type == 'RIGHT_PAREN' or token_type == 'EQUAL' or token_type == 'NOT_EQUAL' or token_type == 'LESS_THAN' or token_type == 'GREATER_THAN' or token_type == 'LESS_THAN_EQUAL' or token_type == 'GREATER_THAN_EQUAL':
             break
         else:
-            print(f"Syntax error -- Expression Error Cause:  {tokens[current_token][1]}")
+            print(f"Syntax error -- Expression Error Cause:  {tokens[current_token][1]} at line  {tokens[current_token][2]}")
             break
         current_token += 1
 
