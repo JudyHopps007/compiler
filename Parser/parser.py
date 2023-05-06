@@ -741,5 +741,4 @@ def Intemidiet_Code_Generator(list_of_tuples):
 
     return "\n".join(intermediate_code)
 
-
 Intemidiet_Code_Generator(parser_tree)
