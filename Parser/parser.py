@@ -121,7 +121,6 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                             s_tm = tokens[current_token][1]
                             statment_block += f"\n\t\t\t\t\tINITIALIZATION:  {type_specifer} {namr} {asg} {express} {s_tm}"
                             node = ('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{namr}"), ("expression", f"{express}"))
-                            print(type(node))
                         else:
                             statment_block += f"\n\t\t\t\t\tINITIALIZATION: {type_specifer} {namr} {asg} {express} <missing ';'>"
                             Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token - 1][2]} after '{tokens[current_token - 1][1]}'"
@@ -422,13 +421,13 @@ def parse_program(tokens, postion):
                 current_token += 1
 
         elif tokens[current_token][0] == "KEYWORD" and tokens[current_token][1] != 'return':
-            type = tokens[current_token][1]
+            type_specifer = tokens[current_token][1]
             if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "IDENTIFIER":
                 name = tokens[current_token + 1][1]
                 if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "SEMICOLON":  # handle declaration
                     terminator = tokens[current_token + 2][1]
-                    print(f"DECLARATION :  {type} {name} {terminator}")
-                    parser_tree.append( ("DECLARATION", ("type_specifer", f"{type}"), ('IDENTIFIER', F"{name}")))
+                    print(f"DECLARATION :  {type_specifer} {name} {terminator}")
+                    parser_tree.append( ("DECLARATION", ("type_specifer", f"{type_specifer}"), ('IDENTIFIER', F"{name}")))
                     current_token += 2
 
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "LEFT_PAREN":  # handle functions
@@ -443,22 +442,22 @@ def parse_program(tokens, postion):
 
                             if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_BRACE":
                                 f_rb = tokens[current_token][1]
-                                print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body} {f_rb}")
+                                print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body} {f_rb}")
 
-                                parser_tree.append( ('FUNCTION', ("type_specifier", f"{type}"), ("function_name", f"{name}"), ("function_parameter", f"{function_parameter}"), ("function_body", f"{node}")))
+                                parser_tree.append( ('FUNCTION', ("type_specifier", f"{type_specifer}"), ("function_name", f"{name}"), ("function_parameter", f"{function_parameter}"), ("function_body", f"{node}")))
                             else:
                                 print("Syntax Error: <missing '}',  function block not closed at line ", tokens[current_token - 1][2])
-                                print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >")
-                                parser_tree.append(('FUNCTION', ("type_specifier", f"{type}"), ("function_name", "{name}"), ("function_parameter", f"{function_parameter}"), ("function_body", f"{function_body}")))
+                                print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >")
+                                parser_tree.append(('FUNCTION', ("type_specifier", f"{type_specifer}"), ("function_name", "{name}"), ("function_parameter", f"{function_parameter}"), ("function_body", f"{function_body}")))
                         else:
-                            print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} <missing LEFT_BRACE>...")
+                            print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} <missing LEFT_BRACE>...")
                             Error_list += f"\nSyntax Error: Functon definition   <missing 'right-brace'> at line  {tokens[current_token][2]}"
                     else:
-                        print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} <missing ')'>...")
+                        print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} <missing ')'>...")
                         Error_list += f"\nSyntax Error: incomplete function statement, <missing ')' 'left-brace' ...'right-brace' > at line  {tokens[current_token - 1][2]}"
 
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "ASSIGN":  # initialization
-                    type = tokens[current_token][1]
+                    type_specifer = tokens[current_token][1]
                     namr = tokens[current_token + 1][1]
                     asg = tokens[current_token + 2][1]
                     current_token, express = expression(tokens, current_token + 2)
@@ -466,25 +465,25 @@ def parse_program(tokens, postion):
                     if len(express) != 0:
                         if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                             s_tm = tokens[current_token][1]
-                            print(f"INITIALIZATION: {type} {namr} {asg} {express} {s_tm}")
-                            parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type}"),  ("IDENTIFIER", f"{namr}"), ("expression", f"{express}")))
+                            print(f"INITIALIZATION: {type_specifer} {namr} {asg} {express} {s_tm}")
+                            parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"),  ("IDENTIFIER", f"{namr}"), ("expression", f"{express}")))
                         else:
-                            print(f"INITIALIZATION: {type} {namr} {asg} {express} <missing ';'>")
-                            parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type}"),  ("IDENTIFIER", f"{namr}"), ("expression", f"{express}")))
+                            print(f"INITIALIZATION: {type_specifer} {namr} {asg} {express} <missing ';'>")
+                            parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"),  ("IDENTIFIER", f"{namr}"), ("expression", f"{express}")))
                             Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token - 1][2]} after '{tokens[current_token - 1][1]}'"
                             continue
                     else:
                         print(f"Syntax Error: variable Initialization error, no value was assigned at line {tokens[current_token][2]} ")
                         if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                             s_tm = tokens[current_token][1]
-                            print(f"INITIALIZATION: {type} {namr} {asg} ~{None}~ {s_tm}")
+                            print(f"INITIALIZATION: {type_specifer} {namr} {asg} ~{None}~ {s_tm}")
                         else:
-                            print(f"INITIALIZATION: {type} {namr} {asg} ~{None}~ <missing ';'>")
+                            print(f"INITIALIZATION: {type_specifer} {namr} {asg} ~{None}~ <missing ';'>")
                             Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token][2]}"
                             continue
                 else:
-                    print(f"DECLARATION: {type}  {name} <missing ';' >")
-                    parser_tree.append(("DECLARATION", ("type_specifer", f"{type}"), ('IDENTIFIER', F"{name}")))
+                    print(f"DECLARATION: {type_specifer}  {name} <missing ';' >")
+                    parser_tree.append(("DECLARATION", ("type_specifer", f"{type_specifer}"), ('IDENTIFIER', F"{name}")))
                     Error_list += f"\nSyntax Error : unterminated statement for '{tokens[current_token + 1][1]}' at line {tokens[current_token + 1][2]} "
                     current_token += 1
             else:
