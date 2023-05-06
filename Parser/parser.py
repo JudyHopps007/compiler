@@ -385,6 +385,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
 def expression(tokens, position):
     global express_n, Error_list
     global express_n, node
+    node = []
     express_n += ''
     current_token = position + 1
     while current_token < len(tokens):
