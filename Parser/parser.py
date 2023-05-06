@@ -779,7 +779,6 @@ def Intemidiet_Code_Generator(list_of_tuples):
                 if child[0] == 'condition':
                     for x in child[1]:
                         if isinstance(x, tuple):
-                            print(x[0])
                             vae+= x[0]
                         else:
                             if x == '==':
