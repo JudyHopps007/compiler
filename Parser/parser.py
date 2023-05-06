@@ -352,16 +352,16 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     Error_list += f"\nSyntax error: no return value was specified at line {tokens[current_token][2]}"
                     break
             elif current_token < len(tokens) and tokens[current_token][0] == "RIGHT_BRACE":
-                    if len(express) != 0:
-                        statment_block += f"\n\t\t\t\t\tRETURN-STATEMENT  : return " + express
-                        node.append(("return_statement", express))
-                        Error_list += f"\nSyntax error: return statement missing semicolon  at line {tokens[current_token - 1][2]}"
-                        break
-                    else:
-                        statment_block += "\n\t\t\t\t\tRETURN-STATEMENT  : return  <error 'no value'> <missing ';'>"
-                        Error_list += f"\nSyntax error: no return value was specified at line {tokens[current_token][2]}"
-                        Error_list += f"\nSyntax error: return statement missing semicolon  at line {tokens[current_token - 1][2]}"
-                        break
+                if len(express) != 0:
+                    statment_block += f"\n\t\t\t\t\tRETURN-STATEMENT  : return " + express
+                    node.append(("return_statement", express))
+                    Error_list += f"\nSyntax error: return statement missing semicolon  at line {tokens[current_token - 1][2]}"
+                    break
+                else:
+                    statment_block += "\n\t\t\t\t\tRETURN-STATEMENT  : return  <error 'no value'> <missing ';'>"
+                    Error_list += f"\nSyntax error: no return value was specified at line {tokens[current_token][2]}"
+                    Error_list += f"\nSyntax error: return statement missing semicolon  at line {tokens[current_token - 1][2]}"
+                    break
             else:
                 if len(express) != 0:
                     statment_block += f"\n\t\t\t\t\tRETURN-STATEMENT  : return {express} < missing ';'>"
@@ -414,7 +414,7 @@ def expression(tokens, position):
             else:
                 Error_list += f"\nSyntax error -- Expression Error Caused by  {tokens[current_token][1]}  : at line  {tokens[current_token][2]}"
         elif token_type == 'SEMICOLON' or token_type == 'RIGHT_PAREN' or token_type == 'EQUAL' or token_type == 'NOT_EQUAL' or token_type == 'LESS_THAN' or token_type == 'GREATER_THAN' or token_type == 'LESS_THAN_EQUAL' or token_type == 'GREATER_THAN_EQUAL':
-            print("break er ", token_type )
+            print("break er ", token_type)
             break
         else:
             Error_list += f"\nSyntax error -- Expression Error Caused by  {tokens[current_token][1]}  at line  {tokens[current_token][2]}"
@@ -728,7 +728,6 @@ def Intemidiet_Code_Generator(list_of_tuples):
         elif node_name == "FUNCTION":
             i = 0
             for child in children:
-
                 if child[0] == 'function_name':
                     print("func begin", child[1])
                 elif child[0] == 'function_parameter':
@@ -747,8 +746,8 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         temp.append(child)
                         Intemidiet_Code_Generator(temp)
                         if child[0] == 'return_statement':
-                           print(f"return {child[1]}")
-                           print("func end")
+                            print(f"return {child[1]}")
+                            print("func end")
 
         elif node_name == "WHILE-STATEMENT":
             for child in children:
