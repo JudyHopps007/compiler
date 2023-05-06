@@ -108,7 +108,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                                 node.append(('FUNCTION', ("type_specifier", f"{type_specifer}"), ("function_name", f"{name}"), ("function_parameter", f"{function_parameter}"), ("function_body", tuple(child_node))))
                             else:
                                 Error_list += "\nSyntax Error: <missing '}',  function block not closed"
-                                statment_block += f"\n\t\t\t\t\tFUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >"
+                                statment_block += f"\n\t\t\t\t\tFUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  \n\t\t\t\t\t<missing RIGHT_BRACE' >"
                         else:
                             Error_list += "\nSyntax Error: <missing '}',  function block not closed at line " + tokens[current_token - 1][2]
                             statment_block += f"\n\t\t\t\t\tFUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} <missing LEFT_BRACE>..."
