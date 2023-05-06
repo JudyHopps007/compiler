@@ -12,3 +12,6 @@ float multiplication(float a, float b){
 int result = a * b;
 return result;
 }
+while (state){
+
+}
