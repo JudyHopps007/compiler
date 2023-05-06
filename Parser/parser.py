@@ -454,18 +454,17 @@ def parse_program(tokens, postion):
                             if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_BRACE":
                                 f_rb = tokens[current_token][1]
                                 print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body} {f_rb}")
-                                parser_tree.append( ('FUNCTION', ("type_specifer", f"{type}"), ("function_name", "{name}"), ("function_parameter", f"{function_parameter}"), ("function_body", f"{function_body}")))
+                                parser_tree.append( ('FUNCTION', ("type_specifier", f"{type}"), ("function_name", "{name}"), ("function_parameter", f"{function_parameter}"), ("function_body", f"{function_body}")))
                             else:
                                 print("Syntax Error: <missing '}',  function block not closed at line ", tokens[current_token - 1][2])
                                 print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >")
-                                parser_tree.append(('FUNCTION', ("type_specifer", f"{type}"), ("function_name", "{name}"), ("function_parameter", f"{function_parameter}"), ("function_body", f"{function_body}")))
+                                parser_tree.append(('FUNCTION', ("type_specifier", f"{type}"), ("function_name", "{name}"), ("function_parameter", f"{function_parameter}"), ("function_body", f"{function_body}")))
                         else:
                             print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} <missing LEFT_BRACE>...")
                             Error_list += f"\nSyntax Error: Functon definition   <missing 'right-brace'> at line  {tokens[current_token][2]}"
                     else:
                         print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} <missing ')'>...")
-                        print("Syntax Error: incomplete function statment, <missing ')' '{' ...'}' at line ", tokens[current_token - 1][2])
-                        Error_list += f"\nSyntax Error: incomplete function statment, <missing ')' 'left-brace' ...'right-brace' at line  {tokens[current_token][2]}"
+                        Error_list += f"\nSyntax Error: incomplete function statement, <missing ')' 'left-brace' ...'right-brace' > at line  {tokens[current_token - 1][2]}"
 
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "ASSIGN":  # initialization
                     type = tokens[current_token][1]
@@ -481,7 +480,7 @@ def parse_program(tokens, postion):
                         else:
                             print(f"INITIALIZATION: {type} {namr} {asg} {express} <missing ';'>")
                             parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type}"),  ("IDENTIFIER", f"{namr}"), ("expression", f"{express}")))
-                            print(f"Syntax Error: missing statement terminator at line {tokens[current_token - 1][2]} after '{tokens[current_token - 1][1]}'")
+                            Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token - 1][2]} after '{tokens[current_token - 1][1]}'"
                             continue
                     else:
                         print(f"Syntax Error: variable Initialization error, no value was assigned at line {tokens[current_token][2]} ")
@@ -490,15 +489,15 @@ def parse_program(tokens, postion):
                             print(f"INITIALIZATION: {type} {namr} {asg} ~{None}~ {s_tm}")
                         else:
                             print(f"INITIALIZATION: {type} {namr} {asg} ~{None}~ <missing ';'>")
-                            print(f"Syntax Error: missing statement terminator at line {tokens[current_token][2]}")
+                            Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token][2]}"
                             continue
                 else:
                     print(f"DECLARATION: {type}  {name} <missing ';' >")
                     parser_tree.append(("DECLARATION", ("type_specifer", f"{type}"), ('IDENTIFIER', F"{name}")))
-                    print(f"Syntax Error : unterminated statement for '{tokens[current_token + 1][1]}' at line {tokens[current_token + 1][2]} ")
+                    Error_list += f"\nSyntax Error : unterminated statement for '{tokens[current_token + 1][1]}' at line {tokens[current_token + 1][2]} "
                     current_token += 1
             else:
-                print("Syntax Error : expected token 'IDENTIFIER' goten at line  ", tokens[current_token][2])
+                Error_list += f"\nSyntax Error : expected token 'IDENTIFIER' goten at line  {tokens[current_token][2]}"
 
         elif tokens[current_token][0] == 'IF':
             gm = ""
@@ -548,19 +547,17 @@ def parse_program(tokens, postion):
                                                 gm += e_rb + ' '
                                                 if else_if == 0:
                                                     print(f"IF-ELSE STATEMENT: {gm}")
-
-
                                                 else:
                                                     print(f"IF-ELSE-IF STATEMENT: {gm}")
-
                                                 break
                                             else:
                                                 print(f"IF-STATEMENT: {gm} <missing 'RIGHT_BRACE'>")
-                                                print("Syntax Error: incomplete else statment  missing <RIGHT_BRACE> at line ", tokens[current_token - 1][2])
+                                                print("Syntax Error: incomplete else statement  missing <RIGHT_BRACE> at line ", tokens[current_token - 1][2])
+                                                Error_list += f"\nSyntax Error: incomplete else statement  missing <RIGHT_BRACE> at line }"
                                                 break
                                         else:
                                             print(f"IF statement: {gm} < missing 'LEFT_BRACE' 'RIGHT_BRACE'>")
-                                            print("Syntax Error: incomplete else statment ")
+                                            Error_list += f"\nSyntax Error: incomplete else statement at line {tokens[current_token - 1][2]}"
                                             break
 
                                     elif (current_token + 2) < len(tokens) and tokens[current_token + 1][0] == 'ELSE' and tokens[current_token + 2][0] == 'IF':
@@ -569,11 +566,12 @@ def parse_program(tokens, postion):
                                         else_if += 1
                                         current_token += 2
                             else:
-                                print(" Syntax Error : if-statement expected  RIGHT_BRACE  at line  ", tokens[current_token - 1][2])
+                                Error_list += f"\nSyntax Error : if-statement expected  RIGHT_BRACE  at line   {tokens[current_token - 1][2]}"
                                 print(f"IF STATEMENT: {gm} < missing 'RIGHT_BRACE'>")
                                 break
                         else:
-                            print(" Syntax Error : if-statement expected  LEFT_BRACE   < missing '{'>  at line  ", tokens[current_token - 1][2])
+                            Error_list += f"\nSyntax Error : if-statement expected  LEFT_BRACE   at line  ", tokens[current_token - 1][2]
+
                             print(f"IF STATEMENT: {gm} ... <statement incomplete> ...")
                             break
                     else:
