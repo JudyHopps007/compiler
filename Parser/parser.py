@@ -351,7 +351,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     break
             elif current_token < len(tokens) and tokens[current_token][0] == "RIGHT_BRACE":
                     if len(express) != 0:
-                        statment_block += f"\n\t\t\t\t\tRETURN-STATEMENT  : return " + express + tokens[current_token][1]
+                        statment_block += f"\n\t\t\t\t\tRETURN-STATEMENT  : return " + express 
                         Error_list += f"\nSyntax error: return statement missing semicolon  at line {tokens[current_token - 1][2]}"
                         break
                     else:
