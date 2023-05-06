@@ -19,7 +19,7 @@ def parameter_RFC(token, current_token):
             if token[current_token][0] == 'KEYWORD':
                 if token[current_token + 1][0] == 'IDENTIFIER':
                     parame += token[current_token][1] + ' ' + token[current_token + 1][1] + ' '
-                    node.append(('parameter', ("type_specifier", f'{token[current_token][1]}'), ("IDENTIFIER", f"{token[current_token + 1][1]}")))
+                    node.append((("type_specifier", f'{token[current_token][1]}'), ("IDENTIFIER", f"{token[current_token + 1][1]}")))
 
                     current_token += 1
                     if token[current_token + 1][0] == 'COMMA':
@@ -32,7 +32,7 @@ def parameter_RFC(token, current_token):
 
             elif token[current_token][0] == 'IDENTIFIER':
                 parame += token[current_token][1] + ' '
-                node.append(('parameter', ("IDENTIFIER", f"{token[current_token][1]}")))
+                node.append(("IDENTIFIER", f"{token[current_token][1]}"))
                 if token[current_token + 1][0] == 'COMMA':
                     if token[current_token + 2][0] != 'RIGHT_PAREN':
                         parame += token[current_token + 1][1] + ' '
