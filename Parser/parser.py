@@ -75,13 +75,13 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
             statment_block += '\n\t\t\t\t\t'
             block_track -= 1
         elif current_token < len(tokens) and tokens[current_token][0] == "KEYWORD" and tokens[current_token][1] != 'return':
-            type = tokens[current_token][1]
+            type_specifer = tokens[current_token][1]
             if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "IDENTIFIER":
                 name = tokens[current_token + 1][1]
                 if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "SEMICOLON":  # handle declaration
                     terminator = tokens[current_token + 2][1]
                     # print(f"Declaration {type} {name} {terminator}")
-                    statment_block += f"\n\t\t\t\t\tDECLARATION:   {type} {name} {terminator}"
+                    statment_block += f"\n\t\t\t\t\tDECLARATION:   {type_specifer} {name} {terminator}"
                     current_token += 2
 
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "LEFT_PAREN":  # handle functions
@@ -98,19 +98,19 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                             if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_BRACE":
                                 block_track += 1
                                 f_rb = tokens[current_token][1]
-                                statment_block += f"\n\t\t\t\t\tFUNCTION: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body} {f_rb}"
+                                statment_block += f"\n\t\t\t\t\tFUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body} {f_rb}"
                             else:
                                 Error_list += "\nSyntax Error: <missing '}',  function block not closed"
-                                statment_block += f"\n\t\t\t\t\tFUNCTION: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >"
+                                statment_block += f"\n\t\t\t\t\tFUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >"
                         else:
                             Error_list += "\nSyntax Error: <missing '}',  function block not closed at line " + tokens[current_token - 1][2]
-                            statment_block += f"\n\t\t\t\t\tFUNCTION: {type}  {name} {f_lp} {function_parameter} <missing LEFT_BRACE>..."
+                            statment_block += f"\n\t\t\t\t\tFUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} <missing LEFT_BRACE>..."
                     else:
-                        statment_block += f"\n\t\t\t\t\tFUNCTION: {type}  {name} {f_lp} {function_parameter} <missing ')'>..."
+                        statment_block += f"\n\t\t\t\t\tFUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} <missing ')'>..."
                         Error_list += "\nSyntax Error: incomplete function statment, <missing ')' '{' ...'}' at line ", tokens[current_token - 1][2]
 
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "ASSIGN":  # initialization
-                    type = tokens[current_token][1]
+                    type_specifer = tokens[current_token][1]
                     namr = tokens[current_token + 1][1]
                     asg = tokens[current_token + 2][1]
                     current_token, express = expression(tokens, current_token + 2)
@@ -119,25 +119,25 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     if len(express) != 0:
                         if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                             s_tm = tokens[current_token][1]
-                            statment_block += f"\n\t\t\t\t\tINITIALIZATION:  {type} {namr} {asg} {express} {s_tm}"
-                            node = ('INITIALIZATION', ("type_specifier", f"{type}"), ("IDENTIFIER", f"{namr}"), ("expression", f"{express}"))
+                            statment_block += f"\n\t\t\t\t\tINITIALIZATION:  {type_specifer} {namr} {asg} {express} {s_tm}"
+                            node = ('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{namr}"), ("expression", f"{express}"))
                             print(type(node))
                         else:
-                            statment_block += f"\n\t\t\t\t\tINITIALIZATION: {type} {namr} {asg} {express} <missing ';'>"
+                            statment_block += f"\n\t\t\t\t\tINITIALIZATION: {type_specifer} {namr} {asg} {express} <missing ';'>"
                             Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token - 1][2]} after '{tokens[current_token - 1][1]}'"
                             continue
                     else:
                         Error_list += f"\nSyntax Error: variable Initialization error, no value was assigned at line {tokens[current_token][2]} "
                         if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                             s_tm = tokens[current_token][1]
-                            statment_block += f"\n\t\t\t\t\tINITIALIZATION: {type} {namr} {asg} ~{None}~ {s_tm}"
+                            statment_block += f"\n\t\t\t\t\tINITIALIZATION: {type_specifer} {namr} {asg} ~{None}~ {s_tm}"
                         else:
-                            statment_block += f"\n\t\t\t\t\tINITIALIZATION: {type} {namr} {asg} ~{None}~ <missing ';'>"
+                            statment_block += f"\n\t\t\t\t\tINITIALIZATION: {type_specifer} {namr} {asg} ~{None}~ <missing ';'>"
                             Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token][2]}"
                             continue
                 else:
                     # print(f"Declaration: {type}  {name} <missing ';' >")
-                    statment_block += f"\n\t\t\t\t\tDECLARATION: {type}  {name} <missing ';' >"
+                    statment_block += f"\n\t\t\t\t\tDECLARATION: {type_specifer}  {name} <missing ';' >"
                     # print(" Syntax Error : unterminated statement ", tokens[current_token + 1][0])
                     Error_list += f"\nSyntax Error : unterminated statement for '{tokens[current_token + 1][1]}' at line {tokens[current_token + 1][2]} "
                     current_token += 1
