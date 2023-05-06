@@ -763,7 +763,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                 print(child)
         elif node_name == "RETURN-STATEMENT":
             pass
-
+    print(disct)
     return "\n".join(intermediate_code)
 
 
