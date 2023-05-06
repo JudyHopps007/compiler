@@ -417,7 +417,7 @@ def expression(tokens, position):
 
 
 def parse_program(tokens, postion):
-    global express_n
+    global express_n, Error_list
     current_token = postion
     while current_token < len(tokens):
         if tokens[current_token][0] == "INCLUDE_ID":
@@ -460,10 +460,8 @@ def parse_program(tokens, postion):
                                 print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >")
                                 parser_tree.append(('FUNCTION', ("type_specifer", f"{type}"), ("function_name", "{name}"), ("function_parameter", f"{function_parameter}"), ("function_body", f"{function_body}")))
                         else:
-                            print("Syntax Error: Functon definition   <missing '{'> at line ", tokens[current_token][2])
                             print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} <missing LEFT_BRACE>...")
-
-
+                            Error_list += "\nSyntax Error: Functon definition   <missing '{'> at line  " +  tokens[current_token][2]
                     else:
                         print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} <missing ')'>...")
                         print("Syntax Error: incomplete function statment, <missing ')' '{' ...'}' at line ", tokens[current_token - 1][2])
