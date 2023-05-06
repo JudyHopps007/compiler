@@ -4,9 +4,8 @@ import time  # for measuring 'parser' run time
 tokens = lexical_Analyzer.lexical_analyzer('program.c')
 Error_list = ""  # keep store track of syntax errors generated
 express_n = ""  # keep store of expression statments  errors generated
-node = None
+node = []
 print("\n\n")
-
 parser_tree = []
 def parameter_RFC(token, current_token):
     parame = ''  # keep store parameters that are found
@@ -120,7 +119,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                         if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                             s_tm = tokens[current_token][1]
                             statment_block += f"\n\t\t\t\t\tINITIALIZATION:  {type_specifer} {namr} {asg} {express} {s_tm}"
-                            node = ('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{namr}"), ("expression", f"{express}"))
+                            node.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{namr}"), ("expression", f"{express}")))
                         else:
                             statment_block += f"\n\t\t\t\t\tINITIALIZATION: {type_specifer} {namr} {asg} {express} <missing ';'>"
                             Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token - 1][2]} after '{tokens[current_token - 1][1]}'"
@@ -362,7 +361,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
 
             else:
                 break
-    return current_token, statment_block
+    return current_token, statment_block, node
 
 
 def expression(tokens, position):
@@ -406,7 +405,7 @@ def expression(tokens, position):
 
 
 def parse_program(tokens, postion):
-    global express_n, Error_list, node  # calling global varables to be used
+    global express_n, Error_list  # calling global varables to be used
     current_token = postion
     while current_token < len(tokens):
         if tokens[current_token][0] == "INCLUDE_ID":
@@ -438,7 +437,7 @@ def parse_program(tokens, postion):
                         f_rp = tokens[current_token][1]
                         if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "LEFT_BRACE":
                             f_lb = tokens[current_token + 1][1]
-                            current_token, function_body = statments(tokens, current_token + 1)
+                            current_token, function_body, node = statments(tokens, current_token + 1)
 
                             if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_BRACE":
                                 f_rb = tokens[current_token][1]
