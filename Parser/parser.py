@@ -54,13 +54,13 @@ def condition_statement_RFC(tokens, position):
     global express_n
     condition_statment = ''  # store condition statements
     current_token = position
-    current_token, left_operand, = expression(tokens, current_token)
+    current_token, left_operand, exp_node= expression(tokens, current_token)
     condition_statment += left_operand
     express_n = ''
     if current_token < len(tokens) and (tokens[current_token][0] == 'EQUAL' or tokens[current_token][0] == 'NOT_EQUAL' or tokens[current_token][0] == 'LESS_THAN' or tokens[current_token][0] == 'GREATER_THAN' or tokens[current_token][0] == 'LESS_THAN_EQUAL' or tokens[current_token][0] == 'GREATER_THAN_EQUAL'):
         conditional_operator = tokens[current_token][1]
         condition_statment += " " + conditional_operator
-        current_token, right_operand, = expression(tokens, current_token)
+        current_token, right_operand, exp_node= expression(tokens, current_token)
         condition_statment += " " + right_operand
         express_n = ''
     if len(condition_statment) == 0:
@@ -120,7 +120,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     type_specifer = tokens[current_token][1]
                     namr = tokens[current_token + 1][1]
                     asg = tokens[current_token + 2][1]
-                    current_token, express = expression(tokens, current_token + 2)
+                    current_token, express , exp_node= expression(tokens, current_token + 2)
                     express_n = ''
 
                     if len(express) != 0:
@@ -298,7 +298,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                         statment_block += f"\n\t\t\t\t\tFUNCTION ASSIGNMENT: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} <missing ';'>"
                         Error_list += "\nSyntax error: function-call-assignment  missing semicolon at line " + tokens[current_token][2]
                 else:
-                    current_token, express = expression(tokens, current_token + 1)
+                    current_token, express, exp_node = expression(tokens, current_token + 1)
                     express_n = ''
                     if len(express) != 0:
                         if current_token < len(tokens) and tokens[current_token][0] != "SEMICOLON":
@@ -338,7 +338,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                         Error_list += "\nSyntax Error: function call missing statement terminator at line " + tokens[current_token][2]
 
         elif current_token < len(tokens) and tokens[current_token][1] == 'return':
-            current_token, express = expression(tokens, current_token)
+            current_token, express, exp_node = expression(tokens, current_token)
             express_n = ''
             if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
 
@@ -427,7 +427,7 @@ def expression(tokens, position):
             break
         current_token += 1
     print(tuple(temp))
-    return current_token, express_n
+    return current_token, express_n, temp
 
 
 def parse_program(tokens, postion):
@@ -485,7 +485,7 @@ def parse_program(tokens, postion):
                     type_specifer = tokens[current_token][1]
                     namr = tokens[current_token + 1][1]
                     asg = tokens[current_token + 2][1]
-                    current_token, express = expression(tokens, current_token + 2)
+                    current_token, express, exp_node = expression(tokens, current_token + 2)
                     express_n = ''
                     if len(express) != 0:
                         if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
@@ -640,7 +640,7 @@ def parse_program(tokens, postion):
                         print(f"FUNCTION ASSIGNMENT: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} <missing ';'>")
                         print("Syntax error: function-call-assignment  missing semicolon at line ", tokens[current_token][2])
                 else:
-                    current_token, express = expression(tokens, current_token + 1)
+                    current_token, express, exp_node = expression(tokens, current_token + 1)
                     express_n = ''
                     if len(express) != 0:
                         if current_token < len(tokens) and tokens[current_token][0] != "SEMICOLON":
@@ -673,7 +673,7 @@ def parse_program(tokens, postion):
                         Error_list += f"\nSyntax Error: function call missing statement terminator at line {tokens[current_token][2]}"
 
         elif tokens[current_token][1] == 'return':
-            current_token, express = expression(tokens, current_token)
+            current_token, express, exp_node = expression(tokens, current_token)
             express_n = ''
             if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                 if len(express) != 0:
