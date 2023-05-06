@@ -5,7 +5,7 @@ int result = a / b;
 return result;
 }
 
-while (state){
+while (state == num){
 int c = 3;
 int d = 5;
 float e = 6.0;
