@@ -62,7 +62,7 @@ def condition_statement_RFC(tokens, position):
 
 
 def statments(token, postion):  # statement: (declaration | initializing | function_call | assignment | if_statement | while_statement | return_statement)*;
-    global express_n, Error_list, \
+    global express_n, Error_list
     node = []
     statment_block = ''  # store statements in block
     block_track = 1
@@ -531,7 +531,7 @@ def parse_program(tokens, postion):
 
                                             e_lb = tokens[current_token + 2][1]
                                             gm += e_lb + ' '
-                                            current_token, else_statment_body = statments(tokens, current_token + 2)
+                                            current_token, else_statment_body, child_node = statments(tokens, current_token + 2)
                                             gm += else_statment_body + ' '
                                             if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_BRACE':
                                                 e_rb = tokens[current_token][1]
