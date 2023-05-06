@@ -350,7 +350,13 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     Error_list += f"\nSyntax error: no return value was specified at line {tokens[current_token][2]}"
                     break
             elif current_token < len(tokens) and tokens[current_token][0] == "RIGHT_BRACE":
-                break
+                if len(express) != 0:
+                    statment_block += f"\n\t\t\t\t\tRETURN-STATEMENT  : return " + express + tokens[current_token][1]
+                    break
+                else:
+                    statment_block += f"\n\t\t\t\t\tRETURN-STATEMENT  : return  <error 'no value'> " + tokens[current_token][1]
+                    Error_list += f"\nSyntax error: no return value was specified at line {tokens[current_token][2]}"
+                    break
             else:
                 if len(express) != 0:
                     statment_block += f"\n\t\t\t\t\tRETURN-STATEMENT  : return {express} < missing ';'>"
