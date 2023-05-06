@@ -4,6 +4,6 @@ return result;
 }
 }
 int subtraction(int c, int d){
-int result = a - b;
+int result = c - d;
 return result;
 }
