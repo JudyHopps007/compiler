@@ -363,7 +363,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
 
             else:
                 break
-
+    print("yuyu", tokens[current_token][0])
     return current_token, statment_block, node
 
 
@@ -443,7 +443,6 @@ def parse_program(tokens, postion):
                         if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "LEFT_BRACE":
                             f_lb = tokens[current_token + 1][1]
                             current_token, function_body, child_node = statments(tokens, current_token + 1)
-
 
                             if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_BRACE":
                                 f_rb = tokens[current_token][1]
