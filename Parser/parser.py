@@ -566,13 +566,14 @@ def parse_program(tokens, postion):
 
                                             e_lb = tokens[current_token + 2][1]
                                             gm += e_lb + ' '
-                                            current_token, else_statment_body, child_node = statments(tokens, current_token + 2)
+                                            current_token, else_statment_body, els_node = statments(tokens, current_token + 2)
                                             gm += else_statment_body + ' '
                                             if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_BRACE':
                                                 e_rb = tokens[current_token][1]
                                                 gm += e_rb + ' '
                                                 if else_if == 0:
                                                     print(f"IF-ELSE STATEMENT: {gm}")
+                                                    parser_tree.append(('if_statement', ('condition', tuple(con_node)), ("if_body", tuple(stat_node)), ))
                                                 else:
                                                     print(f"IF-ELSE-IF STATEMENT: {gm}")
                                                 break
@@ -593,6 +594,7 @@ def parse_program(tokens, postion):
                             else:
                                 Error_list += f"\nSyntax Error : if-statement expected  RIGHT_BRACE  at line   {tokens[current_token - 1][2]}"
                                 print(f"IF STATEMENT: {gm} < missing 'RIGHT_BRACE'>")
+                                parser_tree.append(('if_statement', ('condition', tuple(con_node)), ("if_body", tuple(stat_node))))
                                 break
                         else:
                             Error_list += f"\nSyntax Error : if-statement expected  LEFT_BRACE   at line  {tokens[current_token - 1][2]}"
