@@ -780,9 +780,11 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     for x in child[1]:
                         if isinstance(x, tuple):
                             print(x[0])
+                            temp+= x[0]
                         else:
                             print(x)
-
+                            temp += x
+            print(f"L1: if ({temp}) goto L2")
 
 
             print(temp)
