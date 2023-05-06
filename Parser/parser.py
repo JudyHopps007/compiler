@@ -553,7 +553,7 @@ def parse_program(tokens, postion):
                                             else:
                                                 print(f"IF-STATEMENT: {gm} <missing 'RIGHT_BRACE'>")
                                                 print("Syntax Error: incomplete else statement  missing <RIGHT_BRACE> at line ", tokens[current_token - 1][2])
-                                                Error_list += f"\nSyntax Error: incomplete else statement  missing <RIGHT_BRACE> at line }"
+                                                Error_list += f"\nSyntax Error: incomplete else statement  missing <RIGHT_BRACE> at line  {tokens[current_token - 1][2]}"
                                                 break
                                         else:
                                             print(f"IF statement: {gm} < missing 'LEFT_BRACE' 'RIGHT_BRACE'>")
@@ -570,7 +570,7 @@ def parse_program(tokens, postion):
                                 print(f"IF STATEMENT: {gm} < missing 'RIGHT_BRACE'>")
                                 break
                         else:
-                            Error_list += f"\nSyntax Error : if-statement expected  LEFT_BRACE   at line  ", tokens[current_token - 1][2]
+                            Error_list += f"\nSyntax Error : if-statement expected  LEFT_BRACE   at line  { tokens[current_token - 1][2]}"
 
                             print(f"IF STATEMENT: {gm} ... <statement incomplete> ...")
                             break
