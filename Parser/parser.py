@@ -443,6 +443,7 @@ def parse_program(tokens, postion):
                             if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_BRACE":
                                 f_rb = tokens[current_token][1]
                                 print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body} {f_rb}")
+                                print(type(node))
                                 parser_tree.append( ('FUNCTION', ("type_specifier", f"{type}"), ("function_name", f"{name}"), ("function_parameter", f"{function_parameter}"), ("function_body", f"{node}")))
                             else:
                                 print("Syntax Error: <missing '}',  function block not closed at line ", tokens[current_token - 1][2])
