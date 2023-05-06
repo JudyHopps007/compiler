@@ -729,7 +729,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     print(child[1])
                     continue
                 else:
-                    temp_varable += child[1]
+                    print(child[1])
             print(temp_varable)
 
         elif node_name == "FUNCTION":
