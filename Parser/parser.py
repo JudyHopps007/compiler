@@ -64,6 +64,7 @@ def condition_statement_RFC(tokens, position):
         node.pop()
         condition_statment += " " + conditional_operator
         current_token, right_operand, exp_node_r= expression(tokens, current_token)
+        if len(exp_node_r) != 0:
         condition_statment += " " + right_operand
         node.append((tuple(exp_node_l), conditional_operator, tuple(exp_node_r)))
         express_n = ''
