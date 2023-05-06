@@ -72,8 +72,7 @@ def condition_statement_RFC(tokens, position):
             Error_list += f"\nSyntax Error: Condition statement incomplete at line {tokens[current_token][2]}"
     if len(condition_statment) == 0:
         Error_list += f"\nSyntax Error: Condition statement not provided at line {tokens[current_token][2]}"
-    print(node)
-    return current_token, condition_statment
+    return current_token, condition_statment, node
 
 
 def statments(token, postion):  # statement: (declaration | initializing | function_call | assignment | if_statement | while_statement | return_statement)*;
@@ -169,7 +168,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                 if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_PAREN':
                     l_p = tokens[current_token + 1][1]
                     gm += l_p + ' '
-                    current_token, if_condition = condition_statement_RFC(tokens, current_token + 1)
+                    current_token, if_condition, con_node = condition_statement_RFC(tokens, current_token + 1)
                     gm += if_condition + ' '
                     if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_PAREN':
                         r_p = tokens[current_token][1]
@@ -262,13 +261,13 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
             while_key = tokens[current_token][0]
             if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_PAREN':
                 wh_lp = tokens[current_token + 1][1]
-                current_token, condition_statment = condition_statement_RFC(tokens, current_token + 1)
+                current_token, condition_statment, con_node = condition_statement_RFC(tokens, current_token + 1)
                 if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_PAREN':
                     wh_rp = tokens[current_token][1]
                     if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_BRACE':
                         block_track += 1
                         wh_lb = tokens[current_token + 1][1]
-                        current_token, while_body = statments(tokens, current_token + 1)
+                        current_token, while_body, child_node = statments(tokens, current_token + 1)
                         if tokens[current_token][0] == 'RIGHT_BRACE':
                             block_track -= 1
                             wh_rb = tokens[current_token][1]
@@ -531,7 +530,7 @@ def parse_program(tokens, postion):
                 if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_PAREN':
                     l_p = tokens[current_token + 1][1]
                     gm += l_p + ' '
-                    current_token, if_condition = condition_statement_RFC(tokens, current_token + 1)
+                    current_token, if_condition, con_node = condition_statement_RFC(tokens, current_token + 1)
                     gm += if_condition + ' '
                     if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_PAREN':
                         r_p = tokens[current_token][1]
@@ -609,7 +608,7 @@ def parse_program(tokens, postion):
             while_key = tokens[current_token][0]
             if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_PAREN':
                 wh_lp = tokens[current_token + 1][1]
-                current_token, condition_statment = condition_statement_RFC(tokens, current_token + 1)
+                current_token, condition_statment, con_node = condition_statement_RFC(tokens, current_token + 1)
                 if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_PAREN':
                     wh_rp = tokens[current_token][1]
                     if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_BRACE':
