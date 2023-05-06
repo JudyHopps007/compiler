@@ -344,9 +344,9 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
 
                 if len(express) != 0:
                     print("herer")
-                    statment_block += f"\n\t\t\t\t\tRETURN-STATEMENTfvf  : return " + express + tokens[current_token][1]
+                    statment_block += f"\n\t\t\t\t\tRETURN-STATEMENT  : return " + express + tokens[current_token][1]
                     node.append(("return_statement", express))
-                    break
+                    continue
                 else:
                     statment_block += f"\n\t\t\t\t\tRETURN-STATEMENT  : return  <error 'no value'> " + tokens[current_token][1]
                     Error_list += f"\nSyntax error: no return value was specified at line {tokens[current_token][2]}"
