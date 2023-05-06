@@ -691,6 +691,7 @@ print("\n===============================  PERSER LIST ================ \n")
 print(parser_tree)
 print("\n===============================  Intimidate_Code_Generator ================ \n")
 
+
 temp = []
 def Intemidiet_Code_Generator(list_of_tuples):
     global temp
