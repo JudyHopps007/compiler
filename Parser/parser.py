@@ -725,9 +725,9 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     for child in child[1]:
                         for child in child:
                            if isinstance(child, tuple):
-                                    print(type(child[1]))
+                                    print(child[1])
                            elif child != "IDENTIFIER":
-                                    print(type(child))
+                                    print(child)
 
                 elif child[0] == 'function_body':
                     for child in child[1]:
