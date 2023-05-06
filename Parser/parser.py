@@ -598,7 +598,7 @@ def parse_program(tokens, postion):
 
                         else:
                             print(F"WHILE-STATEMENT: {while_key} {wh_lp} {condition_statment} {wh_rp} {wh_lb}  {while_body} <missing RIGHT_BRACE>")
-                            Error_list += f"\nSyntax Error: missing '}' at line {tokens[current_token - 1][2]}"
+                            Error_list += f"\nSyntax Error: missing right-brace at line {tokens[current_token - 1][2]}"
 
                 else:
                     print(F"WHILE-STATEMENT: {while_key} {wh_lp} <error incomplete-while-statement> <missing ')'...>")
@@ -665,7 +665,7 @@ def parse_program(tokens, postion):
                     print("RETURN-STATEMENT  : return ", express, tokens[current_token][1])
                 else:
                     print("RETURN-STATEMENT  : return  <error 'no value'>", tokens[current_token][1])
-                    Error_list += f"\nSyntax error: no return value was specified at line {tokens[current_token][2]}
+                    Error_list += f"\nSyntax error: no return value was specified at line {tokens[current_token][2]}"
             else:
                 if len(express_n) != 0:
                     print(f"RETURN-STATEMENT  : return {express} < missing ';'>")
