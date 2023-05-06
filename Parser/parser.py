@@ -778,7 +778,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                 if child[0] == 'condition':
                     print("ff", child[1])
                     for x in child[1]:
-                        print('dfdf', x[1])
+                        print('dfdf', x)
 
 
             pass
