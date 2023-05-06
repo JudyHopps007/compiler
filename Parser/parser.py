@@ -571,7 +571,6 @@ def parse_program(tokens, postion):
                                 break
                         else:
                             Error_list += f"\nSyntax Error : if-statement expected  LEFT_BRACE   at line  { tokens[current_token - 1][2]}"
-
                             print(f"IF STATEMENT: {gm} ... <statement incomplete> ...")
                             break
                     else:
@@ -579,7 +578,7 @@ def parse_program(tokens, postion):
                         print(f"IF STATEMENT: {gm} ... <statement incomplete> ...")
                         break
                 else:
-                    Error_list += f"\n Syntax Error : illigel if-statement format at line  {tokens[current_token][2]}"
+                    Error_list += f"\n Syntax Error : illigal if-statement format at line  {tokens[current_token][2]}"
                     print(f"IF STATEMENT: {gm} ... <missing LEFT_PAREN> ...")
                     break
 
@@ -599,14 +598,14 @@ def parse_program(tokens, postion):
 
                         else:
                             print(F"WHILE-STATEMENT: {while_key} {wh_lp} {condition_statment} {wh_rp} {wh_lb}  {while_body} <missing RIGHT_BRACE>")
-                            print("Syntax Error: missing '}' at line ", tokens[current_token - 1][2])
+                            Error_list += f"\nSyntax Error: missing '}' at line {tokens[current_token - 1][2]}"
 
                 else:
                     print(F"WHILE-STATEMENT: {while_key} {wh_lp} <error incomplete-while-statement> <missing ')'...>")
-                    print(F"Syntax error: while statment <error incomplete-while-statement> <missing ')'...>  at line ", tokens[current_token - 1][2])
+                    Error_list += f"\nSyntax error: while statment <error incomplete-while-statement> <missing ')'...>  at line { tokens[current_token - 1][2]}"
             else:
                 print(F"WHILE-STATEMENT: {while_key}  <error incomplete-while-statement>")
-                print('Syntax error: while statment incomplete at line ', tokens[current_token][2])
+                Error_list += f"\nSyntax error: while statment incomplete at line  {tokens[current_token][2]}"
 
         elif tokens[current_token][0] == 'IDENTIFIER':
             name = tokens[current_token][1]
@@ -630,15 +629,15 @@ def parse_program(tokens, postion):
                     express_n = ''
                     if len(express) != 0:
                         if current_token < len(tokens) and tokens[current_token][0] != "SEMICOLON":
-                            print("Syntax Error: statement terminator missing at line ", tokens[current_token - 1][2])
+                            Error_list += f"\nSyntax Error: statement terminator missing at line {tokens[current_token - 1][2]}"
                             print(f"VARIABLE ASSIGNMENT2: {name} {asg} {express}  <missing ';'>")
                         elif current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                             print(f"VARIABLE ASSIGNMENT: {name} {asg} {express} {tokens[current_token][1]}")
                         else:
-                            print("Syntax Error: statement terminator missing at line ", tokens[current_token - 1][2])
+                            Error_list += f"\nSyntax Error: statement terminator missing at line {tokens[current_token - 1][2]}"
                             print(f"VARIABLE ASSIGNMENT1: {name} {asg} {express}  <missing ';'>")
                     else:
-                        print("Syntax Error: variable assignment error, no value was assigned ", tokens[current_token - 1][2])
+                        Error_list += f"\nSyntax Error: variable assignment error, no value was assigned {tokens[current_token - 1][2]}"
                         if tokens[current_token][0] == "SEMICOLON":
                             s_tm = tokens[current_token][1]
                             print(f"VARIABLE ASSIGNMENT: {name} {asg} {None} {s_tm}")
@@ -656,6 +655,7 @@ def parse_program(tokens, postion):
                     else:
                         print(f"FUNCTION CALL : {name} {l_p} {function_parameter} {f_rp}  < missing ';'>")
                         print('Syntax Error: function call missing statement terminator at line ', tokens[current_token][2])
+                        Error_list += f"\nSyntax Error: function call missing statement terminator at line {tokens[current_token][2]}"
 
         elif tokens[current_token][1] == 'return':
             current_token, express = expression(tokens, current_token)
@@ -665,16 +665,16 @@ def parse_program(tokens, postion):
                     print("RETURN-STATEMENT  : return ", express, tokens[current_token][1])
                 else:
                     print("RETURN-STATEMENT  : return  <error 'no value'>", tokens[current_token][1])
-                    print("Syntax error: no return value was specified at line ", tokens[current_token][2])
+                    Error_list += f"\nSyntax error: no return value was specified at line {tokens[current_token][2]}
             else:
                 if len(express_n) != 0:
                     print(f"RETURN-STATEMENT  : return {express} < missing ';'>")
-                    print("Syntax error: nreturn statment missing semicolon  at line ", tokens[current_token - 1][2])
+                    Error_list += f"\nSyntax error: nreturn statment missing semicolon  at line {tokens[current_token - 1][2]}"
                 else:
                     print(f"RETURN-STATEMENT  : return  <missing return-value>  <missing ';'>")
-                    print("Syntax error: no return value was specified, and  missing a 'statement' terminator for return statement", tokens[current_token - 1][2])
+                    Error_list += f"\nSyntax error: no return value was specified, and  missing a 'statement' terminator for return statement {tokens[current_token - 1][2]}"
         else:
-            print(f"Syntax Error : '{tokens[current_token][1]}'  at line  {tokens[current_token][2]}", )
+            Error_list += f"\nSyntax Error : '{tokens[current_token][1]}'  at line  {tokens[current_token][2]}"
         current_token += 1
 
 
