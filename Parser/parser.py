@@ -798,6 +798,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         temp.append(child)
                         Intemidiet_Code_Generator(temp)
                         temp = []
+                    
 
 
 
