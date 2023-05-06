@@ -727,8 +727,10 @@ def Intemidiet_Code_Generator(list_of_tuples):
                            if isinstance(child, tuple):
                                if child[0] != "type_specifier":
                                     print(f"T{i}  = addr({child[1]})")
+                                    i += 1
                            elif child != "IDENTIFIER":
-                                    print(child)
+                                       print(f"T{i}  = addr({child})")
+                                       i += 1
 
                 elif child[0] == 'function_body':
                     for child in child[1]:
