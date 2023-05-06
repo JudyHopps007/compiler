@@ -7,6 +7,7 @@ express_n = ""  # keep store of expression statments  errors generated
 print("\n\n")
 parser_tree = []
 def parameter_RFC(token, current_token):
+    global Error_list
     parame = ''  # keep store parameters that are found
     current_token += 1
     i = 0
@@ -35,7 +36,8 @@ def parameter_RFC(token, current_token):
                         current_token += 1
 
             else:
-                print( "Syntax Error: illegal function parameter definition at line ", token[current_token][2])
+                print( )
+                Error_list += f"\nSyntax Error: illegal {token[current_token][1]} function parameter definition at line {token[current_token][2]}"
                 parame += "<illegal-character>" + ' '
 
             current_token += 1
