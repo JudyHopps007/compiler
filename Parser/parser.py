@@ -38,7 +38,6 @@ def parameter_RFC(token, current_token):
                     elif token[current_token + 2][0] == 'RIGHT_PAREN':
                         parame += token[current_token + 1][1] + ' ' + " <remove ','> "
                         current_token += 1
-
             else:
                 print( )
                 Error_list += f"\nSyntax Error: illegal function parameter definition at line {token[current_token][2]}"
