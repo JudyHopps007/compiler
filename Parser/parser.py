@@ -352,10 +352,12 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
             elif current_token < len(tokens) and tokens[current_token][0] == "RIGHT_BRACE":
                     if len(express) != 0:
                         statment_block += f"\n\t\t\t\t\tRETURN-STATEMENT  : return " + express + tokens[current_token][1]
+                        Error_list += f"\nSyntax error: return statement missing semicolon  at line {tokens[current_token - 1][2]}"
                         break
                     else:
                         statment_block += f"\n\t\t\t\t\tRETURN-STATEMENT  : return  <error 'no value'> " + tokens[current_token][1]
                         Error_list += f"\nSyntax error: no return value was specified at line {tokens[current_token][2]}"
+                        Error_list += f"\nSyntax error: return statement missing semicolon  at line {tokens[current_token - 1][2]}"
                         break
             else:
                 if len(express) != 0:
@@ -752,4 +754,4 @@ def Intemidiet_Code_Generator(list_of_tuples):
     return "\n".join(intermediate_code)
 
 
-#Intemidiet_Code_Generator(parser_tree)
+Intemidiet_Code_Generator(parser_tree)
