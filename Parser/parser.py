@@ -377,6 +377,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
 
 
 def expression(tokens, position):
+    print("eerer")
     global express_n
     express_n += ''
     current_token = position + 1
