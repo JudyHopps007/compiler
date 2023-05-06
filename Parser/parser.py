@@ -51,7 +51,7 @@ def parameter_RFC(token, current_token):
 
 
 def condition_statement_RFC(tokens, position):
-    global express_n
+    global express_n, Error_list
     node = []
     condition_statment = ''  # store condition statements
     current_token = position
@@ -67,7 +67,7 @@ def condition_statement_RFC(tokens, position):
         condition_statment += " " + right_operand
         express_n = ''
     if len(condition_statment) == 0:
-        print("Syntax Error: Condition statement not provided")
+        Error_list += f"\nSyntax Error: Condition statement not provided at line {tokens[current_token][2]}"
     return current_token, condition_statment
 
 
