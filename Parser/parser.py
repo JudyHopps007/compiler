@@ -723,7 +723,8 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     print("func begin", child[1])
                 elif child[0] == 'function_parameter':
                     for child in child[1]:
-                        print(child)
+                        for child in child:
+                           print(child)
                 elif child[0] == 'function_body':
                     for child in child[1]:
                         temp.append(child)
