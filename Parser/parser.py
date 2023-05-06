@@ -465,6 +465,7 @@ def parse_program(tokens, postion):
                     else:
                         print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} <missing ')'>...")
                         print("Syntax Error: incomplete function statment, <missing ')' '{' ...'}' at line ", tokens[current_token - 1][2])
+                        Error_list += f"\nSyntax Error: incomplete function statment, <missing ')' '{' ...'}' at line  {tokens[current_token][2]}"
 
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "ASSIGN":  # initialization
                     type = tokens[current_token][1]
