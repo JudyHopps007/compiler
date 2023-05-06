@@ -774,10 +774,13 @@ def Intemidiet_Code_Generator(list_of_tuples):
                             print("func end")
 
         elif node_name == "WHILE-STATEMENT":
+            temp = ""
             for child in children:
                 if child[0] == 'condition':
                     for x in child[1]:
                         print('dfdf', x)
+                        temp += x
+            print(temp)
 
 
 
