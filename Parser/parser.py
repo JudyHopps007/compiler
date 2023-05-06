@@ -748,6 +748,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                                 print(f"T{i}  = addr({child})")
                                 disct[f'T{i}'] = child
                                 i += 1
+                                print("dd", disct)
 
                 elif child[0] == 'function_body':
                     for child in child[1]:
@@ -763,7 +764,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                 print(child)
         elif node_name == "RETURN-STATEMENT":
             pass
-    print(disct)
+
     return "\n".join(intermediate_code)
 
 
