@@ -1,4 +1,4 @@
 int a;
 int b;
-int result = a + c ;
+int result = a + ;
 
