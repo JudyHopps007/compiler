@@ -774,13 +774,13 @@ def Intemidiet_Code_Generator(list_of_tuples):
                             print("func end")
 
         elif node_name == "WHILE-STATEMENT":
-            temp = ""
+            vae = ""
             for child in children:
                 if child[0] == 'condition':
                     for x in child[1]:
                         if isinstance(x, tuple):
                             print(x[0])
-                            temp+= x[0]
+                            vae+= x[0]
                         else:
                             if x == '==':
                                  x = '!='
@@ -791,8 +791,13 @@ def Intemidiet_Code_Generator(list_of_tuples):
                             elif x == '>':
                                  x = '<='
                             print(x)
-                            temp += x
-                print(child)
+                            vae += x
+                if child[0] == 'while_body':
+                    for child in child[1]:
+                        temp.append(child)
+                        Intemidiet_Code_Generator(temp)
+                        temp = []
+
             print(f"L1: if ({temp}) goto L2")
 
 
