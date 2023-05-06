@@ -548,15 +548,15 @@ def parse_program(tokens, postion):
                                 # current_token += 2
                                 if current_token == len(tokens):
                                     print(f"IF STATEMENT {gm}")
-                                    parser_tree.append(('if_statement', ('condition', tuple(con_node)), ("while_body", tuple(stat_node))))
+                                    parser_tree.append(('if_statement', ('condition', tuple(con_node)), ("if_body", tuple(stat_node))))
                                     break
                                 elif (current_token + 1) >= len(tokens):
                                     print(f"IF STATEMENT: {gm}")
-                                    parser_tree.append(('if_statement', ('condition', tuple(con_node)), ("while_body", tuple(stat_node))))
+                                    parser_tree.append(('if_statement', ('condition', tuple(con_node)), ("if_body", tuple(stat_node))))
                                     break
                                 elif tokens[current_token + 1][0] != 'ELSE':
                                     print(f"IF STATEMENT: {gm}")
-                                    parser_tree.append(('if_statement', ('condition', tuple(con_node)), ("while_body", tuple(stat_node))))
+                                    parser_tree.append(('if_statement', ('condition', tuple(con_node)), ("if_body", tuple(stat_node))))
                                     break
                                 else:
                                     if (current_token + 2) < len(tokens) and tokens[current_token + 1][0] == 'ELSE' and tokens[current_token + 2][0] != 'IF':
@@ -578,7 +578,6 @@ def parse_program(tokens, postion):
                                                 break
                                             else:
                                                 print(f"IF-STATEMENT: {gm} <missing 'RIGHT_BRACE'>")
-                                                print("Syntax Error: incomplete else statement  missing <RIGHT_BRACE> at line ", tokens[current_token - 1][2])
                                                 Error_list += f"\nSyntax Error: incomplete else statement  missing <RIGHT_BRACE> at line  {tokens[current_token - 1][2]}"
                                                 break
                                         else:
