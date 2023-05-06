@@ -739,7 +739,6 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         value = serach(disct, child)
                         store += value + " "
                     print(store)
-            print(temp_varable)
 
         elif node_name == "FUNCTION":
             i = 0
