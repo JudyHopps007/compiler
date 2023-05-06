@@ -792,6 +792,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                                  x = '<='
                             print(x)
                             temp += x
+                print(child)
             print(f"L1: if ({temp}) goto L2")
 
 
