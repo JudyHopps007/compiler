@@ -55,20 +55,21 @@ def condition_statement_RFC(tokens, position):
     node = []
     condition_statment = ''  # store condition statements
     current_token = position
-    current_token, left_operand, exp_node = expression(tokens, current_token)
+    current_token, left_operand, exp_node_l = expression(tokens, current_token)
     condition_statment += left_operand
-    node.append(tuple(exp_node))
+    node.append(tuple(exp_node_l))
     express_n = ''
     if current_token < len(tokens) and (tokens[current_token][0] == 'EQUAL' or tokens[current_token][0] == 'NOT_EQUAL' or tokens[current_token][0] == 'LESS_THAN' or tokens[current_token][0] == 'GREATER_THAN' or tokens[current_token][0] == 'LESS_THAN_EQUAL' or tokens[current_token][0] == 'GREATER_THAN_EQUAL'):
         conditional_operator = tokens[current_token][1]
         node.pop()
-        node.append(tuple(exp_node))
         condition_statment += " " + conditional_operator
-        current_token, right_operand, exp_node= expression(tokens, current_token)
+        current_token, right_operand, exp_node_r= expression(tokens, current_token)
         condition_statment += " " + right_operand
+        node.append((tuple(exp_node_l), tokens[current_token][1], tuple(exp_node_r)))
         express_n = ''
     if len(condition_statment) == 0:
         Error_list += f"\nSyntax Error: Condition statement not provided at line {tokens[current_token][2]}"
+    print(node)
     return current_token, condition_statment
 
 
