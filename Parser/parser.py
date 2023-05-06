@@ -781,7 +781,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         if isinstance(x, tuple):
                             print(x[0])
                         else:
-                            print('dfdf', x)
+                            print(x)
 
 
 
