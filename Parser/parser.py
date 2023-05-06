@@ -687,8 +687,9 @@ print("\n\n=====================================================================
 print(f"\nParser Program Runtime  :  {Program_Run_time} seconds")
 
 start_run_time_time = time.time()  # Record the Start run time-time of lexical_analyzer
-
+print("\n===============================  ERROR ================ \n")
 print(Error_list)
+
 print(parser_tree)
 print("\n===============================  Intimidate_Code_Generator ================ \n")
 
