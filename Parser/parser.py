@@ -539,7 +539,7 @@ def parse_program(tokens, postion):
                         if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_BRACE':
                             l_b = tokens[current_token + 1][1]
                             gm += l_b + ' '
-                            current_token, if_statment_body, child_node = statments(tokens, current_token + 1)
+                            current_token, if_statment_body, stat_node = statments(tokens, current_token + 1)
 
                             gm += if_statment_body + ' '
                             if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_BRACE':
@@ -548,6 +548,7 @@ def parse_program(tokens, postion):
                                 # current_token += 2
                                 if current_token == len(tokens):
                                     print(f"IF STATEMENT {gm}")
+                                    parser_tree.append(('if_statement', ('condition', tuple(con_node)), ("while_body", tuple(stat_node))))
                                     break
                                 elif (current_token + 1) >= len(tokens):
                                     print(f"IF STATEMENT: {gm}")
