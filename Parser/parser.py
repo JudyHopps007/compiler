@@ -427,7 +427,7 @@ def expression(tokens, position):
             break
         current_token += 1
     print(tuple(temp))
-    return current_token, express_n, temp
+    return current_token, express_n, tuple(temp)
 
 
 def parse_program(tokens, postion):
