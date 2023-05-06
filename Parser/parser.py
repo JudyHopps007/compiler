@@ -717,20 +717,20 @@ def Intemidiet_Code_Generator(list_of_tuples):
             print(temp_varable)
 
         elif node_name == "FUNCTION":
-            i=0
+            i = 0
             for child in children:
                 if child[0] == 'function_name':
                     print("func begin", child[1])
                 elif child[0] == 'function_parameter':
                     for child in child[1]:
                         for child in child:
-                           if isinstance(child, tuple):
-                               if child[0] != "type_specifier":
+                            if isinstance(child, tuple):
+                                if child[0] != "type_specifier":
                                     print(f"T{i}  = addr({child[1]})")
                                     i += 1
-                           elif child != "IDENTIFIER":
-                                       print(f"T{i}  = addr({child})")
-                                       i += 1
+                            elif child != "IDENTIFIER":
+                                print(f"T{i}  = addr({child})")
+                                i += 1
 
                 elif child[0] == 'function_body':
                     for child in child[1]:
@@ -746,5 +746,6 @@ def Intemidiet_Code_Generator(list_of_tuples):
             pass
 
     return "\n".join(intermediate_code)
+
 
 Intemidiet_Code_Generator(parser_tree)
