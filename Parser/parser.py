@@ -357,6 +357,9 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     print(f"RETURN-STATEMENT  : return  <missing return-value>  <missing ';'>")
                     Error_list += f"\nSyntax error: no return value was specified, and  missing a 'statement' terminator for return statement {tokens[current_token - 1][2]}"
         else:
+            print("hexd")
+            print(current_token)
+            print(len(tokens))
             if current_token < len(tokens):
                 print("hexd")
                 try:
