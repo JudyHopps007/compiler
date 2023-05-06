@@ -711,10 +711,8 @@ print("\n===============================  Intimidate_Code_Generator ============
 
 def serach(my_dict, target_value):
     for key, value in my_dict.items():
-        print(value)
-        print(type(value))
         if value == target_value:
-            return value
+            return key
     return target_value
 
 temp = []
