@@ -787,9 +787,9 @@ def Intemidiet_Code_Generator(list_of_tuples):
                             elif x == '!=':
                                  x = '=='
                             elif x == '<':
-                                 x = '>'
-                            elif x == '<':
-                                 x = '>'
+                                 x = '>='
+                            elif x == '>':
+                                 x = '<='
                             print(x)
                             temp += x
             print(f"L1: if ({temp}) goto L2")
