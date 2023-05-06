@@ -732,7 +732,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                 else:
                     for child in child[1]:
                         print(child)
-                        store += child
+                        store += child + " "
                     print(store)
             print(temp_varable)
 
