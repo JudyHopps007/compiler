@@ -736,8 +736,9 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     continue
                 else:
                     for child in child[1]:
+                        print("ff ", disct)
                         value = serach(disct, child)
-                        print("ff ",value)
+                        print("ff ", value)
                         store += value + " "
                     print(store)
             print(temp_varable)
