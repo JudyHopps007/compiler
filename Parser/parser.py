@@ -726,7 +726,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                 if child[0] == "type_specifier":
                     continue
                 elif child[0] == "IDENTIFIER":
-                    temp_varable += child[1] + " = "
+                    print(child[1])
                     continue
                 else:
                     temp_varable += child[1]
