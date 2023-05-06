@@ -725,6 +725,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     for child in child[1]:
                         for child in child:
                            if isinstance(child, tuple):
+                               if child[0] != "type_specifier":
                                     print(child[1])
                            elif child != "IDENTIFIER":
                                     print(child)
