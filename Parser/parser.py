@@ -793,12 +793,13 @@ def Intemidiet_Code_Generator(list_of_tuples):
                             print(x)
                             vae += x
                 if child[0] == 'while_body':
+                    print(f"L1: if ({vae}) goto L2")
                     for child in child[1]:
                         temp.append(child)
                         Intemidiet_Code_Generator(temp)
                         temp = []
 
-            print(f"L1: if ({temp}) goto L2")
+
 
 
 
