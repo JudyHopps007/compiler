@@ -1,4 +1,4 @@
-int nameeF(x , 1){
+int nameeF(int mun){
 int i = 6;
 int d = 5;
  }
