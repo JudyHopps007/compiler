@@ -391,7 +391,6 @@ def expression(tokens, position):
     current_token = position + 1
     while current_token < len(tokens):
         token_type, token_value, line_number = tokens[current_token]
-        print(token_value)
         if token_type == 'IDENTIFIER':
             express_n += token_value + ' '
             temp.append(token_value)
@@ -423,7 +422,6 @@ def expression(tokens, position):
             else:
                 Error_list += f"\nSyntax error -- Expression Error Caused by  {tokens[current_token][1]}  : at line  {tokens[current_token][2]}"
         elif token_type == 'SEMICOLON' or token_type == 'RIGHT_PAREN' or token_type == 'EQUAL' or token_type == 'NOT_EQUAL' or token_type == 'LESS_THAN' or token_type == 'GREATER_THAN' or token_type == 'LESS_THAN_EQUAL' or token_type == 'GREATER_THAN_EQUAL':
-            print("break er ", token_type)
             break
         else:
             Error_list += f"\nSyntax error -- Expression Error Caused by  {tokens[current_token][1]}  at line  {tokens[current_token][2]}"
