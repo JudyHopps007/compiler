@@ -742,6 +742,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                             if isinstance(child, tuple):
                                 if child[0] != "type_specifier":
                                     print(f"T{i}  = addr({child[1]})")
+                                    disct[f'T{i}'] = child[1]
                                     i += 1
                                     print("dd", disct)
                             elif child != "IDENTIFIER":
