@@ -341,7 +341,9 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
             current_token, express = expression(tokens, current_token)
             express_n = ''
             if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
+
                 if len(express) != 0:
+                    print("herer")
                     statment_block += f"\n\t\t\t\t\tRETURN-STATEMENT  : return " + express + tokens[current_token][1]
                     node.append(("return_statement", express))
                     break
