@@ -80,7 +80,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                 if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "SEMICOLON":  # handle declaration
                     terminator = tokens[current_token + 2][1]
                     # print(f"Declaration {type} {name} {terminator}")
-                    statment_block += f"\n\t\t\t\t\tDECLARATION:   {type} {name} {terminator}"
+                    statment_block += f"\n\t\t\t\t\tDECLARATION:  ter  {type} {name} {terminator}"
                     current_token += 2
 
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "LEFT_PAREN":  # handle functions
@@ -97,21 +97,14 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                             if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_BRACE":
                                 block_track += 1
                                 f_rb = tokens[current_token][1]
-                                # print(f"Function: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body} {f_rb}")
                                 statment_block += f"\n\t\t\t\t\tFUNCTION: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body} {f_rb}"
-                                print()
                             else:
-                                # print("Syntax Error: <missing '}',  function block not closed")
                                 Error_list += "\nSyntax Error: <missing '}',  function block not closed"
-                                # print(f"Function: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >")
                                 statment_block += f"\n\t\t\t\t\tFUNCTION: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >"
                         else:
-                            # print("Syntax Error: Functon definition   <missing '{'>")
                             Error_list += "\nSyntax Error: <missing '}',  function block not closed at line " + tokens[current_token - 1][2]
-                            # print(f"Function: {type}  {name} {f_lp} {function_parameter} <missing LEFT_BRACE>...")
                             statment_block += f"\n\t\t\t\t\tFUNCTION: {type}  {name} {f_lp} {function_parameter} <missing LEFT_BRACE>..."
                     else:
-                        # print("Syntax Error: <missing '('")
                         statment_block += f"\n\t\t\t\t\tFUNCTION: {type}  {name} {f_lp} {function_parameter} <missing ')'>..."
                         Error_list += "\nSyntax Error: incomplete function statment, <missing ')' '{' ...'}' at line ", tokens[current_token - 1][2]
 
