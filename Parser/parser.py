@@ -426,7 +426,7 @@ def expression(tokens, position):
             Error_list += f"\nSyntax error -- Expression Error Caused by  {tokens[current_token][1]}  at line  {tokens[current_token][2]}"
             break
         current_token += 1
-    print(temp)
+    print(tuple(temp))
     return current_token, express_n
 
 
