@@ -343,7 +343,6 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
             if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
 
                 if len(express) != 0:
-                    print("herer")
                     statment_block += f"\n\t\t\t\t\tRETURN-STATEMENT  : return " + express + tokens[current_token][1]
                     node.append(("return_statement", express))
                     continue
@@ -427,7 +426,7 @@ def expression(tokens, position):
             Error_list += f"\nSyntax error -- Expression Error Caused by  {tokens[current_token][1]}  at line  {tokens[current_token][2]}"
             break
         current_token += 1
-
+    print(temp)
     return current_token, express_n
 
 
