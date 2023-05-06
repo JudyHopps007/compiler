@@ -710,10 +710,9 @@ print("\n===============================  Intimidate_Code_Generator ============
 
 temp = []
 
-
+disct = {}
 def Intemidiet_Code_Generator(list_of_tuples):
-    disct = {}
-    global temp
+    global temp, disct
     intermediate_code = []
     for node_name, *children in list_of_tuples:
         if node_name == "DECLARATION":
