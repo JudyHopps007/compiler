@@ -779,7 +779,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                 if child[0] == 'condition':
                     for x in child[1]:
                         if isinstance(x, tuple):
-                            vae+= x[0]
+                            vae += x[0]
                         else:
                             if x == '==':
                                  x = '!='
@@ -789,7 +789,6 @@ def Intemidiet_Code_Generator(list_of_tuples):
                                  x = '>='
                             elif x == '>':
                                  x = '<='
-                            print(x)
                             vae += x
                 if child[0] == 'while_body':
                     print(f"L1: if ({vae}) goto L2")
