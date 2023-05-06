@@ -339,11 +339,11 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
 
         elif current_token < len(tokens) and tokens[current_token][1] == 'return':
             current_token, express = expression(tokens, current_token)
-            print("yuyu", tokens[current_token][0])
             express_n = ''
             if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                 if len(express) != 0:
                     statment_block += f"\n\t\t\t\t\tRETURN-STATEMENT  : return " + express + tokens[current_token][1]
+                    node.append(("RETURN-STATEMENT", express))
                     break
                 else:
                     statment_block += f"\n\t\t\t\t\tRETURN-STATEMENT  : return  <error 'no value'> " + tokens[current_token][1]
