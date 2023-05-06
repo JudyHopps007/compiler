@@ -711,6 +711,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                 else:
                     temp_varable += child[1]
             print(temp_varable)
+            
         elif node_name == "FUNCTION":
             for child in children:
                 if child[0] == 'function_name':
