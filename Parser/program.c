@@ -1,3 +1,4 @@
-int nameeF(int num, pop){
-        return hhh
+int addition(int a, int b){
+int result = a + b;
+return result;
 }
