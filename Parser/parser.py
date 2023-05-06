@@ -402,7 +402,8 @@ def expression(tokens, position):
                 current_token += 1
             express_n += tokens[current_token][1] + ' '
         elif token_type == 'PLUS' or token_type == "MINUS" or token_type == "MULTIPLY" or token_type == "DIVIDE" or token_type == "MODULUS":
-            if tokens[current_token + 1][0] != 'SEMICOLON' or  tokens[current_token + 1][0] != 'KEYWORD' :
+            if tokens[current_token + 1][0] != 'SEMICOLON' or tokens[current_token + 1][0] != 'KEYWORD':
+                print(tokens[current_token + 1][0])
                 express_n += token_value + ' '
         elif token_type == 'SEMICOLON' or token_type == 'RIGHT_PAREN' or token_type == 'EQUAL' or token_type == 'NOT_EQUAL' or token_type == 'LESS_THAN' or token_type == 'GREATER_THAN' or token_type == 'LESS_THAN_EQUAL' or token_type == 'GREATER_THAN_EQUAL':
             break
