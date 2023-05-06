@@ -713,7 +713,7 @@ def serach(my_dict, target_value):
     for key, value in my_dict.items():
         if value == target_value:
             return value
-    return None
+    return target_value
 
 temp = []
 disct = {}
@@ -736,8 +736,9 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     continue
                 else:
                     for child in child[1]:
-                        print(child)
-                        store += child + " "
+                        value = serach(disct, child)
+                        print(value)
+                        store += value + " "
                     print(store)
             print(temp_varable)
 
