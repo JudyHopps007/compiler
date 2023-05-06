@@ -32,7 +32,7 @@ def parameter_RFC(token, current_token):
 
             elif token[current_token][0] == 'IDENTIFIER':
                 parame += token[current_token][1] + ' '
-                node.append((("IDENTIFIER", f"{token[current_token][1]}")))
+                node.append(("IDENTIFIER", f"{token[current_token][1]}"))
                 if token[current_token + 1][0] == 'COMMA':
                     if token[current_token + 2][0] != 'RIGHT_PAREN':
                         parame += token[current_token + 1][1] + ' '
