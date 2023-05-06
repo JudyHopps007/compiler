@@ -747,6 +747,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         temp.append(child)
                         Intemidiet_Code_Generator(temp)
                         if child[0] == 'return_statement':
+                           print(f"return {child[1]}")
                            print("func end")
 
         elif node_name == "WHILE-STATEMENT":
