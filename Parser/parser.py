@@ -616,9 +616,7 @@ def parse_program(tokens, postion):
                         if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_BRACE':
                             wh_rb = tokens[current_token][1]
                             print(F"WHILE-STATEMENT: {while_key} {wh_lp} {condition_statment} {wh_rp} {wh_lb}  {while_body} {wh_rb}")
-
-
-                            parser_tree.append(('WHILE-STATEMENT', ('condition', f'{condition_statment}'), ("while_body", tuple(child_node))))
+                            parser_tree.append(('WHILE-STATEMENT', ('condition', tuple(con_node)), ("while_body", tuple(child_node))))
                         else:
                             print(F"WHILE-STATEMENT: {while_key} {wh_lp} {condition_statment} {wh_rp} {wh_lb}  {while_body} <missing RIGHT_BRACE>")
                             parser_tree.append(('WHILE-STATEMENT', ('condition', f'{condition_statment}'), ("while_body", f"{while_body}")))
