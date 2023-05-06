@@ -4,6 +4,7 @@ import time  # for measuring 'parser' run time
 tokens = lexical_Analyzer.lexical_analyzer('program.c')
 Error_list = ""  # keep store track of syntax errors generated
 express_n = ""  # keep store of expression statments  errors generated
+node = None
 print("\n\n")
 
 parser_tree = []
@@ -63,7 +64,7 @@ def condition_statement_RFC(tokens, position):
 
 
 def statments(token, postion):  # statement: (declaration | initializing | function_call | assignment | if_statement | while_statement | return_statement)*;
-    global express_n, Error_list
+    global express_n, Error_list, node
     statment_block = ''  # store statements in block
     block_track = 1
     current_token = postion
@@ -118,7 +119,8 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     if len(express) != 0:
                         if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                             s_tm = tokens[current_token][1]
-                            statment_block += f"\n\t\t\t\t\tINITIALIZATION: fg {type} {namr} {asg} {express} {s_tm}"
+                            statment_block += f"\n\t\t\t\t\tINITIALIZATION:  {type} {namr} {asg} {express} {s_tm}"
+                            node = ('INITIALIZATION', ("type_specifier", f"{type}"), ("IDENTIFIER", f"{namr}"), ("expression", f"{express}"))
                         else:
                             statment_block += f"\n\t\t\t\t\tINITIALIZATION: {type} {namr} {asg} {express} <missing ';'>"
                             Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token - 1][2]} after '{tokens[current_token - 1][1]}'"
@@ -365,7 +367,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
 
 def expression(tokens, position):
     global express_n, Error_list
-    global express_n
+    global express_n, node
     express_n += ''
     current_token = position + 1
     while current_token < len(tokens):
@@ -404,7 +406,7 @@ def expression(tokens, position):
 
 
 def parse_program(tokens, postion):
-    global express_n, Error_list
+    global express_n, Error_list, node  # calling global varables to be used
     current_token = postion
     while current_token < len(tokens):
         if tokens[current_token][0] == "INCLUDE_ID":
@@ -441,7 +443,7 @@ def parse_program(tokens, postion):
                             if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_BRACE":
                                 f_rb = tokens[current_token][1]
                                 print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body} {f_rb}")
-                                parser_tree.append( ('FUNCTION', ("type_specifier", f"{type}"), ("function_name", f"{name}"), ("function_parameter", f"{function_parameter}"), ("function_body", f"{function_body}")))
+                                parser_tree.append( ('FUNCTION', ("type_specifier", f"{type}"), ("function_name", f"{name}"), ("function_parameter", f"{function_parameter}"), ("function_body", f"{node}")))
                             else:
                                 print("Syntax Error: <missing '}',  function block not closed at line ", tokens[current_token - 1][2])
                                 print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >")
