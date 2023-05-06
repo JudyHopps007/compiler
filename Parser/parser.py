@@ -706,7 +706,7 @@ temp = []
 
 
 def Intemidiet_Code_Generator(list_of_tuples):
-    dict {}
+    disct = {}
     global temp
     intermediate_code = []
     for node_name, *children in list_of_tuples:
