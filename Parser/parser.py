@@ -61,6 +61,7 @@ def condition_statement_RFC(tokens, position):
     express_n = ''
     if current_token < len(tokens) and (tokens[current_token][0] == 'EQUAL' or tokens[current_token][0] == 'NOT_EQUAL' or tokens[current_token][0] == 'LESS_THAN' or tokens[current_token][0] == 'GREATER_THAN' or tokens[current_token][0] == 'LESS_THAN_EQUAL' or tokens[current_token][0] == 'GREATER_THAN_EQUAL'):
         conditional_operator = tokens[current_token][1]
+        node.pop()
         node.append(tuple(exp_node))
         condition_statment += " " + conditional_operator
         current_token, right_operand, exp_node= expression(tokens, current_token)
