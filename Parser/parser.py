@@ -797,8 +797,9 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         temp.append(child)
                         Intemidiet_Code_Generator(temp)
                         temp = []
-                        print(f"goto L1")
+
                 if child[0] == 'return_statement':
+                     print(f"goto L1")
                      print(f"L2:  return {child[1]}")
 
 
