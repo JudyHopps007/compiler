@@ -6,6 +6,8 @@ Error_list = ""  # keep store track of syntax errors generated
 express_n = ""  # keep store of expression statments  errors generated
 print("\n\n")
 parser_tree = []
+
+
 def parameter_RFC(token, current_token):
     global Error_list
     node = []
@@ -39,7 +41,7 @@ def parameter_RFC(token, current_token):
                         parame += token[current_token + 1][1] + ' ' + " <remove ','> "
                         current_token += 1
             else:
-                print( )
+                print()
                 Error_list += f"\nSyntax Error: illegal function parameter definition at line {token[current_token][2]}"
                 parame += "<illegal-character>" + ' '
 
@@ -433,7 +435,7 @@ def parse_program(tokens, postion):
                 if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "SEMICOLON":  # handle declaration
                     terminator = tokens[current_token + 2][1]
                     print(f"DECLARATION :  {type_specifer} {name} {terminator}")
-                    parser_tree.append( ("DECLARATION", ("type_specifer", f"{type_specifer}"), ('IDENTIFIER', F"{name}")))
+                    parser_tree.append(("DECLARATION", ("type_specifer", f"{type_specifer}"), ('IDENTIFIER', F"{name}")))
                     current_token += 2
 
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "LEFT_PAREN":  # handle functions
@@ -450,7 +452,7 @@ def parse_program(tokens, postion):
                                 f_rb = tokens[current_token][1]
                                 print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body} {f_rb}")
 
-                                parser_tree.append( ('FUNCTION', ("type_specifier", f"{type_specifer}"), ("function_name", f"{name}"), ("function_parameter", tuple(param_node)), ("function_body", tuple(child_node))))
+                                parser_tree.append(('FUNCTION', ("type_specifier", f"{type_specifer}"), ("function_name", f"{name}"), ("function_parameter", tuple(param_node)), ("function_body", tuple(child_node))))
                             else:
                                 print("Syntax Error: <missing '}',  function block not closed at line ", tokens[current_token - 1][2])
                                 print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >")
@@ -472,10 +474,10 @@ def parse_program(tokens, postion):
                         if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                             s_tm = tokens[current_token][1]
                             print(f"INITIALIZATION: {type_specifer} {namr} {asg} {express} {s_tm}")
-                            parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"),  ("IDENTIFIER", f"{namr}"), ("expression", f"{express}")))
+                            parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{namr}"), ("expression", f"{express}")))
                         else:
                             print(f"INITIALIZATION: {type_specifer} {namr} {asg} {express} <missing ';'>")
-                            parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"),  ("IDENTIFIER", f"{namr}"), ("expression", f"{express}")))
+                            parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{namr}"), ("expression", f"{express}")))
                             Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token - 1][2]} after '{tokens[current_token - 1][1]}'"
                             continue
                     else:
@@ -566,7 +568,7 @@ def parse_program(tokens, postion):
                                 print(f"IF STATEMENT: {gm} < missing 'RIGHT_BRACE'>")
                                 break
                         else:
-                            Error_list += f"\nSyntax Error : if-statement expected  LEFT_BRACE   at line  { tokens[current_token - 1][2]}"
+                            Error_list += f"\nSyntax Error : if-statement expected  LEFT_BRACE   at line  {tokens[current_token - 1][2]}"
                             print(f"IF STATEMENT: {gm} ... <statement incomplete> ...")
                             break
                     else:
@@ -591,7 +593,7 @@ def parse_program(tokens, postion):
                         if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_BRACE':
                             wh_rb = tokens[current_token][1]
                             print(F"WHILE-STATEMENT: {while_key} {wh_lp} {condition_statment} {wh_rp} {wh_lb}  {while_body} {wh_rb}")
-                            parser_tree.append(('WHILE-STATEMENT', ('condition', f'{condition_statment}'),  ("while_body", f"{while_body}")))
+                            parser_tree.append(('WHILE-STATEMENT', ('condition', f'{condition_statment}'), ("while_body", f"{while_body}")))
 
                         else:
                             print(F"WHILE-STATEMENT: {while_key} {wh_lp} {condition_statment} {wh_rp} {wh_lb}  {while_body} <missing RIGHT_BRACE>")
@@ -600,7 +602,7 @@ def parse_program(tokens, postion):
 
                 else:
                     print(F"WHILE-STATEMENT: {while_key} {wh_lp} <error incomplete-while-statement> <missing ')'...>")
-                    Error_list += f"\nSyntax error: while statment <error incomplete-while-statement> <missing ')'...>  at line { tokens[current_token - 1][2]}"
+                    Error_list += f"\nSyntax error: while statment <error incomplete-while-statement> <missing ')'...>  at line {tokens[current_token - 1][2]}"
             else:
                 print(F"WHILE-STATEMENT: {while_key}  <error incomplete-while-statement>")
                 Error_list += f"\nSyntax error: while statment incomplete at line  {tokens[current_token][2]}"
@@ -691,8 +693,9 @@ print("\n===============================  PERSER LIST ================ \n")
 print(parser_tree)
 print("\n===============================  Intimidate_Code_Generator ================ \n")
 
-
 temp = []
+
+
 def Intemidiet_Code_Generator(list_of_tuples):
     global temp
     intermediate_code = []
@@ -700,7 +703,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
         if node_name == "DECLARATION":
             for child in children:
                 if child[1] != 'int':
-                   print(child[1])
+                    print(child[1])
         elif node_name == "INITIALIZATION":
             temp_varable = ""
             for child in children:
@@ -714,9 +717,13 @@ def Intemidiet_Code_Generator(list_of_tuples):
             print(temp_varable)
 
         elif node_name == "FUNCTION":
+            param = ''
             for child in children:
                 if child[0] == 'function_name':
                     print("func begin", child[1])
+                elif child[0] == 'function_parameter':
+                    for child in child[1]:
+                        print(child)
                 elif child[0] == 'function_body':
                     for child in child[1]:
                         temp.append(child)
@@ -726,13 +733,11 @@ def Intemidiet_Code_Generator(list_of_tuples):
 
         elif node_name == "WHILE-STATEMENT":
             for child in children:
-               print(child)
+                print(child)
         elif node_name == "RETURN-STATEMENT":
             pass
 
     return "\n".join(intermediate_code)
-
-
 
 
 Intemidiet_Code_Generator(parser_tree)
