@@ -348,17 +348,17 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     # print("RETURN-STATMENT  : return  <error 'no value'>", tokens[current_token][1])
                     statment_block += f"\n\t\t\t\t\tRETURN-STATEMENT  : return  <error 'no value'> " + tokens[current_token][1]
                     # print("Syntax error: no return value was specified")
-                    Error_list += "\nSyntax error: no return value was specified at line " + tokens[current_token][2]
+                    Error_list += f"\nSyntax error: no return value was specified at line {tokens[current_token][2]}"
             else:
                 if len(express_n) != 0:
                     # print(f"RETURN-STATMENT  : return {express} < missing ';'>")
                     statment_block += f"\n\t\t\t\t\tRETURN-STATEMENT  : return {express} < missing ';'>"
                     # print("Syntax error: no return value was specified")
-                    Error_list += "\nSyntax error: nreturn statment missing semicolon  at line " + tokens[current_token - 1][2]
+                    Error_list += f"\nSyntax error: nreturn statment missing semicolon  at line {tokens[current_token - 1][2]}"
                 else:
                     print(f"RETURN-STATEMENT  : return  <missing return-value>  <missing ';'>")
                     # print("Syntax error: no return value was specified, missing statement terminator for return statement")
-                    Error_list += "\nSyntax error: no return value was specified, and  missing a 'statement' terminator for return statement" + tokens[current_token - 1][2]
+                    Error_list += f"\nSyntax error: no return value was specified, and  missing a 'statement' terminator for return statement {tokens[current_token - 1][2]}"
 
 
         else:
