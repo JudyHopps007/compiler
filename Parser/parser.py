@@ -120,14 +120,14 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     type_specifer = tokens[current_token][1]
                     namr = tokens[current_token + 1][1]
                     asg = tokens[current_token + 2][1]
-                    current_token, express , exp_node= expression(tokens, current_token + 2)
+                    current_token, express, exp_node = expression(tokens, current_token + 2)
                     express_n = ''
 
                     if len(express) != 0:
                         if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                             s_tm = tokens[current_token][1]
                             statment_block += f"\n\t\t\t\t\tINITIALIZATION:  {type_specifer} {namr} {asg} {express} {s_tm}"
-                            node.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{namr}"), ("expression", f"{express}")))
+                            node.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{namr}"), ("expression", f"{exp_node}")))
                         else:
                             statment_block += f"\n\t\t\t\t\tINITIALIZATION: {type_specifer} {namr} {asg} {express} <missing ';'>"
                             node.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{namr}"), ("expression", f"{express}")))
