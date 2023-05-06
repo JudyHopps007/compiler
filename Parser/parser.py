@@ -713,7 +713,8 @@ def Intemidiet_Code_Generator(list_of_tuples):
             print(temp_varable)
         elif node_name == "FUNCTION":
             for child in children:
-                    print("sun", child[1])
+                if child[0] == 'function_name':
+                    print("func begin", child[1])
 
         elif node_name == "RETURN-STATEMENT":
             pass
