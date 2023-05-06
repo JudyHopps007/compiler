@@ -3,7 +3,7 @@ int result = a + b;
 return result;
 }
 }
-int subtraction(int a, int b){
+int subtraction(int c, int d){
 int result = a - b;
 return result;
 }
