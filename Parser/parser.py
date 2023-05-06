@@ -552,9 +552,11 @@ def parse_program(tokens, postion):
                                     break
                                 elif (current_token + 1) >= len(tokens):
                                     print(f"IF STATEMENT: {gm}")
+                                    parser_tree.append(('if_statement', ('condition', tuple(con_node)), ("while_body", tuple(stat_node))))
                                     break
                                 elif tokens[current_token + 1][0] != 'ELSE':
                                     print(f"IF STATEMENT: {gm}")
+                                    parser_tree.append(('if_statement', ('condition', tuple(con_node)), ("while_body", tuple(stat_node))))
                                     break
                                 else:
                                     if (current_token + 2) < len(tokens) and tokens[current_token + 1][0] == 'ELSE' and tokens[current_token + 2][0] != 'IF':
