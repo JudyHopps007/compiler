@@ -740,6 +740,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                                     i += 1
                             elif child != "IDENTIFIER":
                                 print(f"T{i}  = addr({child})")
+                                disct[f'T{i}'] = child
                                 i += 1
 
                 elif child[0] == 'function_body':
