@@ -342,25 +342,17 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
             express_n = ''
             if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                 if len(express) != 0:
-                    # print("RETURN-STATMENT  : return ", express, tokens[current_token][1])
                     statment_block += f"\n\t\t\t\t\tRETURN-STATEMENT  : return " + express + tokens[current_token][1]
                 else:
-                    # print("RETURN-STATMENT  : return  <error 'no value'>", tokens[current_token][1])
                     statment_block += f"\n\t\t\t\t\tRETURN-STATEMENT  : return  <error 'no value'> " + tokens[current_token][1]
-                    # print("Syntax error: no return value was specified")
                     Error_list += f"\nSyntax error: no return value was specified at line {tokens[current_token][2]}"
             else:
-                if len(express_n) != 0:
-                    # print(f"RETURN-STATMENT  : return {express} < missing ';'>")
+                if len(express) != 0:
                     statment_block += f"\n\t\t\t\t\tRETURN-STATEMENT  : return {express} < missing ';'>"
-                    # print("Syntax error: no return value was specified")
-                    Error_list += f"\nSyntax error: nreturn statment missing semicolon  at line {tokens[current_token - 1][2]}"
+                    Error_list += f"\nSyntax error: return statement missing semicolon  at line {tokens[current_token - 1][2]}"
                 else:
                     print(f"RETURN-STATEMENT  : return  <missing return-value>  <missing ';'>")
-                    # print("Syntax error: no return value was specified, missing statement terminator for return statement")
                     Error_list += f"\nSyntax error: no return value was specified, and  missing a 'statement' terminator for return statement {tokens[current_token - 1][2]}"
-
-
         else:
             if current_token < len(tokens):
                 try:
@@ -404,6 +396,7 @@ def expression(tokens, position):
             else:
                 Error_list += f"\nSyntax error -- Expression Error Caused by  {tokens[current_token][1]}  : at line  {tokens[current_token][2]}"
         elif token_type == 'SEMICOLON' or token_type == 'RIGHT_PAREN' or token_type == 'EQUAL' or token_type == 'NOT_EQUAL' or token_type == 'LESS_THAN' or token_type == 'GREATER_THAN' or token_type == 'LESS_THAN_EQUAL' or token_type == 'GREATER_THAN_EQUAL':
+            print("break er ", token_type )
             break
         else:
             Error_list += f"\nSyntax error -- Expression Error Caused by  {tokens[current_token][1]}  at line  {tokens[current_token][2]}"
@@ -447,14 +440,13 @@ def parse_program(tokens, postion):
                         if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "LEFT_BRACE":
                             f_lb = tokens[current_token + 1][1]
                             current_token, function_body, child_node = statments(tokens, current_token + 1)
-
                             if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_BRACE":
                                 f_rb = tokens[current_token][1]
                                 print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body} {f_rb}")
 
                                 parser_tree.append(('FUNCTION', ("type_specifier", f"{type_specifer}"), ("function_name", f"{name}"), ("function_parameter", tuple(param_node)), ("function_body", tuple(child_node))))
                             else:
-                                print("Syntax Error: <missing '}',  function block not closed at line ", tokens[current_token - 1][2])
+                                Error_list += f"\nSyntax Error: <missing right-brace>,  function block not closed at line {tokens[current_token - 1][2]}"
                                 print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >")
                                 parser_tree.append(('FUNCTION', ("type_specifier", f"{type_specifer}"), ("function_name", "{name}"), ("function_parameter", f"{function_parameter}"), ("function_body", f"{function_body}")))
                         else:
@@ -594,18 +586,16 @@ def parse_program(tokens, postion):
                             wh_rb = tokens[current_token][1]
                             print(F"WHILE-STATEMENT: {while_key} {wh_lp} {condition_statment} {wh_rp} {wh_lb}  {while_body} {wh_rb}")
                             parser_tree.append(('WHILE-STATEMENT', ('condition', f'{condition_statment}'), ("while_body", f"{while_body}")))
-
                         else:
                             print(F"WHILE-STATEMENT: {while_key} {wh_lp} {condition_statment} {wh_rp} {wh_lb}  {while_body} <missing RIGHT_BRACE>")
                             parser_tree.append(('WHILE-STATEMENT', ('condition', f'{condition_statment}'), ("while_body", f"{while_body}")))
                             Error_list += f"\nSyntax Error: missing right-brace at line {tokens[current_token - 1][2]}"
-
                 else:
                     print(F"WHILE-STATEMENT: {while_key} {wh_lp} <error incomplete-while-statement> <missing ')'...>")
-                    Error_list += f"\nSyntax error: while statment <error incomplete-while-statement> <missing ')'...>  at line {tokens[current_token - 1][2]}"
+                    Error_list += f"\nSyntax error: while statement <error incomplete-while-statement> <missing ')'...>  at line {tokens[current_token - 1][2]}"
             else:
                 print(F"WHILE-STATEMENT: {while_key}  <error incomplete-while-statement>")
-                Error_list += f"\nSyntax error: while statment incomplete at line  {tokens[current_token][2]}"
+                Error_list += f"\nSyntax error: while statement incomplete at line  {tokens[current_token][2]}"
 
         elif tokens[current_token][0] == 'IDENTIFIER':
             name = tokens[current_token][1]
@@ -667,9 +657,9 @@ def parse_program(tokens, postion):
                     print("RETURN-STATEMENT  : return  <error 'no value'>", tokens[current_token][1])
                     Error_list += f"\nSyntax error: no return value was specified at line {tokens[current_token][2]}"
             else:
-                if len(express_n) != 0:
-                    print(f"RETURN-STATEMENT  : return {express} < missing ';'>")
-                    Error_list += f"\nSyntax error: nreturn statment missing semicolon  at line {tokens[current_token - 1][2]}"
+                if len(express) != 0:
+                    print(f"RETURN-STATEMENT  : return {express} <missing ';'>")
+                    Error_list += f"\nSyntax error: return statement missing semicolon  at line {tokens[current_token - 1][2]}"
                 else:
                     print(f"RETURN-STATEMENT  : return  <missing return-value>  <missing ';'>")
                     Error_list += f"\nSyntax error: no return value was specified, and  missing a 'statement' terminator for return statement {tokens[current_token - 1][2]}"

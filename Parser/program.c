@@ -1,5 +1,3 @@
-int nameeF(int num, pop, mum){
-        int i = 6;
-        int d = 5;
-        return num
+int nameeF(int num, pop){
+        return hhh
 }
