@@ -80,7 +80,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                 if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "SEMICOLON":  # handle declaration
                     terminator = tokens[current_token + 2][1]
                     # print(f"Declaration {type} {name} {terminator}")
-                    statment_block += f"\n\t\t\t\t\tDECLARATION:  ter  {type} {name} {terminator}"
+                    statment_block += f"\n\t\t\t\t\tDECLARATION:   {type} {name} {terminator}"
                     current_token += 2
 
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "LEFT_PAREN":  # handle functions
@@ -118,24 +118,18 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     if len(express) != 0:
                         if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                             s_tm = tokens[current_token][1]
-                            # print(f"initialization: {type} {namr} {asg} {express} {s_tm}")
-                            statment_block += f"\n\t\t\t\t\tINITIALIZATION: {type} {namr} {asg} {express} {s_tm}"
+                            statment_block += f"\n\t\t\t\t\tINITIALIZATION: fg {type} {namr} {asg} {express} {s_tm}"
                         else:
-                            # print(f"initialization: {type} {namr} {asg} {express} <missing ';'>")
                             statment_block += f"\n\t\t\t\t\tINITIALIZATION: {type} {namr} {asg} {express} <missing ';'>"
-                            # print(f"Syntax Error: missing statement terminator")
                             Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token - 1][2]} after '{tokens[current_token - 1][1]}'"
                             continue
                     else:
                         Error_list += f"\nSyntax Error: variable Initialization error, no value was assigned at line {tokens[current_token][2]} "
                         if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                             s_tm = tokens[current_token][1]
-                            # print(f"initialization: {type} {namr} {asg} ~{None}~ {s_tm}")
                             statment_block += f"\n\t\t\t\t\tINITIALIZATION: {type} {namr} {asg} ~{None}~ {s_tm}"
                         else:
-                            # print(f"initialization: {type} {namr} {asg} ~{None}~ <missing ';'>")
                             statment_block += f"\n\t\t\t\t\tINITIALIZATION: {type} {namr} {asg} ~{None}~ <missing ';'>"
-                            # print(f"Syntax Error: missing statement terminator")
                             Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token][2]}"
                             continue
                 else:
