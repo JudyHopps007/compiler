@@ -769,7 +769,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
         elif node_name == "WHILE-STATEMENT":
             for child in children:
                 print(child)
-        elif node_name == "RETURN-STATEMENT":
+
             pass
 
     return "\n".join(intermediate_code)
