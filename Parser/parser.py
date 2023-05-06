@@ -377,7 +377,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
 
 
 def expression(tokens, position):
-    print("eerer")
+    global express_n, Error_list
     global express_n
     express_n += ''
     current_token = position + 1
@@ -406,6 +406,7 @@ def expression(tokens, position):
                 express_n += token_value + ' '
             else:
                 print(f"Syntax error -- Expression Error Cause:  {tokens[current_token][1]} at line  {tokens[current_token][2]}")
+                Error_list += f"\nSyntax error -- Expression Error Cause:  {tokens[current_token][1]} at line  {tokens[current_token][2]}"
         elif token_type == 'SEMICOLON' or token_type == 'RIGHT_PAREN' or token_type == 'EQUAL' or token_type == 'NOT_EQUAL' or token_type == 'LESS_THAN' or token_type == 'GREATER_THAN' or token_type == 'LESS_THAN_EQUAL' or token_type == 'GREATER_THAN_EQUAL':
             break
         else:
