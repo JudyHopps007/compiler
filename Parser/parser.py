@@ -708,8 +708,14 @@ print("\n===============================  PERSER LIST ================ \n")
 print(parser_tree)
 print("\n===============================  Intimidate_Code_Generator ================ \n")
 
-temp = []
 
+def serach(my_dict, target_value):
+    for key, value in my_dict.items():
+        if value == target_value:
+            return value
+    return None
+
+temp = []
 disct = {}
 def Intemidiet_Code_Generator(list_of_tuples):
     global temp, disct
