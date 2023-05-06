@@ -365,7 +365,6 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
 
             else:
                 break
-    print("yuyu", tokens[current_token][0])
     return current_token, statment_block, node
 
 
