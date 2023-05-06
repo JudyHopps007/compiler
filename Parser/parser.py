@@ -727,7 +727,6 @@ def Intemidiet_Code_Generator(list_of_tuples):
                 if child[1] != 'int':
                     print(child[1])
         elif node_name == "INITIALIZATION":
-            temp_varable = ""
             for child in children:
                 if child[0] == "type_specifier":
                     continue
