@@ -1,4 +1,4 @@
 
-while (state == num ){
+while (state == ){
 
 }
