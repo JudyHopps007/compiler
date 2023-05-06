@@ -66,7 +66,7 @@ def condition_statement_RFC(tokens, position):
         if len(exp_node_r) != 0:
             node.pop()
             condition_statment += " " + right_operand
-            node.append((exp_node_l, conditional_operator, exp_node_r))
+            node.append((tuple(exp_node_l), conditional_operator, tuple(exp_node_r)))
             express_n = ''
         else:
             Error_list += f"\nSyntax Error: Condition statement incomplete at line {tokens[current_token][2]}"
