@@ -717,7 +717,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
             print(temp_varable)
 
         elif node_name == "FUNCTION":
-            param = ''
+            i=0
             for child in children:
                 if child[0] == 'function_name':
                     print("func begin", child[1])
@@ -726,7 +726,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         for child in child:
                            if isinstance(child, tuple):
                                if child[0] != "type_specifier":
-                                    print(child[1])
+                                    print(f"T{i} = ", child[1])
                            elif child != "IDENTIFIER":
                                     print(child)
 
