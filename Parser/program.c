@@ -1,5 +1,6 @@
 
 float division(float a, float b){
+int a = num;
 int result = a / b;
 return result;
 }
