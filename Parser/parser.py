@@ -418,7 +418,7 @@ def parse_program(tokens, postion):
                 print(f"INCLUDE_LIST: {include_directive}")
                 parser_tree.append(('INCLUDE_LIST', include_directive))
             else:
-                print(f"SYNTAX ERROR: INCLUDE_DIRECTIVE: '{tokens[current_token + 1][1]}' at line {tokens[current_token + 1][2]}")
+                Error_list += f"\nSYNTAX ERROR: INCLUDE_DIRECTIVE: '{tokens[current_token + 1][1]}' at line {tokens[current_token + 1][2]}"
                 current_token += 1
 
         elif tokens[current_token][0] == "KEYWORD" and tokens[current_token][1] != 'return':
@@ -586,9 +586,11 @@ def parse_program(tokens, postion):
                         if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_BRACE':
                             wh_rb = tokens[current_token][1]
                             print(F"WHILE-STATEMENT: {while_key} {wh_lp} {condition_statment} {wh_rp} {wh_lb}  {while_body} {wh_rb}")
+                            parser_tree.append(('WHILE-STATEMENT', ('condition', f'{condition_statment}'),  ("while_body", f"{while_body}")))
 
                         else:
                             print(F"WHILE-STATEMENT: {while_key} {wh_lp} {condition_statment} {wh_rp} {wh_lb}  {while_body} <missing RIGHT_BRACE>")
+                            parser_tree.append(('WHILE-STATEMENT', ('condition', f'{condition_statment}'), ("while_body", f"{while_body}")))
                             Error_list += f"\nSyntax Error: missing right-brace at line {tokens[current_token - 1][2]}"
 
                 else:
