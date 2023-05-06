@@ -4,7 +4,6 @@ import time  # for measuring 'parser' run time
 tokens = lexical_Analyzer.lexical_analyzer('program.c')
 Error_list = ""  # keep store track of syntax errors generated
 express_n = ""  # keep store of expression statments  errors generated
-node = []
 print("\n\n")
 parser_tree = []
 def parameter_RFC(token, current_token):
@@ -63,7 +62,8 @@ def condition_statement_RFC(tokens, position):
 
 
 def statments(token, postion):  # statement: (declaration | initializing | function_call | assignment | if_statement | while_statement | return_statement)*;
-    global express_n, Error_list, node
+    global express_n, Error_list, \
+    node = []
     statment_block = ''  # store statements in block
     block_track = 1
     current_token = postion
@@ -93,11 +93,12 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                         if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "LEFT_BRACE":
                             block_track -= 1
                             f_lb = tokens[current_token + 1][1]
-                            current_token, function_body = statments(tokens, current_token + 1)
+                            current_token, function_body, child_node = statments(tokens, current_token + 1)
                             if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_BRACE":
                                 block_track += 1
                                 f_rb = tokens[current_token][1]
                                 statment_block += f"\n\t\t\t\t\tFUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body} {f_rb}"
+                                node.append(('FUNCTION', ("type_specifier", f"{type_specifer}"), ("function_name", f"{name}"), ("function_parameter", f"{function_parameter}"), ("function_body", tuple(child_node))))
                             else:
                                 Error_list += "\nSyntax Error: <missing '}',  function block not closed"
                                 statment_block += f"\n\t\t\t\t\tFUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >"
@@ -122,6 +123,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                             node.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{namr}"), ("expression", f"{express}")))
                         else:
                             statment_block += f"\n\t\t\t\t\tINITIALIZATION: {type_specifer} {namr} {asg} {express} <missing ';'>"
+                            node.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{namr}"), ("expression", f"{express}")))
                             Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token - 1][2]} after '{tokens[current_token - 1][1]}'"
                             continue
                     else:
@@ -437,13 +439,13 @@ def parse_program(tokens, postion):
                         f_rp = tokens[current_token][1]
                         if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "LEFT_BRACE":
                             f_lb = tokens[current_token + 1][1]
-                            current_token, function_body, node = statments(tokens, current_token + 1)
+                            current_token, function_body, child_node = statments(tokens, current_token + 1)
 
                             if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_BRACE":
                                 f_rb = tokens[current_token][1]
                                 print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body} {f_rb}")
 
-                                parser_tree.append( ('FUNCTION', ("type_specifier", f"{type_specifer}"), ("function_name", f"{name}"), ("function_parameter", f"{function_parameter}"), ("function_body", f"{node}")))
+                                parser_tree.append( ('FUNCTION', ("type_specifier", f"{type_specifer}"), ("function_name", f"{name}"), ("function_parameter", f"{function_parameter}"), ("function_body", tuple(child_node))))
                             else:
                                 print("Syntax Error: <missing '}',  function block not closed at line ", tokens[current_token - 1][2])
                                 print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >")
@@ -505,7 +507,7 @@ def parse_program(tokens, postion):
                         if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_BRACE':
                             l_b = tokens[current_token + 1][1]
                             gm += l_b + ' '
-                            current_token, if_statment_body = statments(tokens, current_token + 1)
+                            current_token, if_statment_body, child_node = statments(tokens, current_token + 1)
 
                             gm += if_statment_body + ' '
                             if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_BRACE':
@@ -580,7 +582,7 @@ def parse_program(tokens, postion):
                     wh_rp = tokens[current_token][1]
                     if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_BRACE':
                         wh_lb = tokens[current_token + 1][1]
-                        current_token, while_body = statments(tokens, current_token + 1)
+                        current_token, while_body, child_node = statments(tokens, current_token + 1)
                         if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_BRACE':
                             wh_rb = tokens[current_token][1]
                             print(F"WHILE-STATEMENT: {while_key} {wh_lp} {condition_statment} {wh_rp} {wh_lb}  {while_body} {wh_rb}")
@@ -682,7 +684,9 @@ print("\n===============================  PERSER LIST ================ \n")
 print(parser_tree)
 print("\n===============================  Intimidate_Code_Generator ================ \n")
 
+temp = []
 def Intemidiet_Code_Generator(list_of_tuples):
+    global temp
     intermediate_code = []
     for node_name, *children in list_of_tuples:
         if node_name == "DECLARATION":
@@ -705,6 +709,12 @@ def Intemidiet_Code_Generator(list_of_tuples):
             for child in children:
                 if child[0] == 'function_name':
                     print("func begin", child[1])
+                elif child[0] == 'function_body':
+                    for child in child[1]:
+                        temp.append(child)
+                        Intemidiet_Code_Generator(temp)
+                        temp = []
+            print("func end")
 
         elif node_name == "RETURN-STATEMENT":
             pass
