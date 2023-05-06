@@ -575,12 +575,11 @@ def parse_program(tokens, postion):
                             print(f"IF STATEMENT: {gm} ... <statement incomplete> ...")
                             break
                     else:
-                        print(" Syntax Error : if-statement expected  LEFT_PAREN   < missing ')'> at line  ", tokens[current_token - 1][2])
+                        Error_list += f"\nSyntax Error : if-statement expected  LEFT_PAREN   < missing ')'> at line {tokens[current_token - 1][2]}"
                         print(f"IF STATEMENT: {gm} ... <statement incomplete> ...")
                         break
                 else:
-
-                    print(" Syntax Error : illigel if-statement format  ", tokens[current_token][2])
+                    Error_list += f"\n Syntax Error : illigel if-statement format at line  {tokens[current_token][2]}"
                     print(f"IF STATEMENT: {gm} ... <missing LEFT_PAREN> ...")
                     break
 
