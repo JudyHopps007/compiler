@@ -403,7 +403,7 @@ def expression(tokens, position):
             Error_list += f"\nSyntax error -- Expression Error Caused by  {tokens[current_token][1]}  at line  {tokens[current_token][2]}"
             break
         current_token += 1
-    print(tokens[current_token])
+    print("weweewe", tokens[current_token])
     return current_token, express_n
 
 
@@ -441,7 +441,8 @@ def parse_program(tokens, postion):
                         if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "LEFT_BRACE":
                             f_lb = tokens[current_token + 1][1]
                             current_token, function_body, child_node = statments(tokens, current_token + 1)
-                            print("tgt",tokens[current_token][0] )
+
+                            print("tgt", tokens[current_token][0])
                             if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_BRACE":
                                 f_rb = tokens[current_token][1]
                                 print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body} {f_rb}")
