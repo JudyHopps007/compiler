@@ -714,7 +714,7 @@ disct = {}
 def Intemidiet_Code_Generator(list_of_tuples):
     global temp, disct
     intermediate_code = []
-    temp = ""
+    store = ""
     for node_name, *children in list_of_tuples:
         if node_name == "DECLARATION":
             for child in children:
@@ -727,13 +727,13 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     continue
                 elif child[0] == "IDENTIFIER":
                     print(child[1])
-                    temp += " = "
+                    store += child[1] + " = "
                     continue
                 else:
                     for child in child[1]:
                         print(child)
-                        temp += child
-                    print(temp)
+                        store += child
+                    print(store)
             print(temp_varable)
 
         elif node_name == "FUNCTION":
