@@ -44,7 +44,7 @@ def parameter_RFC(token, current_token):
 
             current_token += 1
             i += 1
-    return parame, current_token
+    return parame, current_token, node
 
 
 def condition_statement_RFC(tokens, position):
@@ -89,7 +89,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
 
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "LEFT_PAREN":  # handle functions
                     f_lp = tokens[current_token + 2][1]
-                    function_parameter, pos = parameter_RFC(tokens, (current_token + 2))
+                    function_parameter, pos, param_node = parameter_RFC(tokens, (current_token + 2))
                     current_token = pos
                     if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_PAREN":
 
@@ -283,7 +283,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                 if (current_token + 2) < len(tokens) and (current_token + 3) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER' and tokens[current_token + 3][0] == 'LEFT_PAREN':  # function_assignment_call
                     f_name = tokens[current_token + 2][1]
                     l_p = tokens[current_token + 3][1]
-                    f_parameter, current_token = parameter_RFC(tokens, (current_token + 3))
+                    f_parameter, current_token, param_node = parameter_RFC(tokens, (current_token + 3))
                     r_p = tokens[current_token][1]
                     if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
                         s_tm = tokens[current_token + 1][1]
@@ -319,7 +319,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
 
             elif tokens[current_token + 1][0] == 'LEFT_PAREN':
                 l_p = tokens[current_token + 1][1]
-                function_parameter, pos = parameter_RFC(tokens, (current_token + 1))
+                function_parameter, pos, param_node = parameter_RFC(tokens, (current_token + 1))
                 current_token = pos
                 if tokens[current_token][0] == "RIGHT_PAREN":
                     f_rp = tokens[current_token][1]
@@ -437,7 +437,7 @@ def parse_program(tokens, postion):
 
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "LEFT_PAREN":  # handle functions
                     f_lp = tokens[current_token + 2][1]
-                    function_parameter, pos = parameter_RFC(tokens, (current_token + 2))
+                    function_parameter, pos, param_node = parameter_RFC(tokens, (current_token + 2))
                     current_token = pos
                     if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_PAREN":
                         f_rp = tokens[current_token][1]
@@ -449,7 +449,7 @@ def parse_program(tokens, postion):
                                 f_rb = tokens[current_token][1]
                                 print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body} {f_rb}")
 
-                                parser_tree.append( ('FUNCTION', ("type_specifier", f"{type_specifer}"), ("function_name", f"{name}"), ("function_parameter", f"{function_parameter}"), ("function_body", tuple(child_node))))
+                                parser_tree.append( ('FUNCTION', ("type_specifier", f"{type_specifer}"), ("function_name", f"{name}"), ("function_parameter", tuple(param_node)), ("function_body", tuple(child_node))))
                             else:
                                 print("Syntax Error: <missing '}',  function block not closed at line ", tokens[current_token - 1][2])
                                 print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >")
@@ -611,7 +611,7 @@ def parse_program(tokens, postion):
                 if (current_token + 2) < len(tokens) and (current_token + 3) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER' and tokens[current_token + 3][0] == 'LEFT_PAREN':  # function_assignment_call
                     f_name = tokens[current_token + 2][1]
                     l_p = tokens[current_token + 3][1]
-                    f_parameter, current_token = parameter_RFC(tokens, (current_token + 3))
+                    f_parameter, current_token, param_node = parameter_RFC(tokens, (current_token + 3))
                     r_p = tokens[current_token][1]
 
                     if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
@@ -641,7 +641,7 @@ def parse_program(tokens, postion):
 
             elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_PAREN':
                 l_p = tokens[current_token + 1][1]
-                function_parameter, pos = parameter_RFC(tokens, (current_token + 1))
+                function_parameter, pos, param_node = parameter_RFC(tokens, (current_token + 1))
                 current_token = pos
                 if tokens[current_token][0] == "RIGHT_PAREN":
                     f_rp = tokens[current_token][1]
