@@ -744,12 +744,10 @@ def Intemidiet_Code_Generator(list_of_tuples):
                                     print(f"T{i}  = addr({child[1]})")
                                     disct[f'T{i}'] = child[1]
                                     i += 1
-                                    print("dd", disct)
                             elif child != "IDENTIFIER":
                                 print(f"T{i}  = addr({child})")
-                                disct[f'T{i}'] = child
+                                disct[f'T{i}'] = child[1]
                                 i += 1
-                                print("dd", disct)
 
                 elif child[0] == 'function_body':
                     for child in child[1]:
