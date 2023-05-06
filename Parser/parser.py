@@ -461,7 +461,7 @@ def parse_program(tokens, postion):
                                 parser_tree.append(('FUNCTION', ("type_specifer", f"{type}"), ("function_name", "{name}"), ("function_parameter", f"{function_parameter}"), ("function_body", f"{function_body}")))
                         else:
                             print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} <missing LEFT_BRACE>...")
-                            Error_list += f"\nSyntax Error: Functon definition   <missing ''> at line  {tokens[current_token][2]}"
+                            Error_list += f"\nSyntax Error: Functon definition   <missing 'right-brace'> at line  {tokens[current_token][2]}"
                     else:
                         print(f"FUNCTION: {type}  {name} {f_lp} {function_parameter} <missing ')'>...")
                         print("Syntax Error: incomplete function statment, <missing ')' '{' ...'}' at line ", tokens[current_token - 1][2])
