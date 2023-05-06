@@ -433,7 +433,7 @@ def parse_program(tokens, postion):
                 name = tokens[current_token + 1][1]
                 if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "SEMICOLON":  # handle declaration
                     terminator = tokens[current_token + 2][1]
-                    print(f"DECLARATION:  {type} {name} {terminator}")
+                    print(f"DECLARATION :  {type} {name} {terminator}")
                     parser_tree.append( ("DECLARATION", ("type_specifer", f"{type}"), ('IDENTIFIER', F"{name}")))
                     current_token += 2
 
@@ -474,10 +474,10 @@ def parse_program(tokens, postion):
                         if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                             s_tm = tokens[current_token][1]
                             print(f"INITIALIZATION: {type} {namr} {asg} {express} {s_tm}")
-                            parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type}"), ("function_name", F"{name}"), ("IDENTIFIER", f"{namr}"), ("expression", f"{s_tm}")))
+                            parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type}"),  ("IDENTIFIER", f"{namr}"), ("expression", f"{express}")))
                         else:
                             print(f"INITIALIZATION: {type} {namr} {asg} {express} <missing ';'>")
-                            parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type}"), ("function_name", F"{name}"), ("IDENTIFIER", f"{namr}"), ("expression", f"{s_tm}")))
+                            parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type}"),  ("IDENTIFIER", f"{namr}"), ("expression", f"{express}")))
                             print(f"Syntax Error: missing statement terminator at line {tokens[current_token - 1][2]} after '{tokens[current_token - 1][1]}'")
                             continue
                     else:
@@ -491,6 +491,7 @@ def parse_program(tokens, postion):
                             continue
                 else:
                     print(f"DECLARATION: {type}  {name} <missing ';' >")
+                    parser_tree.append(("DECLARATION", ("type_specifer", f"{type}"), ('IDENTIFIER', F"{name}")))
                     print(f"Syntax Error : unterminated statement for '{tokens[current_token + 1][1]}' at line {tokens[current_token + 1][2]} ")
                     current_token += 1
             else:
@@ -689,3 +690,35 @@ start_run_time_time = time.time()  # Record the Start run time-time of lexical_a
 
 print(Error_list)
 print(parser_tree)
+print("\n===============================  Intimidate_Code_Generator ================ \n")
+
+def Intemidiet_Code_Generator(list_of_tuples):
+    intermediate_code = []
+    for node_name, *children in list_of_tuples:
+        if node_name == "DECLARATION":
+            for child in children:
+                if child[1] != 'int':
+                   print(child[1])
+        elif node_name == "INITIALIZATION":
+            temp_varable = ""
+            for child in children:
+                if child[0] == "type_specifier":
+                    continue
+                elif child[0] == "IDENTIFIER":
+                    temp_varable += child[1] + " = "
+                    continue
+                else:
+                    temp_varable += child[1]
+            print(temp_varable)
+        elif node_name == "FUNCTION":
+            pass
+        elif node_name == "RETURN-STATEMENT":
+            pass
+
+    return "\n".join(intermediate_code)
+
+
+
+
+p = Intemidiet_Code_Generator(parser_tree)
+print(p)
