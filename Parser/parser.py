@@ -524,6 +524,7 @@ def parse_program(tokens, postion):
 
         elif tokens[current_token][0] == 'IF':
             gm = ""
+            if_node = []
             else_if = 0
             while True:
                 if_key_word = tokens[current_token][1]
@@ -533,6 +534,7 @@ def parse_program(tokens, postion):
                     gm += l_p + ' '
                     current_token, if_condition, con_node = condition_statement_RFC(tokens, current_token + 1)
                     gm += if_condition + ' '
+                    if_node.append(('condition', tuple(con_node)))
                     if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_PAREN':
                         r_p = tokens[current_token][1]
                         gm += r_p + ' '
@@ -573,7 +575,7 @@ def parse_program(tokens, postion):
                                                 gm += e_rb + ' '
                                                 if else_if == 0:
                                                     print(f"IF-ELSE STATEMENT: {gm}")
-                                                    parser_tree.append(('if_statement', ('condition', tuple(con_node)), ("if_body", tuple(stat_node)), ))
+                                                    parser_tree.append(('if_statement', ('condition', tuple(con_node)), ("if_body", tuple(stat_node)), ("else_body", tuple(els_node))))
                                                 else:
                                                     print(f"IF-ELSE-IF STATEMENT: {gm}")
                                                 break
