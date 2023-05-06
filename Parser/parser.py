@@ -444,7 +444,7 @@ def parse_program(tokens, postion):
                             f_lb = tokens[current_token + 1][1]
                             current_token, function_body, child_node = statments(tokens, current_token + 1)
 
-                            print("tgt", tokens[current_token][0])
+
                             if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_BRACE":
                                 f_rb = tokens[current_token][1]
                                 print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body} {f_rb}")
