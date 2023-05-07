@@ -10,7 +10,7 @@ while (state){
        }else{
             newResult2 = subtraction(c, d);
        }
-       state = false;
+
 }
-}
+
 
