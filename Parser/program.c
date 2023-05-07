@@ -1,3 +1,4 @@
+       int select = 3;
        if(select == 1){
             newResult1 = division(f, e);
        }else if (select == 2){

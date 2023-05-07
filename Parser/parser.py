@@ -773,7 +773,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
             t_v = f't{count}'
             disct[t_v] = (hold1, hold2, None)
             count += 1
-            print(disct)
+
 
         elif node_name == "variable_assignment":
             hold1 = None
@@ -794,7 +794,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         count += 1
                         store += f"{t_v} = " + ' '.join(str(x) for x in value)
             print(store)
-            print(disct)
+
 
         elif node_name == "INITIALIZATION":
             store = ""
