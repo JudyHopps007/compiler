@@ -7,6 +7,6 @@
        }else if (select == 3){
             newResult2 = addition(c, d);
        }else{
-             newResult2 = addition(c, d);
+             newResult2 = btrer(c, d);
        }
        state = false;
