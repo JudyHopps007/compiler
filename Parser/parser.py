@@ -826,9 +826,9 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     print(child[1])
                     for x in child[1]:
                         if isinstance(x, tuple):
-                            print("90", x)
-                            t = serach(disct, x[0])
-                            vae +=  t
+                            for i in x:
+                                t = serach(disct, i[0])
+                                vae +=  t
                         else:
                             if x == '==':
                                  x = '!='
