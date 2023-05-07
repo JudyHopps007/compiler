@@ -317,12 +317,15 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                             Error_list += "\nSyntax Error: statement terminator missing at line " + tokens[current_token - 1][2]
                             # print(f"Variable assignment: {name} {asg} {express}  <missing ';'>")
                             statment_block += f"\n\t\t\t\t\tVARIABLE ASSIGNMENT: {name} {asg} {express}  <missing ';'>"
+                            node.append(('variable_assignment', ("IDENTIFIER", f"{name}"), ("expression", tuple(exp_node))))
                         elif current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                             # print(f"Variable assignment: {name} {asg} {express} {tokens[current_token][1]}")
                             statment_block += f"\n\t\t\t\t\tVARIABLE ASSIGNMENT: {name} {asg} {express} {tokens[current_token][1]}"
+                            node.append(('variable_assignment', ("IDENTIFIER", f"{name}"), ("expression", tuple(exp_node))))
                         else:
                             statment_block += f"\n\t\t\t\t\tVARIABLE ASSIGNMENT1: {name} {asg} {express}  <missing ';'>"
                             Error_list += "\nSyntax Error: statement terminator missing at line " + tokens[current_token - 1][2]
+                            node.append(('variable_assignment', ("IDENTIFIER", f"{name}"), ("expression", tuple(exp_node))))
                     else:
                         # print("Syntax Error: variable assignment error, no value was assigned ")
                         Error_list += "\nSyntax Error: variable assignment error, no value was assigned " + tokens[current_token - 1][2]
@@ -669,11 +672,14 @@ def parse_program(tokens, postion):
                         if current_token < len(tokens) and tokens[current_token][0] != "SEMICOLON":
                             Error_list += f"\nSyntax Error: statement terminator missing at line {tokens[current_token - 1][2]}"
                             print(f"VARIABLE ASSIGNMENT2: {name} {asg} {express}  <missing ';'>")
+                            parser_tree.append(('variable_assignment', ("IDENTIFIER", f"{name}"), ("expression", tuple(exp_node))))
                         elif current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                             print(f"VARIABLE ASSIGNMENT: {name} {asg} {express} {tokens[current_token][1]}")
+                            parser_tree.append(('variable_assignment', ("IDENTIFIER", f"{name}"), ("expression", tuple(exp_node))))
                         else:
                             Error_list += f"\nSyntax Error: statement terminator missing at line {tokens[current_token - 1][2]}"
                             print(f"VARIABLE ASSIGNMENT1: {name} {asg} {express}  <missing ';'>")
+                            parser_tree.append(('variable_assignment', ("IDENTIFIER", f"{name}"), ("expression", tuple(exp_node))))
                     else:
                         Error_list += f"\nSyntax Error: variable assignment error, no value was assigned {tokens[current_token - 1][2]}"
                         if tokens[current_token][0] == "SEMICOLON":
