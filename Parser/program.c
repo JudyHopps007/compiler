@@ -1,8 +1,14 @@
-bool state = true;
-int num = tu;
+
 
 int select = 12;
-if(select == 1){
+while(select == 1){
+        bool state = true;
+        int c = 3;
+        int d = 5;
+        float e = 6.0;
+        float f = 12.0;
+        float newResult1;
+        int newResult2;
 
         }
 

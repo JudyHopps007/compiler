@@ -763,12 +763,14 @@ def Intemidiet_Code_Generator(list_of_tuples):
     intermediate_code = []
 
     for node_name, *children in list_of_tuples:
+        print(node_name)
         if node_name == "DECLARATION":
             for child in children:
                 if child[1] != 'int':
                     print(child[1])
 
         elif node_name == "INITIALIZATION":
+            print(121)
             store = ""
             hold1 = None
             hold2 = None
@@ -782,10 +784,10 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     for t in child[1]:
                         t = serach(disct, t)
                         value.append(t)
-                    temp = f't{count}'
-                    disct[temp] = (hold1, hold2, ' '.join(str(x) for x in value))
+                    t_v = f't{count}'
+                    disct[t_v] = (hold1, hold2, ' '.join(str(x) for x in value))
                     count += 1
-                    store += f"{temp} = " + ' '.join(str(x) for x in value)
+                    store += f"{t_v} = " + ' '.join(str(x) for x in value)
 
             print(store)
 
@@ -823,11 +825,9 @@ def Intemidiet_Code_Generator(list_of_tuples):
             vae = ""
             for child in children:
                 if child[0] == 'condition':
-                    print(child[1])
                     for x in child[1]:
                         if isinstance(x, tuple):
                             for i in x:
-                                print("ooj", i)
                                 t = serach(disct, i)
                                 vae += t
                         else:
@@ -844,9 +844,12 @@ def Intemidiet_Code_Generator(list_of_tuples):
                 elif child[0] == 'while_body':
                     print(f"L1: if ({vae}) goto L2")
                     for child in child[1]:
-                        temp.append(child)
-                        Intemidiet_Code_Generator(temp)
-                        temp = []
+                        print(child)
+                        for child in child[1]:
+                            temp.append(child)
+                            Intemidiet_Code_Generator(temp)
+                            temp = []
+
 
                 if child[0] == 'return_statement':
                      print(f"goto L1")
@@ -859,7 +862,6 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         for x in child[1]:
                             if isinstance(x, tuple):
                                 for i in x:
-                                    print("ooj", i)
                                     t = serach(disct, i)
                                     vae += t
                             else:
@@ -873,6 +875,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                                     x = '<='
                                 vae += x
                         print(f"L1: if ( {vae} ) goto L2")
+
                 if child[0] == 'if_body':
                     print(child[1])
                 if child[0] == 'elif_condition':
@@ -897,6 +900,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     print(child[1])
                 if child[0] == 'else_body':
                     print(child[1])
+
         elif node_name == "function_assignment":
             t = ''
             for child in children:
