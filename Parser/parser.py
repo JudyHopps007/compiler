@@ -766,9 +766,9 @@ def Intemidiet_Code_Generator(list_of_tuples):
             hold1 = None
             hold2 = None
             for child in children:
-                if child[0] == 'type_specifer' :
+                if child[0] == 'type_specifer':
                     hold1 = child[1]
-                if child[0] == 'IDENTIFIER' :
+                if child[0] == 'IDENTIFIER':
                     hold2 = child[1]
             t_v = f't{count}'
             disct[t_v] = (hold1, hold2, None)
