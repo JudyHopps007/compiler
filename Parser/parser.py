@@ -941,6 +941,8 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         temp.append(sub_child)
                         Intemidiet_Code_Generator(temp)
                         temp = []
+                        print("l21 :")
+
                 elif child[0] == 'else_body':
                     for sub_child in child[1]:
                         temp.append(sub_child)
