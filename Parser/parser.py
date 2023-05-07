@@ -841,9 +841,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
 
                 elif child[0] == 'function_body':
                     for child in child[1]:
-                        temp.append(child)
-                        Intemidiet_Code_Generator(temp)
-                        temp = []
+                        Intemidiet_Code_Generator([child])
                         if child[0] == 'return_statement':
                             print(f"return {child[1]}")
                             print("func end")
@@ -874,9 +872,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     print(f"L{l}: if ({vae}) goto L{r}")
                     for sub_child in child[1]:
                         label_track += 1
-                        temp.append(sub_child)
                         Intemidiet_Code_Generator([sub_child])
-                        temp = []
                         print(f"L{r} : ")
 
 
