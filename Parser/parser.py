@@ -914,7 +914,8 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     for sub_child in child[1]:
                         temp.append(sub_child)
                         print(temp)
-                        Intemidiet_Code_Generator(temp)
+                        print(sub_child)
+                        #Intemidiet_Code_Generator(temp)
                         temp = []
                         print(f"goto  L{end}")
 
