@@ -760,9 +760,8 @@ disct = {}
 count = 1
 def Intemidiet_Code_Generator(list_of_tuples):
     global temp, disct, count
-    intermediate_code = []
-    for node_name, *children in list_of_tuples:
 
+    for node_name, *children in list_of_tuples:
         if node_name == "DECLARATION":
             hold1 = None
             hold2 = None
@@ -786,13 +785,12 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     if child[0] == "IDENTIFIER":
                         hold1 = child[1]
                         t_v = serach(disct, hold1)
-                        print("num", t_v)
                     elif child[0] == "expression":
                         for t in child[1]:
                             t = serach(disct, t)
                             value.append(t)
-
-                        disct[t_v] =  ' '.join(str(x) for x in value)
+                        temp = disct[t_v]
+                        disct[t_v] =  (temp[0], temp[1], ' '.join(str(x) for x in value))
                         count += 1
                         store += f"{t_v} = " + ' '.join(str(x) for x in value)
             print(store)
