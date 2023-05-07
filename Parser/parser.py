@@ -873,7 +873,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                                 elif x == '>':
                                     x = '<='
                                 vae += x
-            print("jujn", vae)
+            print("L1: IF ", vae)
         elif node_name == "function_assignment":
             t = ''
             for child in children:
