@@ -1,8 +1,6 @@
 bool state = true;
 
-int fume = 56 + 5664;
 
-int tyu  = fume;
 while (state){
        if(select == 1){
             newResult1 = division(f, e);
