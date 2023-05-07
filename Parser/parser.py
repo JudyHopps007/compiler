@@ -758,6 +758,7 @@ def serach(my_dict, target_value):
 temp = []
 disct = {}
 count = 1
+label_track = 1
 def Intemidiet_Code_Generator(list_of_tuples):
     global temp, disct, count
 
@@ -869,7 +870,9 @@ def Intemidiet_Code_Generator(list_of_tuples):
                             vae += x
 
                 elif child[0] == 'while_body':
-                    print(f"L1: if ({vae}) goto L2")
+                    l = label_track
+                    r = label_track+1
+                    print(f"L{l}: if ({vae}) goto L{r}")
                     for sub_child in child[1]:
                         temp.append(sub_child)
                         Intemidiet_Code_Generator(temp)
