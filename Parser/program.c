@@ -1,6 +1,6 @@
 bool state = true;
 int num = tu;
 
-while (state + num  == tuty){
+while (state + num  == tu){
 
 }
