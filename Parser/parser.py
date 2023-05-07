@@ -932,7 +932,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     l = label_track
                     r = label_track + 1
                     print(f"L{l}: if ( {vae} ) goto L{r}")
-                    label_track += 2
+                    label_track += 1
 
                 elif child[0] == 'elif_body':
                     for sub_child in child[1]:
@@ -944,6 +944,8 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         temp.append(sub_child)
                         Intemidiet_Code_Generator(temp)
                         temp = []
+                        l = label_track
+                        print(f'l{l}')
 
         elif node_name == "function_assignment":
             t = []
