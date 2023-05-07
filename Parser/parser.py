@@ -913,9 +913,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                 elif child[0] == 'if_body':
                     for sub_child in child[1]:
                         temp.append(sub_child)
-                        print(temp)
-                        print(sub_child)
-                        #Intemidiet_Code_Generator(temp)
+                        Intemidiet_Code_Generator([sub_child])
                         temp = []
                         print(f"goto  L{end}")
 
