@@ -821,7 +821,8 @@ def Intemidiet_Code_Generator(list_of_tuples):
 
         elif node_name == "if_statment":
             for child in children[0]:
-                print(child)
+                if child[0] == 'if_condition':
+                    print(child[1])
 
         elif node_name == "function_assignment":
             t = ''
