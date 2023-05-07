@@ -760,7 +760,7 @@ disct = {}
 count = 1
 label_track = 1
 def Intemidiet_Code_Generator(list_of_tuples):
-    global temp, disct, count
+    global temp, disct, count, label_track
 
     for node_name, *children in list_of_tuples:
         if node_name == "DECLARATION":
@@ -902,7 +902,10 @@ def Intemidiet_Code_Generator(list_of_tuples):
                                 elif x == '>':
                                     x = '<='
                                 vae += x
-                        print(f"L1: if ( {vae} ) goto L2")
+                        l = label_track
+                        r = label_track + 1
+                        print(f"L{l}: if ( {vae} ) goto L{r}")
+                        label_track += 1
 
                 if child[0] == 'if_body':
                     for sub_child in child[1]:
@@ -928,7 +931,11 @@ def Intemidiet_Code_Generator(list_of_tuples):
                             elif x == '>':
                                 x = '<='
                             vae += x
-                    print(f"L1: if ( {vae} ) goto L2")
+                    l = label_track
+                    r = label_track + 1
+                    print(f"L{l}: if ( {vae} ) goto L{r}")
+                    label_track += 2
+
                 if child[0] == 'elif_body':
                     for sub_child in child[1]:
                         temp.append(sub_child)
