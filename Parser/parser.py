@@ -790,8 +790,8 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         for t in child[1]:
                             t = serach(disct, t)
                             value.append(t)
-                        temp = disct[t_v]
-                        disct[t_v] = (temp[0], temp[1], ' '.join(str(x) for x in value))
+                        trm = disct[t_v]
+                        disct[t_v] = (trm[0], trm[1], ' '.join(str(x) for x in value))
                         count += 1
                         store += f"{t_v} = " + ' '.join(str(x) for x in value)
             print(store)
@@ -913,7 +913,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                 elif child[0] == 'if_body':
                     for sub_child in child[1]:
                         temp.append(sub_child)
-                        print(sub_child)
+                        print(temp)
                         Intemidiet_Code_Generator(temp)
                         temp = []
                         print(f"goto  L{end}")
