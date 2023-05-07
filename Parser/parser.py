@@ -764,10 +764,20 @@ def Intemidiet_Code_Generator(list_of_tuples):
     for node_name, *children in list_of_tuples:
 
         if node_name == "DECLARATION":
+            hold1 = None
+            hold2 = None
             for child in children:
+                if child[0] == 'type_specifer' :
+                    hold1 = child[1]
                     print(child[0])
-
-        if node_name == "variable_assignment":
+                if child[0] == 'IDENTIFIER' :
+                    hold2 = child[1]
+                    print(child[0])
+            t_v = f't{count}'
+            disct[t_v] = (hold1, hold2, None)
+            count += 1
+            print(disct)
+        elif node_name == "variable_assignment":
             hold1 = None
             hold2 = None
             store = ""
