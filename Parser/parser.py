@@ -301,12 +301,14 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                         s_tm = tokens[current_token + 1][1]
                         # print(f"Function Assignment: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} {s_tm}")
                         statment_block += f"\n\t\t\t\t\tFUNCTION ASSIGNMENT: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} {s_tm}"
-                        node.append(('function_assignment', ("IDENTIFIER", f"{name}"), ("f_name", f"{f_name}"), ('param', tuple(f_parameter))))
+                        node.append(('function_assignment', ("IDENTIFIER", f"{name}"), ("f_name", f"{f_name}"), ('param', tuple(param_node))))
 
                         current_token += 1
                     else:
                         # print(f"Function Assignment: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} <missing ';'>")
                         statment_block += f"\n\t\t\t\t\tFUNCTION ASSIGNMENT: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} <missing ';'>"
+                        node.append(('function_assignment', ("IDENTIFIER", f"{name}"), ("f_name", f"{f_name}"), ('param', tuple(param_node))))
+
                         Error_list += "\nSyntax error: function-call-assignment  missing semicolon at line " + tokens[current_token][2]
                 else:
                     current_token, express, exp_node = expression(tokens, current_token + 1)
@@ -483,7 +485,7 @@ def parse_program(tokens, postion):
                             else:
                                 Error_list += f"\nSyntax Error: <missing right-brace>,  function block not closed at line {tokens[current_token - 1][2]}"
                                 print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >")
-                                parser_tree.append(('FUNCTION', ("type_specifier", f"{type_specifer}"), ("function_name", "{name}"), ("function_parameter", f"{function_parameter}"), ("function_body", f"{function_body}")))
+                                parser_tree.append(('FUNCTION', ("type_specifier", f"{type_specifer}"), ("function_name", f"{name}"), ("function_parameter", tuple(param_node)), ("function_body", tuple(child_node))))
                         else:
                             print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} <missing LEFT_BRACE>...")
                             Error_list += f"\nSyntax Error: Functon definition   <missing 'right-brace'> at line  {tokens[current_token][2]}"
