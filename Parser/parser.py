@@ -769,10 +769,8 @@ def Intemidiet_Code_Generator(list_of_tuples):
             for child in children:
                 if child[0] == 'type_specifer' :
                     hold1 = child[1]
-                    print(child[0])
                 if child[0] == 'IDENTIFIER' :
                     hold2 = child[1]
-                    print(child[0])
             t_v = f't{count}'
             disct[t_v] = (hold1, hold2, None)
             count += 1
@@ -781,7 +779,6 @@ def Intemidiet_Code_Generator(list_of_tuples):
             hold1 = None
             hold2 = None
             store = ""
-
             value = []
             store=''
             for child in children:
@@ -791,6 +788,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         for t in child[1]:
                             t = serach(disct, t)
                             value.append(t)
+
                         t_v = f't{count}'
                         disct[t_v] = (hold1, hold2, ' '.join(str(x) for x in value))
                         count += 1
