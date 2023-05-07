@@ -833,9 +833,8 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     print(function_name)
                 if child[0] == 'param':
                     for parm in child[1]:
-                        param = child[1]
-                        print(param)
-                print()
+                        print(parm)
+
 
 
 
