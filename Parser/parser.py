@@ -824,6 +824,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                 print(child)
 
         elif node_name == "function_assignment":
+            t = ''
             for child in children:
                 if child[0] == 'IDENTIFIER':
                     variable_name = child[1]
@@ -834,7 +835,8 @@ def Intemidiet_Code_Generator(list_of_tuples):
                 if child[0] == 'param':
                     for parm in child[1]:
                         print(parm)
-
+                        t += parm[1]
+            print(f"function_name({t})")
 
 
 
