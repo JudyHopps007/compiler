@@ -875,17 +875,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                                 elif x == '>':
                                     x = '<='
                                 vae += x
-
-                if child[0] == 'if_body':
-                    print(child[1])
-                if child[0] == 'elif_condition':
-                    print(child[1])
-                if child[0] == 'elif_body':
-                    print(child[1])
-                if child[0] == 'else_body':
-                    print(child[1])
-            print(f"L1: if ({vae}) goto L2")
-
+                print(vae)
         elif node_name == "function_assignment":
             t = ''
             for child in children:
