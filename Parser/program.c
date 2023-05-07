@@ -1,7 +1,7 @@
 bool state = true;
 int num = tu;
 
-while (state + num){
+
 if(select == 1){
             newResult1 = division(f, e);
        }else if (select == 2){
@@ -13,4 +13,3 @@ if(select == 1){
        }
        state = false;
 
-}
