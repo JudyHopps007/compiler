@@ -780,7 +780,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                 else:
                     value = []
                     for t in child[1]:
-                        u = serach(disct, value)
+                        u = serach(disct, t)
                         print(u)
                         value.append(t)
                     temp = f't{count}'
