@@ -751,7 +751,7 @@ print("\n===============================  Intimidate_Code_Generator ============
 
 def serach(my_dict, target_value):
     for key, value in my_dict.items():
-        if value == target_value:
+        if value[1] == target_value:
             return key
     return target_value
 
@@ -780,7 +780,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                 else:
                     value = []
                     for t in child[1]:
-
+                        t = serach(disct, value)
                         value.append(t)
                     temp = f't{count}'
                     disct[temp] = (hold1, hold2, ' '.join(str(x) for x in value))
