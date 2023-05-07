@@ -820,11 +820,13 @@ def Intemidiet_Code_Generator(list_of_tuples):
                      print(f"L2:  return {child[1]}")
 
         elif node_name == "if_statment":
-            
             for child in children[0]:
                 print(child)
+
         elif node_name == "function_assignment":
-            for child in children[0]:
+            for child in children:
                 print(child)
+
+
 
 Intemidiet_Code_Generator(parser_tree)
