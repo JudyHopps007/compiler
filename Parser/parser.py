@@ -856,7 +856,6 @@ def Intemidiet_Code_Generator(list_of_tuples):
             vae = ""
             for child in children[0]:
                 if child[0] == 'if_condition':
-                        print("---", child[1])
                         for x in child[1]:
                             if isinstance(x, tuple):
                                 for i in x:
@@ -877,7 +876,23 @@ def Intemidiet_Code_Generator(list_of_tuples):
                 if child[0] == 'if_body':
                     print(child[1])
                 if child[0] == 'elif_condition':
-                    print(child[1])
+                    for x in child[1]:
+                        if isinstance(x, tuple):
+                            for i in x:
+                                print("ooj", i)
+                                t = serach(disct, i)
+                                vae += t
+                        else:
+                            if x == '==':
+                                x = '!='
+                            elif x == '!=':
+                                x = '=='
+                            elif x == '<':
+                                x = '>='
+                            elif x == '>':
+                                x = '<='
+                            vae += x
+                    print(f"L1: if ( {vae} ) goto L2")
                 if child[0] == 'elif_body':
                     print(child[1])
                 if child[0] == 'else_body':
