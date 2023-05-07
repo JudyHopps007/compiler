@@ -883,6 +883,8 @@ def Intemidiet_Code_Generator(list_of_tuples):
                      print(f"L2:  return {child[1]}")
 
         elif node_name == "if_statment":
+            x = (len(children[0]) - 1)/2 +2
+            print(x)
             print(len(children[0]))
             for child in children[0]:
                 if child[0] == 'if_condition':
