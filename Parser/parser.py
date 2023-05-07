@@ -920,7 +920,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         print(parm)
                         t += parm[1]
 
-            print(f"function_name({t})")
+            print(f"call {function_name} ({t})")
 
 
 
