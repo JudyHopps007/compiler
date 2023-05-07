@@ -943,12 +943,14 @@ def Intemidiet_Code_Generator(list_of_tuples):
 
                 elif child[0] == 'else_body':
                     for sub_child in child[1]:
+                        label_track += 1
+                        print(f'l{l} :')
                         temp.append(sub_child)
                         Intemidiet_Code_Generator(temp)
                         temp = []
                         l = label_track
-                        print(f'l{l} :')
                         label_track += 1
+                        print(f'l{l} :')
 
         elif node_name == "function_assignment":
             t = []
