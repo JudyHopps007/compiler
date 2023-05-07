@@ -276,6 +276,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                             wh_condition = condition_statment
                             # print(F"WHILE-STATEMENT: {while_key} {wh_lp} {wh_condition} {wh_rp} {wh_lb}  {while_body} {wh_rb}")
                             statment_block += f"\n\t\t\t\t\tWHILE-STATEMENT: {while_key} {wh_lp} {wh_condition} {wh_rp} {wh_lb} {while_body} {wh_rb}"
+                            node.append(('WHILE-STATEMENT', ('condition', tuple(con_node)), ("while_body", tuple(child_node))))
                         else:
                             # print(F"WHILE-STATEMENT: {while_key} {wh_lp} <missing RIGHT_BRACE>")
                             statment_block += f"\n\t\t\t\t\tWHILE-STATEMENT: {while_key} {wh_lp} {condition_statment} {wh_rp} {wh_lb}  {while_body} <missing RIGHT_BRACE>"
