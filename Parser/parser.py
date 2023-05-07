@@ -781,7 +781,6 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     value = []
                     for t in child[1]:
                         u = serach(disct, t)
-                        print(u)
                         value.append(t)
                     temp = f't{count}'
                     disct[temp] = (hold1, hold2, ' '.join(str(x) for x in value))
