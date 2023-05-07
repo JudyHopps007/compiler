@@ -301,8 +301,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                         s_tm = tokens[current_token + 1][1]
                         # print(f"Function Assignment: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} {s_tm}")
                         statment_block += f"\n\t\t\t\t\tFUNCTION ASSIGNMENT: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} {s_tm}"
-                        node.append(('function_assignment', ("IDENTIFIER", f"{name}"), ("f_name", f"{f_name}"), ('param', tuple(f_parameter))))
-
+                        node.append(('function_assignment', ("IDENTIFIER", f"{name}"), ("f_name", f"{f_name}"), ('param', tuple(param_node))))
                         current_token += 1
                     else:
                         # print(f"Function Assignment: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} <missing ';'>")
