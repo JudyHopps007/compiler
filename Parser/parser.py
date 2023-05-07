@@ -775,15 +775,17 @@ def Intemidiet_Code_Generator(list_of_tuples):
             disct[t_v] = (hold1, hold2, None)
             count += 1
             print(disct)
+
         elif node_name == "variable_assignment":
             hold1 = None
             hold2 = None
-            store = ""
             value = []
-            store=''
+            store = ''
             for child in children:
                     if child[0] == "IDENTIFIER":
                         hold1 = child[1]
+                        t = serach(disct, hold1)
+                        print("num", t)
                     if child[0] == "expression":
                         for t in child[1]:
                             t = serach(disct, t)
