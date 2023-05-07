@@ -805,6 +805,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     store += f"{t_v} = " + ' '.join(str(x) for x in value)
 
             print(store)
+            print(disct)
 
 
 
