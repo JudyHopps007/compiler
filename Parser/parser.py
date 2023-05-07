@@ -912,6 +912,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         temp.append(sub_child)
                         Intemidiet_Code_Generator(temp)
                         temp = []
+                        print("l21 :")
 
                 elif child[0] == 'elif_condition':
                     vae = ""
