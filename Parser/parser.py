@@ -946,7 +946,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         temp = []
                         l = label_track
                         print(f'l{l} :')
-                        label_track+= 1
+                        label_track += 1
 
         elif node_name == "function_assignment":
             t = []
