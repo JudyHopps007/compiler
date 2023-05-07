@@ -1,7 +1,7 @@
 int select = 3;
 int state = false;
 while (state){
-     if(num){  int state = false;}
+     if(num){  }
 }
 
 

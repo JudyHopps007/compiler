@@ -979,4 +979,4 @@ def Intemidiet_Code_Generator(list_of_tuples):
 
 
 
-Intemidiet_Code_Generator(parser_tree)
+Intemidiet_Code_Generator([(('if_statment', (('if_condition', (('num',),)), ('if_body', (('INITIALIZATION', ('type_specifier', 'int'), ('IDENTIFIER', 'state'), ('expression', ('false',))),)))),)])
