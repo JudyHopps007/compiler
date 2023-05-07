@@ -162,6 +162,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                 Error_list += "Syntax Error : expected token 'IDENTIFIER' goten at line  ", tokens[current_token][2]
 
         elif current_token < len(tokens) and tokens[current_token][0] == 'IF':
+            if_node = []
             gm = ""
             else_if = 0
             while True:
@@ -258,7 +259,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     # print(f"IF statement: {gm} ... <missing LEFT_PAREN> ...")
                     statment_block += f"\n\t\t\t\t\tIF STATEMENT: {gm} ... <missing LEFT_PAREN> ..."
                     break
-
+            node.append(('if_statment', tuple(if_node))
         elif current_token < len(tokens) and tokens[current_token][0] == 'WHILE':
             while_key = tokens[current_token][0]
             if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_PAREN':
@@ -280,6 +281,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                         else:
                             # print(F"WHILE-STATEMENT: {while_key} {wh_lp} <missing RIGHT_BRACE>")
                             statment_block += f"\n\t\t\t\t\tWHILE-STATEMENT: {while_key} {wh_lp} {condition_statment} {wh_rp} {wh_lb}  {while_body} <missing RIGHT_BRACE>"
+                            node.append(('WHILE-STATEMENT', ('condition', f'{condition_statment}'), ("while_body", f"{while_body}")))
                             Error_list += "\nSyntax Error: missing '}' at line ", tokens[current_token - 1][2]
                 else:
                     # print(F"WHILE-STATEMENT: {while_key} {wh_lp} <error incomplete-while-statement>")
