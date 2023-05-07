@@ -832,7 +832,6 @@ def Intemidiet_Code_Generator(list_of_tuples):
                 if child[0] == 'else_body':
                     print(child[1])
 
-
         elif node_name == "function_assignment":
             t = ''
             for child in children:
