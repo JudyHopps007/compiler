@@ -948,7 +948,6 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     for sub_child in child[1]:
                         l = label_track
                         label_track += 1
-
                         print(f'L{l} :')
                         temp.append(sub_child)
                         Intemidiet_Code_Generator(temp)
