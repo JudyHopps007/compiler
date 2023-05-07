@@ -884,8 +884,10 @@ def Intemidiet_Code_Generator(list_of_tuples):
 
         elif node_name == "if_statment":
             end = int((len(children[0]) - 1)/2 +2)
+
             print("dd", end)
             print("label_track", label_track)
+
             print(len(children[0]))
             for child in children[0]:
                 if child[0] == 'if_condition':
