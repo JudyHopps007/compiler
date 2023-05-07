@@ -97,6 +97,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     terminator = tokens[current_token + 2][1]
                     # print(f"Declaration {type} {name} {terminator}")
                     statment_block += f"\n\t\t\t\t\tDECLARATION:   {type_specifer} {name} {terminator}"
+                    node.append(("DECLARATION", ("type_specifer", f"{type_specifer}"), ('IDENTIFIER', F"{name}")))
                     current_token += 2
 
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "LEFT_PAREN":  # handle functions
@@ -104,7 +105,6 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     function_parameter, pos, param_node = parameter_RFC(tokens, (current_token + 2))
                     current_token = pos
                     if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_PAREN":
-
                         f_rp = tokens[current_token][1]
                         if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "LEFT_BRACE":
                             block_track -= 1
@@ -118,6 +118,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                             else:
                                 Error_list += "\nSyntax Error: <missing '}',  function block not closed"
                                 statment_block += f"\n\t\t\t\t\tFUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  \n\t\t\t\t\t<missing RIGHT_BRACE' >"
+                                node.append(('FUNCTION', ("type_specifier", f"{type_specifer}"), ("function_name", f"{name}"), ("function_parameter", tuple(param_node)), ("function_body", tuple(child_node))))
                         else:
                             Error_list += "\nSyntax Error: <missing '}',  function block not closed at line " + tokens[current_token - 1][2]
                             statment_block += f"\n\t\t\t\t\tFUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} <missing LEFT_BRACE>..."
@@ -139,7 +140,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                             node.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{namr}"), ("expression", tuple(exp_node))))
                         else:
                             statment_block += f"\n\t\t\t\t\tINITIALIZATION: {type_specifer} {namr} {asg} {express} <missing ';'>"
-                            node.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{namr}"), ("expression", f"{express}")))
+                            node.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{namr}"), ("expression", tuple(exp_node))))
                             Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token - 1][2]} after '{tokens[current_token - 1][1]}'"
                             continue
                     else:
@@ -173,6 +174,10 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     gm += l_p + ' '
                     current_token, if_condition, con_node = condition_statement_RFC(tokens, current_token + 1)
                     gm += if_condition + ' '
+                    if else_if == 0:
+                        if_node.append(('if_condition', tuple(con_node)))
+                    else:
+                        if_node.append(('elif_condition', tuple(con_node)))
                     if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_PAREN':
                         r_p = tokens[current_token][1]
                         gm += r_p + ' '
@@ -180,7 +185,11 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                             block_track += 1
                             l_b = tokens[current_token + 1][1]
                             gm += l_b + ' '
-                            current_token, if_statment_body = statments(tokens, current_token + 1)
+                            current_token, if_statment_body, stat_node = statments(tokens, current_token + 1)
+                            if else_if == 0:
+                                if_node.append(('if_body', tuple(stat_node)))
+                            else:
+                                if_node.append(('elif_body', tuple(stat_node)))
                             gm += if_statment_body + ' '
                             if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_BRACE':
                                 block_track -= 1
@@ -203,7 +212,8 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                                             gm += else_key + ' '
                                             e_lb = tokens[current_token + 2][1]
                                             gm += e_lb + ' '
-                                            current_token, else_statment_body = statments(tokens, current_token + 2)
+                                            current_token, else_statment_body, els_node = statments(tokens, current_token + 2)
+                                            if_node.append(('else_body', tuple(els_node)))
                                             gm += else_statment_body + ' '
                                             if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_BRACE':
                                                 block_track -= 1
@@ -259,7 +269,8 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     # print(f"IF statement: {gm} ... <missing LEFT_PAREN> ...")
                     statment_block += f"\n\t\t\t\t\tIF STATEMENT: {gm} ... <missing LEFT_PAREN> ..."
                     break
-            node.append(('if_statment', tuple(if_node))
+            node.append(('if_statment', tuple(if_node)))
+
         elif current_token < len(tokens) and tokens[current_token][0] == 'WHILE':
             while_key = tokens[current_token][0]
             if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_PAREN':
@@ -506,11 +517,11 @@ def parse_program(tokens, postion):
                         if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                             s_tm = tokens[current_token][1]
                             print(f"INITIALIZATION: {type_specifer} {namr} {asg} {express} {s_tm}")
-                            parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{namr}"), ("expression", f"{express}")))
+                            parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{namr}"), ("expression", tuple(exp_node))))
                         else:
                             print(f"INITIALIZATION: {type_specifer} {namr} {asg} {express} <missing ';'>")
                             parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{namr}"), ("expression", f"{express}")))
-                            Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token - 1][2]} after '{tokens[current_token - 1][1]}'"
+                            parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{namr}"), ("expression", tuple(exp_node))))
                             continue
                     else:
                         print(f"Syntax Error: variable Initialization error, no value was assigned at line {tokens[current_token][2]} ")
@@ -620,7 +631,6 @@ def parse_program(tokens, postion):
                     Error_list += f"\n Syntax Error : illigal if-statement format at line  {tokens[current_token][2]}"
                     print(f"IF STATEMENT: {gm} ... <missing LEFT_PAREN> ...")
                     break
-            print(if_node)
             parser_tree.append(('if_statment', tuple(if_node)))
 
         elif tokens[current_token][0] == 'WHILE':
@@ -747,27 +757,41 @@ def serach(my_dict, target_value):
 
 temp = []
 disct = {}
+count = 1
 def Intemidiet_Code_Generator(list_of_tuples):
-    global temp, disct
+    global temp, disct, count
     intermediate_code = []
-    store = ""
+
     for node_name, *children in list_of_tuples:
         if node_name == "DECLARATION":
             for child in children:
                 if child[1] != 'int':
                     print(child[1])
+
         elif node_name == "INITIALIZATION":
+            store = ""
+            hold1 = None
+            hold2 = None
             for child in children:
                 if child[0] == "type_specifier":
-                    continue
+                    hold1 = child[1]
                 elif child[0] == "IDENTIFIER":
-                    store += child[1] + " = "
-                    continue
+                    hold2 = child[1]
                 else:
-                    for child in child[1]:
-                        value = serach(disct, child)
-                        store += value + " "
-                    print(store)
+                    value = []
+                    for t in child[1]:
+
+                        value.append(t)
+                    temp = f't{count}'
+                    disct[temp] = (hold1, hold2, ' '.join(str(x) for x in value))
+                    count += 1
+                    store += f"{temp} = " + ' '.join(str(x) for x in value)
+
+            print(store)
+            print(disct)
+
+
+
 
         elif node_name == "FUNCTION":
             i = 0
@@ -852,6 +876,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         t += parm[1]
 
             print(f"function_name({t})")
+
 
 
 

@@ -1,6 +1,5 @@
- if (select == 2){
-            newResult1 = multiplication(f, e);
-      } else if ( ){
+bool state = true;
 
-      } else{
-      }
+int fume = 56 + 5664;
+
+int tyu  = fume;
