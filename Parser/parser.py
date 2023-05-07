@@ -884,7 +884,8 @@ def Intemidiet_Code_Generator(list_of_tuples):
 
         elif node_name == "if_statment":
             end = int((len(children[0]) - 1)/2 +2)
-            print("dd", end)
+
+            print("dd", end+label_track)
             print("dd", end)
             print("label_track", label_track)
 
@@ -910,7 +911,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         l = label_track
                         r = label_track + 1
                         print(f"L{l} : if ( {vae} ) goto L{r}")
-                        label_track += 1
+                        label_track += 2
 
                 elif child[0] == 'if_body':
                     for sub_child in child[1]:
@@ -939,7 +940,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     l = label_track
                     r = label_track + 1
                     print(f"L{l} : if ( {vae} ) goto L{r}")
-                    label_track += 1
+                    label_track += 2
 
                 elif child[0] == 'elif_body':
                     for sub_child in child[1]:
