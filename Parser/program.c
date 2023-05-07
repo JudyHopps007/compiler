@@ -1,4 +1,6 @@
-int kmr  (numdf , efdf)
+int kmr  (numdf , efdf){
+
+}
 
 
        if(select == 1){
