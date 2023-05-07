@@ -1,4 +1,4 @@
 bool state = true;
-while (state){
+while (state == num ){
 
 }
