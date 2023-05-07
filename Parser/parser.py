@@ -781,18 +781,18 @@ def Intemidiet_Code_Generator(list_of_tuples):
             hold2 = None
             value = []
             store = ''
+            t_v = None
             for child in children:
                     if child[0] == "IDENTIFIER":
                         hold1 = child[1]
-                        t = serach(disct, hold1)
-                        print("num", t)
-                    if child[0] == "expression":
+                        t_v = serach(disct, hold1)
+                        print("num", t_v)
+                    elif child[0] == "expression":
                         for t in child[1]:
                             t = serach(disct, t)
                             value.append(t)
 
-                        t_v = f't{count}'
-                        disct[t_v] = (hold1, hold2, ' '.join(str(x) for x in value))
+                        disct[t_v] =  ' '.join(str(x) for x in value)
                         count += 1
                         store += f"{t_v} = " + ' '.join(str(x) for x in value)
             print(store)
