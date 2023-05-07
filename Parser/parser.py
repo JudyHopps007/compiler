@@ -826,7 +826,10 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     print(child[1])
                 if child[0] == 'if_body':
                     print(child[1])
-                
+                if child[0] == 'else_body':
+                    print(child[1])
+
+                    
         elif node_name == "function_assignment":
             t = ''
             for child in children:
@@ -840,6 +843,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     for parm in child[1]:
                         print(parm)
                         t += parm[1]
+
             print(f"function_name({t})")
 
 
