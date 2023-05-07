@@ -763,10 +763,9 @@ def Intemidiet_Code_Generator(list_of_tuples):
     intermediate_code = []
     for node_name, *children in list_of_tuples:
 
-        if node_name == "DECLARATION":
+        if node_name == "variable_assignment":
             for child in children:
-                if child[1] != 'int':
-                    print(child[1])
+                    print(child[0])
 
         elif node_name == "INITIALIZATION":
             store = ""
