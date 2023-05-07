@@ -1,14 +1,5 @@
-
-
-int select = 12;
+int c = 3;
 while(select == 1){
-        bool state = true;
         int c = 3;
-        int d = 5;
-        float e = 6.0;
-        float f = 12.0;
-        float newResult1;
-        int newResult2;
-
         }
-
+//('INITIALIZATION', ('type_specifier', 'bool'), ('IDENTIFIER', 'state'), ('expression', ('true',)))

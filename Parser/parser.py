@@ -761,16 +761,14 @@ count = 1
 def Intemidiet_Code_Generator(list_of_tuples):
     global temp, disct, count
     intermediate_code = []
-
     for node_name, *children in list_of_tuples:
-        print(node_name)
+
         if node_name == "DECLARATION":
             for child in children:
                 if child[1] != 'int':
                     print(child[1])
 
         elif node_name == "INITIALIZATION":
-            print(121)
             store = ""
             hold1 = None
             hold2 = None
@@ -843,13 +841,10 @@ def Intemidiet_Code_Generator(list_of_tuples):
 
                 elif child[0] == 'while_body':
                     print(f"L1: if ({vae}) goto L2")
-                    for child in child[1]:
-                        print(child)
-                        for child in child[1]:
-                            temp.append(child)
-                            Intemidiet_Code_Generator(temp)
-                            temp = []
-
+                    for sub_child in child[1]:
+                        temp.append(sub_child)
+                        Intemidiet_Code_Generator(temp)
+                        temp = []
 
                 if child[0] == 'return_statement':
                      print(f"goto L1")
@@ -877,7 +872,11 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         print(f"L1: if ( {vae} ) goto L2")
 
                 if child[0] == 'if_body':
-                    print(child[1])
+                    for sub_child in child[1]:
+                        temp.append(sub_child)
+                        Intemidiet_Code_Generator(temp)
+                        temp = []
+
                 if child[0] == 'elif_condition':
                     for x in child[1]:
                         if isinstance(x, tuple):
@@ -897,9 +896,15 @@ def Intemidiet_Code_Generator(list_of_tuples):
                             vae += x
                     print(f"L1: if ( {vae} ) goto L2")
                 if child[0] == 'elif_body':
-                    print(child[1])
+                    for sub_child in child[1]:
+                        temp.append(sub_child)
+                        Intemidiet_Code_Generator(temp)
+                        temp = []
                 if child[0] == 'else_body':
-                    print(child[1])
+                    for sub_child in child[1]:
+                        temp.append(sub_child)
+                        Intemidiet_Code_Generator(temp)
+                        temp = []
 
         elif node_name == "function_assignment":
             t = ''
