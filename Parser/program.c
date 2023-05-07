@@ -1,5 +1,9 @@
 int select = 3;
 while (state){
- int select = 3;
+       if(select == 1){
+            newResult1 = division(f, e);
+       }
+       state = false;
 }
+
 
