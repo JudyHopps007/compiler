@@ -766,15 +766,20 @@ def Intemidiet_Code_Generator(list_of_tuples):
         if node_name == "variable_assignment":
             hold1 = None
             value = []
+            store=''
             for child in children:
                     print(child[0])
                     if child[0] == "IDENTIFIER":
                         hold2 = child[1]
                     if child[0] == "expression":
                         for t in child[1]:
-                            print()
                             t = serach(disct, t)
                             value.append(t)
+                        t_v = f't{count}'
+                        disct[t_v] = (hold1, hold2, ' '.join(str(x) for x in value))
+                        count += 1
+                        store += f"{t_v} = " + ' '.join(str(x) for x in value)
+            print(store)
 
         elif node_name == "INITIALIZATION":
             store = ""
