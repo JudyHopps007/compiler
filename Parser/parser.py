@@ -705,12 +705,14 @@ def parse_program(tokens, postion):
             if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                 if len(express) != 0:
                     print("RETURN-STATEMENT  : return ", express, tokens[current_token][1])
+                    parser_tree.append(("return_statement", express))
                 else:
                     Error_list += f"\nSyntax error: no return value was specified at line {tokens[current_token][2]}"
             else:
                 if len(express) != 0:
                     print(f"RETURN-STATEMENT  : return {express} <missing ';'>")
                     Error_list += f"\nSyntax error: return statement missing semicolon  at line {tokens[current_token - 1][2]}"
+                    parser_tree.append(("return_statement", express))
                 else:
                     print(f"RETURN-STATEMENT  : return  <missing return-value>  <missing ';'>")
                     Error_list += f"\nSyntax error: no return value was specified, and  missing a 'statement' terminator for return statement {tokens[current_token - 1][2]}"
