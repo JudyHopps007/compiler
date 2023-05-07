@@ -830,7 +830,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                 if child[0] == 'f_name':
                     function_name = child[1]
                 if child[0] == 'param':
-                    function_name = child[1]
+                    param = child[1]
                 print(child)
 
 
