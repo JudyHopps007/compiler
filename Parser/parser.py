@@ -840,7 +840,8 @@ def Intemidiet_Code_Generator(list_of_tuples):
                             elif x == '>':
                                  x = '<='
                             vae += x
-                if child[0] == 'while_body':
+
+                elif child[0] == 'while_body':
                     print(f"L1: if ({vae}) goto L2")
                     for child in child[1]:
                         temp.append(child)
