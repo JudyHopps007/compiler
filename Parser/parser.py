@@ -883,8 +883,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                      print(f"L2:  return {child[1]}")
 
         elif node_name == "if_statment":
-            x = (len(children[0]) - 1)/2 +2
-            print(x)
+            end = (len(children[0]) - 1)/2 +2
             print(len(children[0]))
             for child in children[0]:
                 if child[0] == 'if_condition':
@@ -914,6 +913,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         temp.append(sub_child)
                         Intemidiet_Code_Generator(temp)
                         temp = []
+                        print(f"L{end} :")
 
                 elif child[0] == 'elif_condition':
                     vae = ""
@@ -942,19 +942,21 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         temp.append(sub_child)
                         Intemidiet_Code_Generator(temp)
                         temp = []
+                        print(f"L{end} :")
 
                 elif child[0] == 'else_body':
                     for sub_child in child[1]:
                         l = label_track
                         label_track += 1
 
-                        print(f'l{l} :')
+                        print(f'L{l} :')
                         temp.append(sub_child)
                         Intemidiet_Code_Generator(temp)
                         temp = []
                         l = label_track
                         label_track += 1
-                        print(f'l{l} :')
+                        print(f'L{l} :')
+                        print(f"L{end} :")
 
         elif node_name == "function_assignment":
             t = []
