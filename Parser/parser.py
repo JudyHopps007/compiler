@@ -614,7 +614,7 @@ def parse_program(tokens, postion):
                     print(f"IF STATEMENT: {gm} ... <missing LEFT_PAREN> ...")
                     break
             print(if_node)
-            parser_tree.append(tuple(if_node))
+            parser_tree.append(('if_statment', tuple(if_node)))
 
         elif tokens[current_token][0] == 'WHILE':
             while_key = tokens[current_token][0]
@@ -812,6 +812,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                      print(f"goto L1")
                      print(f"L2:  return {child[1]}")
 
-        elif node_name == "WHILE-STATEMENT"
+        elif node_name == "WHILE-STATEMENT":
+            print(node_name)
 
 Intemidiet_Code_Generator(parser_tree)
