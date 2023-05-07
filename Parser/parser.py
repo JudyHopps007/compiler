@@ -923,6 +923,9 @@ def Intemidiet_Code_Generator(list_of_tuples):
 
             print(f"call {function_name}, {', '.join(str(x) for x in t)}")
 
+        elif node_name == "DECLARATION":
+            print(node_name)
+
 
 
 
