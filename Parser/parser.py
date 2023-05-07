@@ -821,10 +821,13 @@ def Intemidiet_Code_Generator(list_of_tuples):
 
         elif node_name == "if_statment":
             for child in children[0]:
-                print(child)
                 if child[0] == 'if_condition':
                     print(child[1])
                 if child[0] == 'if_body':
+                    print(child[1])
+                if child[0] == 'elif_condition':
+                    print(child[1])
+                if child[0] == 'elif_body':
                     print(child[1])
                 if child[0] == 'else_body':
                     print(child[1])
