@@ -761,7 +761,7 @@ count = 1
 label_track = 1
 def Intemidiet_Code_Generator(list_of_tuples):
     global temp, disct, count, label_track
-
+    #print(list_of_tuples)
     for node_name, *children in list_of_tuples:
         if node_name == "DECLARATION":
             hold1 = None
