@@ -875,7 +875,8 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     print(f"L{l}: if ({vae}) goto L{r}")
                     for sub_child in child[1]:
                         temp.append(sub_child)
-                        Intemidiet_Code_Generator(temp)
+                        print("9900",temp)
+                        #Intemidiet_Code_Generator(temp)
                         temp = []
                         print(f"L{r} : ")
                         label_track += 1
