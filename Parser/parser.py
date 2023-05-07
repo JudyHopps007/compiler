@@ -856,7 +856,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
             vae = ""
             for child in children[0]:
                 if child[0] == 'if_condition':
-                    print(child[1])
+                    print("---", child[1])
                     if child[0] == 'condition':
                         print(child[1])
                         for x in child[1]:
