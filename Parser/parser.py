@@ -871,7 +871,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     r = label_track+1
                     print(f"L{l}: if ({vae}) goto L{r}")
                     for sub_child in child[1]:
-                        label_track += 1
+                        label_track += 2
                         Intemidiet_Code_Generator([sub_child])
                         print(f"L{r} : ")
 
