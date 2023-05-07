@@ -826,7 +826,12 @@ def Intemidiet_Code_Generator(list_of_tuples):
         elif node_name == "function_assignment":
             for child in children:
                 if child[0] == 'IDENTIFIER':
-                   print(child)
+                    variable_name = child[1]
+                if child[0] == 'f_name':
+                    function_name = child[1]
+                if child[0] == 'param':
+                    function_name = child[1]
+                print(child)
 
 
 
