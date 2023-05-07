@@ -911,12 +911,12 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         temp.append(sub_child)
                         Intemidiet_Code_Generator(temp)
                         temp = []
-                        print(f"L2: return")
 
                 elif child[0] == 'elif_condition':
                     vae = ""
                     for x in child[1]:
                         if isinstance(x, tuple):
+                            for i in x:
                                 t = serach(disct, i)
                                 vae += t
                         else:
