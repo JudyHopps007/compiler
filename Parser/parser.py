@@ -333,7 +333,6 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                             s_tm = tokens[current_token][1]
                             statment_block += f"\n\t\t\t\t\tVARIABLE ASSIGNMENT: {name} {asg} {None} {s_tm}"
 
-
             elif tokens[current_token + 1][0] == 'LEFT_PAREN':
                 l_p = tokens[current_token + 1][1]
                 function_parameter, pos, param_node = parameter_RFC(tokens, (current_token + 1))
@@ -698,7 +697,6 @@ def parse_program(tokens, postion):
                         current_token += 1
                     else:
                         print(f"FUNCTION CALL : {name} {l_p} {function_parameter} {f_rp}  < missing ';'>")
-                        print('Syntax Error: function call missing statement terminator at line ', tokens[current_token][2])
                         Error_list += f"\nSyntax Error: function call missing statement terminator at line {tokens[current_token][2]}"
 
         elif tokens[current_token][1] == 'return':
@@ -708,7 +706,6 @@ def parse_program(tokens, postion):
                 if len(express) != 0:
                     print("RETURN-STATEMENT  : return ", express, tokens[current_token][1])
                 else:
-                    print("RETURN-STATEMENT  : return  <error 'no value'>", tokens[current_token][1])
                     Error_list += f"\nSyntax error: no return value was specified at line {tokens[current_token][2]}"
             else:
                 if len(express) != 0:
