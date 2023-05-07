@@ -483,8 +483,8 @@ def parse_program(tokens, postion):
                             else:
                                 Error_list += f"\nSyntax Error: <missing right-brace>,  function block not closed at line {tokens[current_token - 1][2]}"
                                 print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >")
-                                parser_tree.append(('FUNCTION', ("type_specifier", f"{type_specifer}"), ("function_name", "{name}"), ("function_parameter", f"{function_parameter}"), ("function_body", f"{function_body}")))
-                        else:
+                                parser_tree.append(('FUNCTION', ("type_specifier", f"{type_specifer}"), ("function_name", f"{name}"), ("function_parameter", tuple(param_node)), ("function_body", tuple(child_node))))                        else:
+
                             print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} <missing LEFT_BRACE>...")
                             Error_list += f"\nSyntax Error: Functon definition   <missing 'right-brace'> at line  {tokens[current_token][2]}"
                     else:
