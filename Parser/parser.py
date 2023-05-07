@@ -906,14 +906,14 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         print(f"L{l}: if ( {vae} ) goto L{r}")
                         label_track += 1
 
-                if child[0] == 'if_body':
+                elif child[0] == 'if_body':
                     for sub_child in child[1]:
                         temp.append(sub_child)
                         Intemidiet_Code_Generator(temp)
                         temp = []
                         print(f"L2: return")
 
-                if child[0] == 'elif_condition':
+                elif child[0] == 'elif_condition':
                     vae = ""
                     for x in child[1]:
                         if isinstance(x, tuple):
@@ -934,12 +934,12 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     print(f"L{l}: if ( {vae} ) goto L{r}")
                     label_track += 2
 
-                if child[0] == 'elif_body':
+                elif child[0] == 'elif_body':
                     for sub_child in child[1]:
                         temp.append(sub_child)
                         Intemidiet_Code_Generator(temp)
                         temp = []
-                if child[0] == 'else_body':
+                elif child[0] == 'else_body':
                     for sub_child in child[1]:
                         temp.append(sub_child)
                         Intemidiet_Code_Generator(temp)
