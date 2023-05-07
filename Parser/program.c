@@ -1,5 +1,5 @@
 bool state = true;
-num = tu;
+int num = tu;
 
 while (state == num ){
 
