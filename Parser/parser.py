@@ -302,13 +302,11 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                         # print(f"Function Assignment: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} {s_tm}")
                         statment_block += f"\n\t\t\t\t\tFUNCTION ASSIGNMENT: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} {s_tm}"
                         node.append(('function_assignment', ("IDENTIFIER", f"{name}"), ("f_name", f"{f_name}"), ('param', tuple(param_node))))
-
                         current_token += 1
                     else:
                         # print(f"Function Assignment: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} <missing ';'>")
                         statment_block += f"\n\t\t\t\t\tFUNCTION ASSIGNMENT: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} <missing ';'>"
                         node.append(('function_assignment', ("IDENTIFIER", f"{name}"), ("f_name", f"{f_name}"), ('param', tuple(param_node))))
-
                         Error_list += "\nSyntax error: function-call-assignment  missing semicolon at line " + tokens[current_token][2]
                 else:
                     current_token, express, exp_node = expression(tokens, current_token + 1)
@@ -658,9 +656,11 @@ def parse_program(tokens, postion):
                     if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
                         s_tm = tokens[current_token + 1][1]
                         print(f"FUNCTION ASSIGNMENT: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} {s_tm}")
+                        parser_tree.append(('function_assignment', ("IDENTIFIER", f"{name}"), ("f_name", f"{f_name}"), ('param', tuple(param_node))))
                         current_token += 1
                     else:
                         print(f"FUNCTION ASSIGNMENT: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} <missing ';'>")
+                        parser_tree.append(('function_assignment', ("IDENTIFIER", f"{name}"), ("f_name", f"{f_name}"), ('param', tuple(param_node))))
                         print("Syntax error: function-call-assignment  missing semicolon at line ", tokens[current_token][2])
                 else:
                     current_token, express, exp_node = expression(tokens, current_token + 1)
