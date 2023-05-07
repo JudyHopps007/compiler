@@ -1,3 +1,4 @@
-if(select == 1){
-            newResult1 = division(f, e);
-       }
+if(){
+
+}else if(){
+}else{ }

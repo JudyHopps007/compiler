@@ -534,7 +534,10 @@ def parse_program(tokens, postion):
                     gm += l_p + ' '
                     current_token, if_condition, con_node = condition_statement_RFC(tokens, current_token + 1)
                     gm += if_condition + ' '
-                    if_node.append(('condition', tuple(con_node)))
+                    if else_if == 0:
+                        if_node.append(('if_condition', tuple(con_node)))
+                    else:
+                        if_node.append(('elif_condition', tuple(con_node)))
                     if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_PAREN':
                         r_p = tokens[current_token][1]
                         gm += r_p + ' '
@@ -542,7 +545,10 @@ def parse_program(tokens, postion):
                             l_b = tokens[current_token + 1][1]
                             gm += l_b + ' '
                             current_token, if_statment_body, stat_node = statments(tokens, current_token + 1)
-
+                            if else_if == 0:
+                               if_node.append(('if_body', tuple(stat_node)))
+                            else:
+                                if_node.append(('elif_body', tuple(stat_node)))
                             gm += if_statment_body + ' '
                             if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_BRACE':
                                 r_b = tokens[current_token][1]
@@ -550,32 +556,29 @@ def parse_program(tokens, postion):
                                 # current_token += 2
                                 if current_token == len(tokens):
                                     print(f"IF STATEMENT {gm}")
-                                    parser_tree.append(('if_statement', ('condition', tuple(con_node)), ("if_body", tuple(stat_node))))
                                     break
                                 elif (current_token + 1) >= len(tokens):
                                     print(f"IF STATEMENT: {gm}")
-                                    parser_tree.append(('if_statement', ('condition', tuple(con_node)), ("if_body", tuple(stat_node))))
                                     break
                                 elif tokens[current_token + 1][0] != 'ELSE':
                                     print(f"IF STATEMENT: {gm}")
-                                    parser_tree.append(('if_statement', ('condition', tuple(con_node)), ("if_body", tuple(stat_node))))
                                     break
                                 else:
                                     if (current_token + 2) < len(tokens) and tokens[current_token + 1][0] == 'ELSE' and tokens[current_token + 2][0] != 'IF':
                                         else_key = tokens[current_token + 1][1]
                                         gm += else_key + ' '
                                         if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'LEFT_BRACE':
-
                                             e_lb = tokens[current_token + 2][1]
                                             gm += e_lb + ' '
                                             current_token, else_statment_body, els_node = statments(tokens, current_token + 2)
+                                            if_node.append(('else_body', tuple(els_node)))
                                             gm += else_statment_body + ' '
                                             if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_BRACE':
                                                 e_rb = tokens[current_token][1]
                                                 gm += e_rb + ' '
                                                 if else_if == 0:
                                                     print(f"IF-ELSE STATEMENT: {gm}")
-                                                    parser_tree.append(('if_statement', ('condition', tuple(con_node)), ("if_body", tuple(stat_node)), ("else_body", tuple(els_node))))
+
                                                 else:
                                                     print(f"IF-ELSE-IF STATEMENT: {gm}")
                                                 break
@@ -610,6 +613,8 @@ def parse_program(tokens, postion):
                     Error_list += f"\n Syntax Error : illigal if-statement format at line  {tokens[current_token][2]}"
                     print(f"IF STATEMENT: {gm} ... <missing LEFT_PAREN> ...")
                     break
+            print(if_node)
+            parser_tree.append(tuple(if_node))
 
         elif tokens[current_token][0] == 'WHILE':
             while_key = tokens[current_token][0]
