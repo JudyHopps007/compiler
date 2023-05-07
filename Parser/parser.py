@@ -827,11 +827,15 @@ def Intemidiet_Code_Generator(list_of_tuples):
             for child in children:
                 if child[0] == 'IDENTIFIER':
                     variable_name = child[1]
+                    print(variable_name)
                 if child[0] == 'f_name':
                     function_name = child[1]
+                    print(function_name)
                 if child[0] == 'param':
-                    param = child[1]
-                print(child)
+                    for parm in child[1]:
+                        param = child[1]
+                        print(param)
+                print()
 
 
 
