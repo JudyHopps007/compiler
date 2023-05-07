@@ -853,9 +853,29 @@ def Intemidiet_Code_Generator(list_of_tuples):
                      print(f"L2:  return {child[1]}")
 
         elif node_name == "if_statment":
+            vae = ""
             for child in children[0]:
                 if child[0] == 'if_condition':
                     print(child[1])
+                    if child[0] == 'condition':
+                        print(child[1])
+                        for x in child[1]:
+                            if isinstance(x, tuple):
+                                for i in x:
+                                    print("ooj", i)
+                                    t = serach(disct, i)
+                                    vae += t
+                            else:
+                                if x == '==':
+                                    x = '!='
+                                elif x == '!=':
+                                    x = '=='
+                                elif x == '<':
+                                    x = '>='
+                                elif x == '>':
+                                    x = '<='
+                                vae += x
+
                 if child[0] == 'if_body':
                     print(child[1])
                 if child[0] == 'elif_condition':
@@ -864,6 +884,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     print(child[1])
                 if child[0] == 'else_body':
                     print(child[1])
+            print(f"L1: if ({vae}) goto L2")
 
         elif node_name == "function_assignment":
             t = ''
