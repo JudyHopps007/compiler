@@ -812,7 +812,8 @@ def Intemidiet_Code_Generator(list_of_tuples):
                      print(f"goto L1")
                      print(f"L2:  return {child[1]}")
 
-        elif node_name == "WHILE-STATEMENT":
-            print(node_name)
+        elif node_name == "if_statment":
+            for child in children:
+                print(child)
 
 Intemidiet_Code_Generator(parser_tree)
