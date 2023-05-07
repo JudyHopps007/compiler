@@ -790,7 +790,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                             t = serach(disct, t)
                             value.append(t)
                         temp = disct[t_v]
-                        disct[t_v] =  (temp[0], temp[1], ' '.join(str(x) for x in value))
+                        disct[t_v] = (temp[0], temp[1], ' '.join(str(x) for x in value))
                         count += 1
                         store += f"{t_v} = " + ' '.join(str(x) for x in value)
             print(store)
