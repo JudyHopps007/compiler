@@ -913,7 +913,8 @@ def Intemidiet_Code_Generator(list_of_tuples):
                 elif child[0] == 'if_body':
                     for sub_child in child[1]:
                         temp.append(sub_child)
-                        Intemidiet_Code_Generator(temp)
+                        print(sub_child)
+                        #Intemidiet_Code_Generator(temp)
                         temp = []
                         print(f"goto  L{end}")
 
@@ -979,4 +980,4 @@ def Intemidiet_Code_Generator(list_of_tuples):
 
 
 
-Intemidiet_Code_Generator([(('if_statment', (('if_condition', (('num',),)), ('if_body', (('INITIALIZATION', ('type_specifier', 'int'), ('IDENTIFIER', 'state'), ('expression', ('false',))),)))),)])
+Intemidiet_Code_Generator(parser_tree)
