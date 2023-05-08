@@ -777,8 +777,6 @@ def Intemidiet_Code_Generator(list_of_tuples):
 
 
         elif node_name == "variable_assignment":
-            hold1 = None
-            hold2 = None
             value = []
             store = ''
             t_v = None
@@ -844,7 +842,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         Intemidiet_Code_Generator([child])
                         if child[0] == 'return_statement':
                             print(f"return {child[1]}")
-                            print("func end")
+                    print("func end")
 
         elif node_name == "WHILE-STATEMENT":
             vae = ""
@@ -873,7 +871,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     for sub_child in child[1]:
                         label_track += 2
                         Intemidiet_Code_Generator([sub_child])
-                        print(f"L{r} : ")
+                    print(f"L{r} : ")
 
 
                 if child[0] == 'return_statement':
@@ -972,3 +970,4 @@ def Intemidiet_Code_Generator(list_of_tuples):
 
 
 Intemidiet_Code_Generator(parser_tree)
+print(label_track)
