@@ -861,6 +861,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                             t = serach(disct, 'result')
                             print(f"return {t}")
                     print("func end")
+                    print(disct)
 
         elif node_name == "WHILE-STATEMENT":
             vae = ""
