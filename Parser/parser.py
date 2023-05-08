@@ -857,6 +857,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                             print(disct)
                             print(child[1])
                             t = serach(disct, child[1])
+                            print(t)
                             print(f"freturn {t}")
                     print("func end")
 
