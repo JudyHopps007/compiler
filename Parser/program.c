@@ -14,3 +14,14 @@ float division(float a, float b){
 int result = a / b;
 return result;
 }
+char boolCheck(int a){
+    char mychar;
+   if(a == 1){
+      mychar = 'T';
+      return mychar;
+   }
+   else{
+      mychar = 'F';
+      return mychar;
+    }
+}
