@@ -862,8 +862,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                             print(f"return {t}")
                             disct.clear()
                     print("func end")
-                    
-
+                    print("\n")
 
         elif node_name == "WHILE-STATEMENT":
             vae = ""
