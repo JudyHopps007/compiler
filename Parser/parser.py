@@ -1,11 +1,11 @@
 import lexical_Analyzer  # importing scanner source file for token list
 import time  # for measuring 'parser' run time
 
-tokens = lexical_Analyzer.lexical_analyzer('program.c') # generating token list using lexical_Analyzer form our program.c that contain the code we want to compile
+tokens = lexical_Analyzer.lexical_analyzer('program.c')  # generating token list using lexical_Analyzer form our program.c that contain the code we want to compile
 Error_list = ""  # keep store track of syntax errors generated
 express_n = ""  # keep store of expression statements  errors generated
 print("\n\n")
-parser_tree = [] # used to store syntax tree node information in a tuple form
+parser_tree = []  # used to store syntax tree node information in a tuple form
 
 
 def parameter_RFC(token, current_token):
@@ -52,7 +52,7 @@ def parameter_RFC(token, current_token):
 
 def condition_statement_RFC(tokens, position):
     global express_n, Error_list
-    node = [] # store condition statement node information
+    node = []  # store condition statement node information
     condition_statment = ''  # store condition statements
     current_token = position
     current_token, left_operand, exp_node_l = expression(tokens, current_token)
@@ -62,7 +62,7 @@ def condition_statement_RFC(tokens, position):
     if current_token < len(tokens) and (tokens[current_token][0] == 'EQUAL' or tokens[current_token][0] == 'NOT_EQUAL' or tokens[current_token][0] == 'LESS_THAN' or tokens[current_token][0] == 'GREATER_THAN' or tokens[current_token][0] == 'LESS_THAN_EQUAL' or tokens[current_token][0] == 'GREATER_THAN_EQUAL'):
         conditional_operator = tokens[current_token][1]
         condition_statment += " " + conditional_operator
-        current_token, right_operand, exp_node_r= expression(tokens, current_token)
+        current_token, right_operand, exp_node_r = expression(tokens, current_token)
         if len(exp_node_r) != 0:
             node.pop()
             condition_statment += " " + right_operand
@@ -564,7 +564,7 @@ def parse_program(tokens, postion):
                             gm += l_b + ' '
                             current_token, if_statment_body, stat_node = statments(tokens, current_token + 1)
                             if else_if == 0:
-                               if_node.append(('if_body', tuple(stat_node)))
+                                if_node.append(('if_body', tuple(stat_node)))
                             else:
                                 if_node.append(('elif_body', tuple(stat_node)))
                             gm += if_statment_body + ' '
@@ -733,13 +733,13 @@ def parse_program(tokens, postion):
             Error_list += f"\nSyntax Error : '{tokens[current_token][1]}'  at line  {tokens[current_token][2]}"
         current_token += 1
 
+
 print("\n\n=============================================== PARSER TREE OUTPUT =============================================================================== \n\n")
 start_run_time_time = time.time()  # Record the Start run time-time of Syntax_analyzer
 parse_program(tokens, 0)  # calling the parser function and passing token list
 End_run_time_time = time.time()  # Record the End run time-time of lexical_analyzer
 Program_Run_time = End_run_time_time - start_run_time_time  # Calculate the elapsed time (run time of parser function)
 print(f"\nParser Program Runtime  :  {Program_Run_time} seconds")
-
 
 print(Error_list)  # print out syntax error caught by the parser
 
@@ -748,7 +748,7 @@ print(parser_tree)  # print out the parser tree in list for that will be passed 
 print("\n=================================================  INTERMEDIATE CODE  =================================================================================== \n")
 
 
-def serach(my_dict, target_value): # function that is used to search for same information in our disct dictionary
+def serach(my_dict, target_value):  # function that is used to search for same information in our disct dictionary
     for key, value in my_dict.items():
         if value[1] == target_value:
             return key
@@ -757,7 +757,9 @@ def serach(my_dict, target_value): # function that is used to search for same in
 
 disct = {}  # dictionary to store variable information in each scope as the Intimidate_Code_Generator generates Intimidate_Code and assign temporary variable
 count = 1  # keep track of temporary variables in the Intimidate_Code
-label_track = 1  # keep track of lable variables in the Intimidate_Code that are used for ~ goto ~
+label_track = 1  # keep track of Lable variables in the Intimidate_Code that are used for ~ goto ~
+
+
 def Intemidiet_Code_Generator(list_of_tuples):
     global disct, count, label_track
     for node_name, *children in list_of_tuples:
@@ -778,17 +780,17 @@ def Intemidiet_Code_Generator(list_of_tuples):
             store = ''
             t_v = None
             for child in children:
-                    if child[0] == "IDENTIFIER":
-                        hold1 = child[1]
-                        t_v = serach(disct, hold1)
-                    elif child[0] == "expression":
-                        for t in child[1]:
-                            t = serach(disct, t)
-                            value.append(t)
-                        trm = disct[t_v]
-                        disct[t_v] = (trm[0], trm[1], ' '.join(str(x) for x in value))
-                        count += 1
-                        store += f"{t_v} = " + ' '.join(str(x) for x in value)
+                if child[0] == "IDENTIFIER":
+                    hold1 = child[1]
+                    t_v = serach(disct, hold1)
+                elif child[0] == "expression":
+                    for t in child[1]:
+                        t = serach(disct, t)
+                        value.append(t)
+                    trm = disct[t_v]
+                    disct[t_v] = (trm[0], trm[1], ' '.join(str(x) for x in value))
+                    count += 1
+                    store += f"{t_v} = " + ' '.join(str(x) for x in value)
             print(store)
 
         elif node_name == "INITIALIZATION":
@@ -811,10 +813,6 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     store += f"{t_v} = " + ' '.join(str(x) for x in value)
 
             print(store)
-
-
-
-
 
         elif node_name == "FUNCTION":
             i = 0
@@ -868,53 +866,52 @@ def Intemidiet_Code_Generator(list_of_tuples):
                                 vae += t
                         else:
                             if x == '==':
-                                 x = '!='
+                                x = '!='
                             elif x == '!=':
-                                 x = '=='
+                                x = '=='
                             elif x == '<':
-                                 x = '>='
+                                x = '>='
                             elif x == '>':
-                                 x = '<='
+                                x = '<='
                             vae += x
 
                 elif child[0] == 'while_body':
                     l = label_track
-                    r = label_track+1
+                    r = label_track + 1
                     print(f"L{l}: if ({vae}) goto L{r}")
                     for sub_child in child[1]:
                         label_track += 2
                         Intemidiet_Code_Generator([sub_child])
                     print(f"L{r} : ")
 
-
                 if child[0] == 'return_statement':
-                     print(f"L2:  return {child[1]}")
+                    print(f"L2:  return {child[1]}")
 
         elif node_name == "if_statment":
-            end = int((len(children[0]) - 1)/2 +2)
-            end = end+label_track-1
+            end = int((len(children[0]) - 1) / 2 + 2)
+            end = end + label_track - 1
             for child in children[0]:
                 if child[0] == 'if_condition':
-                        vae = ""
-                        for x in child[1]:
-                            if isinstance(x, tuple):
-                                for i in x:
-                                    t = serach(disct, i)
-                                    vae += t
-                            else:
-                                if x == '==':
-                                    x = '!='
-                                elif x == '!=':
-                                    x = '=='
-                                elif x == '<':
-                                    x = '>='
-                                elif x == '>':
-                                    x = '<='
-                                vae += x
-                        l = label_track
-                        r = label_track + 1
-                        print(f"L{l} : if ( {vae} ) goto L{r}")
-                        label_track += 1
+                    vae = ""
+                    for x in child[1]:
+                        if isinstance(x, tuple):
+                            for i in x:
+                                t = serach(disct, i)
+                                vae += t
+                        else:
+                            if x == '==':
+                                x = '!='
+                            elif x == '!=':
+                                x = '=='
+                            elif x == '<':
+                                x = '>='
+                            elif x == '>':
+                                x = '<='
+                            vae += x
+                    l = label_track
+                    r = label_track + 1
+                    print(f"L{l} : if ( {vae} ) goto L{r}")
+                    label_track += 1
 
                 elif child[0] == 'if_body':
                     for sub_child in child[1]:
@@ -969,13 +966,12 @@ def Intemidiet_Code_Generator(list_of_tuples):
                 if child[0] == 'param':
                     for parm in child[1]:
                         u = serach(disct, parm[1])
-                        t.append( u)
+                        t.append(u)
 
             u = serach(disct, variable_name)
             my_t = disct[u]
             disct[u] = (my_t[0], my_t[1], f"{function_name}, {', '.join(str(x) for x in t)}")
             print(f"{u} = call {function_name}, {', '.join(str(x) for x in t)}")
-
 
         elif node_name == "return_statement":
             for child in children:
@@ -983,9 +979,4 @@ def Intemidiet_Code_Generator(list_of_tuples):
                 print("return: ", t)
 
 
-
-
-
-
 Intemidiet_Code_Generator(parser_tree)
-
