@@ -847,7 +847,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                             t_v = f't{count}'
                             disct[t_v] = (hold1, hold2, value)
                             count += 1
-                            print(f"T{t_v}  = addr({child[1]})")
+                            print(f"66 T{t_v}  = addr({value})")
 
                 elif child[0] == 'function_body':
                     for child in child[1]:
