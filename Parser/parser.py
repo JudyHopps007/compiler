@@ -737,7 +737,7 @@ def parse_program(tokens, postion):
 print("\n\n=============================================== PARSER TREE OUTPUT =============================================================================== \n\n")
 start_run_time_time = time.time()  # Record the Start run time-time of Syntax_analyzer
 parse_program(tokens, 0)  # calling the parser function and passing token list
-End_run_time_time = time.time()  # Record the End run time-time of lexical_analyzer
+End_run_time_time = time.time()  # Record the End run time-time of Syntax_analyzer
 Program_Run_time = End_run_time_time - start_run_time_time  # Calculate the elapsed time (run time of parser function)
 print(f"\nParser Program Runtime  :  {Program_Run_time} seconds")
 
@@ -745,8 +745,9 @@ print(Error_list)  # print out syntax error caught by the parser
 
 print("\n=================================================  PARSER LIST  ========================================================================================= \n")
 print(parser_tree)  # print out the parser tree in list for that will be passed to the intermediate code generotor error caught by the parser
-print("\n=================================================  INTERMEDIATE CODE  =================================================================================== \n")
 
+
+print("\n=================================================  INTERMEDIATE CODE  =================================================================================== \n")
 
 def serach(my_dict, target_value):  # function that is used to search for same information in our disct dictionary
     for key, value in my_dict.items():
@@ -979,10 +980,8 @@ def Intemidiet_Code_Generator(list_of_tuples):
                 print("return: ", t)
 
 
-
-
 start_run_time_time = time.time()  # Record the Start run time-time of Intimidate_Code_Generator
-Intemidiet_Code_Generator(parser_tree) # calling the Intimidate_Code_Generator function and passing parser_tree-list
+Intemidiet_Code_Generator(parser_tree)  # calling the Intimidate_Code_Generator function and passing parser_tree-list
 End_run_time_time = time.time()  # Record the End run time-time of Intimidate_Code_Generator
 Program_Run_time = End_run_time_time - start_run_time_time  # Calculate the elapsed time (run time of Intimidate_Code_Generator function)
 print(f"\nIntimidate_Code_Generator Program Runtime  :  {Program_Run_time} seconds")
