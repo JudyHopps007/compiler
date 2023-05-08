@@ -822,13 +822,16 @@ def Intemidiet_Code_Generator(list_of_tuples):
 
         elif node_name == "FUNCTION":
             i = 0
+            hold1 = None
+            hold2 = None
+            value = None
+            scope = None
             for child in children:
                 if child[0] == 'function_name':
+                    scope = child[1]
                     print("func begin", child[1])
                 elif child[0] == 'function_parameter':
-                    hold1 = None
-                    hold2 = None
-                    value = None
+
                     for child in child[1]:
                         for child in child:
                             if isinstance(child, tuple):
@@ -838,7 +841,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                                     hold2 = child[1]
                                     value = f"addr({child[1]})"
                                     t_v = f't{count}'
-                                    disct[t_v] = (hold1, hold2, value)
+                                    disct[t_v] = (hold1, hold2, value, scope)
                                     count += 1
                                     print(f"{t_v}  = {value}")
 
@@ -847,7 +850,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                                 value = f"addr({child})"
 
                                 t_v = f't{count}'
-                                disct[t_v] = (hold1, hold2, value)
+                                disct[t_v] = (hold1, hold2, value, scope)
                                 count += 1
                                 print(f"{t_v}  = {value}")
 
