@@ -969,7 +969,6 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     variable_name = child[1]
                 if child[0] == 'f_name':
                     function_name = child[1]
-
                 if child[0] == 'param':
                     for parm in child[1]:
                         u = serach(disct, parm[1])
