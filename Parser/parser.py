@@ -978,11 +978,11 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         u = serach(disct, parm[1])
                         t.append( u)
             print(f"call {function_name}, {', '.join(str(x) for x in t)}")
-            u = serach(disct, "newResult2")
+            u = serach(disct, variable_name)
             print(variable_name)
             print(u)
             print(disct)
-            
+
         elif node_name == "return_statement":
             for child in children:
                 t = serach(disct, child)
