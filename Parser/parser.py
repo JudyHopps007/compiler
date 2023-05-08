@@ -842,8 +842,6 @@ def Intemidiet_Code_Generator(list_of_tuples):
                                 hold2 = child[1]
                                 value = f"addr({child[1]})"
 
-
-
                     t_v = f't{count}'
                     disct[t_v] = (hold1, hold2, value)
                     count += 1
