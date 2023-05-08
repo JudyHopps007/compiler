@@ -1,7 +1,8 @@
  int a;
+ char mychar;
  if(a == 1){
-      return mychar;
       mychar = 'T';
+      return mychar;
   }
    else{
       mychar = 'F';

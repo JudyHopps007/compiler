@@ -776,7 +776,6 @@ def Intemidiet_Code_Generator(list_of_tuples):
             disct[t_v] = (hold1, hold2, None)
             count += 1
 
-
         elif node_name == "variable_assignment":
             value = []
             store = ''
@@ -895,7 +894,6 @@ def Intemidiet_Code_Generator(list_of_tuples):
 
 
                 if child[0] == 'return_statement':
-                     print(f"goto L1")
                      print(f"L2:  return {child[1]}")
 
         elif node_name == "if_statment":
@@ -926,10 +924,8 @@ def Intemidiet_Code_Generator(list_of_tuples):
 
                 elif child[0] == 'if_body':
                     for sub_child in child[1]:
-                        temp.append(sub_child)
                         Intemidiet_Code_Generator([sub_child])
-                        temp = []
-                        print(f"goto  L{end}")
+                    print(f"goto  L{end}")
 
                 elif child[0] == 'elif_condition':
                     vae = ""
@@ -956,7 +952,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                 elif child[0] == 'elif_body':
                     for sub_child in child[1]:
                         Intemidiet_Code_Generator([sub_child])
-                        print(f"goto  L{end}")
+                    print(f"goto  L{end}")
 
                 elif child[0] == 'else_body':
                     for sub_child in child[1]:
@@ -964,7 +960,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         label_track += 1
                         print(f'L{l} :')
                         Intemidiet_Code_Generator([sub_child])
-                        print(f"L{end} :")
+                    print(f"L{end} :")
             label_track += 1
 
         elif node_name == "function_assignment":
@@ -983,6 +979,11 @@ def Intemidiet_Code_Generator(list_of_tuples):
 
 
             print(f"call {function_name}, {', '.join(str(x) for x in t)}")
+
+        elif node_name == "return_statement":
+            for child in children:
+                t = serach(disct, child)
+                print("return: ", t)
 
 
 
