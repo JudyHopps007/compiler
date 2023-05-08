@@ -854,7 +854,10 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     for child in child[1]:
                         Intemidiet_Code_Generator([child])
                         if child[0] == 'return_statement':
-                            print(f"return {child[1]}")
+                            print(disct)
+                            print(child[1])
+                            t = serach(disct, child[1])
+                            print(f"freturn {t}")
                     print("func end")
 
         elif node_name == "WHILE-STATEMENT":
