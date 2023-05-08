@@ -1,5 +1,6 @@
-int addition(int a, int b, nuf){
-
-
+int addition(int a, int b){
+int result = a + b;
+return result;
+}
 
 
