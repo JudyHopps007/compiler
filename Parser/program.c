@@ -19,4 +19,5 @@ while (state){
        }
        state = false;
 }
+return newResult2
 }
