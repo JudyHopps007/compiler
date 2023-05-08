@@ -835,17 +835,20 @@ def Intemidiet_Code_Generator(list_of_tuples):
                                     hold1 = child[1]
                                 if child[0] != "type_specifier":
                                     hold2 = child[1]
-                                    print("nt ", hold2)
                                     value = f"addr({child[1]})"
+                                    t_v = f't{count}'
+                                    disct[t_v] = (hold1, hold2, value)
+                                    count += 1
+                                    print(f"t{t_v}  = addr({value})")
 
                             elif child != "IDENTIFIER":
                                 hold2 = child[1]
                                 value = f"addr({child[1]})"
 
-                    t_v = f't{count}'
-                    disct[t_v] = (hold1, hold2, value)
-                    count += 1
-                    print(f"t{t_v}  = addr({value})")
+                                t_v = f't{count}'
+                                disct[t_v] = (hold1, hold2, value)
+                                count += 1
+                                print(f"t{t_v}  = addr({value})")
 
                 elif child[0] == 'function_body':
                     for child in child[1]:
