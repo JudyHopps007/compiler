@@ -756,13 +756,12 @@ def serach(my_dict, target_value):
             return key
     return target_value
 
-temp = []
-disct = {}
-count = 1
-label_track = 1
+
+disct = {}  # dictionary to store variable information in each scope as the Intimidate_Code_Generator generates Intimidate_Code and assign temporary variable
+count = 1  # keep track of temporary variables in the Intimidate_Code
+label_track = 1 # keep track of lable variables in the Intimidate_Code that are used for ~ goto ~
 def Intemidiet_Code_Generator(list_of_tuples):
-    global temp, disct, count, label_track
-    #print(list_of_tuples)
+    global disct, count, label_track
     for node_name, *children in list_of_tuples:
         if node_name == "DECLARATION":
             hold1 = None
