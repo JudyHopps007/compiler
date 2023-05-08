@@ -979,4 +979,10 @@ def Intemidiet_Code_Generator(list_of_tuples):
                 print("return: ", t)
 
 
-Intemidiet_Code_Generator(parser_tree)
+
+
+start_run_time_time = time.time()  # Record the Start run time-time of Intimidate_Code_Generator
+Intemidiet_Code_Generator(parser_tree) # calling the Intimidate_Code_Generator function and passing parser_tree-list
+End_run_time_time = time.time()  # Record the End run time-time of Intimidate_Code_Generator
+Program_Run_time = End_run_time_time - start_run_time_time  # Calculate the elapsed time (run time of Intimidate_Code_Generator function)
+print(f"\nIntimidate_Code_Generator Program Runtime  :  {Program_Run_time} seconds")
