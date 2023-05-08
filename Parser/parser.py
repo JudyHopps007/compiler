@@ -978,7 +978,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
             u = serach(disct, variable_name)
             my_t = disct[u]
             disct[print(f"call {function_name}, {', '.join(str(x) for x in t)}")] = (my_t[0], my_t[1], f"{function_name}, {', '.join(str(x) for x in t)}")
-            print(f" {u}  =  call {function_name}, {', '.join(str(x) for x in t)}")
+            print(f"{u}  =  call {function_name}, {', '.join(str(x) for x in t)}")
 
 
         elif node_name == "return_statement":
