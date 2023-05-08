@@ -856,7 +856,8 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         if child[0] == 'return_statement':
                             print(disct)
                             print("tt ", child[1])
-                            t = serach(disct, child[1])
+                            print("tt ", str(child[1]))
+                            t = serach(disct, str(child[1]))
                             print(t)
                             print(f"freturn {t}")
                     print("func end")
