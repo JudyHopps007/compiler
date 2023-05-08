@@ -975,7 +975,8 @@ def Intemidiet_Code_Generator(list_of_tuples):
 
                 if child[0] == 'param':
                     for parm in child[1]:
-                        t.append(parm[1])
+                        u = serach(disct, parm[1])
+                        t.append( u)
             print(f"call {function_name}, {', '.join(str(x) for x in t)}")
             print(disct)
         elif node_name == "return_statement":
