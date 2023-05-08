@@ -856,12 +856,8 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         if sub_child[0] == 'return_statement':
                             print(disct)
                             print(sub_child[1])
-                            t = serach(disct, sub_child[1])
-                            for key, value in 'result':
-                                if value[1] == sub_child[1]:
-                                    print("df ", key)
-
-                            print(t)
+                            t = serach(disct, 'result')
+                            print("rr", t)
                             print(f"freturn {t}")
                     print("func end")
 
