@@ -855,7 +855,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         Intemidiet_Code_Generator([child])
                         if child[0] == 'return_statement':
                             print(disct)
-                            print("tt ", child[1])
+                            print("tt ", type(child[1]))
                             print("tt ", str(child[1]))
                             t = serach(disct, str(child[1]))
                             print(t)
