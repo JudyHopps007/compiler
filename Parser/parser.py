@@ -856,10 +856,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                 elif child[0] == 'function_body':
                     for sub_child in child[1]:
                         Intemidiet_Code_Generator([sub_child])
-                        if sub_child[0] == 'return_statement':
-                            t = serach(disct, 'result')
-                            print(f"return {t}")
-                            disct.clear()
+                    disct.clear()
                     print("func end")
                     print("\n")
 
