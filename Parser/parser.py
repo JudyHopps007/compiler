@@ -827,6 +827,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                 elif child[0] == 'function_parameter':
                     hold1 = None
                     hold2 = None
+                    value = None
                     for child in child[1]:
                         for child in child:
                             if isinstance(child, tuple):
@@ -834,12 +835,14 @@ def Intemidiet_Code_Generator(list_of_tuples):
                                     hold1 = child[1]
                                 if child[0] != "type_specifier":
                                     hold2 = child[1]
+                                    value = f"addr({child[1]})"
 
                             elif child != "IDENTIFIER":
                                 hold2 = child[1]
+                                value = f"addr({child[1]})"
 
 
-                            value = f"addr({child[1]})"
+
                             t_v = f't{count}'
                             disct[t_v] = (hold1, hold2, value)
                             count += 1
