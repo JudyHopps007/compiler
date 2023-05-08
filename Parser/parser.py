@@ -851,13 +851,12 @@ def Intemidiet_Code_Generator(list_of_tuples):
                                 print(f"{t_v}  = {value}")
 
                 elif child[0] == 'function_body':
-                    for child in child[1]:
-                        Intemidiet_Code_Generator([child])
-                        if child[0] == 'return_statement':
+                    for sub_child in child[1]:
+                        Intemidiet_Code_Generator([sub_child])
+                        if sub_child[0] == 'return_statement':
                             print(disct)
-                            print("tt ", type(child[1]))
-                            print("tt ", str(child[1]))
-                            t = serach(disct, str(child[1]))
+
+                            t = serach(disct, sub_child[1])
                             print(t)
                             print(f"freturn {t}")
                     print("func end")
