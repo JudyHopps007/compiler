@@ -750,9 +750,9 @@ print(parser_tree)
 print("\n===============================  Intimidate_Code_Generator ================ \n")
 
 
-def serach(my_dict, target_value, scope):
+def serach(my_dict, target_value):
     for key, value in my_dict.items():
-        if value[1] == target_value and value[3] ==  scope:
+        if value[1] == target_value:
             return key
     return target_value
 
@@ -841,7 +841,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                                     hold2 = child[1]
                                     value = f"addr({child[1]})"
                                     t_v = f't{count}'
-                                    disct[t_v] = (hold1, hold2, value, scope)
+                                    disct[t_v] = (hold1, hold2, value)
                                     count += 1
                                     print(f"{t_v}  = {value}")
 
@@ -850,7 +850,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                                 value = f"addr({child})"
 
                                 t_v = f't{count}'
-                                disct[t_v] = (hold1, hold2, value, scope)
+                                disct[t_v] = (hold1, hold2, value)
                                 count += 1
                                 print(f"{t_v}  = {value}")
 
@@ -858,7 +858,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     for sub_child in child[1]:
                         Intemidiet_Code_Generator([sub_child])
                         if sub_child[0] == 'return_statement':
-                            t = serach(disct, 'result', scope )
+                            t = serach(disct, 'result')
                             print(f"return {t}")
                     print("func end")
                     print(disct)
