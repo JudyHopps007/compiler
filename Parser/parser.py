@@ -1,16 +1,16 @@
 import lexical_Analyzer  # importing scanner source file for token list
 import time  # for measuring 'parser' run time
 
-tokens = lexical_Analyzer.lexical_analyzer('program.c')
+tokens = lexical_Analyzer.lexical_analyzer('program.c') # generating token list using lexical_Analyzer form our program.c that contain the code we want to compile
 Error_list = ""  # keep store track of syntax errors generated
-express_n = ""  # keep store of expression statments  errors generated
+express_n = ""  # keep store of expression statements  errors generated
 print("\n\n")
-parser_tree = []
+parser_tree = [] # used to store syntax tree node information in a tuple form
 
 
 def parameter_RFC(token, current_token):
     global Error_list
-    node = []
+    node = []  # store parameter node information
     parame = ''  # keep store parameters that are found
     current_token += 1
     i = 0
@@ -52,7 +52,7 @@ def parameter_RFC(token, current_token):
 
 def condition_statement_RFC(tokens, position):
     global express_n, Error_list
-    node = []
+    node = [] # store condition statement node information
     condition_statment = ''  # store condition statements
     current_token = position
     current_token, left_operand, exp_node_l = expression(tokens, current_token)
@@ -79,7 +79,7 @@ def condition_statement_RFC(tokens, position):
 
 def statments(token, postion):  # statement: (declaration | initializing | function_call | assignment | if_statement | while_statement | return_statement)*;
     global express_n, Error_list
-    node = []
+    node = []  # store  statement node information
     statment_block = ''  # store statements in block
     block_track = 1
     current_token = postion
@@ -410,9 +410,8 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
 
 def expression(tokens, position):
     global express_n, Error_list
-    global express_n, node
-    node = []
-    temp = []
+    global express_n
+    temp = []  # store  expression node information
     express_n += ''
     current_token = position + 1
     while current_token < len(tokens):
@@ -458,7 +457,7 @@ def expression(tokens, position):
 
 
 def parse_program(tokens, postion):
-    global express_n, Error_list  # calling global varables to be used
+    global express_n, Error_list, parser_tree  # calling global varables to be used
     current_token = postion
     while current_token < len(tokens):
         if tokens[current_token][0] == "INCLUDE_ID":
@@ -734,20 +733,19 @@ def parse_program(tokens, postion):
             Error_list += f"\nSyntax Error : '{tokens[current_token][1]}'  at line  {tokens[current_token][2]}"
         current_token += 1
 
-
+print("\n\n=============================================== PARSER TREE OUTPUT =============================================================================== \n\n")
 start_run_time_time = time.time()  # Record the Start run time-time of Syntax_analyzer
-print("\n\n======================================== PARSER TREE OUTPUT ============================================================================== \n\n")
 parse_program(tokens, 0)  # calling the parser function and passing token list
 End_run_time_time = time.time()  # Record the End run time-time of lexical_analyzer
 Program_Run_time = End_run_time_time - start_run_time_time  # Calculate the elapsed time (run time of parser function)
 print(f"\nParser Program Runtime  :  {Program_Run_time} seconds")
 
 
-print(Error_list) # print out syntax error caught by the parser
+print(Error_list)  # print out syntax error caught by the parser
 
-print("\n==========================================  PARSER LIST  ========================================================================================= \n")
+print("\n=================================================  PARSER LIST  ========================================================================================= \n")
 print(parser_tree)  # print out the parser tree in list for that will be passed to the intermediate code generotor error caught by the parser
-print("\n===============================  Intimidate_Code_Generator ================ \n")
+print("\n=================================================  INTERMEDIATE CODE  =================================================================================== \n")
 
 
 def serach(my_dict, target_value): # function that is used to search for same information in our disct dictionary
@@ -759,7 +757,7 @@ def serach(my_dict, target_value): # function that is used to search for same in
 
 disct = {}  # dictionary to store variable information in each scope as the Intimidate_Code_Generator generates Intimidate_Code and assign temporary variable
 count = 1  # keep track of temporary variables in the Intimidate_Code
-label_track = 1 # keep track of lable variables in the Intimidate_Code that are used for ~ goto ~
+label_track = 1  # keep track of lable variables in the Intimidate_Code that are used for ~ goto ~
 def Intemidiet_Code_Generator(list_of_tuples):
     global disct, count, label_track
     for node_name, *children in list_of_tuples:
