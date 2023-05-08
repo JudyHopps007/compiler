@@ -4,7 +4,8 @@ disct = {}  # dictionary to store variable information in each scope as the Inti
 count = 1  # keep track of temporary variables in the Intimidate_Code
 label_track = 1  # keep track of Lable variables in the Intimidate_Code that are used for ~ goto ~
 
-parser_tree = parser.parser_tree
+parser_tree = parser.parser_tree # referencing the parser tree list
+
 def serach(my_dict, target_value):  # function that is used to search for same information in our disct dictionary
     for key, value in my_dict.items():
         if value[1] == target_value:
