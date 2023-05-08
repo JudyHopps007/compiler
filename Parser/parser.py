@@ -860,7 +860,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         if sub_child[0] == 'return_statement':
                             t = serach(disct, 'result')
                             print(f"return {t}")
-                            #del disct[t]
+                            disct.clear()
                     print("func end")
             print(disct)
 
