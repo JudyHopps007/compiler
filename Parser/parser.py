@@ -979,6 +979,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                         t.append( u)
             print(f"call {function_name}, {', '.join(str(x) for x in t)}")
             u = serach(disct, variable_name)
+            t = disct[u]
             print(disct[u])
             print(disct)
 
