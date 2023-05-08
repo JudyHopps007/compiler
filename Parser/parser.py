@@ -982,6 +982,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
             print(variable_name)
             print(u)
             print(disct)
+            
         elif node_name == "return_statement":
             for child in children:
                 t = serach(disct, child)
