@@ -835,6 +835,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                                     hold1 = child[1]
                                 if child[0] != "type_specifier":
                                     hold2 = child[1]
+                                    print("nt ", hold2)
                                     value = f"addr({child[1]})"
 
                             elif child != "IDENTIFIER":
