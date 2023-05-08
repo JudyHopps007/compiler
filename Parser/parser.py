@@ -982,8 +982,6 @@ def Intemidiet_Code_Generator(list_of_tuples):
             my_t = disct[u]
             disct[u] = (my_t[0], my_t[1], f"{function_name}, {', '.join(str(x) for x in t)}")
 
-            print(disct[u])
-            print(disct)
 
         elif node_name == "return_statement":
             for child in children:
