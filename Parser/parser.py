@@ -750,9 +750,9 @@ print(parser_tree)
 print("\n===============================  Intimidate_Code_Generator ================ \n")
 
 
-def serach(my_dict, target_value):
+def serach(my_dict, target_value, scope):
     for key, value in my_dict.items():
-        if value[1] == target_value:
+        if value[1] == target_value and value[3] ==  scope:
             return key
     return target_value
 
@@ -858,7 +858,7 @@ def Intemidiet_Code_Generator(list_of_tuples):
                     for sub_child in child[1]:
                         Intemidiet_Code_Generator([sub_child])
                         if sub_child[0] == 'return_statement':
-                            t = serach(disct, 'result')
+                            t = serach(disct, 'result', scope )
                             print(f"return {t}")
                     print("func end")
                     print(disct)
