@@ -407,6 +407,8 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                 break
     return current_token, statment_block, node
 
+def precedence ():
+    pass
 
 def expression(tokens, position):
     global express_n, Error_list
@@ -453,6 +455,7 @@ def expression(tokens, position):
             break
         current_token += 1
         express_n = express_n.rstrip()
+
     return current_token, express_n, temp
 
 
@@ -520,7 +523,6 @@ def parse_program(tokens, postion):
                             parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{namr}"), ("expression", tuple(exp_node))))
                         else:
                             print(f"INITIALIZATION: {type_specifer} {namr} {asg} {express} <missing ';'>")
-                            parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{namr}"), ("expression", f"{express}")))
                             parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{namr}"), ("expression", tuple(exp_node))))
                             continue
                     else:
@@ -761,9 +763,9 @@ count = 1  # keep track of temporary variables in the Intimidate_Code
 label_track = 1  # keep track of Lable variables in the Intimidate_Code that are used for ~ goto ~
 
 
-def Intemidiet_Code_Generator(list_of_tuples):
+def Intemidiet_Code_Generator(parser_tree):
     global disct, count, label_track
-    for node_name, *children in list_of_tuples:
+    for node_name, *children in parser_tree:
         if node_name == "DECLARATION":
             hold1 = None
             hold2 = None
@@ -798,20 +800,91 @@ def Intemidiet_Code_Generator(list_of_tuples):
             store = ""
             hold1 = None
             hold2 = None
+
             for child in children:
                 if child[0] == "type_specifier":
                     hold1 = child[1]
                 elif child[0] == "IDENTIFIER":
                     hold2 = child[1]
                 else:
-                    value = []
-                    for t in child[1]:
-                        t = serach(disct, t)
-                        value.append(t)
-                    t_v = f't{count}'
-                    disct[t_v] = (hold1, hold2, ' '.join(str(x) for x in value))
-                    count += 1
-                    store += f"{t_v} = " + ' '.join(str(x) for x in value)
+                    if len(child[1]) > 3:  # if there are more than three terms
+                        last = len(child[1])
+                        i = 1
+                        x = ''
+                        m = ""
+                        for t in child[1]:
+                            t = serach(disct, t)
+
+                            if t == "+" or t == "-":
+                                t_v = f't{count}'
+                                disct[t_v] = (None, None, x)
+                                count += 1
+                                i += 1
+                                m += t_v + " " + t + " "
+                                print(f"{t_v} = {x} ")
+                                if t == "+":
+                                    print(f"(ADD, {t_v}, {x})")
+                                else:
+                                    print(f"(SUB, {t_v}, {x})")
+
+
+                                x = ''
+
+                            elif i == last:
+                                t_v = f't{count}'
+                                x += t
+                                disct[t_v] = (None, None, x)
+                                count += 1
+                                m += t_v + " "
+                                print(f"{t_v} = {x} ")
+                                x = ''
+
+                            else:
+                                x += t
+                                i += 1
+
+                        t_v = f't{count}'
+                        disct[t_v] = (hold1, hold2, m)
+                        count += 1
+                        store += f"{t_v} = " + m
+
+                    elif len(child[1]) == 3:
+                        m = op1 = op2 = operator = ""
+                        operator = child[1][1]
+                        t_v = f't{count}'
+                        if operator == "+":
+                            op1 = serach(disct, child[1][0])
+                            op2 = serach(disct, child[1][2])
+                            store += f"(ADD, {t_v}, {op1} , {op2})"
+
+                        elif operator == "-":
+                            op1 = serach(disct, child[1][0])
+                            op2 = serach(disct, child[1][2])
+                            store += f"(SUB, {t_v}, {op1} , {op2})"
+
+                        elif operator == "/":
+                            op1 = serach(disct, child[1][0])
+                            op2 = serach(disct, child[1][2])
+                            store += f"(DIV, {t_v}, {op1} , {op2})"
+
+                        elif operator == "*":
+                            op1 = serach(disct, child[1][0])
+                            op2 = serach(disct, child[1][2])
+                            store += f"(MUL, {t_v}, {op1} , {op2})"
+
+                        disct[t_v] = (hold1, hold2, store)
+                        count += 1
+
+                    else:
+                        value = []
+                        for t in child[1]:
+                            t = serach(disct, t)
+                            value.append(t)
+
+                        t_v = f't{count}'
+                        disct[t_v] = (hold1, hold2, store)
+                        count += 1
+                        store += f"{t_v} = " + ' '.join(str(x) for x in value)
 
             print(store)
 
@@ -834,20 +907,20 @@ def Intemidiet_Code_Generator(list_of_tuples):
                                     hold1 = child[1]
                                 if child[0] != "type_specifier":
                                     hold2 = child[1]
-                                    value = f"addr({child[1]})"
                                     t_v = f't{count}'
+                                    value = f"(ASSIGN, {t_v},  {child[1]})"
+
                                     disct[t_v] = (hold1, hold2, value)
                                     count += 1
-                                    print(f"{t_v}  = {value}")
+                                    print(f"{value}")
 
                             elif child != "IDENTIFIER":
                                 hold2 = child
-                                value = f"addr({child})"
-
                                 t_v = f't{count}'
+                                value = f"(ASSIGN, {t_v},  {child})"
                                 disct[t_v] = (hold1, hold2, value)
                                 count += 1
-                                print(f"{t_v}  = {value}")
+                                print(f"{value}")
 
                 elif child[0] == 'function_body':
                     for sub_child in child[1]:
@@ -901,17 +974,21 @@ def Intemidiet_Code_Generator(list_of_tuples):
                                 vae += t
                         else:
                             if x == '==':
-                                x = '!='
+                                 x = ' != '
                             elif x == '!=':
-                                x = '=='
+                                 x = ' == '
                             elif x == '<':
-                                x = '>='
+                                 x = ' >= '
                             elif x == '>':
-                                x = '<='
+                                 x = ' <= '
                             vae += x
+
                     l = label_track
                     r = label_track + 1
-                    print(f"L{l} : if ( {vae} ) goto L{r}")
+                    t_V = f"t{count}"
+                    print(f"{t_V} = {vae}")
+                    count+=1
+                    print(f"L{l} : if ( {t_V} ) goto L{r}")
                     label_track += 1
 
                 elif child[0] == 'if_body':

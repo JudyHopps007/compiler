@@ -13,9 +13,9 @@ def serach(my_dict, target_value):  # function that is used to search for same i
     return target_value
 
 
-def Intemidiet_Code_Generator(list_of_tuples):
+def Intemidiet_Code_Generator(parser_tree):
     global disct, count, label_track
-    for node_name, *children in list_of_tuples:
+    for node_name, *children in parser_tree:
         if node_name == "DECLARATION":
             hold1 = None
             hold2 = None
@@ -50,22 +50,57 @@ def Intemidiet_Code_Generator(list_of_tuples):
             store = ""
             hold1 = None
             hold2 = None
+            x = ''
+            m = ""
             for child in children:
                 if child[0] == "type_specifier":
                     hold1 = child[1]
                 elif child[0] == "IDENTIFIER":
                     hold2 = child[1]
                 else:
-                    value = []
-                    for t in child[1]:
-                        t = serach(disct, t)
-                        value.append(t)
-                    t_v = f't{count}'
-                    disct[t_v] = (hold1, hold2, ' '.join(str(x) for x in value))
-                    count += 1
-                    store += f"{t_v} = " + ' '.join(str(x) for x in value)
+                    if len(child[1]) > 3:  # if there are more than three terms
+                        last = len(child[1])
+                        i = 1
+                        for t in child[1]:
+                            t = serach(disct, t)
+                            if t == "+" or t == "-":
+                                t_v = f't{count}'
+                                disct[t_v] = (None, None, x)
+                                count += 1
+                                i += 1
+                                m += t_v + " " + t + " "
+                                print(f"{t_v} = {x} ")
+                                x = ''
+
+                            elif i == last:
+                                t_v = f't{count}'
+                                x += t
+                                disct[t_v] = (None, None, x)
+                                count += 1
+                                m += t_v + " "
+                                print(f"{t_v} = {x} ")
+                                x = ''
+
+                            else:
+                                x += t
+                                i += 1
+                        t_v = f't{count}'
+                        disct[t_v] = (hold1, hold2, m)
+                        count += 1
+                        store += f"{t_v} = " + m
+                    else:
+                        value = []
+                        for t in child[1]:
+                            t = serach(disct, t)
+                            value.append(t)
+
+                        t_v = f't{count}'
+                        disct[t_v] = (hold1, hold2, store)
+                        count += 1
+                        store += f"{t_v} = " + ' '.join(str(x) for x in value)
 
             print(store)
+
 
         elif node_name == "FUNCTION":
             i = 0
@@ -86,20 +121,20 @@ def Intemidiet_Code_Generator(list_of_tuples):
                                     hold1 = child[1]
                                 if child[0] != "type_specifier":
                                     hold2 = child[1]
-                                    value = f"addr({child[1]})"
                                     t_v = f't{count}'
+                                    value = f"(ASSIGN, {t_v},  {child[1]})"
+
                                     disct[t_v] = (hold1, hold2, value)
                                     count += 1
-                                    print(f"{t_v}  = {value}")
+                                    print(f"{value}")
 
                             elif child != "IDENTIFIER":
                                 hold2 = child
-                                value = f"addr({child})"
-
                                 t_v = f't{count}'
+                                value = f"(ASSIGN, {t_v},  {child})"
                                 disct[t_v] = (hold1, hold2, value)
                                 count += 1
-                                print(f"{t_v}  = {value}")
+                                print(f"{value}")
 
                 elif child[0] == 'function_body':
                     for sub_child in child[1]:
