@@ -912,7 +912,7 @@ def Intemidiet_Code_Generator(parser_tree):
                                     t_v = f't{count}'
                                     #value = f"(ASSIGN, {t_v},  {child[1]})"
 
-                                    disct[t_v] = (hold1, hold2, child[1])
+                                    disct[t_v] = (hold1, hold2, None)
                                     count += 1
                                     print(f"(ASSIGN, {t_v},  {child[1]})")
 
@@ -920,7 +920,7 @@ def Intemidiet_Code_Generator(parser_tree):
                                 hold2 = child
                                 t_v = f't{count}'
                                 #value = f"(ASSIGN, {t_v},  {child})"
-                                disct[t_v] = (hold1, hold2, child)
+                                disct[t_v] = (hold1, hold2, None)
                                 count += 1
                                 print(f"(ASSIGN, {t_v},  {child})")
 
