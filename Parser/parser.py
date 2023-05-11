@@ -974,17 +974,14 @@ def Intemidiet_Code_Generator(parser_tree):
             for child in children[0]:
                 if child[0] == 'if_condition':
                     vae = ""
-                    t_V = f"t{count}"
                     for x in child[1]:
                         if isinstance(x, tuple):
-
                             for i in x:
                                 t = serach(disct, i)
                                 if disct[t][2] == "true":
-                                    #t_V = f"t{count}"
-                                    vae += f"( NOT, {t_V}," + t + ")"
+                                    vae += " NOT " + t + " "
                                 elif disct[t][2] == "false":
-                                    vae += " NOT  " + t + " "
+                                    vae += " NOT  {}" + t + " "
                                 else:
                                     vae += t
 
@@ -1000,7 +997,7 @@ def Intemidiet_Code_Generator(parser_tree):
                             vae += x
 
                     l = label_track
-
+                    t_V = f"t{count}"
                     # print(f"{t_V} = {vae}")  # (NOT, t2, t1)
                     print(f"{vae}")
 
