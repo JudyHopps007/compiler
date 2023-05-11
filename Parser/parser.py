@@ -1008,7 +1008,7 @@ def Intemidiet_Code_Generator(parser_tree):
                 elif child[0] == 'if_body':
                     for sub_child in child[1]:
                         Intemidiet_Code_Generator([sub_child])
-                    print(f"-- L{end}: ")
+                    print(f"-- L{label_track}: ")
 
                 elif child[0] == 'elif_condition':
                     vae = ""
