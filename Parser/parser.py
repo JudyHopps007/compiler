@@ -1000,7 +1000,7 @@ def Intemidiet_Code_Generator(parser_tree):
                     l = label_track
                     t_V = f"t{count}"
                     print(f"{t_V} = {vae}")
-                    count +=1
+                    count += 1
 
                     print(f"(IF, {t_V}, L{l})")
                     label_track += 1
