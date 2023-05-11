@@ -979,6 +979,7 @@ def Intemidiet_Code_Generator(parser_tree):
                         if isinstance(x, tuple):
                             for i in x:
                                 t = serach(disct, i)
+                                print("=========", t)
                                 if disct[t][2] == "true":
                                     vae += " ! " + t + " "
                                 elif disct[t][2] == "false":
