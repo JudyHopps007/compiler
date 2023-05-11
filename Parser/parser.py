@@ -969,11 +969,8 @@ def Intemidiet_Code_Generator(parser_tree):
                     print(f"L2:  return {child[1]}")
 
         elif node_name == "if_statment":
-            print(len(children[0]))
             end = int((len(children[0]) - 1) / 2 + 2)
-            print(end)
-            end = end + label_track - 1
-            print(end)
+            end = end + label_track - 2
             for child in children[0]:
                 if child[0] == 'if_condition':
                     vae = ""
@@ -1000,12 +997,11 @@ def Intemidiet_Code_Generator(parser_tree):
                             vae += x
 
                     l = label_track
-                    r = label_track + 1
                     t_V = f"t{count}"
                     print(f"{t_V} = {vae}")
                     count+=1
 
-                    print(f"(IF, {t_V}, L{r})")
+                    print(f"(IF, {t_V}, L{l})")
                     label_track += 1
 
                 elif child[0] == 'if_body':
