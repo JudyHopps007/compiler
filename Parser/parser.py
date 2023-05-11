@@ -980,7 +980,7 @@ def Intemidiet_Code_Generator(parser_tree):
                             for i in x:
                                 t = serach(disct, i)
                                 print("=========", t)
-                                print("=========", disct[t][2])
+                                print("=========", disct[t])
                                 print("=========", disct)
                                 if disct[t][2] == "true":
                                     vae += " ! " + t + " "
