@@ -1,6 +1,4 @@
-
-char boolCheck(int a){
-   char mychar;
+int a;
    if(a == 1){
       mychar = 'T';
       return mychar;
