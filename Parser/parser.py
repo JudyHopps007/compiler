@@ -1032,7 +1032,7 @@ def Intemidiet_Code_Generator(parser_tree):
                             elif x == '>':
                                 x = '<='
                             vae += x
-                    l = label_track
+
                     r = label_track + 1
                     print(f"L{l} : if ( {vae} ) goto L{r}")
                     label_track += 1
