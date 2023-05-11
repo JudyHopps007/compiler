@@ -961,6 +961,7 @@ def Intemidiet_Code_Generator(parser_tree):
                             elif exp[1] == '<=':
                                 print(f"(LEQ, {t_V}, {exp[0]}, {exp[2]})")
                             count += 1
+                            
                             t_V = f"t{count}"
                             print(f"(NOT, {t_V}, {t_V_prev})")  # Create the NOT of the stored condition and store it in a temp variable
                     except:
