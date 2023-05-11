@@ -55,8 +55,10 @@ def condition_statement_RFC(tokens, position):
     node = []  # store condition statement node information
     condition_statment = ''  # store condition statements
     current_token = position
+
     current_token, left_operand, exp_node_l = expression(tokens, current_token)
     condition_statment += left_operand
+
     node.append(tuple(exp_node_l))
     express_n = ''
     if current_token < len(tokens) and (tokens[current_token][0] == 'EQUAL' or tokens[current_token][0] == 'NOT_EQUAL' or tokens[current_token][0] == 'LESS_THAN' or tokens[current_token][0] == 'GREATER_THAN' or tokens[current_token][0] == 'LESS_THAN_EQUAL' or tokens[current_token][0] == 'GREATER_THAN_EQUAL'):
@@ -74,6 +76,7 @@ def condition_statement_RFC(tokens, position):
             Error_list += f"\nSyntax Error: Condition statement incomplete at line {tokens[current_token][2]}"
     if len(condition_statment) == 0:
         Error_list += f"\nSyntax Error: Condition statement not provided at line {tokens[current_token][2]}"
+
     return current_token, condition_statment, node
 
 
@@ -438,10 +441,12 @@ def expression(tokens, position):
             temp.append(token_value)
         elif token_type == 'LEFT_PAREN':
             express_n += token_value + ' '
-            expression(tokens, current_token)  # Handle nested expressions recursively
+            current_token, express_n, temp = expression(tokens, current_token)  # Handle nested expressions recursively
             while tokens[current_token][0] != 'RIGHT_PAREN':  # Skip to the end of the nested expression
                 current_token += 1
             express_n += tokens[current_token][1] + ' '
+
+
         elif token_type == 'PLUS' or token_type == "MINUS" or token_type == "MULTIPLY" or token_type == "DIVIDE" or token_type == "MODULUS":
             if (tokens[current_token + 1][0] != 'SEMICOLON') and (tokens[current_token + 1][0] != 'KEYWORD'):
                 temp.append(token_value)
@@ -456,6 +461,7 @@ def expression(tokens, position):
         current_token += 1
         express_n = express_n.rstrip()
 
+    #print("return ", temp)
     return current_token, express_n, temp
 
 
@@ -933,6 +939,7 @@ def Intemidiet_Code_Generator(parser_tree):
 
         elif node_name == "WHILE-STATEMENT":
             vae = ""
+            t_V = f"t{count}"
             for child in children:
                 if child[0] == 'condition':
                     for x in child[1]:
@@ -942,10 +949,13 @@ def Intemidiet_Code_Generator(parser_tree):
                                 if t.isdigit():
                                     vae += t
                                 elif disct[t][2] == "true":
-                                    vae += " ! " + t + " "
-                                    #print(f"(NOT, {t_V}, {t}")
+                                    vae += t_V
+                                    print(f"(NOT, {t_V}, {t})")
+                                    count += 1
                                 elif disct[t][2] == "false":
-                                    vae += " ! " + t + " "
+                                    vae += t_V
+                                    print(f"(NOT, {t_V}, {t})")
+                                    count += 1
                                 else:
                                     vae += t
                         else:
@@ -961,8 +971,7 @@ def Intemidiet_Code_Generator(parser_tree):
 
                 elif child[0] == 'while_body':
                     l = label_track
-                    r = label_track + 1
-                    print(f"( if {vae}, L{l})")
+                    print(f"(IF, {vae}, L{l})")
                     for sub_child in child[1]:
                         label_track += 2
                         Intemidiet_Code_Generator([sub_child])
@@ -986,10 +995,14 @@ def Intemidiet_Code_Generator(parser_tree):
                                 if t.isdigit():
                                     vae += t
                                 elif disct[t][2] == "true":
-                                    vae += " ! " + t + " "
+                                    vae += t_V
+                                    print(f"(NOT, {t_V}, {t})")
+                                    count += 1
 
                                 elif disct[t][2] == "false":
-                                    vae += " ! " + t + " "
+                                    vae += t_V
+                                    print(f"(NOT, {t_V}, {t})")
+                                    count += 1
                                 else:
                                     vae += t
                         else:
@@ -1005,11 +1018,10 @@ def Intemidiet_Code_Generator(parser_tree):
 
                     l = label_track
                     t_V = f"t{count}"
-                    print(f"-- {t_V} = {vae}")
+                    print(f"{t_V} = {vae}")
                     count += 1
 
                     print(f"(IF, {t_V}, L{l})")
-
 
                 elif child[0] == 'if_body':
                     for sub_child in child[1]:
@@ -1017,7 +1029,7 @@ def Intemidiet_Code_Generator(parser_tree):
                     print(f"L{end}: ")
 
                 elif child[0] == 'elif_condition':
-                    exp = []
+
                     vae = ""
                     for x in child[1]:
                         if isinstance(x, tuple):
@@ -1061,7 +1073,7 @@ def Intemidiet_Code_Generator(parser_tree):
                         Intemidiet_Code_Generator([sub_child])
                     print(f"L{end} :")
 
-        elif node_name ==  "function_assignment":
+        elif node_name == "function_assignment":
             t = []
             function_name = None
             variable_name = None
