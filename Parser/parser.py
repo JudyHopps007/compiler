@@ -974,9 +974,10 @@ def Intemidiet_Code_Generator(parser_tree):
             for child in children[0]:
                 if child[0] == 'if_condition':
                     vae = ""
+                    t_V = f"t{count}"
                     for x in child[1]:
                         if isinstance(x, tuple):
-                            t_V = f"t{count}"
+
                             for i in x:
                                 t = serach(disct, i)
                                 if disct[t][2] == "true":
