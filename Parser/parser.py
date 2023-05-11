@@ -979,7 +979,7 @@ def Intemidiet_Code_Generator(parser_tree):
                             for i in x:
                                 t = serach(disct, i)
                                 if disct[t][2] == "true":
-                                    vae += "( NOT {}" + t + " "
+                                    vae += f"( NOT, {t_v}," + t + ")"
                                 elif disct[t][2] == "false":
                                     vae += " NOT  " + t + " "
                                 else:
