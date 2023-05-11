@@ -979,9 +979,9 @@ def Intemidiet_Code_Generator(parser_tree):
                             for i in x:
                                 t = serach(disct, i)
                                 if disct[t][2] == "true":
-                                    vae += " NOT " + t + " "
+                                    vae += "( NOT {}" + t + " "
                                 elif disct[t][2] == "false":
-                                    vae += " NOT " + t + " "
+                                    vae += " NOT  " + t + " "
                                 else:
                                     vae += t
 
@@ -999,7 +999,7 @@ def Intemidiet_Code_Generator(parser_tree):
                     l = label_track
                     t_V = f"t{count}"
                     # print(f"{t_V} = {vae}")  # (NOT, t2, t1)
-                    print(f"{vae}")
+                    print(f"({vae})")
 
                     count+=1
                     #print(f"L{l} : if ( {t_V} ) goto L{r}")
