@@ -969,7 +969,7 @@ def Intemidiet_Code_Generator(parser_tree):
                     print(f"L2:  return {child[1]}")
 
         elif node_name == "if_statment":
-            end = int((len(children[0]) - 1) / 2 + 2)
+            end = int((len(children[0]) - 1) / 2 + 2) 
             end = end + label_track - 1
             for child in children[0]:
                 if child[0] == 'if_condition':
