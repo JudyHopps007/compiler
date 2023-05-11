@@ -12,7 +12,6 @@ def serach(my_dict, target_value):  # function that is used to search for same i
             return key
     return target_value
 
-
 def Intemidiet_Code_Generator(parser_tree):
     global disct, count, label_track
     for node_name, *children in parser_tree:
@@ -50,9 +49,9 @@ def Intemidiet_Code_Generator(parser_tree):
             store = ""
             hold1 = None
             hold2 = None
-            x = ''
-            m = ""
+
             for child in children:
+
                 if child[0] == "type_specifier":
                     hold1 = child[1]
                 elif child[0] == "IDENTIFIER":
@@ -61,8 +60,11 @@ def Intemidiet_Code_Generator(parser_tree):
                     if len(child[1]) > 3:  # if there are more than three terms
                         last = len(child[1])
                         i = 1
+                        x = ''
+                        m = ""
                         for t in child[1]:
                             t = serach(disct, t)
+
                             if t == "+" or t == "-":
                                 t_v = f't{count}'
                                 disct[t_v] = (None, None, x)
@@ -70,6 +72,12 @@ def Intemidiet_Code_Generator(parser_tree):
                                 i += 1
                                 m += t_v + " " + t + " "
                                 print(f"{t_v} = {x} ")
+                                if t == "+":
+                                    print(f"(ADD, {t_v}, {x})")
+                                else:
+                                    print(f"(SUB, {t_v}, {x})")
+
+
                                 x = ''
 
                             elif i == last:
@@ -84,10 +92,39 @@ def Intemidiet_Code_Generator(parser_tree):
                             else:
                                 x += t
                                 i += 1
+
                         t_v = f't{count}'
                         disct[t_v] = (hold1, hold2, m)
                         count += 1
                         store += f"{t_v} = " + m
+
+                    elif len(child[1]) == 3:
+                        m = op1 = op2 = operator = ""
+                        operator = child[1][1]
+                        t_v = f't{count}'
+                        if operator == "+":
+                            op1 = serach(disct, child[1][0])
+                            op2 = serach(disct, child[1][2])
+                            store += f"(ADD, {t_v}, {op1} , {op2})"
+
+                        elif operator == "-":
+                            op1 = serach(disct, child[1][0])
+                            op2 = serach(disct, child[1][2])
+                            store += f"(SUB, {t_v}, {op1} , {op2})"
+
+                        elif operator == "/":
+                            op1 = serach(disct, child[1][0])
+                            op2 = serach(disct, child[1][2])
+                            store += f"(DIV, {t_v}, {op1} , {op2})"
+
+                        elif operator == "*":
+                            op1 = serach(disct, child[1][0])
+                            op2 = serach(disct, child[1][2])
+                            store += f"(MUL, {t_v}, {op1} , {op2})"
+
+                        disct[t_v] = (hold1, hold2, store)
+                        count += 1
+
                     else:
                         value = []
                         for t in child[1]:
@@ -95,12 +132,12 @@ def Intemidiet_Code_Generator(parser_tree):
                             value.append(t)
 
                         t_v = f't{count}'
-                        disct[t_v] = (hold1, hold2, ''.join(str(x) for x in value))
+                        disct[t_v] = (hold1, hold2, ' '.join(str(x) for x in value))
                         count += 1
-                        store += f"{t_v} = " + ' '.join(str(x) for x in value)
+                        store +=f"(ASSIGN, {t_v}, {''.join(str(x) for x in value) })"
+                        #store = f"{t_v} = " + ' '.join(str(x) for x in value)
 
             print(store)
-
 
         elif node_name == "FUNCTION":
             i = 0
@@ -148,7 +185,6 @@ def Intemidiet_Code_Generator(parser_tree):
             for child in children:
                 if child[0] == 'condition':
                     for x in child[1]:
-
                         if isinstance(x, tuple):
                             for i in x:
                                 t = serach(disct, i)
@@ -159,7 +195,6 @@ def Intemidiet_Code_Generator(parser_tree):
                                 else:
                                     vae += t
                         else:
-
                             if x == '==':
                                 x = '!='
                             elif x == '!=':
@@ -198,19 +233,24 @@ def Intemidiet_Code_Generator(parser_tree):
                                     vae += " ! " + t + " "
                                 else:
                                     vae += t
+
                         else:
                             if x == '==':
-                                x = '!='
+                                 x = ' != '
                             elif x == '!=':
-                                x = '=='
+                                 x = ' == '
                             elif x == '<':
-                                x = '>='
+                                 x = ' >= '
                             elif x == '>':
-                                x = '<='
+                                 x = ' <= '
                             vae += x
+
                     l = label_track
                     r = label_track + 1
-                    print(f"L{l} : if ( {vae} ) goto L{r}")
+                    t_V = f"t{count}"
+                    print(f"{t_V} = {vae}")
+                    count+=1
+                    print(f"L{l} : if ( {t_V} ) goto L{r}")
                     label_track += 1
 
                 elif child[0] == 'if_body':
@@ -285,7 +325,7 @@ def Intemidiet_Code_Generator(parser_tree):
 
 
 start_run_time_time = time.time()  # Record the Start run time-time of Intimidate_Code_Generator
-#Intemidiet_Code_Generator(parser_tree)  # calling the Intimidate_Code_Generator function and passing parser_tree-list
+Intemidiet_Code_Generator(parser_tree)  # calling the Intimidate_Code_Generator function and passing parser_tree-list
 End_run_time_time = time.time()  # Record the End run time-time of Intimidate_Code_Generator
 Program_Run_time = End_run_time_time - start_run_time_time  # Calculate the elapsed time (run time of Intimidate_Code_Generator function)
 print(f"\nIntimidate_Code_Generator Program Runtime  :  {Program_Run_time} seconds")

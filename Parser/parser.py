@@ -802,6 +802,7 @@ def Intemidiet_Code_Generator(parser_tree):
             hold2 = None
 
             for child in children:
+
                 if child[0] == "type_specifier":
                     hold1 = child[1]
                 elif child[0] == "IDENTIFIER":
@@ -882,9 +883,10 @@ def Intemidiet_Code_Generator(parser_tree):
                             value.append(t)
 
                         t_v = f't{count}'
-                        disct[t_v] = (hold1, hold2, store)
+                        disct[t_v] = (hold1, hold2, ' '.join(str(x) for x in value))
                         count += 1
-                        store += f"{t_v} = " + ' '.join(str(x) for x in value)
+                        store +=f"(ASSIGN, {t_v}, {''.join(str(x) for x in value) })"
+                        #store = f"{t_v} = " + ' '.join(str(x) for x in value)
 
             print(store)
 
@@ -937,7 +939,12 @@ def Intemidiet_Code_Generator(parser_tree):
                         if isinstance(x, tuple):
                             for i in x:
                                 t = serach(disct, i)
-                                vae += t
+                                if disct[t][2] == "true":
+                                    vae += " ! " + t + " "
+                                elif disct[t][2] == "false":
+                                    vae += " ! " + t + " "
+                                else:
+                                    vae += t
                         else:
                             if x == '==':
                                 x = '!='
@@ -971,7 +978,13 @@ def Intemidiet_Code_Generator(parser_tree):
                         if isinstance(x, tuple):
                             for i in x:
                                 t = serach(disct, i)
-                                vae += t
+                                if disct[t][2] == "true":
+                                    vae += " ! " + t + " "
+                                elif disct[t][2] == "false":
+                                    vae += " ! " + t + " "
+                                else:
+                                    vae += t
+
                         else:
                             if x == '==':
                                  x = ' != '
@@ -1002,7 +1015,12 @@ def Intemidiet_Code_Generator(parser_tree):
                         if isinstance(x, tuple):
                             for i in x:
                                 t = serach(disct, i)
-                                vae += t
+                                if disct[t][2] == "true":
+                                    vae += " ! " + t + " "
+                                elif disct[t][2] == "false":
+                                    vae += " ! " + t + " "
+                                else:
+                                    vae += t
                         else:
                             if x == '==':
                                 x = '!='
