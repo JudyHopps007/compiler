@@ -997,14 +997,13 @@ def Intemidiet_Code_Generator(parser_tree):
                             vae += x
 
                     l = label_track
-                    r = label_track + 1
                     t_V = f"t{count}"
                     print(f"{t_V} = {vae}")
                     count+=1
                     #print(f"L{l} : if ( {t_V} ) goto L{r}")
                     #(IF, t2, L1)
-                    print(f"(IF, {t_V}, L{r})")
-                    label_track += 1
+                    print(f"(IF, {t_V}, L{l})")
+                    #label_track += 1
 
                 elif child[0] == 'if_body':
                     for sub_child in child[1]:
