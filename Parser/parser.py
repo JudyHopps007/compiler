@@ -976,10 +976,11 @@ def Intemidiet_Code_Generator(parser_tree):
                     vae = ""
                     for x in child[1]:
                         if isinstance(x, tuple):
+                            t_V = f"t{count}"
                             for i in x:
                                 t = serach(disct, i)
                                 if disct[t][2] == "true":
-                                    t_V = f"t{count}"
+                                    #t_V = f"t{count}"
                                     vae += f"( NOT, {t_V}," + t + ")"
                                 elif disct[t][2] == "false":
                                     vae += " NOT  " + t + " "
