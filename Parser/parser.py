@@ -751,7 +751,7 @@ print(parser_tree)  # print out the parser tree in list for that will be passed 
 
 print("\n=================================================  INTERMEDIATE CODE  =================================================================================== \n")
 
-def serach(my_dict, target_value):  # function that is used to search for same information in our disct dictionary
+def serach(my_dict, target_value): # function that is used to search for same information in our disct dictionary
     for key, value in my_dict.items():
         if value[1] == target_value:
             return key
