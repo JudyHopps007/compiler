@@ -5,6 +5,5 @@ int b = 1;
 
 if (a){
 
-}
-else if () {
+} else {
 }
