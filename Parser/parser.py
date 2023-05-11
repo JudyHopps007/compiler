@@ -939,8 +939,11 @@ def Intemidiet_Code_Generator(parser_tree):
                         if isinstance(x, tuple):
                             for i in x:
                                 t = serach(disct, i)
-                                if disct[t][2] == "true":
+                                if t.isdigit():
+                                    vae += t
+                                elif disct[t][2] == "true":
                                     vae += " ! " + t + " "
+                                    #print(f"(NOT, {t_V}, {t}")
                                 elif disct[t][2] == "false":
                                     vae += " ! " + t + " "
                                 else:
@@ -959,36 +962,36 @@ def Intemidiet_Code_Generator(parser_tree):
                 elif child[0] == 'while_body':
                     l = label_track
                     r = label_track + 1
-                    print(f"L{l}: if ({vae}) goto L{r}")
+                    print(f"( if {vae}, L{l})")
                     for sub_child in child[1]:
                         label_track += 2
                         Intemidiet_Code_Generator([sub_child])
-                    print(f"L{r} : ")
+                    print(f"L{l} : ")
+                    label_track += 1
 
                 if child[0] == 'return_statement':
                     print(f"L2:  return {child[1]}")
 
         elif node_name == "if_statment":
-            print(len(children[0]) )
             end = int((len(children[0]) - 1) / 2 + 2)
             end = end + label_track - 2
             for child in children[0]:
                 if child[0] == 'if_condition':
                     vae = ""
+                    t_V = f"t{count}"
                     for x in child[1]:
                         if isinstance(x, tuple):
                             for i in x:
                                 t = serach(disct, i)
-                                print("=========", t)
-                                print("=========", disct[t])
-                                print("=========", disct)
-                                if disct[t][2] == "true":
+                                if t.isdigit():
+                                    vae += t
+                                elif disct[t][2] == "true":
                                     vae += " ! " + t + " "
+
                                 elif disct[t][2] == "false":
                                     vae += " ! " + t + " "
                                 else:
                                     vae += t
-
                         else:
                             if x == '==':
                                  x = ' != '
@@ -1002,25 +1005,27 @@ def Intemidiet_Code_Generator(parser_tree):
 
                     l = label_track
                     t_V = f"t{count}"
-                    print(f"{t_V} = {vae}")
+                    print(f"-- {t_V} = {vae}")
                     count += 1
 
                     print(f"(IF, {t_V}, L{l})")
-                    label_track += 1
+
 
                 elif child[0] == 'if_body':
                     for sub_child in child[1]:
                         Intemidiet_Code_Generator([sub_child])
-
-                    print(f"-- L{label_track-1}: ")
+                    print(f"L{end}: ")
 
                 elif child[0] == 'elif_condition':
+                    exp = []
                     vae = ""
                     for x in child[1]:
                         if isinstance(x, tuple):
                             for i in x:
                                 t = serach(disct, i)
-                                if disct[t][2] == "true":
+                                if t.isdigit():
+                                    vae += t
+                                elif disct[t][2] == "true":
                                     vae += " ! " + t + " "
                                 elif disct[t][2] == "false":
                                     vae += " ! " + t + " "
@@ -1038,7 +1043,9 @@ def Intemidiet_Code_Generator(parser_tree):
                             vae += x
 
                     r = label_track + 1
-                    print(f"L{l} : if ( {vae} ) goto L{r}")
+                    print(f"L{label_track} :")
+                    print(f"(if {vae}, L{r})")
+
                     label_track += 1
 
                 elif child[0] == 'elif_body':
@@ -1047,15 +1054,14 @@ def Intemidiet_Code_Generator(parser_tree):
                     print(f"goto  L{end}")
 
                 elif child[0] == 'else_body':
+
                     l = label_track
-                    label_track += 1
                     print(f'L{l} :')
                     for sub_child in child[1]:
                         Intemidiet_Code_Generator([sub_child])
                     print(f"L{end} :")
 
-
-        elif node_name == "function_assignment":
+        elif node_name ==  "function_assignment":
             t = []
             function_name = None
             variable_name = None
