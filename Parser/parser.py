@@ -1048,7 +1048,7 @@ def Intemidiet_Code_Generator(parser_tree):
                     for sub_child in child[1]:
                         Intemidiet_Code_Generator([sub_child])
                     print(f"L{end} :")
-            label_track += 1
+
 
         elif node_name == "function_assignment":
             t = []
