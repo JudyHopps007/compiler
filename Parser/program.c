@@ -1,5 +1,18 @@
-int a = true;
-int b = 1;
+
+
 if (a ){
-a = 1;
+  
+}
+
+
+if (a ){
+
+} else {
+
+}
+
+if (a ){
+
+} else if ( n) {
+
 }
