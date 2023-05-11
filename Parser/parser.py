@@ -969,7 +969,7 @@ def Intemidiet_Code_Generator(parser_tree):
                     print(f"L2:  return {child[1]}")
 
         elif node_name == "if_statment":
-            end = int((len(children[0]) - 1) / 2 + 2) # for the version
+            end = int((len(children[0]) - 1) / 2 + 2)
             end = end + label_track - 1
             for child in children[0]:
                 if child[0] == 'if_condition':
@@ -979,9 +979,9 @@ def Intemidiet_Code_Generator(parser_tree):
                             for i in x:
                                 t = serach(disct, i)
                                 if disct[t][2] == "true":
-                                    vae += " NOT " + t + " "
+                                    vae += " ! " + t + " "
                                 elif disct[t][2] == "false":
-                                    vae += " NOT  {}" + t + " "
+                                    vae += " ! " + t + " "
                                 else:
                                     vae += t
 
@@ -997,15 +997,14 @@ def Intemidiet_Code_Generator(parser_tree):
                             vae += x
 
                     l = label_track
+                    r = label_track + 1
                     t_V = f"t{count}"
-                    # print(f"{t_V} = {vae}")  # (NOT, t2, t1)
-                    print(f"{vae}")
-
+                    print(f"{t_V} = {vae}")
                     count+=1
                     #print(f"L{l} : if ( {t_V} ) goto L{r}")
                     #(IF, t2, L1)
-                    print(f"(IF, {t_V}, L{l})")
-                    #label_track += 1
+                    print(f"(IF, {t_V}, L{r})")
+                    label_track += 1
 
                 elif child[0] == 'if_body':
                     for sub_child in child[1]:
