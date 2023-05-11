@@ -910,19 +910,19 @@ def Intemidiet_Code_Generator(parser_tree):
                                 if child[0] != "type_specifier":
                                     hold2 = child[1]
                                     t_v = f't{count}'
-                                    value = f"(ASSIGN, {t_v},  {child[1]})"
+                                    #value = f"(ASSIGN, {t_v},  {child[1]})"
 
-                                    disct[t_v] = (hold1, hold2, value)
+                                    disct[t_v] = (hold1, hold2, child[1])
                                     count += 1
-                                    print(f"{value}")
+                                    print(f"(ASSIGN, {t_v},  {child[1]})")
 
                             elif child != "IDENTIFIER":
                                 hold2 = child
                                 t_v = f't{count}'
-                                value = f"(ASSIGN, {t_v},  {child})"
-                                disct[t_v] = (hold1, hold2, value)
+                                #value = f"(ASSIGN, {t_v},  {child})"
+                                disct[t_v] = (hold1, hold2, child)
                                 count += 1
-                                print(f"{value}")
+                                print(f"(ASSIGN, {t_v},  {child})")
 
                 elif child[0] == 'function_body':
                     for sub_child in child[1]:
