@@ -69,9 +69,8 @@ def colorize_text(event):
         key_length = len(key)
         pattern = r"\y" + re.escape(key) + r"\y"
         if key.startswith('#'):
-            pattern = re.escape(key)
+            pattern = key
         while True:
-
             start = Editor.search(pattern, start, stopindex="end", regexp=True)
 
             if not start:
