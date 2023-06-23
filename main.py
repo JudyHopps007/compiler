@@ -91,7 +91,8 @@ def main():
 
     Editor = tk.Text(Text_Frame, border=0, bg=Editor_color, font=("Courier New", 12), wrap="none", fg='white')
     Editor.place(x=51, y=0, relwidth=1, relheight=1)
-
+    Editor.insert("insert", " ")
+    
     # Editor.bind("<Return>", on_return_press)
     Editor.bind("<Key>", update_row_numbers)  # Bind the update_row_numbers function to changes in the text widget
     Editor.bind("<KeyRelease>", colorize_text)
