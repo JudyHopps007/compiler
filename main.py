@@ -68,7 +68,7 @@ def colorize_text(event):
         start = "1.0"
         key_length = len(key)
         pattern = r"\y" + re.escape(key) + r"\y"
-        pattern = r"\b" + re.escape(key) + r"\b"
+        pattern = r"\b" + key + r"\b"
         while True:
             start = Editor.search(pattern, start, stopindex="end", regexp=True)
 
