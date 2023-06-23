@@ -10,7 +10,7 @@ ctypes.windll.shcore.SetProcessDpiAwareness(True)
 keyword = ["auto",	"break",	"case",	"char", "const",	"continue",	"default",	"do" , "double",	"else",	"enum",	"extern",
            "float",	"for",	"goto",	"if", "int",	"long",	"register",	"return", "short",	"signed",	"sizeof",	"static", "extern"
            "struct",	"switch",	"typedef",	"union", "unsigned", "void",	"volatile",	"while", "bool",
-           "malloc", "calloc", "realloc",  "free", "#include", "#define", "#ifdef", "#ifndef", "#endif", "#if", "#else", "#elif"
+           "malloc", "calloc", "realloc",  "free"
            ]
 
 def keyword_color (keyword, start, end):
