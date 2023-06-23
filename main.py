@@ -25,9 +25,9 @@ def keyword_color (keyword, start, end):
     elif keyword == "if" or keyword == "else":  # if
         Editor.tag_add("blue", start, end)
         Editor.tag_config("blue", foreground="blue")
-    elif keyword == "if" or keyword == "else":  # Storage Classes:
-        Editor.tag_add("blue", start, end)
-        Editor.tag_config("blue", foreground="blue")
+    elif keyword == "auto" or keyword == "register" or  keyword == "static" or  keyword == "extern":  # Storage Classes:
+        Editor.tag_add("brown", start, end)
+        Editor.tag_config("brown", foreground="blue")
 
 def on_return_press():
     user_input = Editor.get("1.0", "end")
