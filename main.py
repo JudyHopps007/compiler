@@ -12,15 +12,15 @@ keyword = ["auto",	"break",	"case",	"char", "const",	"continue",	"default",	"do"
                 "struct",	"switch",	"typedef",	"union", "unsigned",	"void",	"volatile",	"while", "bool"]
 
 def keyword_color (keyword, start, end):
-    if keyword == "break" or keyword == "continue":
+    if keyword == "break" or keyword == "continue": 
         Editor.tag_add("yellow", start, end)
         Editor.tag_config("yellow", foreground="yellow")
     elif keyword == "int" or keyword == "float" or keyword == "double" or keyword == "char" or keyword == "bool":
         Editor.tag_add("red", start, end)
         Editor.tag_config("red", foreground="red")
-    elif keyword == "while" or keyword == "for" or keyword == "double" or keyword == "char":
-        Editor.tag_add("red", start, end)
-        Editor.tag_config("red", foreground="red")
+    elif keyword == "while" or keyword == "for" or keyword == "do":  # loops
+        Editor.tag_add("pink", start, end)
+        Editor.tag_config("pink", foreground="pink")
 
 
 def on_return_press():
