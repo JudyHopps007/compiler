@@ -62,12 +62,7 @@ def colorize_text(event):
 
     text = Editor.get("1.0", "end-1c")  # Get the text from the Text widget
 
-    # Find and colorize strings
-    for match in re.finditer(r"[\"][^']*[\"]", text):
-        start = match.start()
-        end = match.end()
-        Editor.tag_add("green", f"1.0+{start}c", f"1.0+{end}c")
-        Editor.tag_config("green", foreground="green")
+   
 
     # Find and colorize preprocessor directives
     for match in re.finditer(r'#(include|define|ifdef|ifndef|endif|if|else|elif)\b', text):
