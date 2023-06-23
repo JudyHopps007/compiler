@@ -34,7 +34,7 @@ def keyword_color (keyword, start, end):
         Editor.tag_add("brown", start, end)
         Editor.tag_config("brown", foreground="brown")
     elif keyword == "include" or keyword ==  "#define" or keyword == "#ifdef" or keyword == "#ifndef" or keyword == "#endif" or keyword == "#if" or keyword == "#else" or keyword == "#elif":  # Preprocessor Directives:
-        
+
         Editor.tag_add("Dark Cyan", start, end)
         Editor.tag_config("Dark Cyan", foreground="Dark Cyan")
 
@@ -68,9 +68,6 @@ def colorize_text(event):
         start = "1.0"
         key_length = len(key)
         pattern = r"\y" + re.escape(key) + r"\y"
-        if key.startswith('#'):
-            pattern = r"#" + key[1:]
-            print(pattern)
         while True:
             start = Editor.search(pattern, start, stopindex="end", regexp=True)
 
