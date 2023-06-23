@@ -13,9 +13,11 @@ keyword = ["auto",	"break",	"case",	"char", "const",	"continue",	"default",	"do"
 
 def keyword_color (keyword, start, end):
     if keyword == "break" or keyword == "continue":
-        Editor.tag_add("green", start, end)
-        Editor.tag_config("green", foreground="green")
+        Editor.tag_add("yellow", start, end)
+        Editor.tag_config("yellow", foreground="yellow")
     elif keyword == "int" or keyword == "float" or keyword == "double" or keyword == "char":
+        Editor.tag_add("red", start, end)
+        Editor.tag_config("red", foreground="red")
 
 
 def on_return_press():
