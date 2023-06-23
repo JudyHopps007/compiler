@@ -34,8 +34,9 @@ def keyword_color (keyword, start, end):
         Editor.tag_add("brown", start, end)
         Editor.tag_config("brown", foreground="brown")
     elif keyword == "#include" or keyword ==  "#define" or keyword == "#ifdef" or keyword == "#ifndef" or keyword == "#endif" or keyword == "#if" or keyword == "#else" or keyword == "#elif":  # Preprocessor Directives:
-        Editor.tag_add("purple", start, end)
-        Editor.tag_config("Purple", foreground="Purple")
+        print("directive")
+        Editor.tag_add("blue", start, end)
+        Editor.tag_config("blue", foreground="blue")
 
 def on_return_press():
     user_input = Editor.get("1.0", "end")
