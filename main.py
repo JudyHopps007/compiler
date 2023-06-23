@@ -56,7 +56,7 @@ def colorize_text(event):
     add_space()
     global keyword
     # Remove existing tags
-    Editor.tag_remove("red", "1.0", "end")
+    Editor.tag_remove("all", "1.0", "end")
     Editor.tag_remove("green", "1.0", "end")
     Editor.tag_remove("black", "1.0", "end")
 
@@ -98,7 +98,7 @@ def colorize_text(event):
         for match in re.finditer(r"[\"][^']*[\"]", text):
             start = match.start()
             end = match.end()
-            Editor.tag_remove("black", f"1.0+{start}c", f"1.0+{end}c")
+            Editor.tag_remove("all", f"1.0+{start}c", f"1.0+{end}c")
             Editor.tag_add("green", f"1.0+{start}c", f"1.0+{end}c")
             Editor.tag_config("green", foreground="green")
 
