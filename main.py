@@ -59,7 +59,6 @@ def colorize_text(event):
     Editor.tag_remove("red", "1.0", "end")
     Editor.tag_remove("green", "1.0", "end")
     Editor.tag_remove("black", "1.0", "end")
-    help(Editor.tag_remove)
 
     text = Editor.get("1.0", "end-1c")  # Get the text from the Text widget
 
@@ -99,7 +98,7 @@ def colorize_text(event):
         for match in re.finditer(r"[\"][^']*[\"]", text):
             start = match.start()
             end = match.end()
-            Editor.tag_remove("black", start, end)
+            Editor.tag_remove("black", f"1.0+{start}c", f"1.0+{end}c")
             Editor.tag_add("green", f"1.0+{start}c", f"1.0+{end}c")
             Editor.tag_config("green", foreground="green")
 
