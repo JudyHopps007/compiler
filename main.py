@@ -57,11 +57,8 @@ def colorize_text(event):
     global keyword
     # Remove existing tags
     Editor.tag_remove("all", "1.0", "end")
-    
 
     text = Editor.get("1.0", "end-1c")  # Get the text from the Text widget
-
-
 
     # Find and colorize preprocessor directives
     for match in re.finditer(r'#(include|define|ifdef|ifndef|endif|if|else|elif)\b', text):
@@ -69,8 +66,6 @@ def colorize_text(event):
         end = match.end()
         Editor.tag_add("Dark Cyan", f"1.0+{start}c", f"1.0+{end}c")
         Editor.tag_config("Dark Cyan", foreground="Dark Cyan")
-
-
 
     for key in keyword:
         start = "1.0"
