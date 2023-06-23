@@ -18,6 +18,9 @@ def keyword_color (keyword, start, end):
     elif keyword == "int" or keyword == "float" or keyword == "double" or keyword == "char":
         Editor.tag_add("red", start, end)
         Editor.tag_config("red", foreground="red")
+    elif keyword == "int" or keyword == "float" or keyword == "double" or keyword == "char":
+        Editor.tag_add("red", start, end)
+        Editor.tag_config("red", foreground="red")
 
 
 def on_return_press():
