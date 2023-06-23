@@ -32,10 +32,9 @@ def update_row_numbers(event=None):
 
 def colorize_text(event):
     add_space()
-    keyword = ["auto"	"break"	"case"	"char" "const"	"continue"	"default"	"do" , "double"	"else"	"enum"	"extern"
-                "float"	"for"	"goto"	"if", "int"	"long"	"register"	"return", "short"	"signed"	"sizeof"	"static"
-                  
-"struct"	"switch"	"typedef"	"union", "unsigned"	"void"	"volatile"	"while"]
+    keyword = ["auto",	"break",	"case",	"char", "const",	"continue",	"default",	"do" , "double",	"else",	"enum",	"extern",
+                "float",	"for",	"goto",	"if", "int",	"long",	"register",	"return", "short",	"signed",	"sizeof",	"static",
+                "struct",	"switch",	"typedef",	"union", "unsigned",	"void",	"volatile",	"while"]
     # Remove existing tags
     Editor.tag_remove("red", "1.0", "end")
     Editor.tag_remove("green", "1.0", "end")
