@@ -95,7 +95,8 @@ def colorize_text(event):
         end = match.end()
         tag_names = Editor.tag_names()
         print(tag_names)
-        Editor.tag_remove("all", f"1.0+{start}c", f"1.0+{end}c")
+        for tag in tag_names:
+            Editor.tag_remove("all", f"1.0+{start}c", f"1.0+{end}c")
         Editor.tag_add("green", f"1.0+{start}c", f"1.0+{end}c")
         Editor.tag_config("green", foreground="green")
 
