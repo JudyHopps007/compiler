@@ -45,10 +45,9 @@ patterns_rg = [
 ]
 
 
-# ========= Define a function that reads a program from a  and generates a list of tokens ===
-def lexical_analyzer(filename):
-    with open(filename, 'r') as f:  # load the program file into the lexical analyzer
-        program = f.read()
+ # a function that reads user code  and generates a list of tokens
+def scanner(program):
+
 
     line_number_track = 1  # keep track of lexical error position
     token_track = 1  # keep track of token position
