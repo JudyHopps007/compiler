@@ -71,14 +71,11 @@ def colorize_text(event):
         pattern = r"\y" + re.escape(key) + r"\y"
         while True:
             start = Editor.search(pattern, start, stopindex="end", regexp=True)
-
             if not start:
                 break
-
             dif = int(start[2:])
             dif = dif + key_length
             end = start[0: 2] + f"{dif}"
-
             keyword_color(key, start, end)
             start = end
 
@@ -88,7 +85,7 @@ def colorize_text(event):
         for match in re.finditer(r"[\"][^']*[\"]", text):
             start = match.start()
             end = match.end()
-            Editor.tag_add("red", f"1.0+{start}c", f"1.0+{end}c")
+            Editor.tag_add("gree", f"1.0+{start}c", f"1.0+{end}c")
             Editor.tag_config("red", foreground="red")
 
 
