@@ -92,6 +92,17 @@ def colorize_text(event):
         Editor.tag_add("gray", f"1.0+{start}c", f"1.0+{end}c")
         Editor.tag_config("gray", foreground="gray")
 
+        # Find and colorize comments
+    for match in re.finditer(r'\/\*[\s\S]*?\*\/', text):
+        start = match.start()
+        end = match.end()
+        tag_names = Editor.tag_names()
+        for tag in tag_names:
+            Editor.tag_remove(tag, f"1.0+{start}c", f"1.0+{end}c")
+        Editor.tag_remove("all", f"1.0+{start}c", f"1.0+{end}c")
+        Editor.tag_add("gray", f"1.0+{start}c", f"1.0+{end}c")
+        Editor.tag_config("gray", foreground="gray")
+
     # Find and colorize strings
     for match in re.finditer(r"[\"][^']*[\"]", text):
         start = match.start()
