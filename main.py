@@ -94,11 +94,12 @@ def colorize_text(event):
             end = match.end()
             Editor.tag_add("gray", f"1.0+{start}c", f"1.0+{end}c")
             Editor.tag_config("gray", foreground="gray")
-            # Find and colorize strings
 
+        # Find and colorize strings
         for match in re.finditer(r"[\"][^']*[\"]", text):
             start = match.start()
             end = match.end()
+            Editor.tag_remove("black", start, end)
             Editor.tag_add("green", f"1.0+{start}c", f"1.0+{end}c")
             Editor.tag_config("green", foreground="green")
 
