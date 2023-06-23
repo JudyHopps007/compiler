@@ -54,7 +54,13 @@ def colorize_text(event):
             start = end
 
 
+def add_space(event):
+    current_line = Editor.index(tk.INSERT).split(".")[0]
+    current_char = Editor.index(tk.INSERT).split(".")[1]
 
+    if current_char == '0':
+        # Insert a space at the beginning of the line
+        Editor.insert(f"{current_line}.0", " ")
 
 
 
@@ -94,6 +100,7 @@ def main():
     Editor.insert("insert", " ")
 
     # Editor.bind("<Return>", on_return_press)
+    Editor.bind("<KeyPress>", add_space)
     Editor.bind("<Key>", update_row_numbers)  # Bind the update_row_numbers function to changes in the text widget
     Editor.bind("<KeyRelease>", colorize_text)
 
