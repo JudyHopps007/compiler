@@ -68,7 +68,6 @@ def colorize_text(event):
         start = "1.0"
         key_length = len(key)
         pattern = r"\y" + re.escape(key) + r"\y"
-        pattern = r"\b" + key + r"\b"
         while True:
             start = Editor.search(pattern, start, stopindex="end", regexp=True)
 
@@ -78,8 +77,6 @@ def colorize_text(event):
             dif = dif + key_length
             end = start[0: 2] + f"{dif}"
 
-            #Editor.tag_add("green", start, end)
-            #Editor.tag_config("green", foreground="green")
             keyword_color(key, start, end)
             start = end
 
