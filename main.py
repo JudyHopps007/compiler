@@ -1,6 +1,7 @@
 import tkinter as tk
 import ctypes
 import re
+import lexical_Analyzer  # importing scanner for token list
 
 global row_num_widget, Editor, Terminal, Terminal_display
 
