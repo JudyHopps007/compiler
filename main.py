@@ -79,10 +79,9 @@ def colorize_text(event):
 
             keyword_color(key, start, end)
             start = end
-    for key in keyword:
+
         start = "1.0"
-        key_length = len(key)
-        pattern = r"\y" + re.escape(key) + r"\y"
+
         while True:
             start = Editor.search(pattern, start, stopindex="end", regexp=True)
 
