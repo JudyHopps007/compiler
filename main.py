@@ -1,4 +1,5 @@
 import tkinter as tk
+
 global row_num_widget, Editor, Terminal, Terminal_display
 import platform
 import os
@@ -8,59 +9,96 @@ import ctypes
 ctypes.windll.shcore.SetProcessDpiAwareness(1)
 ctypes.windll.shcore.SetProcessDpiAwareness(True)
 
-keyword = ['if' ,'from']
+
+
 
 def on_return_press():
     user_input = Editor.get("1.0", "end")
     # Get the text that was entered after the Return key was pressed
-    #input_text = text.get("end-1c linestart", "end-1c lineend")
+    # input_text = text.get("end-1c linestart", "end-1c lineend")
     print("Input text:", user_input)
     Terminal_display.delete("1.0", "end")
     Terminal_display.insert("1.0", user_input)
 
 
-
 def update_row_numbers(event=None):
-    row_num_widget.config(state="normal") # Enable the Text widget
-    row_num_widget.delete("1.0", "end") # Delete old roe detail information
-    num_lines = Editor.index("end-1c").split(".")[0] # Get the number of lines in the Editor section
+    row_num_widget.config(state="normal")  # Enable the Text widget
+    row_num_widget.delete("1.0", "end")  # Delete old roe detail information
+    num_lines = Editor.index("end-1c").split(".")[0]  # Get the number of lines in the Editor section
     for line_num in range(1, int(num_lines) + 1):  # Insert row numbers into the row_num_widget
         row_num_widget.insert("end", str(line_num) + "\n")
-    row_num_widget.config(state="disabled") # Disable the Text widget
+    row_num_widget.config(state="disabled")  # Disable the Text widget
 
 
 def colorize_text(event):
+    keyword = ['if', 'from']
+    print("============================= \n")
     # Remove existing tags
     Editor.tag_remove("red", "1.0", "end")
     Editor.tag_remove("green", "1.0", "end")
     Editor.tag_remove("black", "1.0", "end")
 
     # Get the text from the Text widget and split it into words
+
+    for Key in keyword:
+        key_length = len(Key)
+        end = "1.0"
+        t = ""
+        while True:
+            start = Editor.search(Key, end)
+            print("start ", start)
+            print("k-lengh ", len(Key))
+            print("end ", end)
+
+            if start == "" or t >= start:
+                break
+            else:
+                dif = int(start[2:])
+                dif = dif + key_length
+                end = start[0: 2] + f"{dif}"
+                Editor.tag_add("green", start, end)
+                Editor.tag_config("green", foreground="green")
+                print("s --- ", start)
+                print("e --- ", end)
+                t = start
+
+        #if uuuu if
+
+        print(start)
+        print(end)
+
+
+"""
     text = Editor.get("1.0", "end")
-    print(text)
-    key = 0
-    while key < len(keyword):
-        index = text.find(keyword[key])
+    
+    for key in keyword:
+        index = text.find(key)
+        print("yuyu ", index)
+        #print("yuyu ", type(index))
         while index != -1:
             tag = "green"
             color = "green"
 
             start = "1.%d" % index
-            end = "1.%d" % (index+4)
-
+            end = "1.%d" % (index + 4)
+            print("start ", start)
+            print("end ", end)
+            
             Editor.tag_add(tag, start, end)
             Editor.tag_config(tag, foreground=color)
 
-            index = text.find("from", index + 1)
-        key += 1
+            index = text.find(key, line)
+            print("000 =", index)
+            line += 1
+"""
+
 
 def main():
-    global row_num_widget, Editor,  Terminal, Terminal_display
+    global row_num_widget, Editor, Terminal, Terminal_display
     app = tk.Tk()
-    app.state("zoomed")
+    # app.state("zoomed")
     app.config(bg='gray')
     app.minsize(1000, 900)
-
 
     container = tk.Frame(app, bg="#232B2B")
     container.place(x=0, y=0, relwidth=1, relheight=1)
@@ -73,10 +111,9 @@ def main():
     nav_bar = tk.Button(nav_bar, bg=nav_bar_bg, text="Run", fg='white', borderwidth=0, border=0, activebackground=nav_bar_bg, activeforeground="green", command=on_return_press)
     nav_bar.place(x=0, y=0, relwidth=0.05, relheight=1)
 
-
     # ======================================================== Editor Section ============================
 
-    Text_Frame =  tk.Frame(container, border=0, bg=nav_bar_bg)
+    Text_Frame = tk.Frame(container, border=0, bg=nav_bar_bg)
     Text_Frame.place(x=0, y=35, relwidth=1, relheight=0.75)
 
     Editor_color = "#3A3A38"
@@ -91,7 +128,6 @@ def main():
     Editor.bind("<Key>", update_row_numbers)  # Bind the update_row_numbers function to changes in the text widget
     Editor.bind("<KeyRelease>", colorize_text)
 
-
     # Define a function to synchronize the scrolling of the two widgets
     def sync_scrollbar(*args):
         Editor.yview_moveto(args[0])
@@ -101,8 +137,6 @@ def main():
     for widget in (Editor, row_num_widget):
         widget.bind("<Configure>", lambda event: sync_scrollbar(event.widget.yview()[0]))
         widget.bind("<MouseWheel>", lambda event: sync_scrollbar(event.widget.yview()[0]))
-
-
 
     # ======================================================== Terminal  Section ============================
     Text_Frame_2 = tk.Frame(container, border=0, bg=nav_bar_bg)
@@ -118,10 +152,8 @@ def main():
     Terminal_display.config(yscrollcommand=scrollbar2.set)
     scrollbar2.config(command=Terminal_display.yview, bg="blue")
 
-
-
-
     app.mainloop()
 
-if  __name__ == "__main__":
+
+if __name__ == "__main__":
     main()
