@@ -10,7 +10,7 @@ ctypes.windll.shcore.SetProcessDpiAwareness(True)
 keyword = ["auto",	"break",	"case",	"char", "const",	"continue",	"default",	"do" , "double",	"else",	"enum",	"extern",
            "float",	"for",	"goto",	"if", "int",	"long",	"register",	"return", "short",	"signed",	"sizeof",	"static", "extern"
            "struct",	"switch",	"typedef",	"union", "unsigned", "void",	"volatile",	"while", "bool"
-           "malloc", "calloc", "realloc",  "free"
+           "malloc", "calloc", "realloc",  "free", "#include", "#define", "#ifdef", "#ifndef", "#endif", "#if", "#else", "#elif"
            ]
 
 def keyword_color (keyword, start, end):
@@ -33,7 +33,7 @@ def keyword_color (keyword, start, end):
     elif keyword == "calloc" or keyword == "malloc" or keyword == "realloc" or keyword == "free":  # Memory Management:
         Editor.tag_add("brown", start, end)
         Editor.tag_config("brown", foreground="blue")
-    elif keyword == "calloc" or keyword == "malloc" or keyword == "realloc" or keyword == "free":  # Memory Management:
+    elif keyword == "#include", "#define", "#ifdef", "#ifndef", "#endif", "#if", "#else", "#elif":  # Preprocessor Directives:
         Editor.tag_add("brown", start, end)
         Editor.tag_config("brown", foreground="blue")
 
