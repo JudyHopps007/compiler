@@ -26,7 +26,6 @@ def keyword_color (keyword, start, end):
         Editor.tag_add("blue", start, end)
         Editor.tag_config("blue", foreground="blue")
     elif keyword == "if" or keyword == "else":  # Storage Classes:
-
         Editor.tag_add("blue", start, end)
         Editor.tag_config("blue", foreground="blue")
 
