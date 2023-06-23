@@ -72,7 +72,7 @@ def colorize_text(event):
 
             if not start:
                 break
-                
+
             dif = int(start[2:])
             dif = dif + key_length
             end = start[0: 2] + f"{dif}"
