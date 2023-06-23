@@ -59,29 +59,6 @@ def colorize_text(event):
 
 
 
-"""
-    text = Editor.get("1.0", "end")
-    
-    for key in keyword:
-        index = text.find(key)
-        print("yuyu ", index)
-        #print("yuyu ", type(index))
-        while index != -1:
-            tag = "green"
-            color = "green"
-
-            start = "1.%d" % index
-            end = "1.%d" % (index + 4)
-            print("start ", start)
-            print("end ", end)
-            
-            Editor.tag_add(tag, start, end)
-            Editor.tag_config(tag, foreground=color)
-
-            index = text.find(key, line)
-            print("000 =", index)
-            line += 1
-"""
 
 
 def main():
