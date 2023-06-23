@@ -12,7 +12,9 @@ keyword = ["auto",	"break",	"case",	"char", "const",	"continue",	"default",	"do"
                 "struct",	"switch",	"typedef",	"union", "unsigned",	"void",	"volatile",	"while"]
 
 def keyword_color (keyword):
-    if  keyword == "break" or "continue"
+    if  keyword == "break" or "continue":
+        Editor.tag_add("green", start, end)
+        Editor.tag_config("green", foreground="green")
 
 
 def on_return_press():
