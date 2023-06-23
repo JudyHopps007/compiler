@@ -88,6 +88,13 @@ def colorize_text(event):
             Editor.tag_add("green", f"1.0+{start}c", f"1.0+{end}c")
             Editor.tag_config("green", foreground="green")
 
+            # Find and colorize strings
+            for match in re.finditer(r"[\"][^']*[\"]", text):
+                start = match.start()
+                end = match.end()
+                Editor.tag_add("green", f"1.0+{start}c", f"1.0+{end}c")
+                Editor.tag_config("green", foreground="green")
+
 
 
 def add_space(): # to Insert a space at the beginning of each line
