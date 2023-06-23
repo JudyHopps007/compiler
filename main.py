@@ -3,6 +3,7 @@ import ctypes
 import re
 
 global row_num_widget, Editor, Terminal, Terminal_display
+
 # Disable DPI awareness on Windows
 ctypes.windll.shcore.SetProcessDpiAwareness(1)
 ctypes.windll.shcore.SetProcessDpiAwareness(True)
@@ -81,7 +82,7 @@ def colorize_text(event):
             keyword_color(key, start, end)
             start = end
 
-    # Find and colorize comments
+    # Find and colorize single line comments
     for match in re.finditer(r'(\/\/[^\n\r]*[\n\r])', text):
         start = match.start()
         end = match.end()
@@ -92,7 +93,7 @@ def colorize_text(event):
         Editor.tag_add("gray", f"1.0+{start}c", f"1.0+{end}c")
         Editor.tag_config("gray", foreground="gray")
 
-        # Find and colorize comments
+        # Find and colorize Multi line comments
     for match in re.finditer(r'\/\*[\s\S]*?\*\/', text):
         start = match.start()
         end = match.end()
