@@ -9,7 +9,10 @@ ctypes.windll.shcore.SetProcessDpiAwareness(True)
 
 keyword = ["auto",	"break",	"case",	"char", "const",	"continue",	"default",	"do" , "double",	"else",	"enum",	"extern",
                 "float",	"for",	"goto",	"if", "int",	"long",	"register",	"return", "short",	"signed",	"sizeof",	"static",
-                "struct",	"switch",	"typedef",	"union", "unsigned", "void",	"volatile",	"while", "bool"]
+                "struct",	"switch",	"typedef",	"union", "unsigned", "void",	"volatile",	"while", "bool"
+           "malloc", "calloc", 
+           "realloc",  "free"
+           ]
 
 def keyword_color (keyword, start, end):
     if keyword == "break" or keyword == "continue" or keyword == "return": #control flow
@@ -26,6 +29,9 @@ def keyword_color (keyword, start, end):
         Editor.tag_add("blue", start, end)
         Editor.tag_config("blue", foreground="blue")
     elif keyword == "auto" or keyword == "register" or  keyword == "static" or  keyword == "extern":  # Storage Classes:
+        Editor.tag_add("brown", start, end)
+        Editor.tag_config("brown", foreground="blue")
+    elif keyword == "calloc" or keyword == "malloc" or keyword == "realloc" or keyword == "free":  # Memory Management:
         Editor.tag_add("brown", start, end)
         Editor.tag_config("brown", foreground="blue")
 
