@@ -33,7 +33,6 @@ def update_row_numbers(event=None):
 def colorize_text(event):
     add_space()
     keyword = ['if', 'from']
-    print("============================= \n")
     # Remove existing tags
     Editor.tag_remove("red", "1.0", "end")
     Editor.tag_remove("green", "1.0", "end")
