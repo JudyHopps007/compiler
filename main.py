@@ -81,6 +81,8 @@ def colorize_text(event):
             start = end
 
 
+[\"][^']*[\"]
+
 def add_space(): # to Insert a space at the beginning of each line
     current_line = Editor.index(tk.INSERT).split(".")[0]
     current_char = Editor.index(tk.INSERT).split(".")[1]
