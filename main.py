@@ -117,7 +117,7 @@ def main():
     Text_Frame = tk.Frame(container, border=0, bg=nav_bar_bg)
     Text_Frame.place(x=0, y=35, relwidth=1, relheight=0.75)
 
-    Editor_color = "#3A3A38"
+    Editor_color = "#3B3C36"
     row_num_widget = tk.Text(Text_Frame, wrap="none", font=("Courier New", 12), width=4, padx=5, takefocus=0, border=0, background=Editor_color)
     row_num_widget.place(x=0, y=0, width=50, relheight=1)
     row_num_widget.config(state="disabled")
