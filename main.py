@@ -97,8 +97,7 @@ def colorize_text(event):
         Editor.tag_add("green", f"1.0+{start}c", f"1.0+{end}c")
         Editor.tag_config("green", foreground="green")
 
-
-
+    Editor.tag_remove("all", "1.0", "end")
 
 
 def add_space(): # to Insert a space at the beginning of each line
