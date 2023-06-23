@@ -4,6 +4,7 @@ global row_num_widget, Editor, Terminal, Terminal_display
 import platform
 import os
 import ctypes
+import re
 
 # Disable DPI awareness on Windows
 ctypes.windll.shcore.SetProcessDpiAwareness(1)
@@ -44,6 +45,7 @@ def colorize_text(event):
         key_length = len(key)
         while True:
             start = Editor.search(key, start, stopindex="end", nocase=True)
+            start = Editor.search(r"\y" + re.escape(keyword) + r"\y", start, stopindex=end, regexp=True)
             if not start:
                 break
             dif = int(start[2:])
