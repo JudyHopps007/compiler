@@ -85,8 +85,8 @@ def colorize_text(event):
         for match in re.finditer(r"[\"][^']*[\"]", text):
             start = match.start()
             end = match.end()
-            Editor.tag_add("gree", f"1.0+{start}c", f"1.0+{end}c")
-            Editor.tag_config("red", foreground="red")
+            Editor.tag_add("green", f"1.0+{start}c", f"1.0+{end}c")
+            Editor.tag_config("green", foreground="green")
 
 
 
