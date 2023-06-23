@@ -28,15 +28,15 @@ def keyword_color (keyword, start, end):
         Editor.tag_add("blue", start, end)
         Editor.tag_config("blue", foreground="blue")
     elif keyword == "auto" or keyword == "register" or  keyword == "static" or  keyword == "extern":  # Storage Classes:
-        Editor.tag_add("orange", start, end)
-        Editor.tag_config("orange", foreground="orange")
+        Editor.tag_add("Dark Orange", start, end)
+        Editor.tag_config("Dark Orange", foreground="Dark Orange")
     elif keyword == "calloc" or keyword == "malloc" or keyword == "realloc" or keyword == "free":  # Memory Management:
         Editor.tag_add("brown", start, end)
         Editor.tag_config("brown", foreground="brown")
     elif keyword == "include" or keyword ==  "#define" or keyword == "#ifdef" or keyword == "#ifndef" or keyword == "#endif" or keyword == "#if" or keyword == "#else" or keyword == "#elif":  # Preprocessor Directives:
         print("directive")
-        Editor.tag_add("Purple", start, end)
-        Editor.tag_config("Purple", foreground="Purple")
+        Editor.tag_add("Dark Cyan", start, end)
+        Editor.tag_config("Dark Cyan", foreground="Dark Cyan")
 
 def on_return_press():
     user_input = Editor.get("1.0", "end")
