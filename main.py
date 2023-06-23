@@ -9,7 +9,7 @@ ctypes.windll.shcore.SetProcessDpiAwareness(True)
 
 keyword = ["auto",	"break",	"case",	"char", "const",	"continue",	"default",	"do" , "double",	"else",	"enum",	"extern",
            "float",	"for",	"goto",	"if", "int",	"long",	"register",	"return", "short",	"signed",	"sizeof",	"static", "extern"
-           "struct",	"switch",	"typedef",	"union", "unsigned", "void",	"volatile",	"while", "bool"
+           "struct",	"switch",	"typedef",	"union", "unsigned", "void",	"volatile",	"while", "bool",
            "malloc", "calloc", "realloc",  "free", "#include", "#define", "#ifdef", "#ifndef", "#endif", "#if", "#else", "#elif"
            ]
 
@@ -34,8 +34,8 @@ def keyword_color (keyword, start, end):
         Editor.tag_add("brown", start, end)
         Editor.tag_config("brown", foreground="brown")
     elif keyword == "#include" or keyword ==  "#define" or keyword == "#ifdef" or keyword == "#ifndef" or keyword == "#endif" or keyword == "#if" or keyword == "#else" or keyword == "#elif":  # Preprocessor Directives:
-        Editor.tag_add("Dark Green", start, end)
-        Editor.tag_config("Dark Green", foreground="Dark Green")
+        Editor.tag_add("purple", start, end)
+        Editor.tag_config("Purple", foreground="Purple")
 
 def on_return_press():
     user_input = Editor.get("1.0", "end")
