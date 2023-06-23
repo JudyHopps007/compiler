@@ -15,7 +15,7 @@ def keyword_color (keyword, start, end):
     if keyword == "break" or keyword == "continue":
         Editor.tag_add("green", start, end)
         Editor.tag_config("green", foreground="green")
-    elif keyword == "break" or keyword == "continue":
+    elif keyword == "int" or keyword == "float" or keyword == "double" or keyword == "char":
 
 
 def on_return_press():
