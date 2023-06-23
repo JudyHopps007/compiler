@@ -63,7 +63,6 @@ def colorize_text(event):
     Editor.tag_remove("green", "1.0", "end")
     Editor.tag_remove("black", "1.0", "end")
 
-
     for key in keyword:
         start = "1.0"
         key_length = len(key)
@@ -73,6 +72,7 @@ def colorize_text(event):
 
             if not start:
                 break
+                
             dif = int(start[2:])
             dif = dif + key_length
             end = start[0: 2] + f"{dif}"
