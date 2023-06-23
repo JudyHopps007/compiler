@@ -29,9 +29,35 @@ def update_row_numbers(event=None):
         row_num_widget.insert("end", str(line_num) + "\n")
     row_num_widget.config(state="disabled")  # Disable the Text widget
 
-
 def colorize_text(event):
     keyword = ['if', 'from']
+    print("============================= \n")
+    # Remove existing tags
+    Editor.tag_remove("red", "1.0", "end")
+    Editor.tag_remove("green", "1.0", "end")
+    Editor.tag_remove("black", "1.0", "end")
+
+    # Get the text from the Text widget and split it into words
+    text = Editor.get("1.0", "end-1c")
+    words = text.split()
+
+    for key in keyword:
+        start = "1.0"
+        while True:
+            start = Editor.search(key, start, stopindex="end", nocase=True)
+            if not start:
+                break
+            end = f"{start}+{len(key)}c"
+            Editor.tag_add("green", start, end)
+            Editor.tag_config("green", foreground="green")
+            start = end
+
+    print("Colorizing complete.")
+
+
+
+def co00lorize_text(event):
+    keyword = ['if ', ' from ']
     print("============================= \n")
     # Remove existing tags
     Editor.tag_remove("red", "1.0", "end")
