@@ -1,16 +1,18 @@
 import tkinter as tk
-
-global row_num_widget, Editor, Terminal, Terminal_display
-import platform
-import os
 import ctypes
 import re
 
+global row_num_widget, Editor, Terminal, Terminal_display
 # Disable DPI awareness on Windows
 ctypes.windll.shcore.SetProcessDpiAwareness(1)
 ctypes.windll.shcore.SetProcessDpiAwareness(True)
 
+keyword = ["auto",	"break",	"case",	"char", "const",	"continue",	"default",	"do" , "double",	"else",	"enum",	"extern",
+                "float",	"for",	"goto",	"if", "int",	"long",	"register",	"return", "short",	"signed",	"sizeof",	"static",
+                "struct",	"switch",	"typedef",	"union", "unsigned",	"void",	"volatile",	"while"]
 
+def keyword_color (keyword):
+    if  keyword == "break" or "continue"
 
 
 def on_return_press():
@@ -32,9 +34,7 @@ def update_row_numbers(event=None):
 
 def colorize_text(event):
     add_space()
-    keyword = ["auto",	"break",	"case",	"char", "const",	"continue",	"default",	"do" , "double",	"else",	"enum",	"extern",
-                "float",	"for",	"goto",	"if", "int",	"long",	"register",	"return", "short",	"signed",	"sizeof",	"static",
-                "struct",	"switch",	"typedef",	"union", "unsigned",	"void",	"volatile",	"while"]
+    global keyword
     # Remove existing tags
     Editor.tag_remove("red", "1.0", "end")
     Editor.tag_remove("green", "1.0", "end")
