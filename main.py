@@ -10,7 +10,7 @@ ctypes.windll.shcore.SetProcessDpiAwareness(True)
 keyword = ["auto",	"break",	"case",	"char", "const",	"continue",	"default",	"do" , "double",	"else",	"enum",	"extern",
            "float",	"for",	"goto",	"if", "int",	"long",	"register",	"return", "short",	"signed",	"sizeof",	"static", "extern"
            "struct",	"switch",	"typedef",	"union", "unsigned", "void",	"volatile",	"while", "bool",
-           "malloc", "calloc", "realloc",  "free", "#include", "#define", "#ifdef", "#ifndef", "#endif", "#if", "#else", "#elif"
+           "malloc", "calloc", "realloc",  "free", "include", "#define", "#ifdef", "#ifndef", "#endif", "#if", "#else", "#elif"
            ]
 
 def keyword_color (keyword, start, end):
@@ -33,10 +33,10 @@ def keyword_color (keyword, start, end):
     elif keyword == "calloc" or keyword == "malloc" or keyword == "realloc" or keyword == "free":  # Memory Management:
         Editor.tag_add("brown", start, end)
         Editor.tag_config("brown", foreground="brown")
-    elif keyword == "#include" or keyword ==  "#define" or keyword == "#ifdef" or keyword == "#ifndef" or keyword == "#endif" or keyword == "#if" or keyword == "#else" or keyword == "#elif":  # Preprocessor Directives:
+    elif keyword == "include" or keyword ==  "#define" or keyword == "#ifdef" or keyword == "#ifndef" or keyword == "#endif" or keyword == "#if" or keyword == "#else" or keyword == "#elif":  # Preprocessor Directives:
         print("directive")
-        Editor.tag_add("blue", start, end)
-        Editor.tag_config("blue", foreground="blue")
+        Editor.tag_add("Purple", start, end)
+        Editor.tag_config("Purple", foreground="Purple")
 
 def on_return_press():
     user_input = Editor.get("1.0", "end")
