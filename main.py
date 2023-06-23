@@ -79,9 +79,24 @@ def colorize_text(event):
 
             keyword_color(key, start, end)
             start = end
+    for key in keyword:
+        start = "1.0"
+        key_length = len(key)
+        pattern = r"\y" + re.escape(key) + r"\y"
+        while True:
+            start = Editor.search(pattern, start, stopindex="end", regexp=True)
+
+            if not start:
+                break
+
+            dif = int(start[2:])
+            dif = dif + key_length
+            end = start[0: 2] + f"{dif}"
+
+            keyword_color(key, start, end)
+            start = end
 
 
-[\"][^']*[\"]
 
 def add_space(): # to Insert a space at the beginning of each line
     current_line = Editor.index(tk.INSERT).split(".")[0]
