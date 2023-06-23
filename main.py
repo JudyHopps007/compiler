@@ -39,7 +39,7 @@ def keyword_color (keyword, start, end):
 
 def on_return_press():
     user_input = Editor.get("1.0", "end")
-    tokens = lexical_Analyzer.lexical_analyzer(user_input)
+    tokens = lexical_Analyzer.scanner(user_input)
     print(tokens)
 
 
