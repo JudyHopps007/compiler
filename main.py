@@ -80,7 +80,8 @@ def colorize_text(event):
             keyword_color(key, start, end)
             start = end
 
-        start = "1.0"
+        # Get the text from the Text widget
+        text = Editor.get("1.0", "end-1c")
 
         while True:
             start = Editor.search(pattern, start, stopindex="end", regexp=True)
