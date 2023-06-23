@@ -39,11 +39,8 @@ def keyword_color (keyword, start, end):
 
 def on_return_press():
     user_input = Editor.get("1.0", "end")
-    # Get the text that was entered after the Return key was pressed
-    # input_text = text.get("end-1c linestart", "end-1c lineend")
-    print("Input text:", user_input)
-    Terminal_display.delete("1.0", "end")
-    Terminal_display.insert("1.0", user_input)
+    tokens = lexical_Analyzer.lexical_analyzer(user_input)
+    print(tokens)
 
 
 def update_row_numbers(event=None):
