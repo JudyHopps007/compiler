@@ -30,7 +30,7 @@ def update_row_numbers(event=None):
     row_num_widget.config(state="disabled")  # Disable the Text widget
 
 def colorize_text(event):
-    keyword = ['if', 'from']
+    keyword = ['if ', ' from ']
     print("============================= \n")
     # Remove existing tags
     Editor.tag_remove("red", "1.0", "end")
