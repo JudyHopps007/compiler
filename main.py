@@ -33,10 +33,7 @@ def keyword_color (keyword, start, end):
     elif keyword == "calloc" or keyword == "malloc" or keyword == "realloc" or keyword == "free":  # Memory Management:
         Editor.tag_add("brown", start, end)
         Editor.tag_config("brown", foreground="brown")
-    elif keyword == "include" or keyword ==  "#define" or keyword == "#ifdef" or keyword == "#ifndef" or keyword == "#endif" or keyword == "#if" or keyword == "#else" or keyword == "#elif":  # Preprocessor Directives:
 
-        Editor.tag_add("Dark Cyan", start, end)
-        Editor.tag_config("Dark Cyan", foreground="Dark Cyan")
 
 def on_return_press():
     user_input = Editor.get("1.0", "end")
@@ -71,6 +68,13 @@ def colorize_text(event):
         end = match.end()
         Editor.tag_add("green", f"1.0+{start}c", f"1.0+{end}c")
         Editor.tag_config("green", foreground="green")
+
+    # Find and colorize strings
+    for match in re.finditer(r'#(include|define|ifdef|ifndef|endif|if|else|elif)\b', text):
+        start = match.start()
+        end = match.end()
+        Editor.tag_add("Dark Cyan", f"1.0+{start}c", f"1.0+{end}c")
+        Editor.tag_config("Dark Cyan", foreground="Dark Cyan")
 
     # Find and colorize comments
     for match in re.finditer(r'(\/\/[^\n\r]*[\n\r])|\/\*[\s\S]*?\*\/', text):
