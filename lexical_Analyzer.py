@@ -45,10 +45,8 @@ patterns_rg = [
 ]
 
 
- # a function that reads user code  and generates a list of tokens
+# a function that reads user code  and generates a list of tokens
 def scanner(program):
-
-
     line_number_track = 1  # keep track of lexical error position
     token_track = 1  # keep track of token position
     token_list = []  # initialized to empty list ( TOKEN_TYPE , TOKEN-VALUE )
@@ -84,7 +82,6 @@ def scanner(program):
             print("LEXICAL ERROR -- Illegal character: " + program[curser_position], "at Line ", line_number_track)
             curser_position += 1  # incrementing cursor position
     return token_list2
-
 
 
 # ===================================== SYMBOL TABLE PHASE===============================================================================
