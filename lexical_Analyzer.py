@@ -1,12 +1,14 @@
 import re  # for generate regular expression
-import time  # for measuring 'p' run time
+import time  # for measuring 'scanner' run time
 import json  # for symbol table {access and storage}
 
+print('\n')
 # ====================================== LEXICAL ANALYZER PHASE =====================================================
 
 
 # Define regular expression patterns for different types of tokens(assigning tokens to lexemes)
 patterns_rg = [
+    (r'(\/\/[^\n\r]*[\n\r])|\/\*[\s\S]*?\*\/', 'COMMENT'),
     (r'#include', 'INCLUDE_ID'),
     (r'<[A-Za-z]+.h>', 'INCLUDE_DIRECTIVE'),
     (r'\b(int|void|char|bool|float|long|return)\b', 'KEYWORD'),
@@ -22,16 +24,15 @@ patterns_rg = [
     (r'\+', 'PLUS'),
     (r'-', 'MINUS'),
     (r'\*', 'MULTIPLY'),
-    (r'(\/\/[^\n\r]*[\n\r])|\/\*[\s\S]*?\*\/', 'COMMENT'),
     (r'/(?![\/\*])[\n\s]*', 'DIVIDE'),
     (r'%', 'MODULUS'),
     (r'==', 'EQUAL'),
     (r'=', 'ASSIGN'),
     (r'!=', 'NOT_EQUAL'),
-    (r'<', 'LESS_THAN'),
-    (r'>', 'GREATER_THAN'),
     (r'<=', 'LESS_THAN_EQUAL'),
+    (r'<', 'LESS_THAN'),
     (r'>=', 'GREATER_THAN_EQUAL'),
+    (r'>', 'GREATER_THAN'),
     (r'\(', 'LEFT_PAREN'),
     (r'\)', 'RIGHT_PAREN'),
     (r'\{', 'LEFT_BRACE'),
@@ -46,12 +47,13 @@ patterns_rg = [
 
 # ========= Define a function that reads a program from a  and generates a list of tokens ===
 def lexical_analyzer(filename):
-
     with open(filename, 'r') as f:  # load the program file into the lexical analyzer
         program = f.read()
 
-    line_number_track = 1  # keep track of position
-    token_list = []  # initialized to empty list
+    line_number_track = 1  # keep track of lexical error position
+    token_track = 1  # keep track of token position
+    token_list = []  # initialized to empty list ( TOKEN_TYPE , TOKEN-VALUE )
+    token_list2 = []  # initialized to empty list ( TOKEN_TYPE , TOKEN-VALUE, LINE-NUMBER )
     curser_position = 0  # initialized to zero
     while curser_position < len(program):
         match = None
@@ -59,6 +61,7 @@ def lexical_analyzer(filename):
         if program[curser_position] == '\n':  # Skip over empty lines
             line_number_track += 1  # incrementing line number
             curser_position += 1  # incrementing cursor position
+            token_track += 1
             continue
 
         if re.match(r'\s', program[curser_position]):  # Skip over whitespace
@@ -72,24 +75,17 @@ def lexical_analyzer(filename):
             if match:
                 if token_type != 'COMMENT':
                     token_list.append((token_type, match.group(0)))  # adding found token in the token_list
+                    token_list2.append((token_type, match.group(0), token_track))
+                else:
+                    token_track += 1
                 curser_position = match.end(0)
                 break
 
         if not match:  # catch errors or illegal charachers that don't conform to the defined regular expressions
             print("LEXICAL ERROR -- Illegal character: " + program[curser_position], "at Line ", line_number_track)
             curser_position += 1  # incrementing cursor position
-    return token_list
+    return token_list2
 
-
-start_run_time_time = time.time()  # Record the Start run time-time of lexical_analyzer
-tokens = lexical_analyzer('program.c')  # calling the lexical_analyzer()
-End_run_time_time = time.time()  # Record the End run time-time of lexical_analyzer
-Program_Run_time = End_run_time_time - start_run_time_time  # Calculate the elapsed time (run time of lexical_analyzer function)
-print(f"\nLexical Program Runtime  :  {Program_Run_time} seconds")
-
-print("\n================ ============= TOKENS ========================= ================ \n ")
-for token in tokens:
-    print(token) # print each token at a time
 
 
 # ===================================== SYMBOL TABLE PHASE===============================================================================
@@ -127,7 +123,6 @@ def generate_symbol_table(token_list):
                                             p += 1
                         else:
                             value = None
-
             else:
                 if token_list[i - 1][0] == 'KEYWORD':
                     data_type = token_list[i - 1][1]
@@ -149,5 +144,4 @@ def generate_symbol_table(token_list):
             with open('symbol_table.json', 'w') as json_file_write:
                 json.dump(data, json_file_write, indent=4)
 
-
-#generate_symbol_table(tokens)
+# generate_symbol_table(tokens)
