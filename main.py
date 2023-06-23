@@ -53,7 +53,7 @@ def colorize_text(event):
             Editor.tag_config("green", foreground="green")
             start = end
 
-    print("Colorizing complete.")
+
 
 
 
