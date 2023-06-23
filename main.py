@@ -44,8 +44,8 @@ def colorize_text(event):
         start = "1.0"
         key_length = len(key)
         while True:
-            start = Editor.search(key, start, stopindex="end", nocase=True)
-            start = Editor.search(r"\y" + re.escape(keyword) + r"\y", start, stopindex=end, regexp=True)
+            #start = Editor.search(key, start, stopindex="end", nocase=True)
+            start = Editor.search(r"\y" + re.escape(key) + r"\y", start, stopindex="end", regexp=True)
             if not start:
                 break
             dif = int(start[2:])
