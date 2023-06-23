@@ -40,11 +40,15 @@ def colorize_text(event):
 
     for key in keyword:
         start = "1.0"
+        key_length = len(key)
         while True:
             start = Editor.search(key, start, stopindex="end", nocase=True)
             if not start:
                 break
-            end = f"{start}+{len(key)}c"
+            dif = int(start[2:])
+            dif = dif + key_length
+            end = start[0: 2] + f"{dif}"
+            #end = f"{start}+{len(key)}c"
             Editor.tag_add("green", start, end)
             Editor.tag_config("green", foreground="green")
             start = end
@@ -53,42 +57,6 @@ def colorize_text(event):
 
 
 
-def co00lorize_text(event):
-    keyword = ['if ', ' from ']
-    print("============================= \n")
-    # Remove existing tags
-    Editor.tag_remove("red", "1.0", "end")
-    Editor.tag_remove("green", "1.0", "end")
-    Editor.tag_remove("black", "1.0", "end")
-
-    # Get the text from the Text widget and split it into words
-
-    for Key in keyword:
-        key_length = len(Key)
-        end = "1.0"
-        t = ""
-        while True:
-            start = Editor.search(Key, end)
-            print("start ", start)
-            print("k-lengh ", len(Key))
-            print("end ", end)
-
-            if start == "" or t >= start:
-                break
-            else:
-                dif = int(start[2:])
-                dif = dif + key_length
-                end = start[0: 2] + f"{dif}"
-                Editor.tag_add("green", start, end)
-                Editor.tag_config("green", foreground="green")
-                print("s --- ", start)
-                print("e --- ", end)
-                t = start
-
-        #if uuuu if
-
-        print(start)
-        print(end)
 
 
 """
