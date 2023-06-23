@@ -11,10 +11,11 @@ keyword = ["auto",	"break",	"case",	"char", "const",	"continue",	"default",	"do"
                 "float",	"for",	"goto",	"if", "int",	"long",	"register",	"return", "short",	"signed",	"sizeof",	"static",
                 "struct",	"switch",	"typedef",	"union", "unsigned",	"void",	"volatile",	"while"]
 
-def keyword_color (keyword):
-    if  keyword == "break" or "continue":
+def keyword_color (keyword, start, end):
+    if keyword == "break" or keyword == "continue":
         Editor.tag_add("green", start, end)
         Editor.tag_config("green", foreground="green")
+    elif keyword == "break" or keyword == "continue":
 
 
 def on_return_press():
@@ -54,9 +55,10 @@ def colorize_text(event):
             dif = int(start[2:])
             dif = dif + key_length
             end = start[0: 2] + f"{dif}"
-            #end = f"{start}+{len(key)}c"
-            Editor.tag_add("green", start, end)
-            Editor.tag_config("green", foreground="green")
+
+            #Editor.tag_add("green", start, end)
+            #Editor.tag_config("green", foreground="green")
+            keyword_color(key, start, end)
             start = end
 
 
