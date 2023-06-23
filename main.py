@@ -37,9 +37,6 @@ def colorize_text(event):
     Editor.tag_remove("green", "1.0", "end")
     Editor.tag_remove("black", "1.0", "end")
 
-    # Get the text from the Text widget and split it into words
-    text = Editor.get("1.0", "end-1c")
-    words = text.split()
 
     for key in keyword:
         start = "1.0"
