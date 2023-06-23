@@ -83,18 +83,12 @@ def colorize_text(event):
         # Get the text from the Text widget
         text = Editor.get("1.0", "end-1c")
 
-        while True:
-            start = Editor.search(pattern, start, stopindex="end", regexp=True)
-
-            if not start:
-                break
-
-            dif = int(start[2:])
-            dif = dif + key_length
-            end = start[0: 2] + f"{dif}"
-
-            keyword_color(key, start, end)
-            start = end
+        # Find and colorize strings
+        for match in re.finditer(r"[\"][^']*[\"]", text):
+            start = match.start()
+            end = match.end()
+            Editor.tag_add("red", f"1.0+{start}c", f"1.0+{end}c")
+            Editor.tag_config("red", foreground="red")
 
 
 
