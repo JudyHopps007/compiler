@@ -9,19 +9,22 @@ ctypes.windll.shcore.SetProcessDpiAwareness(True)
 
 keyword = ["auto",	"break",	"case",	"char", "const",	"continue",	"default",	"do" , "double",	"else",	"enum",	"extern",
                 "float",	"for",	"goto",	"if", "int",	"long",	"register",	"return", "short",	"signed",	"sizeof",	"static",
-                "struct",	"switch",	"typedef",	"union", "unsigned",	"void",	"volatile",	"while", "bool"]
+                "struct",	"switch",	"typedef",	"union", "unsigned", "void",	"volatile",	"while", "bool"]
 
 def keyword_color (keyword, start, end):
-    if keyword == "break" or keyword == "continue": 
+    if keyword == "break" or keyword == "continue":
         Editor.tag_add("yellow", start, end)
         Editor.tag_config("yellow", foreground="yellow")
-    elif keyword == "int" or keyword == "float" or keyword == "double" or keyword == "char" or keyword == "bool":
+    elif keyword == "int" or keyword == "float" or keyword == "double" or keyword == "char" or keyword == "bool": # data types
         Editor.tag_add("red", start, end)
         Editor.tag_config("red", foreground="red")
     elif keyword == "while" or keyword == "for" or keyword == "do":  # loops
         Editor.tag_add("pink", start, end)
         Editor.tag_config("pink", foreground="pink")
 
+    elif keyword == "if" or keyword == "else":  # if
+        Editor.tag_add("blue", start, end)
+        Editor.tag_config("blue", foreground="blue")
 
 def on_return_press():
     user_input = Editor.get("1.0", "end")
