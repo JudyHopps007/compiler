@@ -65,6 +65,20 @@ def colorize_text(event):
 
     text = Editor.get("1.0", "end-1c")  # Get the text from the Text widget
 
+    # Find and colorize strings
+    for match in re.finditer(r"[\"][^']*[\"]", text):
+        start = match.start()
+        end = match.end()
+        Editor.tag_add("green", f"1.0+{start}c", f"1.0+{end}c")
+        Editor.tag_config("green", foreground="green")
+
+    # Find and colorize comments
+    for match in re.finditer(r'(\/\/[^\n\r]*[\n\r])|\/\*[\s\S]*?\*\/', text):
+        start = match.start()
+        end = match.end()
+        Editor.tag_add("gray", f"1.0+{start}c", f"1.0+{end}c")
+        Editor.tag_config("gray", foreground="gray")
+
     for key in keyword:
         start = "1.0"
         key_length = len(key)
@@ -81,19 +95,6 @@ def colorize_text(event):
 
 
 
-        # Find and colorize strings
-        for match in re.finditer(r"[\"][^']*[\"]", text):
-            start = match.start()
-            end = match.end()
-            Editor.tag_add("green", f"1.0+{start}c", f"1.0+{end}c")
-            Editor.tag_config("green", foreground="green")
-
-        # Find and colorize strings
-        for match in re.finditer(r'(\/\/[^\n\r]*[\n\r])|\/\*[\s\S]*?\*\/', text):
-            start = match.start()
-            end = match.end()
-            Editor.tag_add("gray", f"1.0+{start}c", f"1.0+{end}c")
-            Editor.tag_config("gray", foreground="gray")
 
 
 
