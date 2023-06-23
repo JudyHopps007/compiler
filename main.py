@@ -12,7 +12,7 @@ keyword = ["auto",	"break",	"case",	"char", "const",	"continue",	"default",	"do"
                 "struct",	"switch",	"typedef",	"union", "unsigned", "void",	"volatile",	"while", "bool"]
 
 def keyword_color (keyword, start, end):
-    if keyword == "break" or keyword == "continue": #control flow
+    if keyword == "break" or keyword == "continue" or keyword == "return": #control flow
         Editor.tag_add("yellow", start, end)
         Editor.tag_config("yellow", foreground="yellow")
     elif keyword == "int" or keyword == "float" or keyword == "double" or keyword == "char" or keyword == "bool" or keyword == "void": # data types
