@@ -105,7 +105,7 @@ def main():
     container.place(x=0, y=0, relwidth=1, relheight=1)
 
     # ========================================================= Navigation Bar ========================
-    nav_bar_bg = "#232B2B"
+    nav_bar_bg = "#242124"
     nav_bar = tk.Frame(container, bg=nav_bar_bg)
     nav_bar.place(x=0, y=0, relwidth=1, height=35)
 
