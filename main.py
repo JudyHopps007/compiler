@@ -9,38 +9,55 @@ global row_num_widget, Editor, Terminal, Terminal_display
 ctypes.windll.shcore.SetProcessDpiAwareness(1)
 ctypes.windll.shcore.SetProcessDpiAwareness(True)
 
-keyword = ["auto",	"break",	"case",	"char", "const",	"continue",	"default",	"do" , "double",	"else",	"enum",	"extern",
-           "float",	"for",	"goto",	"if", "int",	"long",	"register",	"return", "short",	"signed",	"sizeof",	"static", "extern"
-           "struct",	"switch",	"typedef",	"union", "unsigned", "void",	"volatile",	"while", "bool",
-           "malloc", "calloc", "realloc",  "free"
+keyword = ["auto", "break", "case", "char", "const", "continue", "default", "do", "double", "else", "enum", "extern",
+           "float", "for", "goto", "if", "int", "long", "register", "return", "short", "signed", "sizeof", "static",
+           "struct", "switch", "typedef", "union", "unsigned", "void", "volatile", "while", "bool",
+           "malloc", "calloc", "realloc", "free",
+           "printf", "scanf"
            ]
 
-def keyword_color (keyword, start, end):
-    if keyword == "break" or keyword == "continue" or keyword == "return": #control flow
+
+def keyword_color(keyword, start, end):
+    if keyword == "break" or keyword == "continue" or keyword == "return" or keyword == "goto":  # flow control keywords
         Editor.tag_add("yellow", start, end)
         Editor.tag_config("yellow", foreground="yellow")
-    elif keyword == "int" or keyword == "float" or keyword == "double" or keyword == "char" or keyword == "bool" or keyword == "void": # data types
+
+    elif keyword == "int" or keyword == "float" or keyword == "double" or keyword == "char" or keyword == "bool" or keyword == "void" or keyword == "long":  # data types
         Editor.tag_add("red", start, end)
         Editor.tag_config("red", foreground="red")
-    elif keyword == "while" or keyword == "for" or keyword == "do":  # loops
+
+    elif keyword == "while" or keyword == "for" or keyword == "do":  # loops keywords
         Editor.tag_add("pink", start, end)
         Editor.tag_config("pink", foreground="pink")
 
-    elif keyword == "if" or keyword == "else":  # if
+    elif keyword == "if" or keyword == "else" or keyword == "switch" or keyword == "case"  or keyword == "default":  # decision control keywords
         Editor.tag_add("blue", start, end)
         Editor.tag_config("blue", foreground="blue")
-    elif keyword == "auto" or keyword == "register" or  keyword == "static" or  keyword == "extern":  # Storage Classes:
+
+    elif keyword == "auto" or keyword == "register" or keyword == "static" or keyword == "extern" or keyword == "unsigned" or keyword == "signed" or keyword == "const":  # Storage Classes:
         Editor.tag_add("Dark Orange", start, end)
         Editor.tag_config("Dark Orange", foreground="Dark Orange")
+
     elif keyword == "calloc" or keyword == "malloc" or keyword == "realloc" or keyword == "free":  # Memory Management:
         Editor.tag_add("brown", start, end)
         Editor.tag_config("brown", foreground="brown")
 
+    elif keyword == "enum" or keyword == "struct" or keyword == "volatile" or keyword == "union":  # Memory Management:
+        Editor.tag_add("violet", start, end)
+        Editor.tag_config("violet", foreground="violet")
 
-def on_return_press():
+    elif keyword == "printf" or keyword == "scanf" or keyword == "volatile" or keyword == "union":  # Memory Management:
+        Editor.tag_add("light blue", start, end)
+        Editor.tag_config("light blue", foreground="light blue")
+
+
+
+def run_code():
     user_input = Editor.get("1.0", "end")
+    Terminal_display.insert("1.0", user_input)
     tokens = lexical_Analyzer.scanner(user_input)
-    print(tokens)
+    for token in tokens:
+        print(token)
 
 
 def update_row_numbers(event=None):
@@ -51,11 +68,14 @@ def update_row_numbers(event=None):
         row_num_widget.insert("end", str(line_num) + "\n")
     row_num_widget.config(state="disabled")  # Disable the Text widget
 
+
 def colorize_text(event):
     add_space()
     global keyword
     # Remove existing tags
-    Editor.tag_remove("all", "1.0", "end")
+    tag_names = Editor.tag_names()
+    for tag in tag_names:
+        Editor.tag_remove(tag, "1.0", "end")
 
     text = Editor.get("1.0", "end-1c")  # Get the text from the Text widget
 
@@ -66,17 +86,19 @@ def colorize_text(event):
         Editor.tag_add("Dark Cyan", f"1.0+{start}c", f"1.0+{end}c")
         Editor.tag_config("Dark Cyan", foreground="Dark Cyan")
 
+    # Find and keywords and reserved words
     for key in keyword:
         start = "1.0"
         key_length = len(key)
-        pattern = r"\y" + re.escape(key) + r"\y"
         while True:
-            start = Editor.search(pattern, start, stopindex="end", regexp=True)
+            start = Editor.search(r"\y" + re.escape(key) + r"\y", start, stopindex="end", regexp=True)
             if not start:
                 break
-            dif = int(start[2:])
-            dif = dif + key_length
-            end = start[0: 2] + f"{dif}"
+            section1 = start.split(".")[0]
+            section2 = start.split(".")[1]
+            dif = int(section2)  # covert the float section int an int
+            dif = dif + key_length  # add the length of the keyword
+            end = section1 + "." + f"{dif}"  # convert to string to get the endpoint index of keyword
             keyword_color(key, start, end)
             start = end
 
@@ -91,7 +113,7 @@ def colorize_text(event):
         Editor.tag_add("gray", f"1.0+{start}c", f"1.0+{end}c")
         Editor.tag_config("gray", foreground="gray")
 
-        # Find and colorize Multi line comments
+    # Find and colorize Multi line comments
     for match in re.finditer(r'\/\*[\s\S]*?\*\/', text):
         start = match.start()
         end = match.end()
@@ -103,7 +125,7 @@ def colorize_text(event):
         Editor.tag_config("gray", foreground="gray")
 
     # Find and colorize strings
-    for match in re.finditer(r"[\"][^']*[\"]", text):
+    for match in re.finditer(r'\"(\\.|[^"])*\"', text):
         start = match.start()
         end = match.end()
         tag_names = Editor.tag_names()
@@ -112,18 +134,13 @@ def colorize_text(event):
         Editor.tag_add("green", f"1.0+{start}c", f"1.0+{end}c")
         Editor.tag_config("green", foreground="green")
 
-    Editor.tag_remove("all", "1.0", "end")
 
 
-def add_space(): # to Insert a space at the beginning of each line
+def add_space():  # to Insert a space at the beginning of each line
     current_line = Editor.index(tk.INSERT).split(".")[0]
     current_char = Editor.index(tk.INSERT).split(".")[1]
     if current_char == '0':
         Editor.insert(f"{current_line}.0", " ")
-
-
-
-
 
 
 def main():
@@ -141,7 +158,7 @@ def main():
     nav_bar = tk.Frame(container, bg=nav_bar_bg)
     nav_bar.place(x=0, y=0, relwidth=1, height=35)
 
-    nav_bar = tk.Button(nav_bar, bg=nav_bar_bg, text="Run", fg='white', borderwidth=0, border=0, activebackground=nav_bar_bg, activeforeground="green", command=on_return_press)
+    nav_bar = tk.Button(nav_bar, bg=nav_bar_bg, text="Run", fg='white', borderwidth=0, border=0, activebackground=nav_bar_bg, activeforeground="green", command=run_code)
     nav_bar.place(x=0, y=0, relwidth=0.05, relheight=1)
 
     # ======================================================== Editor Section ============================
@@ -149,7 +166,7 @@ def main():
     Text_Frame = tk.Frame(container, border=0, bg=nav_bar_bg)
     Text_Frame.place(x=0, y=35, relwidth=1, relheight=0.75)
 
-    Editor_color = "#3A3A38"
+    Editor_color = "#343434"
     row_num_widget = tk.Text(Text_Frame, wrap="none", font=("Courier New", 12), width=4, padx=5, takefocus=0, border=0, background=Editor_color)
     row_num_widget.place(x=0, y=0, width=50, relheight=1)
     row_num_widget.config(state="disabled")

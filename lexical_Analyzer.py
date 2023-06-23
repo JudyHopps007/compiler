@@ -19,7 +19,7 @@ patterns_rg = [
     (r'[0-9]+[.][0-9]+', 'FLOATING_POINT'),
     (r'\b[0-9]+\b', 'INTEGER'),
     (r"'.'", 'CHAR'),
-    (r"[\"][^']*[\"]", 'STRING'),
+    (r'\"(\\.|[^"])*\"', 'STRING'),
     (r'[a-zA-Z_][a-zA-Z0-9_]*', 'IDENTIFIER'),
     (r'\+', 'PLUS'),
     (r'-', 'MINUS'),
