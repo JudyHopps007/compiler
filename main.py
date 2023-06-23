@@ -30,6 +30,7 @@ def update_row_numbers(event=None):
     row_num_widget.config(state="disabled")  # Disable the Text widget
 
 def colorize_text(event):
+    add_space()
     keyword = ['if ', ' from ']
     print("============================= \n")
     # Remove existing tags
@@ -100,7 +101,7 @@ def main():
     Editor.insert("insert", " ")
 
     # Editor.bind("<Return>", on_return_press)
-    Editor.bind("<KeyPress>", add_space)
+    #Editor.bind("<KeyPress>", add_space)
     Editor.bind("<Key>", update_row_numbers)  # Bind the update_row_numbers function to changes in the text widget
     Editor.bind("<KeyRelease>", colorize_text)
 
