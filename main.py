@@ -10,7 +10,7 @@ ctypes.windll.shcore.SetProcessDpiAwareness(True)
 keyword = ["auto",	"break",	"case",	"char", "const",	"continue",	"default",	"do" , "double",	"else",	"enum",	"extern",
            "float",	"for",	"goto",	"if", "int",	"long",	"register",	"return", "short",	"signed",	"sizeof",	"static", "extern"
            "struct",	"switch",	"typedef",	"union", "unsigned", "void",	"volatile",	"while", "bool",
-           "malloc", "calloc", "realloc",  "free", "include", "#define", "#ifdef", "#ifndef", "#endif", "#if", "#else", "#elif"
+           "malloc", "calloc", "realloc",  "free", "#include", "#define", "#ifdef", "#ifndef", "#endif", "#if", "#else", "#elif"
            ]
 
 def keyword_color (keyword, start, end):
@@ -68,8 +68,9 @@ def colorize_text(event):
         start = "1.0"
         key_length = len(key)
         while True:
-            #start = Editor.search(key, start, stopindex="end", nocase=True)
-            start = Editor.search(r"\y" + re.escape(key) + r"\y", start, stopindex="end", regexp=True)
+
+            #start = Editor.search(r"\y" + re.escape(key) + r"\y", start, stopindex="end", regexp=True)
+            start = Editor.search(r"#include", start, stopindex="end", regexp=True)
             if not start:
                 break
             dif = int(start[2:])
