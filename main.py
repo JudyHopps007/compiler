@@ -57,8 +57,7 @@ def colorize_text(event):
     global keyword
     # Remove existing tags
     Editor.tag_remove("all", "1.0", "end")
-    Editor.tag_remove("green", "1.0", "end")
-    Editor.tag_remove("black", "1.0", "end")
+    
 
     text = Editor.get("1.0", "end-1c")  # Get the text from the Text widget
 
