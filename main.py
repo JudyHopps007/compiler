@@ -69,7 +69,7 @@ def colorize_text(event):
         Editor.tag_add("green", f"1.0+{start}c", f"1.0+{end}c")
         Editor.tag_config("green", foreground="green")
 
-    # Find and colorize strings
+    # Find and colorize preprocessor directives
     for match in re.finditer(r'#(include|define|ifdef|ifndef|endif|if|else|elif)\b', text):
         start = match.start()
         end = match.end()
