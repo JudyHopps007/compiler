@@ -13,7 +13,7 @@ keyword = ["auto", "break", "case", "char", "const", "continue", "default", "do"
            "float", "for", "goto", "if", "int", "long", "register", "return", "short", "signed", "sizeof", "static",
            "struct", "switch", "typedef", "union", "unsigned", "void", "volatile", "while", "bool",
            "malloc", "calloc", "realloc", "free",
-           "printf", "scanf", "fprintf", "fscanf", "fread", "fwrite", "fseek", "fputs", "fgets", "fopen", "fclose" , "rewind", "fgetc", "fgetw"
+           "printf", "scanf", "fprintf", "fscanf", "fread", "fwrite", "fseek", "fputs", "fgets", "fopen", "fclose" , "rewind", "fgetc", "fgetw", "fputc", "fputs"
            ]
 
 
@@ -50,7 +50,7 @@ def keyword_color(keyword, start, end):
         Editor.tag_add("light blue", start, end)
         Editor.tag_config("light blue", foreground="light blue")
 
-    elif keyword == "fprintf" or keyword == "fscanf" or keyword == "fread" or keyword == "fwrite" or keyword == "fseek" or keyword == "fopen" or keyword == "fclose" or keyword == "fgets" or keyword == "fputs" or keyword == "rewind" or keyword == "fgetc" or keyword == "fgetw":  # File Handling
+    elif keyword == "fprintf" or keyword == "fscanf" or keyword == "fread" or keyword == "fwrite" or keyword == "fseek" or keyword == "fopen" or keyword == "fclose" or keyword == "fgets" or keyword == "fputs" or keyword == "rewind" or keyword == "fgetc" or keyword == "fgetw" or keyword == "fputc" or keyword == "fputs":  # File Handling
         Editor.tag_add("light blue", start, end)
         Editor.tag_config("light blue", foreground="light blue")
 
