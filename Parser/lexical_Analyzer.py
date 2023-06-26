@@ -16,6 +16,7 @@ patterns_rg = [
     (r'\b(int|void|char|bool|float|long|return)\b', 'KEYWORD'),
     (r'\*\w+\[\]', 'POINTER_TO_ARRAY'),
     (r'\*\w+', 'POINTER_TO_VAR'),
+    (r'\*\w+\w+\s*\[\s*\w*\s*\]', 'ARRAY'),
     (r'\b(if)\b', 'IF'),
     (r'\b(else)\b', 'ELSE'),
     (r'\b(while)\b', 'WHILE'),
