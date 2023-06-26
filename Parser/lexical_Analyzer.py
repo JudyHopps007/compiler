@@ -17,10 +17,9 @@ patterns_rg = [
     (r'\w+\[\s*\w*\s*\]', 'ARRAY'),
     (r'\*\w+\[\]', 'POINTER_TO_ARRAY'),
     (r'\*\w+', 'POINTER_TO_VAR'),
-file pointer
+    (r'\bFILE\b\*', 'FILE_POINTER'),
     (r'\w+\.\w+', "STRUCTURE_MEMBER_ACCESS"),
     (r'&[a-zA-Z_][a-zA-Z0-9_]*.[a-zA-Z_][a-zA-Z0-9_]*', 'MEMORY_REFERENCE'),
-
     (r'\b(if)\b', 'IF'),
     (r'\b(else)\b', 'ELSE'),
     (r'\b(while)\b', 'WHILE'),
