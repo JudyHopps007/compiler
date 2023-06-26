@@ -13,7 +13,7 @@ keyword = ["auto", "break", "case", "char", "const", "continue", "default", "do"
            "float", "for", "goto", "if", "int", "long", "register", "return", "short", "signed", "sizeof", "static",
            "struct", "switch", "typedef", "union", "unsigned", "void", "volatile", "while", "bool",
            "malloc", "calloc", "realloc", "free",
-           "printf", "scanf", "fprintf", "fscanf", "fread", "fwrite", "fseek", "fputs", "fgets", "fopen", "fclose" , "rewind", "fgetc", "fgetw", "fputc", "fputs"
+           "printf", "scanf", "fprintf", "fscanf", "fread", "fwrite", "fseek", "fputs", "fgets", "fopen", "fclose" , "rewind", "fgetc", "fgetw", "fputc", "fputs", "ftell"
            ]
 
 
@@ -139,7 +139,6 @@ def colorize_text(event):
             Editor.tag_remove(tag, f"1.0+{start}c", f"1.0+{end}c")
         Editor.tag_add("green", f"1.0+{start}c", f"1.0+{end}c")
         Editor.tag_config("green", foreground="green")
-
 
 
 def add_space():  # to Insert a space at the beginning of each line
