@@ -13,7 +13,7 @@ keyword = ["auto", "break", "case", "char", "const", "continue", "default", "do"
            "float", "for", "goto", "if", "int", "long", "register", "return", "short", "signed", "sizeof", "static",
            "struct", "switch", "typedef", "union", "unsigned", "void", "volatile", "while", "bool",
            "malloc", "calloc", "realloc", "free",
-           "printf", "scanf"
+           "printf", "scanf", "fprintf", "fscanf", "fread", "fwrite", "fseek"
            ]
 
 
