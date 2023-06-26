@@ -17,6 +17,7 @@ patterns_rg = [
     (r'\w+\[\s*\w*\s*\]', 'ARRAY'),
     (r'\*\w+\[\]', 'POINTER_TO_ARRAY'),
     (r'\*\w+', 'POINTER_TO_VAR'),
+    (r'&[a-zA-Z_][a-zA-Z0-9_]*', 'REFERENCE_'),
 
     (r'\b(if)\b', 'IF'),
     (r'\b(else)\b', 'ELSE'),
