@@ -42,14 +42,17 @@ def keyword_color(keyword, start, end):
         Editor.tag_add("brown", start, end)
         Editor.tag_config("brown", foreground="brown")
 
-    elif keyword == "enum" or keyword == "struct" or keyword == "volatile" or keyword == "union":  # Memory Management:
+    elif keyword == "enum" or keyword == "struct" or keyword == "volatile" or keyword == "union":  #
         Editor.tag_add("violet", start, end)
         Editor.tag_config("violet", foreground="violet")
 
-    elif keyword == "printf" or keyword == "scanf" or keyword == "volatile" or keyword == "union":  # Memory Management:
+    elif keyword == "printf" or keyword == "scanf" or keyword == "volatile" or keyword == "union":  #
         Editor.tag_add("light blue", start, end)
         Editor.tag_config("light blue", foreground="light blue")
 
+    elif keyword == "fprintf" or keyword == "fscanf" or keyword == "fread" or keyword == "fwrite" or keyword ==  "fseek" or keyword ==  "fseek":  # File Handling
+        Editor.tag_add("light blue", start, end)
+        Editor.tag_config("light blue", foreground="light blue")
 
 
 def run_code():
