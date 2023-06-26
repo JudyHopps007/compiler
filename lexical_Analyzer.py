@@ -9,8 +9,10 @@ print('\n')
 # Define regular expression patterns for different types of tokens(assigning tokens to lexemes)
 patterns_rg = [
     (r'(\/\/[^\n\r]*[\n\r])|\/\*[\s\S]*?\*\/', 'COMMENT'),
-    (r'#include', 'INCLUDE_ID'),
-    (r'<[A-Za-z]+.h>', 'INCLUDE_DIRECTIVE'),
+    (r'#include\b', 'INCLUDE_ID'),
+    (r'<[A-Za-z/]+.h>', 'INCLUDE_DIRECTIVE'),
+    (r'#(define|undef|if|elif|else|endif)\b', 'MACRO'),
+    (r'#pragma\b', 'PRAGMA_DIRECTIVE'),
     (r'\b(int|void|char|bool|float|long|return)\b', 'KEYWORD'),
     (r'\b(if)\b', 'IF'),
     (r'\b(else)\b', 'ELSE'),
@@ -43,7 +45,6 @@ patterns_rg = [
     (r'\&\&', 'AND'),
     (r'\!', 'NOT'),
 ]
-
 
 # a function that reads user code  and generates a list of tokens
 def scanner(program):

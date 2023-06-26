@@ -53,11 +53,14 @@ def keyword_color(keyword, start, end):
 
 
 def run_code():
+    Terminal_display.delete("1.0", "end")
     user_input = Editor.get("1.0", "end")
-    Terminal_display.insert("1.0", user_input)
     tokens = lexical_Analyzer.scanner(user_input)
+    i = 1
     for token in tokens:
+        Terminal_display.insert(f"{i}.0", f"{token}\n")
         print(token)
+        i += 1
 
 
 def update_row_numbers(event=None):
