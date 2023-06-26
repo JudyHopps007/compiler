@@ -50,7 +50,7 @@ def keyword_color(keyword, start, end):
         Editor.tag_add("light blue", start, end)
         Editor.tag_config("light blue", foreground="light blue")
 
-    elif keyword == "fprintf" or keyword == "fscanf" or keyword == "fread" or keyword == "fwrite" or keyword ==  "fseek" or keyword ==  "fopen"or keyword ==  "fclose"or keyword ==  "fgets"or keyword ==  "fputs":  # File Handling
+    elif keyword == "fprintf" or keyword == "fscanf" or keyword == "fread" or keyword == "fwrite" or keyword == "fseek" or keyword == "fopen" or keyword == "fclose" or keyword == "fgets" or keyword == "fputs" or keyword == "rewind":  # File Handling
         Editor.tag_add("light blue", start, end)
         Editor.tag_config("light blue", foreground="light blue")
 
