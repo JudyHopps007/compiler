@@ -1,1 +1,2 @@
 FILE* fptr;
+FILE fptr;
