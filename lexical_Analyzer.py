@@ -14,6 +14,12 @@ patterns_rg = [
     (r'#(define|undef|if|elif|else|endif)\b', 'MACRO'),
     (r'#pragma\b', 'PRAGMA_DIRECTIVE'),
     (r'\b(int|void|char|bool|float|long|return)\b', 'KEYWORD'),
+    (r'\w+\[\s*\w*\s*\]', 'ARRAY'),
+    (r'\*\w+\[\]', 'POINTER_TO_ARRAY'),
+    (r'\*\w+', 'POINTER_TO_VAR'),
+    (r'\bFILE |FILE\b\*', 'FILE_POINTER'),
+    (r'\w+\.\w+', "STRUCTURE_MEMBER_ACCESS"),
+    (r'&[a-zA-Z_][a-zA-Z0-9_]*.[a-zA-Z_][a-zA-Z0-9_]*', 'MEMORY_REFERENCE'),
     (r'\b(if)\b', 'IF'),
     (r'\b(else)\b', 'ELSE'),
     (r'\b(while)\b', 'WHILE'),
@@ -46,8 +52,10 @@ patterns_rg = [
     (r'\!', 'NOT'),
 ]
 
-# a function that reads user code  and generates a list of tokens
+
+# ========= Define a function that reads a program from a  and generates a list of tokens ===
 def scanner(program):
+
     line_number_track = 1  # keep track of lexical error position
     token_track = 1  # keep track of token position
     token_list = []  # initialized to empty list ( TOKEN_TYPE , TOKEN-VALUE )
@@ -76,6 +84,7 @@ def scanner(program):
                     token_list2.append((token_type, match.group(0), token_track))
                 else:
                     token_track += 1
+                    line_number_track += 1
                 curser_position = match.end(0)
                 break
 
@@ -85,60 +94,3 @@ def scanner(program):
     return token_list2
 
 
-# ===================================== SYMBOL TABLE PHASE===============================================================================
-def generate_symbol_table(token_list):
-    clear_json = {"Symbol_table": []}
-    with open("symbol_table.json", 'w') as f:
-        json.dump(clear_json, f)
-
-    with open('symbol_table.json') as json_file:
-        data = json.load(json_file)
-    symbol_table = data['Symbol_table']
-    directives_table = []
-    for i in range(len(token_list)):
-        token_type, token_value = token_list[i]
-        if token_type == 'INCLUDE_DIRECTIVE':
-            directives_table.append(token_value)
-        if token_type == 'IDENTIFIER':
-            data_type = None
-            value = None
-            if any(d.get('IDENTIFIER') == token_value for d in symbol_table):
-                for k in range(len(symbol_table)):
-                    if symbol_table[k]['IDENTIFIER'] == token_value:
-                        if symbol_table[k]['DATA_TYPE'] == None:
-                            if token_list[i - 1][0] == 'KEYWORD':
-                                data_type = token_list[i - 1][1]
-
-                        if token_list[i + 1][1] != '(':
-                            if token_list[i + 1][1] != ',':
-                                if token_list[i + 1][1] == '=':
-                                    if symbol_table[k]['VALUE'] == None:
-                                        p = 0
-                                        value = ''
-                                        while token_list[i + 2 + p][1] != ';':
-                                            value += token_list[i + 2 + p][1]
-                                            p += 1
-                        else:
-                            value = None
-            else:
-                if token_list[i - 1][0] == 'KEYWORD':
-                    data_type = token_list[i - 1][1]
-                if token_list[i + 1][1] != '(':
-                    if token_list[i + 1][1] != ',':
-                        if token_list[i + 1][1] == '=':
-                            p = 0
-                            value = ''
-                            while token_list[i + 2 + p][1] != ';':
-                                value += token_list[i + 2 + p][1]
-                                p += 1
-            dictionary = {
-                'IDENTIFIER': token_value,
-                'DATA_TYPE': data_type,
-                'VALUE': value,
-                'SCOPE': None
-            }
-            symbol_table.append(dictionary)
-            with open('symbol_table.json', 'w') as json_file_write:
-                json.dump(data, json_file_write, indent=4)
-
-# generate_symbol_table(tokens)

@@ -163,7 +163,7 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                     current_token += 1
             else:
                 # print(" Syntax Error : expected token IDENTIFIER")
-                Error_list += "Syntax Error : expected token 'IDENTIFIER' goten at line  ", tokens[current_token][2]
+                Error_list += f"Syntax Error : expected token 'IDENTIFIER' goten at line {tokens[current_token][2]}"
 
         elif current_token < len(tokens) and tokens[current_token][0] == 'IF':
             if_node = []
@@ -474,11 +474,45 @@ def parse_program(tokens, postion):
                 # handle include list
                 include_directive = tokens[current_token][1] + ' ' + tokens[current_token + 1][1]
                 current_token += 1
-                print(f"INCLUDE_LIST: {include_directive}")
-                parser_tree.append(('INCLUDE_LIST', include_directive))
+                print(f"HEADER_FILE: {include_directive}")
+                parser_tree.append(('HEADER_FILE', include_directive))
             else:
                 Error_list += f"\nSYNTAX ERROR: INCLUDE_DIRECTIVE: '{tokens[current_token + 1][1]}' at line {tokens[current_token + 1][2]}"
                 current_token += 1
+
+        elif tokens[current_token][0] == "MACRO":
+            if tokens[current_token + 1][0] == 'IDENTIFIER':
+                macro_name = tokens[current_token+1][1]
+                if tokens[current_token + 2][0] == 'IDENTIFIER' or tokens[current_token + 2][0] == 'INTEGER':
+                    macro_value = tokens[current_token + 2][1]
+                    macro = macro_name + ' ' + macro_value
+                    print(f"MACRO: {macro}")
+                    parser_tree.append(('MACRO', ("macro_name", macro_name), ("macro_value", macro_value)))
+                    current_token += 2
+                if tokens[current_token + 2][0] == 'LEFT_PAREN':
+
+                    macro_parameter_str, token_position, macro_parameter_node = parameter_RFC(tokens, (current_token + 2))
+                    current_token = token_position
+
+                    if tokens[current_token+1][0] == 'LEFT_PAREN':
+                        current_token += 1
+                        macro_body = ''
+                        while tokens[current_token][0] != 'RIGHT_PAREN':
+                              macro_body += tokens[current_token][1]
+                              current_token+= 1
+
+                        macro_body += tokens[current_token][1]
+                        macro = f"{macro_name} {macro_parameter_node}  {macro_body}"
+                        print(f"MACRO: {macro}")
+
+                        parser_tree.append(('MACRO', ("macro_name", f"{macro_name}"), ("macro_parameter", tuple(macro_parameter_node)), ("macro_body", macro_body)))
+
+
+
+
+
+
+
 
         elif tokens[current_token][0] == "KEYWORD" and tokens[current_token][1] != 'return':
             type_specifer = tokens[current_token][1]
@@ -492,8 +526,8 @@ def parse_program(tokens, postion):
 
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "LEFT_PAREN":  # handle functions
                     f_lp = tokens[current_token + 2][1]
-                    function_parameter, pos, param_node = parameter_RFC(tokens, (current_token + 2))
-                    current_token = pos
+                    function_parameter_str, token_position, function_parameter_node = parameter_RFC(tokens, (current_token + 2))
+                    current_token = token_position
                     if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_PAREN":
                         f_rp = tokens[current_token][1]
                         if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "LEFT_BRACE":
@@ -502,9 +536,9 @@ def parse_program(tokens, postion):
 
                             if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_BRACE":
                                 f_rb = tokens[current_token][1]
-                                print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body} {f_rb}")
+                                print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter_str} {f_rp} {f_lb} {function_body} {f_rb}")
 
-                                parser_tree.append(('FUNCTION', ("type_specifier", f"{type_specifer}"), ("function_name", f"{name}"), ("function_parameter", tuple(param_node)), ("function_body", tuple(child_node))))
+                                parser_tree.append(('FUNCTION', ("type_specifier", f"{type_specifer}"), ("function_name", f"{name}"), ("function_parameter", tuple(function_parameter_node)), ("function_body", tuple(child_node))))
                             else:
                                 Error_list += f"\nSyntax Error: <missing right-brace>,  function block not closed at line {tokens[current_token - 1][2]}"
                                 print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >")
