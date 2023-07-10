@@ -640,11 +640,20 @@ def parse_program(tokens, postion):
                  if  tokens[current_token+2][0] == "ARRAY_VALUE":
                      array_name = tokens[current_token][1]
                      array_value = tokens[current_token+2][1]
-                     match = re.search(r'\[\s*\]', array_name)
+                     match = re.search(r'\[\s*([a-zA-Z_][a-zA-Z0-9_])+\s*\]', array_name)
                      if match:
                          print(f"ARRAY_INITIALIZATION:  {array_name}  =  {array_value}")
                          parser_tree.append(('ARRAY_INITIALIZATION', ("array_name", array_name), ("array_value", array_value)))
-                        
+                         current_token += 2
+                     else:
+                         current_token += 2
+                         Error_list += f"\nSyntax Error : Array initialization error. array index not specified at line  {tokens[current_token][2]}"
+                 else:
+                     current_token += 1
+                     Error_list += f"\nSyntax Error : Array initialization error. array index not specified at line  {tokens[current_token][2]}"
+
+
+
 
 
 
