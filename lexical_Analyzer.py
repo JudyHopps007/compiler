@@ -14,6 +14,8 @@ patterns_rg = [
     (r'#(define|undef|if|elif|else|endif)\b', 'MACRO'),
     (r'#pragma\b', 'PRAGMA_DIRECTIVE'),
     (r'\b(int|void|char|bool|float|long|return)\b', 'KEYWORD'),
+    (r'\b(const)\b', 'CONSTANT_KEY'),
+
     (r'\w+\[\s*\w*\s*\]', 'ARRAY'),
     (r'\*\w+\[\]', 'POINTER_TO_ARRAY'),
     (r'\*\w+', 'POINTER_TO_VAR'),

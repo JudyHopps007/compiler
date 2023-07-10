@@ -1,14 +1,11 @@
 
 
+const int
+feerr = 3535;
 
+int main[];
 
-
-#define SQUARE(x) (x * x)
-
-
-#include <unistd.h>
 /*
-
 int main(int argc, char const) {
     int sock = 0, valread;
     struct sockaddr_in serv_addr;

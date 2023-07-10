@@ -410,8 +410,10 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
                 break
     return current_token, statment_block, node
 
-def precedence ():
+
+def precedence():
     pass
+
 
 def expression(tokens, position):
     global express_n, Error_list
@@ -461,7 +463,7 @@ def expression(tokens, position):
         current_token += 1
         express_n = express_n.rstrip()
 
-    #print("return ", temp)
+    # print("return ", temp)
     return current_token, express_n, temp
 
 
@@ -480,9 +482,10 @@ def parse_program(tokens, postion):
                 Error_list += f"\nSYNTAX ERROR: INCLUDE_DIRECTIVE: '{tokens[current_token + 1][1]}' at line {tokens[current_token + 1][2]}"
                 current_token += 1
 
+        # macro syntax
         elif tokens[current_token][0] == "MACRO":
             if tokens[current_token + 1][0] == 'IDENTIFIER':
-                macro_name = tokens[current_token+1][1]
+                macro_name = tokens[current_token + 1][1]
                 if tokens[current_token + 2][0] == 'IDENTIFIER' or tokens[current_token + 2][0] == 'INTEGER':
                     macro_value = tokens[current_token + 2][1]
                     macro = macro_name + ' ' + macro_value
@@ -494,18 +497,46 @@ def parse_program(tokens, postion):
                     macro_parameter_str, token_position, macro_parameter_node = parameter_RFC(tokens, (current_token + 2))
                     current_token = token_position
 
-                    if tokens[current_token+1][0] == 'LEFT_PAREN':
+                    if tokens[current_token + 1][0] == 'LEFT_PAREN':
                         current_token += 1
                         macro_body = ''
                         while tokens[current_token][0] != 'RIGHT_PAREN':
-                              macro_body += tokens[current_token][1]
-                              current_token+= 1
+                            macro_body += tokens[current_token][1]
+                            current_token += 1
 
                         macro_body += tokens[current_token][1]
                         macro = f"{macro_name} {macro_parameter_node}  {macro_body}"
                         print(f"MACRO: {macro}")
-
                         parser_tree.append(('MACRO', ("macro_name", f"{macro_name}"), ("macro_parameter", tuple(macro_parameter_node)), ("macro_body", macro_body)))
+
+        # constant syntax
+        elif tokens[current_token][0] == "CONSTANT_KEY":
+            if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "KEYWORD" and tokens[current_token + 1][1] != 'return' and tokens[current_token + 1][1] != 'void' and tokens[current_token + 1][1] != 'bool':
+                if  (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "IDENTIFIER":
+                    if (current_token + 3) < len(tokens) and tokens[current_token + 3][0] == "ASSIGN":
+                        if (current_token + 4) < len(tokens) and (tokens[current_token + 4][0] == "IDENTIFIER" or tokens[current_token + 4][0] == "FLOATING_POINT" or tokens[current_token + 4][0] == "CHAR" or tokens[current_token + 4][0] == "STRING"):
+                            constant_data_type = tokens[current_token + 1][1]
+                            constant_name = tokens[current_token + 2][1]
+                            constant_value = tokens[current_token + 4][1]
+                            current_token += 4
+                            print(f"CONSTANT: {constant_data_type} {constant_name} {constant_value}")
+                            parser_tree.append(('CONSTANT', ("constant_data_type", constant_data_type), ("constant_name", constant_name), ("constant_value", constant_value)))
+                            if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
+                                current_token += 1
+                            else:
+                                Error_list += f"\nSyntax Error: constant definition not terminated. missing semicolon at line  {tokens[current_token][2]}"
+                        else:
+                            current_token += 3
+                            Error_list += f"\nSyntax Error: constant definition error. no value assigned to the constant variable at line  {tokens[current_token][2]}"
+                    else:
+                        current_token += 2
+                        Error_list += f"\nSyntax Error: constant definition error. missing =  at line  {tokens[current_token][2]}"
+                else:
+                    current_token += 1
+                    Error_list += f"\nSyntax Error: constant definition incomplete. missing constant variable name  at line  {tokens[current_token][2]}"
+            else:
+                Error_list += f"\nSyntax Error: constant definition error. missing constant data type at line  {tokens[current_token][2]}"
+
 
 
 
@@ -516,7 +547,7 @@ def parse_program(tokens, postion):
 
         elif tokens[current_token][0] == "KEYWORD" and tokens[current_token][1] != 'return':
             type_specifer = tokens[current_token][1]
-            if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "IDENTIFIER":
+            if (current_token + 1) < len(tokens) and (tokens[current_token + 1][0] == "IDENTIFIER" or tokens[current_token + 1][0] == "ARRAY"):
                 name = tokens[current_token + 1][1]
                 if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "SEMICOLON":  # handle declaration
                     terminator = tokens[current_token + 2][1]
@@ -787,4 +818,3 @@ print(Error_list)  # print out syntax error caught by the parser
 
 print("\n=================================================  PARSER LIST  ========================================================================================= \n")
 print(parser_tree)  # print out the parser tree in list for that will be passed to the intermediate code generotor error caught by the parser
-
