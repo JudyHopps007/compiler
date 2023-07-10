@@ -15,7 +15,15 @@ patterns_rg = [
     (r'#pragma\b', 'PRAGMA_DIRECTIVE'),
     (r'\b(int|void|char|double|bool|float|long|return)\b', 'KEYWORD'),
     (r'\b(const)\b', 'CONSTANT_KEY'),
-    (r'\w+\[\s*\w*\s*\]', 'ARRAY'),
+    (r'[a-zA-Z_][a-zA-Z0-9_]*\[(\s*[a-zA-Z_][a-zA-Z0-9_]*\s*|\s*[0-9]+\s*)*\s*\]', 'ARRAY'),
+    (r'''\{\s*[0-9]+(\s*,\s*[0-9]+)*\s*\}|\{\s*\"(\\.|[^"])*\"\s*(\s*,\s*\"(\\.|[^"])*\")*\s*\}|\{\s*'.'(\s*,\s*'.')*\s*\}|\{\s*[0-9]+[.][0-9]+(\s*,\s*[0-9]+[.][0-9]+)*\s*\}''', 'ARRAY_VALUE'),
+    #(r'\[\s*[0-9]+(\s*,\s*[0-9]+)*\s*\]', 'ARRAY_OF_INT'),
+    #(r'\[\s*\"(\\.|[^"])*\"\s*(\s*,\s*\"(\\.|[^"])*\")*\s*\]', 'ARRAY_OF_STRINGS'),
+    #(r"\[\s*'.'(\s*,\s*'.')*\s*\]", 'ARRAY_OF_CHARS'),
+    #(r"\{\s*[0-9]+[.][0-9]+(\s*,\s*[0-9]+[.][0-9]+)*\s*\}", 'ARRAY_OF_FLOATS'),
+
+
+
     (r'\*\w+\[\]', 'POINTER_TO_ARRAY'),
     (r'\*\w+', 'POINTER_TO_VAR'),
     (r'\bFILE |FILE\b\*', 'FILE_POINTER'),

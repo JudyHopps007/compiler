@@ -1,9 +1,4 @@
-
-
-const int
-feerr = 3535;
-
-int main[];
+ wewe[ ] = {12,122}
 
 /*
 int main(int argc, char const) {
