@@ -659,7 +659,6 @@ def parse_program(tokens, postion):
                     current_token += 1
                     Error_list += f"\nSyntax Error : Array element value error. wrong value is being assigned to the array at line  {tokens[current_token][2]}"
             else:
-
                 Error_list += f"\nSyntax Error : Incomplete statement  at line {tokens[current_token][2]}"
 
 
