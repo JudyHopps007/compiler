@@ -2,7 +2,7 @@
 int main, function;
 int main(){
 
-}
+
 
 int num(){
 
