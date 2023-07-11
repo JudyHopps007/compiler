@@ -621,10 +621,7 @@ def parse_program(tokens, postion):
                                 print(f"VAR_DECLARATION_INITIALIZATION: {type_specifer} {varable_name} {asg} ~{None}~ <missing ';'>")
                                 Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token][2]}"
                                 break
-                    else:
-                        Error_list += f"\nSyntax Error : unterminated statement  at line {tokens[current_token][2]} "
-                        current_token += 1
-                        break
+                    
 
                 elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "ARRAY":  # Array syntax 1
                     array = tokens[current_token + 1][1]
