@@ -561,6 +561,7 @@ def parse_program(tokens, postion):
                         break
                     elif (current_token + 1) < len(tokens) and tokens[current_token + 2][0] == "COMMA":
                         current_token += 1
+                        print('coma')
                         continue
 
                     elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "LEFT_PAREN":  # handle functions
