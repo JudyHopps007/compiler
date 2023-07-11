@@ -1,5 +1,7 @@
-int *p1;
-int * p2;
+int rt;
+
+int ss, aa;
+
 
 /*
 int main(int argc, char const) {
