@@ -1,10 +1,10 @@
 
-
+int main, function;
 int main(){
 
 }
 
-int main(){
+int num(){
 
 }
 
