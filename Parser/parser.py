@@ -588,6 +588,7 @@ def parse_program(tokens, postion):
                             else:
                                 print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter_str} <missing LEFT_BRACE>...")
                                 Error_list += f"\nSyntax Error: Incomplete Functon definition.  missing left-brace  at line  {tokens[current_token][2]}"
+                                break
                         else:
                             print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter_str} <missing ')'>...")
                             Error_list += f"\nSyntax Error: incomplete function statement, <missing ')' 'left-brace' ...'right-brace' > at line  {tokens[current_token - 1][2]}"

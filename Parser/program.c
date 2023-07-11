@@ -1,12 +1,6 @@
 
 int main, function;
-int main(){
-
-
-
-int num(){
-
-}
+int main()
 
 
 /*
