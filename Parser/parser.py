@@ -665,8 +665,6 @@ def parse_program(tokens, postion):
                             current_token += 1
                         else:
                             Error_list += f"\nSyntax Error : Statement not terminated proper. missing a semicolon at line  {tokens[current_token][2]}"
-
-
                     else:
                         current_token += 2
                         Error_list += f"\nSyntax Error : Array initialization error. array index not specified at line  {tokens[current_token][2]}"
