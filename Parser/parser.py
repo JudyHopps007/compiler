@@ -576,7 +576,6 @@ def parse_program(tokens, postion):
                                 if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_BRACE":
                                     f_rb = tokens[current_token][1]
                                     print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter_str} {f_rp} {f_lb} {function_body} {f_rb}")
-
                                     parser_tree.append(('FUNCTION', ("type_specifier", f"{type_specifer}"), ("function_name", f"{name}"), ("function_parameter", tuple(function_parameter_node)), ("function_body", tuple(child_node))))
                                     break
                                 else:
@@ -615,7 +614,7 @@ def parse_program(tokens, postion):
                                 Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token][2]}"
                                 continue
                     else:
-                        Error_list += f"\nSyntax Error : unterminated statement for at line {tokens[current_token][2]} "
+                        Error_list += f"\nSyntax Error : unterminated statement  at line {tokens[current_token][2]} "
                         current_token += 1
                         break
 
@@ -643,7 +642,7 @@ def parse_program(tokens, postion):
                         Error_list += f"\nSyntax Error : incomplete array declaration  at line {tokens[current_token][2]} "
                 else:
                     Error_list += f"\nSyntax Error : incomplete statement  at line  {tokens[current_token][2]}"
-                    pass
+
 
         elif tokens[current_token][0] == 'ARRAY':  # Array syntax 2
             if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "ASSIGN":
