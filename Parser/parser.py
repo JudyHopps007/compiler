@@ -548,7 +548,7 @@ def parse_program(tokens, postion):
 
         elif tokens[current_token][0] == "KEYWORD" and tokens[current_token][1] != 'return':
             type_specifer = tokens[current_token][1]
-            
+
             if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "IDENTIFIER":
                 name = tokens[current_token + 1][1]
                 if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "SEMICOLON":  # handle declaration
