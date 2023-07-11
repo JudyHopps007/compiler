@@ -550,17 +550,17 @@ def parse_program(tokens, postion):
             type_specifer = tokens[current_token][1]
 
             while True:
-                if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "IDENTIFIER" :
-                    name = tokens[current_token + 1][1]
-                    print(f"DECLARATION :  {type_specifer} {name}")
-                    parser_tree.append(("DECLARATION", ("type_specifer", f"{type_specifer}"), ('IDENTIFIER', name)))
-                    current_token += 1
-                    if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":  # handle declaration
+                    if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "IDENTIFIER" :
+                        name = tokens[current_token + 1][1]
+                        print(f"DECLARATION :  {type_specifer} {name}")
+                        parser_tree.append(("DECLARATION", ("type_specifer", f"{type_specifer}"), ('IDENTIFIER', name)))
                         current_token += 1
-                        break
-                    elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "COMMA":
-                        current_token += 1
-                        continue
+                        if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":  # handle declaration
+                            current_token += 1
+                            break
+                        elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "COMMA":
+                            current_token += 1
+                            continue
 
                     elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "LEFT_PAREN":  # handle functions
                         f_lp = tokens[current_token + 2][1]
@@ -619,31 +619,31 @@ def parse_program(tokens, postion):
                         Error_list += f"\nSyntax Error : unterminated statement for '{tokens[current_token][1]}' at line {tokens[current_token][2]} "
                         current_token += 1
 
-                elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "ARRAY":  # Array syntax 1
-                    array = tokens[current_token + 1][1]
-                    if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "SEMICOLON":
-                        print(f"ARRAY_DECLARATION: {type_specifer} {array} ")
-                        parser_tree.append(('ARRAY_DECLARATION', ("type_specifier", f"{type_specifer}"), ("array_name", array)))
-                        current_token += 2
-                    elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "ASSIGN":
-                        if (current_token + 3) < len(tokens) and tokens[current_token + 3][0] == "ARRAY_VALUE":
-                            array_value = tokens[current_token + 3][1]
-                            print(f"ARRAY_DECLARATION_INITIALIZATION: {type_specifer} {array}  =  {array_value}")
-                            parser_tree.append(('ARRAY_DECLARATION_INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("array_name", array), ("array_value", array_value)))
-                            current_token += 3
-                            if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":
-                                current_token += 1
-                            else:
-                                Error_list += f"\nSyntax Error : unterminated statement  at line {tokens[current_token][2]} "
-                        else:
+                    elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "ARRAY":  # Array syntax 1
+                        array = tokens[current_token + 1][1]
+                        if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "SEMICOLON":
+                            print(f"ARRAY_DECLARATION: {type_specifer} {array} ")
+                            parser_tree.append(('ARRAY_DECLARATION', ("type_specifier", f"{type_specifer}"), ("array_name", array)))
                             current_token += 2
-                            Error_list += f"\nSyntax Error : no value assigned to array  at line {tokens[current_token][2]} "
+                        elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "ASSIGN":
+                            if (current_token + 3) < len(tokens) and tokens[current_token + 3][0] == "ARRAY_VALUE":
+                                array_value = tokens[current_token + 3][1]
+                                print(f"ARRAY_DECLARATION_INITIALIZATION: {type_specifer} {array}  =  {array_value}")
+                                parser_tree.append(('ARRAY_DECLARATION_INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("array_name", array), ("array_value", array_value)))
+                                current_token += 3
+                                if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":
+                                    current_token += 1
+                                else:
+                                    Error_list += f"\nSyntax Error : unterminated statement  at line {tokens[current_token][2]} "
+                            else:
+                                current_token += 2
+                                Error_list += f"\nSyntax Error : no value assigned to array  at line {tokens[current_token][2]} "
+                        else:
+                            current_token += 1
+                            Error_list += f"\nSyntax Error : incomplete array declaration  at line {tokens[current_token][2]} "
                     else:
-                        current_token += 1
-                        Error_list += f"\nSyntax Error : incomplete array declaration  at line {tokens[current_token][2]} "
-                else:
-                    Error_list += f"\nSyntax Error : incomplete statement  at line  {tokens[current_token][2]}"
-                    pass
+                        Error_list += f"\nSyntax Error : incomplete statement  at line  {tokens[current_token][2]}"
+                        pass
 
         elif tokens[current_token][0] == 'ARRAY':  # Array syntax 2
             if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "ASSIGN":
