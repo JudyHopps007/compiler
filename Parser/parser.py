@@ -605,10 +605,14 @@ def parse_program(tokens, postion):
                                 parser_tree.append(('VAR_DECLARATION_INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{varable_name}"), ("expression", tuple(exp_node))))
                                 break
                             else:
-                                print(f"INITIALIZATION: {type_specifer} {varable_name} {asg} {express} <missing ';'>")
-                                parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{varable_name}"), ("expression", tuple(exp_node))))
+                                print(f"VAR_DECLARATION_INITIALIZATION: {type_specifer} {varable_name} {asg} {express} <missing ';'>")
+                                parser_tree.append(('VAR_DECLARATION_INITIALIZATION', ("type_specifier", type_specifer), ("IDENTIFIER", varable_name), ("expression", tuple(exp_node))))
                                 Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token][2]}"
+                                Error_list += f"\nSyntax Error : unterminated statement  at line {tokens[current_token][2]} "
+
                                 break
+
+
 
                         else:
 
@@ -621,7 +625,7 @@ def parse_program(tokens, postion):
                                 print(f"VAR_DECLARATION_INITIALIZATION: {type_specifer} {varable_name} {asg} ~{None}~ <missing ';'>")
                                 Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token][2]}"
                                 break
-                    
+
 
                 elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "ARRAY":  # Array syntax 1
                     array = tokens[current_token + 1][1]
