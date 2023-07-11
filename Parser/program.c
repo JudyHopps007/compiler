@@ -1,6 +1,6 @@
 int rt;
 
-int ss, aa;
+int ss, aa, erer;
 
 
 /*
