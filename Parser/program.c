@@ -2,7 +2,9 @@
 
 int ss, aa, erer
 
+int main (){
 
+}
 
 
 /*
