@@ -581,7 +581,6 @@ def parse_program(tokens, postion):
                                     parser_tree.append(('FUNCTION', ("type_specifier", type_specifer), ("function_name", name), ("function_parameter", tuple(function_parameter_node)), ("function_body", tuple(child_node))))
                                     break
                                 else:
-
                                     print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter_str} {f_rp} {f_lb} {function_body}")
                                     Error_list += f"\nSyntax Error: <missing right-brace>,  function block not closed properly at line {tokens[current_token - 1][2]}"
                                     parser_tree.append(('FUNCTION', ("type_specifier", type_specifer), ("function_name", name), ("function_parameter", tuple(function_parameter_node)), ("function_body", tuple(child_node))))
@@ -596,7 +595,7 @@ def parse_program(tokens, postion):
                             break
 
 
-                    elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "ASSIGN":  # initialization
+                    elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "ASSIGN":  # initialization
                         type_specifer = tokens[current_token][1]
                         namr = tokens[current_token + 1][1]
                         asg = tokens[current_token + 2][1]
