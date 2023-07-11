@@ -555,6 +555,7 @@ def parse_program(tokens, postion):
                     print(f"DECLARATION :  {type_specifer} {name}")
                     parser_tree.append(("DECLARATION", ("type_specifer", f"{type_specifer}"), ('IDENTIFIER', name)))
                     current_token += 1
+                    print("========",tokens[current_token])
                     if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":  # handle declaration
                         current_token += 1
                         break
