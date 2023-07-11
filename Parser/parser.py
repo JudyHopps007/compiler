@@ -617,7 +617,7 @@ def parse_program(tokens, postion):
                     else:
                         print(f"DECLARATION: {type_specifer}  {name} ")
                         parser_tree.append(("DECLARATION", ("type_specifer", f"{type_specifer}"), ('IDENTIFIER', F"{name}")))
-                        Error_list += f"\nSyntax Error : unterminated statement for '{tokens[current_token][1]}' at line {tokens[current_token][2]} "
+                        Error_list += f"\nSyntax Error : unterminated statement for at line {tokens[current_token][2]} "
                         current_token += 1
                         break
 
