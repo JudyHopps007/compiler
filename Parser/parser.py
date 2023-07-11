@@ -643,6 +643,7 @@ def parse_program(tokens, postion):
                         Error_list += f"\nSyntax Error : incomplete array declaration  at line {tokens[current_token][2]} "
                 else:
                     Error_list += f"\nSyntax Error : incomplete statement  at line  {tokens[current_token][2]}"
+                    pass
 
         elif tokens[current_token][0] == 'ARRAY':  # Array syntax 2
             if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "ASSIGN":
