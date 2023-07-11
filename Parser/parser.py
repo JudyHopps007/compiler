@@ -591,7 +591,8 @@ def parse_program(tokens, postion):
                                 break
                         else:
                             print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter_str} <missing ')'>...")
-                            Error_list += f"\nSyntax Error: incomplete function statement, <missing ')' 'left-brace' ...'right-brace' > at line  {tokens[current_token - 1][2]}"
+                            Error_list += f"\nSyntax Error: incomplete function statement, missing ')' 'right-paren' at line  {tokens[current_token - 1][2]}"
+                            break
 
 
                     elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "ASSIGN":  # initialization
