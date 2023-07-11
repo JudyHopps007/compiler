@@ -1,5 +1,5 @@
 
-int main = function;
+int main = function
 
 
 
