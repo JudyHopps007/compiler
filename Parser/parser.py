@@ -611,6 +611,7 @@ def parse_program(tokens, postion):
                     parser_tree.append(("DECLARATION", ("type_specifer", f"{type_specifer}"), ('IDENTIFIER', F"{name}")))
                     Error_list += f"\nSyntax Error : unterminated statement for '{tokens[current_token + 1][1]}' at line {tokens[current_token + 1][2]} "
                     current_token += 1
+                    
             elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "ARRAY":  # Array syntax 1
                 array = tokens[current_token + 1][1]
                 if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "SEMICOLON":
@@ -660,11 +661,6 @@ def parse_program(tokens, postion):
                     Error_list += f"\nSyntax Error : Array element value error. wrong value is being assigned to the array at line  {tokens[current_token][2]}"
             else:
                 Error_list += f"\nSyntax Error : Incomplete statement  at line {tokens[current_token][2]}"
-
-
-
-
-
 
 
 
