@@ -614,7 +614,7 @@ def parse_program(tokens, postion):
                                 Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token][2]}"
                                 continue
                     else:
-                        print(f"DECLARATION: {type_specifer}  {name} <missing ';' >")
+                        print(f"DECLARATION: {type_specifer}  {name} ")
                         parser_tree.append(("DECLARATION", ("type_specifer", f"{type_specifer}"), ('IDENTIFIER', F"{name}")))
                         Error_list += f"\nSyntax Error : unterminated statement for '{tokens[current_token][1]}' at line {tokens[current_token][2]} "
                         current_token += 1
