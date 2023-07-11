@@ -577,6 +577,7 @@ def parse_program(tokens, postion):
                                     print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter_str} {f_rp} {f_lb} {function_body} {f_rb}")
 
                                     parser_tree.append(('FUNCTION', ("type_specifier", f"{type_specifer}"), ("function_name", f"{name}"), ("function_parameter", tuple(function_parameter_node)), ("function_body", tuple(child_node))))
+                                    break
                                 else:
                                     Error_list += f"\nSyntax Error: <missing right-brace>,  function block not closed at line {tokens[current_token - 1][2]}"
                                     print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter} {f_rp} {f_lb} {function_body}  <missing RIGHT_BRACE' >")
@@ -615,7 +616,7 @@ def parse_program(tokens, postion):
                     else:
                         print(f"DECLARATION: {type_specifer}  {name} <missing ';' >")
                         parser_tree.append(("DECLARATION", ("type_specifer", f"{type_specifer}"), ('IDENTIFIER', F"{name}")))
-                        Error_list += f"\nSyntax Error : unterminated statement for '{tokens[current_token + 1][1]}' at line {tokens[current_token + 1][2]} "
+                        Error_list += f"\nSyntax Error : unterminated statement for '{tokens[current_token][1]}' at line {tokens[current_token][2]} "
                         current_token += 1
 
                 elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "ARRAY":  # Array syntax 1
