@@ -471,7 +471,9 @@ def expression(tokens, position):
 def parse_program(tokens, postion):
     global express_n, Error_list, parser_tree  # calling global varables to be used
     current_token = postion
+
     while current_token < len(tokens):
+        print('begin ==', tokens[current_token][1])
         if tokens[current_token][0] == "INCLUDE_ID":
             if tokens[current_token + 1][0] == 'INCLUDE_DIRECTIVE':
                 # handle include list
