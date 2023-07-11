@@ -608,13 +608,8 @@ def parse_program(tokens, postion):
                                 print(f"VAR_DECLARATION_INITIALIZATION: {type_specifer} {varable_name} {asg} {express} <missing ';'>")
                                 parser_tree.append(('VAR_DECLARATION_INITIALIZATION', ("type_specifier", type_specifer), ("IDENTIFIER", varable_name), ("expression", tuple(exp_node))))
                                 Error_list += f"\nSyntax Error : unterminated statement  at line {tokens[current_token-1][2]} "
-
                                 break
-
-
-
                         else:
-
                             Error_list += f"\nSyntax Error: variable Initialization error, no value was assigned to variable at line {tokens[current_token][2]}"
                             if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                                 s_tm = tokens[current_token][1]

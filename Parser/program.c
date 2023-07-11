@@ -1,5 +1,6 @@
 
 int main = function
+int nu;
 
 
 
