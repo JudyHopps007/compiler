@@ -550,7 +550,7 @@ def parse_program(tokens, postion):
             type_specifer = tokens[current_token][1]
 
             while True:
-                if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "IDENTIFIER" :
+                if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "IDENTIFIER" and :
                     name = tokens[current_token + 1][1]
                     print(f"DECLARATION :  {type_specifer} {name}")
                     parser_tree.append(("DECLARATION", ("type_specifer", f"{type_specifer}"), ('IDENTIFIER', name)))

@@ -1,8 +1,6 @@
 
 
-int ss, aa, erer
-
-int main (){
+int main(){
 
 }
 
