@@ -562,6 +562,7 @@ def parse_program(tokens, postion):
                         current_token += 1
                         continue
 
+
                     elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "LEFT_PAREN":  # handle functions
                         f_lp = tokens[current_token + 2][1]
                         function_parameter_str, token_position, function_parameter_node = parameter_RFC(tokens, (current_token + 2))
@@ -618,6 +619,7 @@ def parse_program(tokens, postion):
                         parser_tree.append(("DECLARATION", ("type_specifer", f"{type_specifer}"), ('IDENTIFIER', F"{name}")))
                         Error_list += f"\nSyntax Error : unterminated statement for '{tokens[current_token][1]}' at line {tokens[current_token][2]} "
                         current_token += 1
+                        break
 
                 elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "ARRAY":  # Array syntax 1
                     array = tokens[current_token + 1][1]
@@ -642,7 +644,7 @@ def parse_program(tokens, postion):
                         current_token += 1
                         Error_list += f"\nSyntax Error : incomplete array declaration  at line {tokens[current_token][2]} "
                 else:
-                    Error_list += f"\nSyntax Error : incomplete statement  at line  {tokens[current_token][2]}"
+                    #Error_list += f"\nSyntax Error : incomplete statement  at line  {tokens[current_token][2]}"
                     pass
 
         elif tokens[current_token][0] == 'ARRAY':  # Array syntax 2
