@@ -548,11 +548,12 @@ def parse_program(tokens, postion):
 
         elif tokens[current_token][0] == "KEYWORD" and tokens[current_token][1] != 'return':
             type_specifer = tokens[current_token][1]
+
             while True:
                 if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "IDENTIFIER" :
                     name = tokens[current_token + 1][1]
-                    print(f"DECLARATION :  {type_specifer} {name} }")
-                    parser_tree.append(("DECLARATION", ("type_specifer", f"{type_specifer}"), ('IDENTIFIER', F"{name}")))
+                    print(f"DECLARATION :  {type_specifer} {name}")
+                    parser_tree.append(("DECLARATION", ("type_specifer", f"{type_specifer}"), ('IDENTIFIER', name)))
                     current_token += 1
                     if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":  # handle declaration
                         current_token += 1
