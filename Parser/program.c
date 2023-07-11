@@ -1,4 +1,4 @@
-int rt;
+
 
 int ss, aa, erer
 

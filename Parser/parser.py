@@ -615,8 +615,6 @@ def parse_program(tokens, postion):
                                 Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token][2]}"
                                 continue
                     else:
-                        print(f"DECLARATION: {type_specifer}  {name} ")
-                        parser_tree.append(("DECLARATION", ("type_specifer", f"{type_specifer}"), ('IDENTIFIER', F"{name}")))
                         Error_list += f"\nSyntax Error : unterminated statement for at line {tokens[current_token][2]} "
                         current_token += 1
                         break
@@ -644,7 +642,7 @@ def parse_program(tokens, postion):
                         current_token += 1
                         Error_list += f"\nSyntax Error : incomplete array declaration  at line {tokens[current_token][2]} "
                 else:
-                    #Error_list += f"\nSyntax Error : incomplete statement  at line  {tokens[current_token][2]}"
+                    Error_list += f"\nSyntax Error : incomplete statement  at line  {tokens[current_token][2]}"
                     pass
 
         elif tokens[current_token][0] == 'ARRAY':  # Array syntax 2
