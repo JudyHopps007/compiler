@@ -558,7 +558,8 @@ def parse_program(tokens, postion):
                     if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":  # handle declaration
                         current_token += 1
                         break
-                    elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "COMMA":
+                    elif (current_token + 1) < len(tokens) and tokens[current_token + 2][0] == "COMMA":
+                        current_token += 1
                         continue
 
                     elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "LEFT_PAREN":  # handle functions
