@@ -601,8 +601,9 @@ def parse_program(tokens, postion):
                         if len(express) != 0:
                             if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                                 s_tm = tokens[current_token][1]
-                                print(f"INITIALIZATION: {type_specifer} {varable_name} {asg} {express} {s_tm}")
+                                print(f"INITIALIZATION-: {type_specifer} {varable_name} {asg} {express} {s_tm}")
                                 parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{varable_name}"), ("expression", tuple(exp_node))))
+                                break
                             else:
                                 print(f"INITIALIZATION: {type_specifer} {varable_name} {asg} {express} <missing ';'>")
                                 parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{varable_name}"), ("expression", tuple(exp_node))))

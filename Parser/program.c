@@ -1,6 +1,6 @@
 
-int main, function;
-int main(
+int main = function;
+
 
 
 /*
