@@ -594,7 +594,7 @@ def parse_program(tokens, postion):
                             Error_list += f"\nSyntax Error: incomplete function statement, missing ')' 'right-paren' at line  {tokens[current_token - 1][2]}"
                             break
 
-                    elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "ASSIGN":  # initialization
+                    elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "ASSIGN":  # Variable declaration initialization
                         asg = tokens[current_token + 1][1]
                         current_token, express, exp_node = expression(tokens, current_token + 1)
                         express_n = ''
