@@ -548,6 +548,7 @@ def parse_program(tokens, postion):
 
         elif tokens[current_token][0] == "KEYWORD" and tokens[current_token][1] != 'return':
             type_specifer = tokens[current_token][1]
+            
             if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "IDENTIFIER":
                 name = tokens[current_token + 1][1]
                 if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "SEMICOLON":  # handle declaration
@@ -611,7 +612,7 @@ def parse_program(tokens, postion):
                     parser_tree.append(("DECLARATION", ("type_specifer", f"{type_specifer}"), ('IDENTIFIER', F"{name}")))
                     Error_list += f"\nSyntax Error : unterminated statement for '{tokens[current_token + 1][1]}' at line {tokens[current_token + 1][2]} "
                     current_token += 1
-                    
+
             elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "ARRAY":  # Array syntax 1
                 array = tokens[current_token + 1][1]
                 if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "SEMICOLON":
