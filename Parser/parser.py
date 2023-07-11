@@ -550,7 +550,7 @@ def parse_program(tokens, postion):
             type_specifer = tokens[current_token][1]
 
             while True:
-                if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "IDENTIFIER" and :
+                if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "IDENTIFIER":
                     name = tokens[current_token + 1][1]
                     print(f"DECLARATION :  {type_specifer} {name}")
                     parser_tree.append(("DECLARATION", ("type_specifer", f"{type_specifer}"), ('IDENTIFIER', name)))
@@ -563,7 +563,7 @@ def parse_program(tokens, postion):
                         continue
 
 
-                    elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "LEFT_PAREN":  # handle functions
+                    elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "LEFT_PAREN":  # handle functions
                         f_lp = tokens[current_token + 2][1]
                         function_parameter_str, token_position, function_parameter_node = parameter_RFC(tokens, (current_token + 2))
                         current_token = token_position
