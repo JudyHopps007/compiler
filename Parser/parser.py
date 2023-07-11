@@ -596,26 +596,26 @@ def parse_program(tokens, postion):
 
                     elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "ASSIGN":  # initialization
                         type_specifer = tokens[current_token][1]
-                        namr = tokens[current_token + 1][1]
+                        varable_name = tokens[current_token + 1][1]
                         asg = tokens[current_token + 2][1]
                         current_token, express, exp_node = expression(tokens, current_token + 1)
                         express_n = ''
                         if len(express) != 0:
                             if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                                 s_tm = tokens[current_token][1]
-                                print(f"INITIALIZATION: {type_specifer} {namr} {asg} {express} {s_tm}")
-                                parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{namr}"), ("expression", tuple(exp_node))))
+                                print(f"INITIALIZATION: {type_specifer} {varable_name} {asg} {express} {s_tm}")
+                                parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{varable_name}"), ("expression", tuple(exp_node))))
                             else:
-                                print(f"INITIALIZATION: {type_specifer} {namr} {asg} {express} <missing ';'>")
-                                parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{namr}"), ("expression", tuple(exp_node))))
+                                print(f"INITIALIZATION: {type_specifer} {varable_name} {asg} {express} <missing ';'>")
+                                parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{varable_name}"), ("expression", tuple(exp_node))))
                                 continue
                         else:
                             print(f"Syntax Error: variable Initialization error, no value was assigned at line {tokens[current_token][2]} ")
                             if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                                 s_tm = tokens[current_token][1]
-                                print(f"INITIALIZATION: {type_specifer} {namr} {asg} ~{None}~ {s_tm}")
+                                print(f"INITIALIZATION: {type_specifer} {varable_name} {asg} ~{None}~ {s_tm}")
                             else:
-                                print(f"INITIALIZATION: {type_specifer} {namr} {asg} ~{None}~ <missing ';'>")
+                                print(f"INITIALIZATION: {type_specifer} {varable_name} {asg} ~{None}~ <missing ';'>")
                                 Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token][2]}"
                                 continue
                     else:
