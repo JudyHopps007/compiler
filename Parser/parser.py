@@ -564,8 +564,8 @@ def parse_program(tokens, postion):
 
 
                     elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "LEFT_PAREN":  # handle functions
-                        f_lp = tokens[current_token + 2][1]
-                        function_parameter_str, token_position, function_parameter_node = parameter_RFC(tokens, (current_token + 2))
+                        f_lp = tokens[current_token + 1][1]
+                        function_parameter_str, token_position, function_parameter_node = parameter_RFC(tokens, (current_token + 1))
                         current_token = token_position
                         if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_PAREN":
                             f_rp = tokens[current_token][1]
