@@ -1,5 +1,5 @@
 
-int main = function, dfdf;
+int main = function;
 
 
 

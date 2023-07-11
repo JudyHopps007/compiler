@@ -603,15 +603,16 @@ def parse_program(tokens, postion):
                                 s_tm = tokens[current_token][1]
                                 print(f"INITIALIZATION-: {type_specifer} {varable_name} {asg} {express} {s_tm}")
                                 parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{varable_name}"), ("expression", tuple(exp_node))))
-                                Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token][2]}"
                                 break
                             else:
                                 print(f"INITIALIZATION: {type_specifer} {varable_name} {asg} {express} <missing ';'>")
                                 parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{varable_name}"), ("expression", tuple(exp_node))))
+                                Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token][2]}"
                                 break
 
                         else:
-                            print(f"Syntax Error: variable Initialization error, no value was assigned at line {tokens[current_token][2]} ")
+                            print(f" {tokens[current_token][2]} ")
+                            Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token][2]}"
                             if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                                 s_tm = tokens[current_token][1]
                                 print(f"INITIALIZATION: {type_specifer} {varable_name} {asg} ~{None}~ {s_tm}")
