@@ -595,7 +595,6 @@ def parse_program(tokens, postion):
                             break
 
                     elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "ASSIGN":  # initialization
-                        type_specifer = tokens[current_token][1]
                         varable_name = tokens[current_token][1]
                         asg = tokens[current_token + 1][1]
                         current_token, express, exp_node = expression(tokens, current_token + 1)
