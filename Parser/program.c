@@ -1,4 +1,5 @@
-wewe[ewwe ] = wewe
+int *p1;
+int * p2;
 
 /*
 int main(int argc, char const) {
