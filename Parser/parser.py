@@ -609,7 +609,7 @@ def parse_program(tokens, postion):
                                 parser_tree.append(('VAR_DECLARATION_INITIALIZATION', ("type_specifier", type_specifer), ("IDENTIFIER", varable_name), ("expression", tuple(exp_node))))
                                 Error_list += f"\nSyntax Error : unterminated statement  at line {tokens[current_token-1][2]} "
                                 current_token+=1
-                                print(current_token+=1)
+                                print(tokens[current_token-1][0])
                                 break
                         else:
                             Error_list += f"\nSyntax Error: variable Initialization error, no value was assigned to variable at line {tokens[current_token][2]}"
