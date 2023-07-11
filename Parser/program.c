@@ -1,4 +1,4 @@
- wewe[ ] = {12,122}
+wewe[ewwe ] = wewe
 
 /*
 int main(int argc, char const) {

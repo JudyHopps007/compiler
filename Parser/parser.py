@@ -1,6 +1,7 @@
 import lexical_Analyzer  # importing scanner source file for token list
 import time  # for measuring 'parser' run time
 import re
+
 tokens = lexical_Analyzer.lexical_analyzer('program.c')  # generating token list using lexical_Analyzer form our program.c that contain the code we want to compile
 Error_list = ""  # keep store track of syntax errors generated
 express_n = ""  # keep store of expression statements  errors generated
@@ -610,7 +611,7 @@ def parse_program(tokens, postion):
                     parser_tree.append(("DECLARATION", ("type_specifer", f"{type_specifer}"), ('IDENTIFIER', F"{name}")))
                     Error_list += f"\nSyntax Error : unterminated statement for '{tokens[current_token + 1][1]}' at line {tokens[current_token + 1][2]} "
                     current_token += 1
-            elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "ARRAY": # Array syntax 1
+            elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "ARRAY":  # Array syntax 1
                 array = tokens[current_token + 1][1]
                 if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "SEMICOLON":
                     print(f"ARRAY_DECLARATION: {type_specifer} {array} ")
@@ -622,7 +623,7 @@ def parse_program(tokens, postion):
                         print(f"ARRAY_DECLARATION_INITIALIZATION: {type_specifer} {array}  =  {array_value}")
                         parser_tree.append(('ARRAY_DECLARATION_INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("array_name", array), ("array_value", array_value)))
                         current_token += 3
-                        if (current_token + 1) < len(tokens) and tokens[current_token+1][0] == "SEMICOLON":
+                        if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":
                             current_token += 1
                         else:
                             Error_list += f"\nSyntax Error : unterminated statement  at line {tokens[current_token][2]} "
@@ -635,22 +636,32 @@ def parse_program(tokens, postion):
             else:
                 Error_list += f"\nSyntax Error : incomplete statement  at line  {tokens[current_token][2]}"
 
-        elif tokens[current_token][0] == 'ARRAY': # Array syntax 2
-             if tokens[current_token+1][0] == "ASSIGN":
-                 if  tokens[current_token+2][0] == "ARRAY_VALUE":
-                     array_name = tokens[current_token][1]
-                     array_value = tokens[current_token+2][1]
-                     match = re.search(r'\[\s*([a-zA-Z_][a-zA-Z0-9_])+\s*\]', array_name)
-                     if match:
-                         print(f"ARRAY_INITIALIZATION:  {array_name}  =  {array_value}")
-                         parser_tree.append(('ARRAY_INITIALIZATION', ("array_name", array_name), ("array_value", array_value)))
-                         current_token += 2
-                     else:
-                         current_token += 2
-                         Error_list += f"\nSyntax Error : Array initialization error. array index not specified at line  {tokens[current_token][2]}"
-                 else:
-                     current_token += 1
-                     Error_list += f"\nSyntax Error : Array initialization error. array index not specified at line  {tokens[current_token][2]}"
+        elif tokens[current_token][0] == 'ARRAY':  # Array syntax 2
+            if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "ASSIGN":
+                if (current_token + 2) < len(tokens) and (tokens[current_token + 2][0] == "IDENTIFIER" or tokens[current_token + 2][0] == "INTEGER" or tokens[current_token + 2][0] == "STRING" or tokens[current_token + 2][0] == "FLOATING_POINT" or tokens[current_token + 2][0] == "CHAR"):
+                    array_name = tokens[current_token][1]
+                    array_value = tokens[current_token + 2][1]
+                    match = re.search(r'\[\s*([a-zA-Z_][a-zA-Z0-9_])+\s*\]', array_name)
+                    if match:
+                        print(f"ARRAY_INITIALIZATION:  {array_name}  =  {array_value}")
+                        parser_tree.append(('ARRAY_INITIALIZATION', ("array_name", array_name), ("array_value", array_value)))
+                        current_token += 2
+                        if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":
+                            current_token += 1
+                        else:
+                            Error_list += f"\nSyntax Error : Statement not terminated proper. missing a semicolon at line  {tokens[current_token][2]}"
+
+
+                    else:
+                        current_token += 2
+                        Error_list += f"\nSyntax Error : Array initialization error. array index not specified at line  {tokens[current_token][2]}"
+                else:
+                    current_token += 1
+                    Error_list += f"\nSyntax Error : Array element value error. wrong value is being assigned to the array at line  {tokens[current_token][2]}"
+            else:
+
+                Error_list += f"\nSyntax Error : Incomplete statement  at line {tokens[current_token][2]}"
+
 
 
 
