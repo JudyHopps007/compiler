@@ -611,8 +611,8 @@ def parse_program(tokens, postion):
                                 break
 
                         else:
-                            print(f" {tokens[current_token][2]} ")
-                            Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token][2]}"
+
+                            Error_list += f"\nSyntax Error: variable Initialization error, no value was assigned to variable at line {tokens[current_token][2]}"
                             if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
                                 s_tm = tokens[current_token][1]
                                 print(f"INITIALIZATION: {type_specifer} {varable_name} {asg} ~{None}~ {s_tm}")
