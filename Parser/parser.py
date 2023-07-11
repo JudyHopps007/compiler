@@ -551,16 +551,16 @@ def parse_program(tokens, postion):
 
             while True:
                 if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "IDENTIFIER":
-                    name = tokens[current_token + 1][1]
+                    varable_name = tokens[current_token + 1][1]
                     current_token += 1
                     if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":  # handle declaration
-                        print(f"DECLARATION :  {type_specifer} {name}")
-                        parser_tree.append(("DECLARATION", ("type_specifier", f"{type_specifer}"), ('IDENTIFIER', name)))
+                        print(f"DECLARATION :  {type_specifer} {varable_name}")
+                        parser_tree.append(("DECLARATION", ("type_specifier", f"{type_specifer}"), ('IDENTIFIER', varable_name)))
                         current_token += 1
                         break
                     elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "COMMA":
-                        print(f"DECLARATION :  {type_specifer} {name}")
-                        parser_tree.append(("DECLARATION", ("type_specifier", f"{type_specifer}"), ('IDENTIFIER', name)))
+                        print(f"DECLARATION :  {type_specifer} {varable_name}")
+                        parser_tree.append(("DECLARATION", ("type_specifier", f"{type_specifer}"), ('IDENTIFIER', varable_name)))
                         current_token += 1
                         continue
 
@@ -577,7 +577,7 @@ def parse_program(tokens, postion):
 
                                 if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_BRACE":
                                     f_rb = tokens[current_token][1]
-                                    print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter_str} {f_rp} {f_lb} {function_body} {f_rb}")
+                                    print(f"FUNCTION: {type_specifer}  {varable_name} {f_lp} {function_parameter_str} {f_rp} {f_lb} {function_body} {f_rb}")
                                     parser_tree.append(('FUNCTION', ("type_specifier", type_specifer), ("function_name", name), ("function_parameter", tuple(function_parameter_node)), ("function_body", tuple(child_node))))
                                     break
                                 else:
@@ -595,7 +595,6 @@ def parse_program(tokens, postion):
                             break
 
                     elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "ASSIGN":  # initialization
-                        varable_name = tokens[current_token][1]
                         asg = tokens[current_token + 1][1]
                         current_token, express, exp_node = expression(tokens, current_token + 1)
                         express_n = ''
