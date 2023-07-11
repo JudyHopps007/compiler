@@ -607,6 +607,7 @@ def parse_program(tokens, postion):
                             else:
                                 print(f"INITIALIZATION: {type_specifer} {varable_name} {asg} {express} <missing ';'>")
                                 parser_tree.append(('INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{varable_name}"), ("expression", tuple(exp_node))))
+                                break
 
                         else:
                             print(f"Syntax Error: variable Initialization error, no value was assigned at line {tokens[current_token][2]} ")
