@@ -922,8 +922,8 @@ def parse_program(tokens, postion):
                                         varable_name = tokens[current_token + 1][1]
                                         current_token += 1
                                         if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":  # handle declaration
-                                            print(f"DECLARATION :  {type_specifer} {varable_name}")
-                                            parser_tree.append(("DECLARATION", ("type_specifier", f"{type_specifer}"), ('IDENTIFIER', varable_name)))
+                                            print(f"DECLARATION :  --- {structure_name}")
+                                            parser_tree.append(("STRUCTURE_VARIABLE", ('structure_name', structure_name), ('structure_variable', tokens[current_token + 2][1])))
                                             current_token += 1
                                             break
                                         elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "COMMA":
