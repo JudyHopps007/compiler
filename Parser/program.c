@@ -1,5 +1,4 @@
-struct
-
+struct MyStructure { }
 
 /*
 int main(int argc, char const) {
