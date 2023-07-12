@@ -1,6 +1,6 @@
 struct Person {
 
-} person1;
+} person1, person2;
 
 /*
 int main(int argc, char const) {

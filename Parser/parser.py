@@ -919,6 +919,8 @@ def parse_program(tokens, postion):
                                 break
 
                             elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER':
+                                parser_tree.append(("STRUCTURE_DEFINITION", ('structure_name', structure_name), ('structure_members', tuple(struct_members_node))))
+
                                 current_token += 2
                                 print("----", tokens[current_token])
                                 while True:
@@ -936,7 +938,7 @@ def parse_program(tokens, postion):
                                         parser_tree.append(("STRUCTURE_VARIABLE", ('structure_name', structure_name), ('structure_variable', structure_variable)))
                                         current_token += 1
                                         print("--------9", tokens[current_token])
-                                        break
+                                        
                                 break
 
                             else:
@@ -948,7 +950,6 @@ def parse_program(tokens, postion):
                             break
 
 
-                    parser_tree.append(("STRUCTURE_DEFINITION", ('structure_name', structure_name), ('structure_members', tuple(struct_members_node))))
 
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER': # struct Variables
                     parser_tree.append(("STRUCTURE_VARIABLE", ('structure_name', structure_name), ('structure_variable', tokens[current_token + 2][1] )))
