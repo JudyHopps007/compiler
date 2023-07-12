@@ -895,6 +895,8 @@ def parse_program(tokens, postion):
             else:
                 Error_list += f"\nSyntax Error: incomplete statement at line {tokens[current_token][2]}"
 
+
+
         elif tokens[current_token][0] == 'STRUCT_KEY':  # Structure
             struct_members_node = []
             if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'IDENTIFIER':
@@ -914,6 +916,9 @@ def parse_program(tokens, postion):
                             if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'SEMICOLON':
                                 current_token += 2
                                 break
+                            elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'SEMICOLON':
+                                pass
+
                             else:
                                 current_token += 1
                                 Error_list += f"\nSyntax error: unterminated structure  statement. missing semicolon  at line {tokens[current_token][2]}"
