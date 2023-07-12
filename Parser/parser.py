@@ -919,7 +919,7 @@ def parse_program(tokens, postion):
                             elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER':
                                 while True:
                                     if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "IDENTIFIER":
-                                        structure_variable = tokens[current_token + 1][1]
+                                        structure_variable = tokens[current_token + 2][1]
                                         current_token += 2
                                         if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":  # handle declaration
                                             print(f"DECLARATION :  --- {structure_variable}")
