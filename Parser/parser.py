@@ -945,6 +945,7 @@ def parse_program(tokens, postion):
                                 break
                         else:
                             Error_list += f"\nSyntax error: unidentified error at line {tokens[current_token][2]}"
+                            break
 
 
                     parser_tree.append(("STRUCTURE_DEFINITION", ('structure_name', structure_name), ('structure_members', tuple(struct_members_node))))
