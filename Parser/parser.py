@@ -895,6 +895,9 @@ def parse_program(tokens, postion):
             else:
                 Error_list += f"\nSyntax Error: incomplete statement at line {tokens[current_token][2]}"
 
+        elif tokens[current_token][1] == 'return':
+            pass
+
 
         elif tokens[current_token][1] == 'return':
             current_token, express, exp_node = expression(tokens, current_token)
