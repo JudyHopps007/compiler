@@ -14,7 +14,7 @@ patterns_rg = [
     (r'#(define|undef|if|elif|else|endif)\b', 'MACRO'),
     (r'#pragma\b', 'PRAGMA_DIRECTIVE'),
     (r'\b(int|void|char|double|bool|float|long|return)\b', 'KEYWORD'),
-    (r'\bstruct\b', 'STRUCT'),
+    (r'\bstruct\b', 'STRUCT_KEY'),
 
     (r'\b(const)\b', 'CONSTANT_KEY'),
     (r'[a-zA-Z_][a-zA-Z0-9_]*\[(\s*[a-zA-Z_][a-zA-Z0-9_]*\s*|\s*[0-9]+\s*)*\s*\]', 'ARRAY'),

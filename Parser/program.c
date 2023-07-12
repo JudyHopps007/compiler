@@ -1,7 +1,4 @@
-int* pc, c;
-c = 5;
-pc = &;
-c = 1;
+struct
 
 
 /*
