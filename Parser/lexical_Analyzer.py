@@ -28,7 +28,7 @@ patterns_rg = [
     (r'\*\s*\w+', 'POINTER_TO_VAR'),
     (r'\s*FILE\s*', 'FILE_POINTER'),
     #(r'\w+\.\w+', "STRUCTURE_MEMBER_ACCESS"),
-    (r'&[a-zA-Z_][a-zA-Z0-9_]*.[a-zA-Z_][a-zA-Z0-9_]*', 'MEMORY_REFERENCE'),
+    (r'&\w+*.[a-zA-Z_][a-zA-Z0-9_]*', 'MEMORY_REFERENCE'),
     (r'\b(if)\b', 'IF'),
     (r'\b(else)\b', 'ELSE'),
     (r'\b(while)\b', 'WHILE'),
