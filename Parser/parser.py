@@ -914,6 +914,7 @@ def parse_program(tokens, postion):
                                     Error_list += f"\nSyntax error: unterminated structure member statement  at line {tokens[current_token][2]}"
                         elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'RIGHT_BRACE':
                             if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'SEMICOLON':
+                                parser_tree.append(("STRUCTURE_DEFINITION", ('structure_name', structure_name), ('structure_members', tuple(struct_members_node))))
                                 current_token += 2
                                 break
 
