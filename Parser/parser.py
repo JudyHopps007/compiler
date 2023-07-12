@@ -923,6 +923,7 @@ def parse_program(tokens, postion):
 
                                 current_token += 2
                                 print("----", tokens[current_token])
+                                count = 0
                                 while True:
                                     structure_variable = tokens[current_token][1]
                                     print("=====", tokens[current_token])
@@ -938,8 +939,9 @@ def parse_program(tokens, postion):
                                         parser_tree.append(("STRUCTURE_VARIABLE", ('structure_name', structure_name), ('structure_variable', structure_variable)))
                                         print("--------9", tokens[current_token])
                                         current_token += 1
-                                    if count == 4
-
+                                    if count == 4:
+                                        break
+                                    count += 1
 
                                 break
 
@@ -953,9 +955,9 @@ def parse_program(tokens, postion):
 
 
 
-                elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER': # struct Variables
-                    parser_tree.append(("STRUCTURE_VARIABLE", ('structure_name', structure_name), ('structure_variable', tokens[current_token + 2][1] )))
-                    current_token+=2
+                elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER':  # struct Variables
+                    parser_tree.append(("STRUCTURE_VARIABLE", ('structure_name', structure_name), ('structure_variable', tokens[current_token + 2][1])))
+                    current_token += 2
                     if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
                         current_token += 1
                     else:
