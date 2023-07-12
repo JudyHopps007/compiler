@@ -916,12 +916,13 @@ def parse_program(tokens, postion):
                             if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'SEMICOLON':
                                 current_token += 2
                                 break
-                            elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER':
-                                while True:
-                                    if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "IDENTIFIER":
 
-                                        structure_variable = tokens[current_token + 2][1]
-                                        current_token += 2
+                            elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER':
+                                current_token += 2
+                                while True:
+                                    if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "IDENTIFIER":
+                                        structure_variable = tokens[current_token + 1][1]
+                                        current_token += 1
                                         if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":  # handle declaration
                                             print(f"DECLARATION :  --- {structure_variable}")
                                             parser_tree.append(("STRUCTURE_VARIABLE", ('structure_name', structure_name), ('structure_variable', structure_variable)))
@@ -932,7 +933,8 @@ def parse_program(tokens, postion):
                                             parser_tree.append(("STRUCTURE_VARIABLE", ('structure_name', structure_name), ('structure_variable', structure_variable)))
                                             current_token += 1
                                             continue
-                                    print(tokens[current_token])
+                              
+
                             else:
                                 current_token += 1
                                 Error_list += f"\nSyntax error: unterminated structure  statement. missing semicolon  at line {tokens[current_token][2]}"
