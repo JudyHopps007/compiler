@@ -933,7 +933,6 @@ def parse_program(tokens, postion):
                                             parser_tree.append(("STRUCTURE_VARIABLE", ('structure_name', structure_name), ('structure_variable', structure_variable)))
                                             current_token += 1
                                             print("--------9", tokens[current_token])
-                                        else:
                                             break
 
 
