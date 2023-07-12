@@ -940,6 +940,7 @@ def parse_program(tokens, postion):
                                         print("--------9", tokens[current_token])
                                         current_token += 1
                                         print("--------9", tokens[current_token])
+                                    current_token += 1
                                     if count == 4:
                                         break
                                     count += 1
