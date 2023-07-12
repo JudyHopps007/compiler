@@ -920,7 +920,7 @@ def parse_program(tokens, postion):
                             elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER':
                                 current_token += 2
                                 while True:
-                                    if  tokens[current_token][0] == "IDENTIFIER":
+                                    if tokens[current_token][0] == "IDENTIFIER":
                                         structure_variable = tokens[current_token + 1][1]
                                         current_token += 1
                                         print(tokens[current_token])
