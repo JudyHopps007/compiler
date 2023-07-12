@@ -920,22 +920,21 @@ def parse_program(tokens, postion):
                             elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER':
                                 current_token += 2
                                 print("----", tokens[current_token])
-                                while tokens[current_token][0] == "IDENTIFIER":
+                                while True:
                                         structure_variable = tokens[current_token][1]
                                         print("=====", tokens[current_token])
                                         if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":  # handle declaration
                                             print(f"DECLARATION :  --- {structure_variable}")
                                             parser_tree.append(("STRUCTURE_VARIABLE", ('structure_name', structure_name), ('structure_variable', structure_variable)))
                                             current_token += 1
-                                            break
+
                                         elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "COMMA":
                                             print(f"DECLARATION2 :   {structure_variable}")
                                             parser_tree.append(("STRUCTURE_VARIABLE", ('structure_name', structure_name), ('structure_variable', structure_variable)))
                                             current_token += 1
                                             print("--------", tokens[current_token])
-                                            continue
-                                        else:
-                                            break
+
+
 
 
                             else:
@@ -944,7 +943,7 @@ def parse_program(tokens, postion):
                                 break
                         else:
                             Error_list += f"\nSyntax error: unidentified error at line {tokens[current_token][2]}"
-                            break
+
 
                     parser_tree.append(("STRUCTURE_DEFINITION", ('structure_name', structure_name), ('structure_members', tuple(struct_members_node))))
 
