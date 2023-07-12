@@ -850,7 +850,7 @@ def parse_program(tokens, postion):
 
 
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'MEMORY_REFERENCE':  # pointer assignment statement
-                    print(f"POINTER_ASSIGNMENT: {name} {asg} {tokens[current_token + 2][1]}")
+                    print(f"POINTER_ASSIGNMENT:  {name} {asg} {tokens[current_token + 2][1]}")
                     parser_tree.append(('POINTER_ASSIGNMENT', ("pointer_name", name), ("pointer_value", tokens[current_token + 2][1])))
                     current_token+=2
                     if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':

@@ -1,7 +1,7 @@
 
-int * prt, *uhb;
-prt = &mun
-int * prt, *uhb;
+
+prt
+
 
 
 
