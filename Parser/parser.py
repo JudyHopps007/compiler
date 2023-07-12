@@ -924,12 +924,12 @@ def parse_program(tokens, postion):
                                     structure_variable = tokens[current_token][1]
                                     print("=====", tokens[current_token])
 
-                                    if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":  # handle declaration
+                                    if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":  #
                                         print(f"DECLARATION :  --- {structure_variable}")
                                         parser_tree.append(("STRUCTURE_VARIABLE", ('structure_name', structure_name), ('structure_variable', structure_variable)))
                                         current_token += 1
                                         break
-                                    
+
                                     elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "COMMA":
                                         print(f"DECLARATION2 :   {structure_variable}")
                                         parser_tree.append(("STRUCTURE_VARIABLE", ('structure_name', structure_name), ('structure_variable', structure_variable)))
@@ -937,10 +937,6 @@ def parse_program(tokens, postion):
                                         print("--------9", tokens[current_token])
                                         break
                                 break
-
-
-
-
 
                             else:
                                 current_token += 1
