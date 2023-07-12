@@ -879,7 +879,7 @@ def parse_program(tokens, postion):
                             s_tm = tokens[current_token][1]
                             print(f"VARIABLE_ASSIGNMENT: {name} {asg} {None} {s_tm}")
 
-            elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_PAREN':
+            elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_PAREN': # function call
                 l_p = tokens[current_token + 1][1]
                 function_parameter, pos, param_node = parameter_RFC(tokens, (current_token + 1))
                 current_token = pos
@@ -892,6 +892,9 @@ def parse_program(tokens, postion):
                     else:
                         print(f"FUNCTION CALL : {name} {l_p} {function_parameter} {f_rp}  < missing ';'>")
                         Error_list += f"\nSyntax Error: function call missing statement terminator at line {tokens[current_token][2]}"
+            else:
+                Error_list += f"\nSyntax Error: incomplete statement at line {tokens[current_token][2]}"
+
 
         elif tokens[current_token][1] == 'return':
             current_token, express, exp_node = expression(tokens, current_token)
