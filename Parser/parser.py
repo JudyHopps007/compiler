@@ -896,11 +896,12 @@ def parse_program(tokens, postion):
                 Error_list += f"\nSyntax Error: incomplete statement at line {tokens[current_token][2]}"
 
         elif tokens[current_token][0] == 'STRUCT_KEY':
-           
+
             if tokens[current_token+1][1] == 'IDENTIFIER':
                 if tokens[current_token+2][1] == 'LEFT_BRACE':
                     current_token+=2
                     current_token, struct_body, struct_node = statments(tokens, current_token)
+                    parser_tree.append(("_statement", express))
                     print(f'======={struct_body}')
                 elif tokens[current_token+2][1] == 'IDENTIFIER':
                     pass
