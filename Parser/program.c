@@ -1,5 +1,5 @@
 struct myStructure {
-  int myNum
+  int myNum;
   char myLetter;
 }
 

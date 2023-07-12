@@ -922,6 +922,7 @@ def parse_program(tokens, postion):
                             Error_list += f"\nSyntax error: unidentified error at line {tokens[current_token][2]}"
 
                     parser_tree.append(("STRUCTURE_DEFINITION", ('structure_name', structure_name), ('structure_members', tuple(struct_members_node))))
+
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER': # struct Variables
                     parser_tree.append(("STRUCTURE_VARIABLE", ('structure_name', structure_name), ('structure_variable', tokens[current_token + 2][1] )))
                     current_token+=2
