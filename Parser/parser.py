@@ -916,7 +916,7 @@ def parse_program(tokens, postion):
                             if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'SEMICOLON':
                                 current_token += 2
                                 break
-                            elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'SEMICOLON':
+                            elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER':
                                 pass
 
                             else:
