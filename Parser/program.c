@@ -1,6 +1,6 @@
 int* pc, c;
 c = 5;
-pc = &c;
+pc = &;
 c = 1;
 
 
