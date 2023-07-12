@@ -1,5 +1,5 @@
 struct Person {
-   // code
+
 } person1, person2;
 
 /*
