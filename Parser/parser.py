@@ -908,6 +908,10 @@ def parse_program(tokens, postion):
                                current_token+=2
                                if tokens[current_token + 2][1] == 'SEMICOLON':
                                    current_token += 1
+                               else:
+                                   Error_list += f"\nSyntax error: unterminated structure member statement  at line {tokens[current_token][2]}"
+                       elif tokens[current_token+1][1] == 'KEYWORD':
+
 
 
                     current_token, struct_body, struct_node = statments(tokens, current_token)
