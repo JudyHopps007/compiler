@@ -424,9 +424,14 @@ def expression(tokens, position):
     current_token = position + 1
     while current_token < len(tokens):
         token_type, token_value, line_number = tokens[current_token]
+
         if token_type == 'IDENTIFIER':
             express_n += token_value + ' '
             temp.append(token_value)
+        elif token_type == 'MEMORY_REFERENCE':
+            express_n += token_value + ' '
+            temp.append(token_value)
+
         elif token_type == 'INTEGER':
             express_n += token_value + ' '
             temp.append(token_value)
@@ -459,8 +464,8 @@ def expression(tokens, position):
         elif token_type == 'SEMICOLON' or token_type == 'RIGHT_PAREN' or token_type == 'EQUAL' or token_type == 'NOT_EQUAL' or token_type == 'LESS_THAN' or token_type == 'GREATER_THAN' or token_type == 'LESS_THAN_EQUAL' or token_type == 'GREATER_THAN_EQUAL':
             break
         else:
-            #Error_list += f"\nSyntax error -- Expression Error Caused by  {tokens[current_token][1]}  at line  {tokens[current_token][2]}"
-
+            # Error_list += f"\nSyntax error -- Expression Error Caused by  {tokens[current_token][1]}  at line  {tokens[current_token][2]}"
+            current_token -= 1
             break
         current_token += 1
         express_n = express_n.rstrip()
@@ -474,7 +479,7 @@ def parse_program(tokens, postion):
     current_token = postion
 
     while current_token < len(tokens):
-        print('begin ==', tokens[current_token][1])
+        # print('begin ==', tokens[current_token][1])
         if tokens[current_token][0] == "INCLUDE_ID":
             if tokens[current_token + 1][0] == 'INCLUDE_DIRECTIVE':
                 # handle include list
@@ -568,6 +573,7 @@ def parse_program(tokens, postion):
                         continue
 
 
+
                     elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "LEFT_PAREN":  # handle functions
                         f_lp = tokens[current_token + 1][1]
                         function_parameter_str, token_position, function_parameter_node = parameter_RFC(tokens, (current_token + 1))
@@ -610,9 +616,7 @@ def parse_program(tokens, postion):
                             else:
                                 print(f"VAR_DECLARATION_INITIALIZATION: {type_specifer} {varable_name} {asg} {express} <missing ';'>")
                                 parser_tree.append(('VAR_DECLARATION_INITIALIZATION', ("type_specifier", type_specifer), ("IDENTIFIER", varable_name), ("expression", tuple(exp_node))))
-                                Error_list += f"\nSyntax Error : unterminated statement  at line {tokens[current_token-1][2]} "
-
-                                print(tokens[current_token-1][1])
+                                Error_list += f"\nSyntax Error : unterminated statement  at line {tokens[current_token - 1][2]} "
                                 break
                         else:
                             Error_list += f"\nSyntax Error: variable Initialization error, no value was assigned to variable at line {tokens[current_token][2]}"
@@ -624,6 +628,27 @@ def parse_program(tokens, postion):
                                 print(f"VAR_DECLARATION_INITIALIZATION: {type_specifer} {varable_name} {asg} ~{None}~ <missing ';'>")
                                 Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token][2]}"
                                 break
+
+
+
+
+                elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "POINTER_TO_VAR":  # pointer declaration
+                    varable_name = tokens[current_token + 1][1]
+                    current_token += 1
+                    if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":
+                        print(f"POINTER_DECLARATION :  {type_specifer} {varable_name}")
+                        parser_tree.append(("POINTER_DECLARATION", ("type_specifier", type_specifer), ('POINTER_TO_VAR', varable_name)))
+                        current_token += 1
+                        break
+                    elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "COMMA":
+                        print(f"POINTER_DECLARATION :  {type_specifer} {varable_name}")
+                        parser_tree.append(("POINTER_DECLARATION", ("type_specifier", type_specifer), ('POINTER_TO_VAR', varable_name)))
+                        current_token += 1
+                        continue
+                    else:
+                        Error_list += f"\nSyntax Error : unterminated pointer statement  at line {tokens[current_token][2]}"
+                        break
+
 
 
                 elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "ARRAY":  # Array syntax 1
@@ -640,16 +665,25 @@ def parse_program(tokens, postion):
                             current_token += 3
                             if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":
                                 current_token += 1
+                                break
                             else:
                                 Error_list += f"\nSyntax Error : unterminated statement  at line {tokens[current_token][2]} "
+                                break
                         else:
                             current_token += 2
                             Error_list += f"\nSyntax Error : no value assigned to array  at line {tokens[current_token][2]} "
+                            break
                     else:
                         current_token += 1
                         Error_list += f"\nSyntax Error : incomplete array declaration  at line {tokens[current_token][2]} "
+                        break
                 else:
-                    Error_list += f"\nSyntax Error : incomplete statement  at line  {tokens[current_token][2]}"
+                    Error_list += f"\nSyntax Error : incomplete statement  at line {tokens[current_token][2]}"
+                    break
+
+
+
+
 
 
         elif tokens[current_token][0] == 'ARRAY':  # Array syntax 2
@@ -672,8 +706,7 @@ def parse_program(tokens, postion):
                 else:
                     current_token += 1
                     Error_list += f"\nSyntax Error : Array element value error. wrong value is being assigned to the array at line  {tokens[current_token][2]}"
-            else:
-                Error_list += f"\nSyntax Error : Incomplete statement  at line {tokens[current_token][2]}"
+
 
 
 
@@ -808,32 +841,42 @@ def parse_program(tokens, postion):
                     if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
                         s_tm = tokens[current_token + 1][1]
                         print(f"FUNCTION ASSIGNMENT: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} {s_tm}")
-                        parser_tree.append(('function_assignment', ("IDENTIFIER", f"{name}"), ("f_name", f"{f_name}"), ('param', tuple(param_node))))
+                        parser_tree.append(('function_assignment', ("IDENTIFIER", name), ("f_name", f_name), ('param', tuple(param_node))))
                         current_token += 1
                     else:
                         print(f"FUNCTION ASSIGNMENT: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} <missing ';'>")
-                        parser_tree.append(('function_assignment', ("IDENTIFIER", f"{name}"), ("f_name", f"{f_name}"), ('param', tuple(param_node))))
-                        print("Syntax error: function-call-assignment  missing semicolon at line ", tokens[current_token][2])
+                        parser_tree.append(('function_assignment', ("IDENTIFIER", name), ("f_name", f_name), ('param', tuple(param_node))))
+                        print("Syntax error: function-call-assignment statement.  missing statement terminator at line at line ", tokens[current_token][2])
+
+                elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'MEMORY_REFERENCE':  # pointer assignment statement
+                    print(f"POINTER_ASSIGNMENT: {name} {asg} {tokens[current_token + 2][1]}")
+                    parser_tree.append(('POINTER_ASSIGNMENT', ("pointer_name", name), ("pointer_value", tokens[current_token + 2][1])))
+                    current_token+=2
+                    if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
+                        current_token += 1
+                    else:
+                        Error_list += f"\nSyntax Error: statement terminator missing at line {tokens[current_token][2]}"
+
                 else:
                     current_token, express, exp_node = expression(tokens, current_token + 1)
                     express_n = ''
                     if len(express) != 0:
                         if current_token < len(tokens) and tokens[current_token][0] != "SEMICOLON":
                             Error_list += f"\nSyntax Error: statement terminator missing at line {tokens[current_token - 1][2]}"
-                            print(f"VARIABLE ASSIGNMENT2: {name} {asg} {express}  <missing ';'>")
-                            parser_tree.append(('variable_assignment', ("IDENTIFIER", f"{name}"), ("expression", tuple(exp_node))))
+                            print(f"VARIABLE_ASSIGNMENT: {name} {asg} {express}")
+                            parser_tree.append(('VARIABLE_ASSIGNMENT', ("IDENTIFIER", f"{name}"), ("expression", tuple(exp_node))))
                         elif current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
-                            print(f"VARIABLE ASSIGNMENT: {name} {asg} {express} {tokens[current_token][1]}")
-                            parser_tree.append(('variable_assignment', ("IDENTIFIER", f"{name}"), ("expression", tuple(exp_node))))
+                            print(f"VARIABLE_ASSIGNMENT: {name} {asg} {express} {tokens[current_token][1]}")
+                            parser_tree.append(('VARIABLE_ASSIGNMENT', ("IDENTIFIER", f"{name}"), ("expression", tuple(exp_node))))
                         else:
                             Error_list += f"\nSyntax Error: statement terminator missing at line {tokens[current_token - 1][2]}"
-                            print(f"VARIABLE ASSIGNMENT1: {name} {asg} {express}  <missing ';'>")
-                            parser_tree.append(('variable_assignment', ("IDENTIFIER", f"{name}"), ("expression", tuple(exp_node))))
+                            print(f"VARIABLE_ASSIGNMENT: {name} {asg} {express}  <missing ';'>")
+                            parser_tree.append(('VARIABLE_ASSIGNMENT', ("IDENTIFIER", f"{name}"), ("expression", tuple(exp_node))))
                     else:
                         Error_list += f"\nSyntax Error: variable assignment error, no value was assigned {tokens[current_token - 1][2]}"
                         if tokens[current_token][0] == "SEMICOLON":
                             s_tm = tokens[current_token][1]
-                            print(f"VARIABLE ASSIGNMENT: {name} {asg} {None} {s_tm}")
+                            print(f"VARIABLE_ASSIGNMENT: {name} {asg} {None} {s_tm}")
 
             elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_PAREN':
                 l_p = tokens[current_token + 1][1]

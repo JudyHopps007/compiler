@@ -25,8 +25,8 @@ patterns_rg = [
 
 
     (r'\*\w+\[\]', 'POINTER_TO_ARRAY'),
-    (r'\*\w+', 'POINTER_TO_VAR'),
-    (r'\bFILE |FILE\b\*', 'FILE_POINTER'),
+    (r'\*\s*\w+', 'POINTER_TO_VAR'),
+    (r'\s*FILE\s*', 'FILE_POINTER'),
     #(r'\w+\.\w+', "STRUCTURE_MEMBER_ACCESS"),
     (r'&[a-zA-Z_][a-zA-Z0-9_]*.[a-zA-Z_][a-zA-Z0-9_]*', 'MEMORY_REFERENCE'),
     (r'\b(if)\b', 'IF'),

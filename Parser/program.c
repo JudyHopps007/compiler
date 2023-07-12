@@ -1,6 +1,7 @@
 
-int main = function
-char nu;
+int * prt, *uhb;
+prt = &mun
+int * prt, *uhb;
 
 
 
