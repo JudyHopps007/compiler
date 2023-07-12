@@ -931,7 +931,7 @@ def parse_program(tokens, postion):
                                             parser_tree.append(("STRUCTURE_VARIABLE", ('structure_name', structure_name), ('structure_variable', structure_variable)))
                                             current_token += 1
                                             continue
-                                pass
+                               
 
                             else:
                                 current_token += 1
