@@ -895,8 +895,8 @@ def parse_program(tokens, postion):
             else:
                 Error_list += f"\nSyntax Error: incomplete statement at line {tokens[current_token][2]}"
 
-        elif tokens[current_token][1] == 'STRUCT_KEY':
-            print(12)
+        elif tokens[current_token][0] == 'STRUCT_KEY':
+           
             if tokens[current_token+1][1] == 'IDENTIFIER':
                 if tokens[current_token+2][1] == 'LEFT_BRACE':
                     current_token+=2
