@@ -904,7 +904,7 @@ def parse_program(tokens, postion):
                     while True:
                        if tokens[current_token+1][1] == 'KEYWORD':
                            if tokens[current_token + 2][1] == 'IDENTIFIER':
-                               struct_member_node.append('struct_member')
+                               struct_member_node.append('struct_member', ('data_type', tokens[current_token+1][1]), ('member_name',tokens[current_token + 2][1] ))
 
                     current_token, struct_body, struct_node = statments(tokens, current_token)
                     parser_tree.append(("_statement", express))
