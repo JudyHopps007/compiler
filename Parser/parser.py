@@ -925,7 +925,12 @@ def parse_program(tokens, postion):
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER': # struct Variables
                     parser_tree.append(("STRUCTURE_VARIABLE", ('structure_name', structure_name), ('structure_variable', tokens[current_token + 2][1] )))
                     current_token+=2
-                    if (current_token + 3) < len(tokens) and tokens[current_token + 3][0] == 'SEMICOLON':
+                    if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
+                        current_token += 1
+                    else:
+                        Error_list += f"\nSyntax error: unterminated  statement. missing semicolon  at line {tokens[current_token][2]}"
+
+
 
 
 
