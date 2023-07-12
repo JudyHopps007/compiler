@@ -879,7 +879,7 @@ def parse_program(tokens, postion):
                             s_tm = tokens[current_token][1]
                             print(f"VARIABLE_ASSIGNMENT: {name} {asg} {None} {s_tm}")
 
-            elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_PAREN': # function call
+            elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_PAREN':  # function call
                 l_p = tokens[current_token + 1][1]
                 function_parameter, pos, param_node = parameter_RFC(tokens, (current_token + 1))
                 current_token = pos
