@@ -848,6 +848,7 @@ def parse_program(tokens, postion):
                         parser_tree.append(('function_assignment', ("IDENTIFIER", name), ("f_name", f_name), ('param', tuple(param_node))))
                         print("Syntax error: function-call-assignment statement.  missing statement terminator at line at line ", tokens[current_token][2])
 
+
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'MEMORY_REFERENCE':  # pointer assignment statement
                     print(f"POINTER_ASSIGNMENT: {name} {asg} {tokens[current_token + 2][1]}")
                     parser_tree.append(('POINTER_ASSIGNMENT', ("pointer_name", name), ("pointer_value", tokens[current_token + 2][1])))
@@ -857,7 +858,7 @@ def parse_program(tokens, postion):
                     else:
                         Error_list += f"\nSyntax Error: statement terminator missing at line {tokens[current_token][2]}"
 
-                else:
+                else:  # variable assignment statement
                     current_token, express, exp_node = expression(tokens, current_token + 1)
                     express_n = ''
                     if len(express) != 0:
