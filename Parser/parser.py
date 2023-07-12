@@ -923,7 +923,9 @@ def parse_program(tokens, postion):
 
                     parser_tree.append(("STRUCTURE_DEFINITION", ('structure_name', structure_name), ('structure_members', tuple(struct_members_node))))
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER': # struct Variables
-                    if 
+                    parser_tree.append(("STRUCTURE_DEFINITION", ('structure_name', structure_name), ('structure_members', tuple(struct_members_node))))
+                    if (current_token + 3) < len(tokens) and tokens[current_token + 3][0] == 'SEMICOLON':
+
 
 
 
