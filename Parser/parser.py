@@ -900,6 +900,9 @@ def parse_program(tokens, postion):
             if tokens[current_token+1][1] == 'IDENTIFIER':
                 if tokens[current_token+2][1] == 'LEFT_BRACE':
                     current_token+=2
+                    while True:
+                        
+
                     current_token, struct_body, struct_node = statments(tokens, current_token)
                     parser_tree.append(("_statement", express))
                     print(f'======={struct_body}')
