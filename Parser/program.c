@@ -1,7 +1,7 @@
 struct myStructure {
-  int myNum;
+  int myNum
   char myLetter;
-};
+}
 
 /*
 int main(int argc, char const) {

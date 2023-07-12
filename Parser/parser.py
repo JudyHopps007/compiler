@@ -587,19 +587,19 @@ def parse_program(tokens, postion):
                                 if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_BRACE":
                                     f_rb = tokens[current_token][1]
                                     print(f"FUNCTION: {type_specifer}  {varable_name} {f_lp} {function_parameter_str} {f_rp} {f_lb} {function_body} {f_rb}")
-                                    parser_tree.append(('FUNCTION', ("type_specifier", type_specifer), ("function_name", name), ("function_parameter", tuple(function_parameter_node)), ("function_body", tuple(child_node))))
+                                    parser_tree.append(('FUNCTION', ("type_specifier", type_specifer), ("function_name", varable_name), ("function_parameter", tuple(function_parameter_node)), ("function_body", tuple(child_node))))
                                     break
                                 else:
-                                    print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter_str} {f_rp} {f_lb} {function_body}")
+                                    print(f"FUNCTION: {type_specifer}  {varable_name} {f_lp} {function_parameter_str} {f_rp} {f_lb} {function_body}")
                                     Error_list += f"\nSyntax Error: <missing right-brace>,  function block not closed properly at line {tokens[current_token - 1][2]}"
-                                    parser_tree.append(('FUNCTION', ("type_specifier", type_specifer), ("function_name", name), ("function_parameter", tuple(function_parameter_node)), ("function_body", tuple(child_node))))
+                                    parser_tree.append(('FUNCTION', ("type_specifier", type_specifer), ("function_name", varable_name), ("function_parameter", tuple(function_parameter_node)), ("function_body", tuple(child_node))))
                                     break
                             else:
-                                print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter_str} <missing LEFT_BRACE>...")
+                                print(f"FUNCTION: {type_specifer}  {varable_name} {f_lp} {function_parameter_str} <missing LEFT_BRACE>...")
                                 Error_list += f"\nSyntax Error: Incomplete Functon definition.  missing left-brace  at line  {tokens[current_token][2]}"
                                 break
                         else:
-                            print(f"FUNCTION: {type_specifer}  {name} {f_lp} {function_parameter_str} <missing ')'>...")
+                            print(f"FUNCTION: {type_specifer}  {varable_name} {f_lp} {function_parameter_str} <missing ')'>...")
                             Error_list += f"\nSyntax Error: incomplete function statement, missing ')' 'right-paren' at line  {tokens[current_token - 1][2]}"
                             break
 
@@ -852,7 +852,7 @@ def parse_program(tokens, postion):
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'MEMORY_REFERENCE':  # pointer assignment statement
                     print(f"POINTER_ASSIGNMENT:  {name} {asg} {tokens[current_token + 2][1]}")
                     parser_tree.append(('POINTER_ASSIGNMENT', ("pointer_name", name), ("pointer_value", tokens[current_token + 2][1])))
-                    current_token+=2
+                    current_token += 2
                     if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
                         current_token += 1
                     else:
@@ -895,30 +895,44 @@ def parse_program(tokens, postion):
             else:
                 Error_list += f"\nSyntax Error: incomplete statement at line {tokens[current_token][2]}"
 
-        elif tokens[current_token][0] == 'STRUCT_KEY':
-
-            if tokens[current_token+1][1] == 'IDENTIFIER':
-                if tokens[current_token+2][1] == 'LEFT_BRACE':
-                    current_token+=2
-                    struct_member_node = []
+        elif tokens[current_token][0] == 'STRUCT_KEY':  # Structure
+            struct_members_node = []
+            if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'IDENTIFIER':
+                structure_name = tokens[current_token + 1][1]
+                if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'LEFT_BRACE':
+                    current_token += 2
                     while True:
-                       if tokens[current_token+1][1] == 'KEYWORD':
-                           if tokens[current_token + 2][1] == 'IDENTIFIER':
-                               struct_member_node.append(('struct_member', ('data_type', tokens[current_token+1][1]), ('member_name',tokens[current_token + 2][1] )))
-                               current_token+=2
-                               if tokens[current_token + 2][1] == 'SEMICOLON':
-                                   current_token += 1
-                               else:
-                                   Error_list += f"\nSyntax error: unterminated structure member statement  at line {tokens[current_token][2]}"
-                       elif tokens[current_token+1][1] == 'KEYWORD':
+                        if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'KEYWORD':
+                            if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER':
+                                struct_members_node.append(('struct_member', ('member_data_type', tokens[current_token + 1][1]), ('member_name', tokens[current_token + 2][1])))
+                                current_token += 2
+                                if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
+                                    current_token += 1
+                                else:
+                                    Error_list += f"\nSyntax error: unterminated structure member statement  at line {tokens[current_token][2]}"
+                        elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'RIGHT_BRACE':
+                            if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'SEMICOLON':
+                                current_token += 2
+                                break
+                            else:
+                                current_token += 1
+                                Error_list += f"\nSyntax error: unterminated structure  statement. missing semicolon  at line {tokens[current_token][2]}"
+                                break
+                        else:
+                            Error_list += f"\nSyntax error: unidentified error at line {tokens[current_token][2]}"
+
+                    parser_tree.append(("STRUCTURE_DEFINITION", ('structure_name', structure_name), ('structure_members', tuple(struct_members_node))))
+                elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER': # struct Variables
+                    if 
 
 
 
-                    current_token, struct_body, struct_node = statments(tokens, current_token)
-                    parser_tree.append(("_statement", express))
-                    print(f'======={struct_body}')
-                elif tokens[current_token+2][1] == 'IDENTIFIER':
-                    pass
+
+
+
+
+
+
 
 
         elif tokens[current_token][1] == 'return':
