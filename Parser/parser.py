@@ -922,7 +922,7 @@ def parse_program(tokens, postion):
                                 parser_tree.append(("STRUCTURE_DEFINITION", ('structure_name', structure_name), ('structure_members', tuple(struct_members_node))))
 
                                 current_token += 2
-                                print("----", tokens[current_token])
+
                                 count = 0
                                 while True:
                                     structure_variable = tokens[current_token][1]
