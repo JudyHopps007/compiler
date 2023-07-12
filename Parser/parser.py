@@ -898,8 +898,9 @@ def parse_program(tokens, postion):
         elif tokens[current_token][1] == 'STRUCT_KEY':
             if tokens[current_token+1][1] == 'IDENTIFIER':
                 if tokens[current_token+2][1] == 'LEFT_BRACE':
+                    current_token+=1
                     print('f')
-                elif tokens[current_token+2][1] == 'SEMICOLON':
+                elif tokens[current_token+2][1] == 'IDENTIFIER':
 
 
         elif tokens[current_token][1] == 'return':
