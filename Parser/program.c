@@ -1,6 +1,8 @@
-struct Person {
-
-} person1, person2;
+struct myStructure {
+  int myNum;
+  char myLetter;
+  char myString[30];
+};
 
 /*
 int main(int argc, char const) {

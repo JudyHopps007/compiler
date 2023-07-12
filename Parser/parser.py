@@ -905,48 +905,46 @@ def parse_program(tokens, postion):
                     current_token += 2
                     while True:
                         if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'KEYWORD':
-                            if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER':
+                            if (current_token + 2) < len(tokens) and (tokens[current_token + 2][0] == 'IDENTIFIER' or tokens[current_token + 2][0] == 'ARRAY'):
                                 struct_members_node.append(('struct_member', ('member_data_type', tokens[current_token + 1][1]), ('member_name', tokens[current_token + 2][1])))
                                 current_token += 2
                                 if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
                                     current_token += 1
                                 else:
                                     Error_list += f"\nSyntax error: unterminated structure member statement  at line {tokens[current_token][2]}"
+                            else:
+                                Error_list += f"\nSyntax error: incorrect structure member definition. structure member is defined incorrectly at line {tokens[current_token][2]}"
+                                break
                         elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'RIGHT_BRACE':
                             if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'SEMICOLON':
                                 parser_tree.append(("STRUCTURE_DEFINITION", ('structure_name', structure_name), ('structure_members', tuple(struct_members_node))))
                                 current_token += 2
                                 break
 
-                            elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER':
+                            elif (current_token + 2) < len(tokens) and (tokens[current_token + 2][0] == 'IDENTIFIER' or tokens[current_token + 2][0] == 'ARRAY') :
                                 parser_tree.append(("STRUCTURE_DEFINITION", ('structure_name', structure_name), ('structure_members', tuple(struct_members_node))))
-
                                 current_token += 2
-
-                                count = 0
                                 while True:
-                                    structure_variable = tokens[current_token][1]
-                                    print("=====", tokens[current_token])
+                                    if current_token < len(tokens) and (tokens[current_token][0] == 'IDENTIFIER' or tokens[current_token][0] == 'ARRAY'):
+                                        structure_variable = tokens[current_token][1]
+                                        if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":
+                                            parser_tree.append(("STRUCTURE_VARIABLE", ('structure_name', structure_name), ('structure_variable', structure_variable)))
+                                            current_token += 1
+                                            break
 
-                                    if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":  #
-                                        print(f"DECLARATION :  --- {structure_variable}")
-                                        parser_tree.append(("STRUCTURE_VARIABLE", ('structure_name', structure_name), ('structure_variable', structure_variable)))
+                                        elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "COMMA":
+                                            parser_tree.append(("STRUCTURE_VARIABLE", ('structure_name', structure_name), ('structure_variable', structure_variable)))
+                                            current_token += 1
+                                        else:
+                                            Error_list += f"\nSyntax error: incorrect statement  at line {tokens[current_token][2]}"
+                                            current_token += 1
+                                            break
                                         current_token += 1
+                                    else:
+                                        Error_list += f"\nSyntax error: incomplete statement at line {tokens[current_token][2]}"
                                         break
-
-                                    elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "COMMA":
-                                        print(f"DECLARATION2 :   {structure_variable}")
-                                        parser_tree.append(("STRUCTURE_VARIABLE", ('structure_name', structure_name), ('structure_variable', structure_variable)))
-                                        print("--------9", tokens[current_token])
-                                        current_token += 1
-                                        print("--------9", tokens[current_token])
-                                    current_token += 1
-                                    if count == 4:
-                                        break
-                                    count += 1
 
                                 break
-
                             else:
                                 current_token += 1
                                 Error_list += f"\nSyntax error: unterminated structure  statement. missing semicolon  at line {tokens[current_token][2]}"
@@ -954,8 +952,6 @@ def parse_program(tokens, postion):
                         else:
                             Error_list += f"\nSyntax error: unidentified error at line {tokens[current_token][2]}"
                             break
-
-
 
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER':  # struct Variables
                     parser_tree.append(("STRUCTURE_VARIABLE", ('structure_name', structure_name), ('structure_variable', tokens[current_token + 2][1])))
