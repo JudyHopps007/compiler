@@ -899,7 +899,8 @@ def parse_program(tokens, postion):
             if tokens[current_token+1][1] == 'IDENTIFIER':
                 if tokens[current_token+2][1] == 'LEFT_BRACE':
                     current_token+=2
-                    print('f')
+                    current_token, struct_body, struct_node = statments(tokens, current_token)
+                    print(f'======={struct_body}')
                 elif tokens[current_token+2][1] == 'IDENTIFIER':
                     pass
 
