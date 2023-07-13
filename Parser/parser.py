@@ -1006,55 +1006,7 @@ def parse_program(tokens, postion):
                                     break
 
 
-                        elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'RIGHT_BRACE':
-                            if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'SEMICOLON':
-                                parser_tree.append(("STRUCTURE_DEFINITION", ('structure_name', structure_name), ('structure_members', tuple(struct_members_node))))
-                                current_token += 2
-                                break
 
-                            elif (current_token + 2) < len(tokens) and (tokens[current_token + 2][0] == 'IDENTIFIER' or tokens[current_token + 2][0] == 'ARRAY'):
-                                parser_tree.append(("STRUCTURE_DEFINITION", ('structure_name', structure_name), ('structure_members', tuple(struct_members_node))))
-                                current_token += 2
-                                while True:
-                                    if current_token < len(tokens) and (tokens[current_token][0] == 'IDENTIFIER' or tokens[current_token][0] == 'ARRAY'):
-                                        structure_variable = tokens[current_token][1]
-                                        if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":
-                                            parser_tree.append(("STRUCTURE_VARIABLE", ('structure_name', structure_name), ('structure_variable', structure_variable)))
-                                            current_token += 1
-                                            break
-
-                                        elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "COMMA":
-                                            parser_tree.append(("STRUCTURE_VARIABLE", ('structure_name', structure_name), ('structure_variable', structure_variable)))
-                                            current_token += 1
-                                        else:
-                                            Error_list += f"\nSyntax error: incorrect statement  at line {tokens[current_token][2]}"
-                                            current_token += 1
-                                            break
-                                        current_token += 1
-                                    else:
-                                        Error_list += f"\nSyntax error: incomplete statement at line {tokens[current_token][2]}"
-                                        break
-
-                                break
-                            else:
-                                current_token += 1
-                                Error_list += f"\nSyntax error: unterminated structure  statement. missing semicolon  at line {tokens[current_token][2]}"
-                                break
-                        else:
-                            Error_list += f"\nSyntax error: unidentified error at line {tokens[current_token][2]}"
-                            print('============', tokens[current_token])
-                            if current_token < len(tokens):
-                                # current_token += 1
-                                pass
-                            break
-
-                elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER':  # struct Variables
-                    parser_tree.append(("STRUCTURE_VARIABLE", ('structure_name', structure_name), ('structure_variable', tokens[current_token + 2][1])))
-                    current_token += 2
-                    if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
-                        current_token += 1
-                    else:
-                        Error_list += f"\nSyntax error: unterminated statement. missing semicolon  at line {tokens[current_token][2]}"
 
 
 
