@@ -984,12 +984,14 @@ def parse_program(tokens, postion):
                         Error_list += f"\nSyntax error: unterminated statement. missing semicolon  at line {tokens[current_token][2]}"
 
         elif tokens[current_token][0] == 'ENUMERATION_KEY':  # struct member access modify
+            print('Srting')
             constants_node = []
             if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'IDENTIFIER':
                 structure_name = tokens[current_token + 1][1]
                 if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'LEFT_BRACE':
                     current_token += 2
                     while True:
+                        print('Srting')
                         if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'IDENTIFIER':
                             if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'ASSIGN':
                                 if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'INTEGER':
@@ -1003,7 +1005,7 @@ def parse_program(tokens, postion):
                                     Error_list += f"\nSyntax error: incorrect structure member definition. structure member is defined incorrectly at line {tokens[current_token][2]}"
                                     break
 
-                       
+
                         elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'RIGHT_BRACE':
                             if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'SEMICOLON':
                                 parser_tree.append(("STRUCTURE_DEFINITION", ('structure_name', structure_name), ('structure_members', tuple(struct_members_node))))

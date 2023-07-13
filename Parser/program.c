@@ -5,7 +5,7 @@ enum suit {
     spades = 3,
 };
 
-my_struct.name = "John Doe";
+
 /*
 int main(int argc, char const) {
     int sock = 0, valread;
