@@ -924,13 +924,13 @@ def parse_program(tokens, postion):
                                     if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
                                         current_token += 1
                                     else:
-                                        Error_list += f"\nSyntax error: unterminated structure member statement  at line {tokens[current_token][2]}"
+                                        Error_list += f"\nSyntax error: unterminated nested structure member statement at line {tokens[current_token][2]}"
                                 else:
                                     current_token += 2
-                                    Error_list += f"\nSyntax error:  nested structure member defined incorrectly   at line {tokens[current_token][2]}"
+                                    Error_list += f"\nSyntax error:  nested structure member defined incorrectly at line {tokens[current_token][2]}"
                             else:
                                 current_token += 2
-                                Error_list += f"\nSyntax error: incomplete nested structure member definition  at line {tokens[current_token][2]}"
+                                Error_list += f"\nSyntax error: incomplete nested structure member definition at line {tokens[current_token][2]}"
 
 
                         elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'RIGHT_BRACE':
