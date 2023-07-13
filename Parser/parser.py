@@ -994,9 +994,9 @@ def parse_program(tokens, postion):
                         print('Srting')
                         if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'IDENTIFIER':
                             if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'ASSIGN':
-                                if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'INTEGER':
+                                if (current_token + 3) < len(tokens) and tokens[current_token + 3][0] == 'INTEGER':
                                     constants_node.append(('enum_member', ('constant_name', tokens[current_token + 1][1]), ('constant_name', tokens[current_token + 2][1])))
-                                    current_token += 2
+                                    current_token += 3
                                     if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'COMMA':
                                         current_token += 1
                                     else:
@@ -1004,7 +1004,7 @@ def parse_program(tokens, postion):
                                 else:
                                     Error_list += f"\nSyntax error: incorrect structure member definition. structure member is defined incorrectly at line {tokens[current_token][2]}"
                                     break
-
+            print(constants_node)
 
 
 
