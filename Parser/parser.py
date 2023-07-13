@@ -992,16 +992,16 @@ def parse_program(tokens, postion):
                     while True:
                         if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'IDENTIFIER':
                             if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'ASSIGN':
-                                if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'ASSIGN':
-                                struct_members_node.append(('struct_member', ('member_data_type', tokens[current_token + 1][1]), ('member_name', tokens[current_token + 2][1])))
-                                current_token += 2
-                                if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
-                                    current_token += 1
+                                if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'INTEGER':
+                                    struct_members_node.append(('struct_member', ('member_data_type', tokens[current_token + 1][1]), ('member_name', tokens[current_token + 2][1])))
+                                    current_token += 2
+                                    if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
+                                        current_token += 1
+                                    else:
+                                        Error_list += f"\nSyntax error: unterminated structure member statement  at line {tokens[current_token][2]}"
                                 else:
-                                    Error_list += f"\nSyntax error: unterminated structure member statement  at line {tokens[current_token][2]}"
-                            else:
-                                Error_list += f"\nSyntax error: incorrect structure member definition. structure member is defined incorrectly at line {tokens[current_token][2]}"
-                                break
+                                    Error_list += f"\nSyntax error: incorrect structure member definition. structure member is defined incorrectly at line {tokens[current_token][2]}"
+                                    break
 
                         elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'STRUCT_KEY':  # nested struct
                             if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER':
