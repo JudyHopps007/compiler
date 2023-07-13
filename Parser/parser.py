@@ -984,18 +984,17 @@ def parse_program(tokens, postion):
                         Error_list += f"\nSyntax error: unterminated statement. missing semicolon  at line {tokens[current_token][2]}"
 
         elif tokens[current_token][0] == 'ENUMERATION_KEY':  # struct member access modify
-            print('Srting')
+
             constants_node = []
             if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'IDENTIFIER':
-                structure_name = tokens[current_token + 1][1]
+                enumeration_name = tokens[current_token + 1][1]
                 if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'LEFT_BRACE':
                     current_token += 2
                     while True:
-                        print('Srting')
                         if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'IDENTIFIER':
                             if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'ASSIGN':
                                 if (current_token + 3) < len(tokens) and tokens[current_token + 3][0] == 'INTEGER':
-                                    constants_node.append(('enum_member', ('constant_name', tokens[current_token + 1][1]), ('constant_name', tokens[current_token + 2][1])))
+                                    constants_node.append(('enumeration_member', ('constant_name', tokens[current_token + 1][1]), ('constant_value', tokens[current_token + 3][1])))
                                     current_token += 3
                                     if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'COMMA':
                                         current_token += 1
@@ -1004,6 +1003,34 @@ def parse_program(tokens, postion):
                                 else:
                                     Error_list += f"\nSyntax error: incorrect structure member definition. structure member is defined incorrectly at line {tokens[current_token][2]}"
                                     break
+                        elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'RIGHT_BRACE':
+                            if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'SEMICOLON':
+                                parser_tree.append(("ENUMERATION_DEFINITION", ('enumeration_name', enumeration_name), 'enumeration_constants', tuple(constants_node)))
+                                current_token += 2
+                                break
+
+                            elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER':
+                                parser_tree.append(("ENUMERATION_DEFINITION", ('enumeration_name', enumeration_name), 'enumeration_constants', tuple(constants_node)))
+                                current_token += 2
+                                while True:
+                                    if current_token < len(tokens) and (tokens[current_token][0] == 'IDENTIFIER'):
+                                        structure_variable = tokens[current_token][1]
+                                        if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":
+                                            parser_tree.append(("ENUMERATION_VARIABLE", ('enumeration_name', enumeration_name), ('enumeration_variable', structure_variable)))
+                                            current_token += 1
+                                            break
+
+                                        elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "COMMA":
+                                            parser_tree.append(("ENUMERATION_VARIABLE", ('enumeration_name', enumeration_name), ('enumeration_variable', structure_variable)))
+                                            current_token += 1
+                                        else:
+                                            Error_list += f"\nSyntax error: incorrect statement  at line {tokens[current_token][2]}"
+                                            current_token += 1
+                                            break
+                                        current_token += 1
+                                    else:
+                                        Error_list += f"\nSyntax error: incomplete statement at line {tokens[current_token][2]}"
+                                        break
             print(constants_node)
 
 
