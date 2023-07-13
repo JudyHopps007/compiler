@@ -983,8 +983,7 @@ def parse_program(tokens, postion):
                     else:
                         Error_list += f"\nSyntax error: unterminated statement. missing semicolon  at line {tokens[current_token][2]}"
 
-        elif tokens[current_token][0] == 'ENUMERATION_KEY':  # struct member access modify
-
+        elif tokens[current_token][0] == 'ENUMERATION_KEY':  # Enumerated Type Declaration
             constants_node = []
             if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'IDENTIFIER':
                 enumeration_name = tokens[current_token + 1][1]
