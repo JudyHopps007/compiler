@@ -3,7 +3,7 @@ enum suit {
     diamonds = 10,
     hearts = 20,
     spades = 3,
-};
+}button;
 
 
 /*
