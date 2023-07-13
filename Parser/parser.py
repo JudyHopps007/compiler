@@ -999,18 +999,7 @@ def parse_program(tokens, postion):
                 pass
 
         elif tokens[current_token][0] == 'ENUMERATION_KEY':  # enumeration
-            if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'ASSIGN':
-                if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER':
-                    parser_tree.append(("STRUCTURE_MEMBER_ACCESS", ("structure_member_access_ame", tokens[current_token][1]), ('assigned_valued', (tokens[current_token + 2][1]))))
-                    current_token += 2
-                    if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
-                        current_token += 1
-                    else:
-                        Error_list += f"\nSyntax error: unterminated statement. missing semicolon  at line {tokens[current_token][2]}"
-                else:
-                    current_token += 1
-                    Error_list += f"\nSyntax error:  no values assigned.  at line {tokens[current_token][2]}"
-            else:
+
                 pass
 
 
