@@ -1033,7 +1033,6 @@ def parse_program(tokens, postion):
                                         break
                                 break
 
-            print(constants_node)
 
 
 
