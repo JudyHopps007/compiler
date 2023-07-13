@@ -969,7 +969,7 @@ def parse_program(tokens, postion):
                                 break
                         else:
                             Error_list += f"\nSyntax error: unidentified error at line {tokens[current_token][2]}"
-                            print(tokens[current_token][2])
+                            print('============',tokens[current_token])
                             if current_token < len(tokens):
                                 # current_token += 1
                                 pass
