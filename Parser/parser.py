@@ -990,7 +990,7 @@ def parse_program(tokens, postion):
                 if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'LEFT_BRACE':
                     current_token += 2
                     while True:
-                        if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'KEYWORD':
+                        if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'IDENTIFIER':
                             if (current_token + 2) < len(tokens) and (tokens[current_token + 2][0] == 'IDENTIFIER' or tokens[current_token + 2][0] == 'ARRAY'):
                                 struct_members_node.append(('struct_member', ('member_data_type', tokens[current_token + 1][1]), ('member_name', tokens[current_token + 2][1])))
                                 current_token += 2
