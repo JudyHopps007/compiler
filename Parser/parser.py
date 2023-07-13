@@ -911,15 +911,16 @@ def parse_program(tokens, postion):
                                     current_token += 1
                                 else:
                                     Error_list += f"\nSyntax error: unterminated structure member statement  at line {tokens[current_token][2]}"
-                            elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'STRUCT_KEY': # nested struct
+
+                            elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'STRUCT_KEY':  # nested struct
                                 if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER':
-                                   if (current_token + 3) < len(tokens) and tokens[current_token + 3][0] == 'IDENTIFIER':
-                                       struct_members_node.append(('nested_struct_member', ('struct_name', tokens[current_token + 2][1]), ('member_name', tokens[current_token + 3][1])))
-                                       current_token += 3
-                                       if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
-                                           current_token += 1
-                                       else:
-                                           Error_list += f"\nSyntax error: unterminated structure member statement  at line {tokens[current_token][2]}"
+                                    if (current_token + 3) < len(tokens) and tokens[current_token + 3][0] == 'IDENTIFIER':
+                                        struct_members_node.append(('nested_struct_member', ('struct_name', tokens[current_token + 2][1]), ('member_name', tokens[current_token + 3][1])))
+                                        current_token += 3
+                                        if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
+                                            current_token += 1
+                                        else:
+                                            Error_list += f"\nSyntax error: unterminated structure member statement  at line {tokens[current_token][2]}"
 
                             else:
                                 Error_list += f"\nSyntax error: incorrect structure member definition. structure member is defined incorrectly at line {tokens[current_token][2]}"

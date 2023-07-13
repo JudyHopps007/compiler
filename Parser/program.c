@@ -1,8 +1,7 @@
-struct myStructure {
-  int myNum;
-  char myLetter;
-  char myString[30];
-};
+struct number {
+  struct complex;
+  int integer;
+} ;
 
 my_struct.name = "John Doe";
 /*
