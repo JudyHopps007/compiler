@@ -848,7 +848,6 @@ def parse_program(tokens, postion):
                         parser_tree.append(('function_assignment', ("IDENTIFIER", name), ("f_name", f_name), ('param', tuple(param_node))))
                         print("Syntax error: function-call-assignment statement.  missing statement terminator at line at line ", tokens[current_token][2])
 
-
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'MEMORY_REFERENCE':  # pointer assignment statement
                     print(f"POINTER_ASSIGNMENT:  {name} {asg} {tokens[current_token + 2][1]}")
                     parser_tree.append(('POINTER_ASSIGNMENT', ("pointer_name", name), ("pointer_value", tokens[current_token + 2][1])))
@@ -912,6 +911,16 @@ def parse_program(tokens, postion):
                                     current_token += 1
                                 else:
                                     Error_list += f"\nSyntax error: unterminated structure member statement  at line {tokens[current_token][2]}"
+                            elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'STRUCT_KEY': # nested struct
+                                if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER':
+                                   if (current_token + 3) < len(tokens) and tokens[current_token + 3][0] == 'IDENTIFIER':
+                                       struct_members_node.append(('nested_struct_member', ('struct_name', tokens[current_token + 2][1]), ('member_name', tokens[current_token + 3][1])))
+                                       current_token += 3
+                                       if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
+                                           current_token += 1
+                                       else:
+                                           Error_list += f"\nSyntax error: unterminated structure member statement  at line {tokens[current_token][2]}"
+
                             else:
                                 Error_list += f"\nSyntax error: incorrect structure member definition. structure member is defined incorrectly at line {tokens[current_token][2]}"
                                 break
@@ -921,7 +930,7 @@ def parse_program(tokens, postion):
                                 current_token += 2
                                 break
 
-                            elif (current_token + 2) < len(tokens) and (tokens[current_token + 2][0] == 'IDENTIFIER' or tokens[current_token + 2][0] == 'ARRAY') :
+                            elif (current_token + 2) < len(tokens) and (tokens[current_token + 2][0] == 'IDENTIFIER' or tokens[current_token + 2][0] == 'ARRAY'):
                                 parser_tree.append(("STRUCTURE_DEFINITION", ('structure_name', structure_name), ('structure_members', tuple(struct_members_node))))
                                 current_token += 2
                                 while True:
@@ -943,7 +952,6 @@ def parse_program(tokens, postion):
                                     else:
                                         Error_list += f"\nSyntax error: incomplete statement at line {tokens[current_token][2]}"
                                         break
-
                                 break
                             else:
                                 current_token += 1
@@ -960,6 +968,22 @@ def parse_program(tokens, postion):
                         current_token += 1
                     else:
                         Error_list += f"\nSyntax error: unterminated statement. missing semicolon  at line {tokens[current_token][2]}"
+
+        elif tokens[current_token][0] == 'STRUCTURE_MEMBER_ACCESS':  # struct member access modify
+            if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'ASSIGN':
+                if (current_token + 2) < len(tokens) and (tokens[current_token + 2][0] == 'IDENTIFIER' or tokens[current_token + 2][0] == 'STRING' or tokens[current_token + 2][0] == 'CHAR' or tokens[current_token + 2][0] == 'FLOATING_POINT' or tokens[current_token + 2][0] == 'INTEGER'):
+                    parser_tree.append(("STRUCTURE_MEMBER_ACCESS", ("structure_member_access_ame", tokens[current_token][1]), ('assigned_valued', (tokens[current_token + 2][1]))))
+                    current_token += 2
+                    if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
+                        current_token += 1
+                    else:
+                        Error_list += f"\nSyntax error: unterminated statement. missing semicolon  at line {tokens[current_token][2]}"
+                else:
+                    current_token += 1
+                    Error_list += f"\nSyntax error:  no values assigned.  at line {tokens[current_token][2]}"
+            else:
+                pass
+
 
 
 

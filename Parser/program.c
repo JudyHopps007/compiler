@@ -4,6 +4,7 @@ struct myStructure {
   char myString[30];
 };
 
+my_struct.name = "John Doe";
 /*
 int main(int argc, char const) {
     int sock = 0, valread;

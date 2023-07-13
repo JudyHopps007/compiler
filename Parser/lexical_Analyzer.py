@@ -29,7 +29,7 @@ patterns_rg = [
     (r'\*\w+\[\]', 'POINTER_TO_ARRAY'),
     (r'\*\s*\w+', 'POINTER_TO_VAR'),
     (r'\s*FILE\s*', 'FILE_POINTER'),
-    #(r'\w+\.\w+', "STRUCTURE_MEMBER_ACCESS"),
+    (r'\w+\.\w+', "STRUCTURE_MEMBER_ACCESS"),
     (r'&\w+(.\w+)*', 'MEMORY_REFERENCE'),
     (r'\b(if)\b', 'IF'),
     (r'\b(else)\b', 'ELSE'),
