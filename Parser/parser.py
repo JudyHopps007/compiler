@@ -995,31 +995,15 @@ def parse_program(tokens, postion):
                                 if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'INTEGER':
                                     constants_node.append(('enum_member', ('constant_name', tokens[current_token + 1][1]), ('constant_name', tokens[current_token + 2][1])))
                                     current_token += 2
-                                    if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
+                                    if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'COMMA':
                                         current_token += 1
                                     else:
-                                        Error_list += f"\nSyntax error: unterminated structure member statement  at line {tokens[current_token][2]}"
+                                        Error_list += f"\nSyntax error: missing comma  at line {tokens[current_token][2]}"
                                 else:
                                     Error_list += f"\nSyntax error: incorrect structure member definition. structure member is defined incorrectly at line {tokens[current_token][2]}"
                                     break
 
-                        elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'STRUCT_KEY':  # nested struct
-                            if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER':
-                                if (current_token + 3) < len(tokens) and tokens[current_token + 3][0] == 'IDENTIFIER':
-                                    struct_members_node.append(('nested_struct_member', ('struct_name', tokens[current_token + 2][1]), ('member_name', tokens[current_token + 3][1])))
-                                    current_token += 3
-                                    if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
-                                        current_token += 1
-                                    else:
-                                        Error_list += f"\nSyntax error: unterminated nested structure member statement at line {tokens[current_token][2]}"
-                                else:
-                                    current_token += 2
-                                    Error_list += f"\nSyntax error:  nested structure member defined incorrectly at line {tokens[current_token][2]}"
-                            else:
-                                current_token += 1
-                                Error_list += f"\nSyntax error: incomplete nested structure member definition at line {tokens[current_token][2]}"
-
-
+                       
                         elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'RIGHT_BRACE':
                             if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'SEMICOLON':
                                 parser_tree.append(("STRUCTURE_DEFINITION", ('structure_name', structure_name), ('structure_members', tuple(struct_members_node))))

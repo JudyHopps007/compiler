@@ -1,7 +1,9 @@
-struct number {
-  struct complex ;
-  int integer;
-} ;
+enum suit {
+    club = 0,
+    diamonds = 10,
+    hearts = 20,
+    spades = 3,
+};
 
 my_struct.name = "John Doe";
 /*
