@@ -969,6 +969,7 @@ def parse_program(tokens, postion):
                                 break
                         else:
                             Error_list += f"\nSyntax error: unidentified error at line {tokens[current_token][2]}"
+                            if (current_token + 2) < len(tokens):
                             break
 
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER':  # struct Variables
