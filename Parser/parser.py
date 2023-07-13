@@ -925,6 +925,12 @@ def parse_program(tokens, postion):
                                         current_token += 1
                                     else:
                                         Error_list += f"\nSyntax error: unterminated structure member statement  at line {tokens[current_token][2]}"
+                                else:
+                                    current_token+=2
+                                    Error_list += f"\nSyntax error:  structure member defind incorrectly   at line {tokens[current_token][2]}"
+                            else:
+                                Error_list += f"\nSyntax error: unterminated structure member statement  at line {tokens[current_token][2]}"
+
 
                         elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'RIGHT_BRACE':
                             if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'SEMICOLON':
