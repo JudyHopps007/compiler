@@ -1,5 +1,5 @@
 struct number {
-  struct complex comp;
+  struct complex ;
   int integer;
 } ;
 

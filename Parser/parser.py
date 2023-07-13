@@ -929,7 +929,7 @@ def parse_program(tokens, postion):
                                     current_token += 2
                                     Error_list += f"\nSyntax error:  nested structure member defined incorrectly at line {tokens[current_token][2]}"
                             else:
-                                current_token += 2
+                                current_token += 1
                                 Error_list += f"\nSyntax error: incomplete nested structure member definition at line {tokens[current_token][2]}"
 
 
