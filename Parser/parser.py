@@ -993,7 +993,7 @@ def parse_program(tokens, postion):
                         if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'IDENTIFIER':
                             if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'ASSIGN':
                                 if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'INTEGER':
-                                    struct_members_node.append(('struct_member', ('member_data_type', tokens[current_token + 1][1]), ('member_name', tokens[current_token + 2][1])))
+                                    constants_node.append(('enum_member', ('constant_name', tokens[current_token + 1][1]), ('constant_name', tokens[current_token + 2][1])))
                                     current_token += 2
                                     if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
                                         current_token += 1
