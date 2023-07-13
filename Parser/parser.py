@@ -998,7 +998,7 @@ def parse_program(tokens, postion):
             else:
                 pass
 
-        elif tokens[current_token][0] == 'ENUMERATION_KEY':  # enumeration 
+        elif tokens[current_token][0] == 'ENUMERATION_KEY':  # enumeration
             if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'ASSIGN':
                 if (current_token + 2) < len(tokens) and (tokens[current_token + 2][0] == 'IDENTIFIER' or tokens[current_token + 2][0] == 'STRING' or tokens[current_token + 2][0] == 'CHAR' or tokens[current_token + 2][0] == 'FLOATING_POINT' or tokens[current_token + 2][0] == 'INTEGER'):
                     parser_tree.append(("STRUCTURE_MEMBER_ACCESS", ("structure_member_access_ame", tokens[current_token][1]), ('assigned_valued', (tokens[current_token + 2][1]))))
