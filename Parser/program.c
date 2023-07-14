@@ -1,11 +1,6 @@
-enum suit {
-    club = 0,
-    diamonds = 10,
-    hearts = 20,
-    spades = 3,
-}button;
 
-
+enum boolean check
+int num;
 /*
 int main(int argc, char const) {
     int sock = 0, valread;

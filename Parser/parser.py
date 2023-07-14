@@ -1028,6 +1028,18 @@ def parse_program(tokens, postion):
                                         Error_list += f"\nSyntax error: incomplete statement at line {tokens[current_token][2]}"
                                         break
                                 break
+                elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER':
+                    parser_tree.append(("ENUMERATION_VARIABLE", ('enumeration_name', enumeration_name), ('enumeration_variable', tokens[current_token +2][1])))
+                    if (current_token + 3) < len(tokens) and tokens[current_token + 3][0] == 'SEMICOLON':
+                        current_token += 3
+                    else:
+                        Error_list += f"\nSyntax error: unterminated  statement at line {tokens[current_token][2]}"
+                        current_token += 2
+                else:
+                    Error_list += f"\nSyntax error: incorrect enumeration declaration statement at line {tokens[current_token][2]}"
+                    current_token += 1
+
+
 
 
 
