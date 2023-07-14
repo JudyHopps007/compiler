@@ -1038,6 +1038,9 @@ def parse_program(tokens, postion):
                 else:
                     Error_list += f"\nSyntax error: incorrect enumeration declaration statement at line {tokens[current_token][2]}"
                     current_token += 1
+            else:
+                Error_list += f"\nSyntax error: at statement at line {tokens[current_token][2]}"
+
 
 
 

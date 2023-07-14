@@ -1,5 +1,5 @@
 
-enum boolean check
+enum
 int num;
 /*
 int main(int argc, char const) {
