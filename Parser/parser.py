@@ -488,14 +488,18 @@ def parse_program(tokens, postion):
                 print(f"HEADER_FILE: {include_directive}")
                 parser_tree.append(('HEADER_FILE', include_directive))
             elif tokens[current_token + 1][0] == 'STRING':
-                if tokens[current_token + 1][1].endswith(".h"):
+                match = re.search(r'\"\s*\w+.h\s*\"', tokens[current_token + 1][1])
+                if match:
                     # handle include list
                     include_directive = tokens[current_token][1] + ' ' + tokens[current_token + 1][1]
                     current_token += 1
                     print(f"HEADER_FILE: {include_directive}")
                     parser_tree.append(('HEADER_FILE', include_directive))
+                else:
+                    Error_list += f"\nSYNTAX ERROR: at include directive  {tokens[current_token + 1][1]} at line {tokens[current_token + 1][2]}"
+                    current_token += 1
             else:
-                Error_list += f"\nSYNTAX ERROR: INCLUDE_DIRECTIVE: {tokens[current_token + 1][1]} at line {tokens[current_token + 1][2]}"
+                Error_list += f"\nSYNTAX ERROR: at include directive: {tokens[current_token + 1][1]} at line {tokens[current_token + 1][2]}"
                 current_token += 1
 
         # macro syntax
@@ -1036,7 +1040,7 @@ def parse_program(tokens, postion):
                                         break
                                 break
                 elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER':
-                    parser_tree.append(("ENUMERATION_VARIABLE", ('enumeration_name', enumeration_name), ('enumeration_variable', tokens[current_token +2][1])))
+                    parser_tree.append(("ENUMERATION_VARIABLE", ('enumeration_name', enumeration_name), ('enumeration_variable', tokens[current_token + 2][1])))
                     if (current_token + 3) < len(tokens) and tokens[current_token + 3][0] == 'SEMICOLON':
                         current_token += 3
                     else:
