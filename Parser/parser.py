@@ -495,7 +495,7 @@ def parse_program(tokens, postion):
                     print(f"HEADER_FILE: {include_directive}")
                     parser_tree.append(('HEADER_FILE', include_directive))
             else:
-                Error_list += f"\nSYNTAX ERROR: INCLUDE_DIRECTIVE: '{tokens[current_token + 1][1]}' at line {tokens[current_token + 1][2]}"
+                Error_list += f"\nSYNTAX ERROR: INCLUDE_DIRECTIVE: {tokens[current_token + 1][1]} at line {tokens[current_token + 1][2]}"
                 current_token += 1
 
         # macro syntax
