@@ -1,6 +1,4 @@
-
-enum boolean check
-card = club;
+#include "my_header.h"
 /*
 int main(int argc, char const) {
     int sock = 0, valread;
