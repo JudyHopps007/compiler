@@ -1,6 +1,6 @@
 
-enum
-int num;
+enum boolean check
+card = club;
 /*
 int main(int argc, char const) {
     int sock = 0, valread;
