@@ -488,11 +488,12 @@ def parse_program(tokens, postion):
                 print(f"HEADER_FILE: {include_directive}")
                 parser_tree.append(('HEADER_FILE', include_directive))
             elif tokens[current_token + 1][0] == 'STRING':
-                # handle include list
-                include_directive = tokens[current_token][1] + ' ' + tokens[current_token + 1][1]
-                current_token += 1
-                print(f"HEADER_FILE: {include_directive}")
-                parser_tree.append(('HEADER_FILE', include_directive))
+                if tokens[current_token + 1][1].endswith(".h"):
+                    # handle include list
+                    include_directive = tokens[current_token][1] + ' ' + tokens[current_token + 1][1]
+                    current_token += 1
+                    print(f"HEADER_FILE: {include_directive}")
+                    parser_tree.append(('HEADER_FILE', include_directive))
             else:
                 Error_list += f"\nSYNTAX ERROR: INCLUDE_DIRECTIVE: '{tokens[current_token + 1][1]}' at line {tokens[current_token + 1][2]}"
                 current_token += 1
