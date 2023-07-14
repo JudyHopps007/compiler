@@ -1,5 +1,5 @@
-#include "my_header.h"
-/*
+
+
 int main(int argc, char const) {
     int sock = 0, valread;
     struct sockaddr_in serv_addr;
