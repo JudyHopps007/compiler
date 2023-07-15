@@ -953,7 +953,9 @@ def statments(tokens, postion):  # statement: (declaration | initializing | func
                     print(f"RETURN-STATEMENT  : return  <missing return-value>  <missing ';'>")
                     Error_list += f"\nSyntax error: no return value was specified, and  missing a 'statement' terminator for return statement {tokens[current_token - 1][2]}"
         else:
-            Error_list += f"\nSyntax Error : '{tokens[current_token-1][1]}'  at line  {tokens[current_token-1][2]}"
+            print('1')
+            Error_list += f"\nSyntax Error : '{tokens[current_token-2][1]}'  at line  {tokens[current_token-2][2]}"
+
         current_token += 1
 
     return current_token, statment_block, node
