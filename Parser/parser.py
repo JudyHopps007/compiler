@@ -139,6 +139,7 @@ def condition_statement_RFC(tokens, position):
             elif (current_token + 1 < len(tokens)) and tokens[current_token + 1][0] == 'LEFT_PAREN':
                 current_token, temp, s = expression(tokens, current_token + 1)
                 print(s)
+                print(tokens[current_token])
 
     return current_token, condition_statment, node
 
