@@ -1,7 +1,7 @@
 
 
 
-    if(zz0 == nuo) {
+    if(zz0) {
 
         return -1;
     }
