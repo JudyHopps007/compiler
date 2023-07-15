@@ -155,8 +155,9 @@ def condition_statement_RFC(tokens, position):
 
         elif current_token < len(tokens) and tokens[current_token][0] == 'LEFT_PAREN':
             current_token, temp, s = expression(tokens, current_token)
-            print('erererer')
+            print('erererer', tokens[current_token+1])
             node.append(('operand', tuple(s)))
+
             while True:
                 if (current_token + 1 < len(tokens)) and (tokens[current_token + 1][0] == 'EQUAL' or tokens[current_token + 1][0] == 'NOT_EQUAL' or tokens[current_token + 1][0] == 'LESS_THAN' or tokens[current_token + 1][0] == 'GREATER_THAN' or tokens[current_token + 1][0] == 'LESS_THAN_EQUAL' or tokens[current_token + 1][0] == 'GREATER_THAN_EQUAL'):
                     if (current_token + 2 < len(tokens)) and (tokens[current_token + 2][0] == 'IDENTIFIER' or tokens[current_token + 2][0] == 'INTEGER' or tokens[current_token + 2][0] == 'FLOATING_POINT' or tokens[current_token + 2][0] == 'CHAR' or tokens[current_token + 2][0] == 'STRING'):
