@@ -418,7 +418,7 @@ def statments(tokens, postion):  # statement: (declaration | initializing | func
     statment_block = ''  # store statements in block
     block_track = 1
     current_token = postion
-    
+
     while block_track != 0:
         current_token += 1
         if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_BRACE':
@@ -595,7 +595,7 @@ def statments(tokens, postion):  # statement: (declaration | initializing | func
                     current_token += 1
                     Error_list += f"\nSyntax Error : Array element value error. wrong value is being assigned to the array at line  {tokens[current_token][2]}"
 
-        elif  current_token < len(tokens) and tokens[current_token][0] == 'IF':
+        elif current_token < len(tokens) and tokens[current_token][0] == 'IF':
             gm = ""
             if_node = []
             else_if = 0
@@ -719,7 +719,7 @@ def statments(tokens, postion):  # statement: (declaration | initializing | func
                 print(F"WHILE-STATEMENT: {while_key}  <error incomplete-while-statement>")
                 Error_list += f"\nSyntax error: while statement incomplete at line  {tokens[current_token][2]}"
 
-        elif  current_token < len(tokens) and tokens[current_token][0] == 'IDENTIFIER':
+        elif current_token < len(tokens) and tokens[current_token][0] == 'IDENTIFIER':
             name = tokens[current_token][1]
             if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'ASSIGN':
                 asg = tokens[current_token + 1][1]
@@ -959,9 +959,6 @@ def statments(tokens, postion):  # statement: (declaration | initializing | func
                 pass
             else:
                 break
-
-
-
 
     return current_token, statment_block, node
 
