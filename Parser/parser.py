@@ -107,7 +107,7 @@ def condition_statement_RFC(tokens, position):
                             node.append(('operand', tokens[current_token + 2][1]))
                             current_token += 2
                     elif (current_token + 2 < len(tokens)) and (tokens[current_token + 2][0] == 'NOT':
-                        if (current_token + 3 < len(tokens)) and tokens[current_token + 3][0] == 'RIGHT_PAREN':
+                        if (current_token + 3 < len(tokens)) and tokens[current_token + 3][0] == 'IDENTIFIER':
                             node.append((('operand', tokens[current_token][1]), ('Relational_operator', tokens[current_token + 1][1]), ('operand', tokens[current_token + 2][1])))
                         current_token += 2
 
