@@ -136,6 +136,8 @@ def condition_statement_RFC(tokens, position):
                     node.append((('logical_operator', tokens[current_token][1]), ('operand', tokens[current_token + 1][1])))
                     current_token += 3
                     break
+            elif (current_token + 1 < len(tokens)) and tokens[current_token + 1][0] == 'LEFT_PAREN':
+                 current_token, temp,  node = expression(tokens, current_token + 1)
 
 
 
