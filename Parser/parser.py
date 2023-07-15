@@ -978,9 +978,6 @@ def expression(tokens, position):
         if token_type == 'IDENTIFIER':
             express_n += token_value + ' '
             temp.append(token_value)
-        elif token_type == 'MEMORY_REFERENCE':
-            express_n += token_value + ' '
-            temp.append(token_value)
 
         elif token_type == 'INTEGER':
             express_n += token_value + ' '
