@@ -140,7 +140,7 @@ def condition_statement_RFC(tokens, position):
 
 
                 else:
-                    print('Error ')
+                    Error_list += f"\nSyntax error : condition statement error at line {tokens[current_token][2]}"
                     break
 
         elif current_token < len(tokens) and tokens[current_token][0] == 'NOT':
