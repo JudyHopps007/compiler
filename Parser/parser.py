@@ -97,8 +97,8 @@ def condition_statement_RFC(tokens, position):
                 if (current_token + 2 < len(tokens)) and (tokens[current_token + 2][0] == 'IDENTIFIER' or tokens[current_token + 2][0] == 'INTEGER' or tokens[current_token + 2][0] == 'FLOATING_POINT' or tokens[current_token + 2][0] == 'CHAR' or tokens[current_token + 2][0] == 'STRING'):
                     node.append((('left_operand', tokens[current_token][1]), ('logical_operator', tokens[current_token + 1][1]), ('right_operand', tokens[current_token + 2][1])))
                     current_token += 2
-            elif (current_token + 1 < len(tokens)) and (tokens[current_token + 1][0] == 'RIGHT_PAREN':
-                 node.append((
+            elif (current_token + 1 < len(tokens)) and tokens[current_token + 1][0] == 'RIGHT_PAREN':
+                  node.append(tokens[current_token][1])
 
 
     return current_token, condition_statment, node
