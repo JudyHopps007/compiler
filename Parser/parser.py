@@ -158,6 +158,9 @@ def condition_statement_RFC(tokens, position):
             current_token, temp, s = expression(tokens, current_token)
             print('erererer')
             node.append(('operand', tuple(s)))
+        else:
+            Error_list += f"\nSyntax error : condition statement error at line {tokens[current_token][2]}"
+            break
 
     return current_token, condition_statment, node
 
