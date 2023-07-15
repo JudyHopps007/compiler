@@ -126,7 +126,7 @@ def condition_statement_RFC(tokens, position):
                             current_token += 2
                             break
                         else:
-                            node.append(('operand', hold_operand))
+                            node.append(('operand', tokens[current_token][1]))
                             node.append(('logical_operator', tokens[current_token + 1][1]))
                             node.append(('operand', tokens[current_token + 2][1]))
                             current_token += 2
