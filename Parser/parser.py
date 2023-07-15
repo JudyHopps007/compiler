@@ -84,10 +84,11 @@ def condition_statement_RFC_old(tokens, position):
 def condition_statement_RFC(tokens, position):
     node = []  # store condition statement node information
     condition_statment = ''  # store condition statements
-    block_track = 0
+    back_track = 1
     current_token = position
-    while block_track != 0::
-        if current_token < len(tokens) and (tokens[current_token][0] == 'EQUAL'
+    while block_track != 0:
+        if current_token < len(tokens) and (tokens[current_token][0] == 'RIGHT_PAREN':
+        back_track -= 1
 
 
 
