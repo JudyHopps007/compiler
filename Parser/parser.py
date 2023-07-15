@@ -83,7 +83,7 @@ def condition_statement_RFC_old(tokens, position):
 
 
 def condition_statement_RFC(tokens, position):
-    global Error_list
+    global Error_list, express_n
     node = []  # store condition statement node information
     condition_statment = ''  # store condition statements
     back_track = 1
@@ -113,6 +113,7 @@ def condition_statement_RFC(tokens, position):
 
                     elif (current_token + 2 < len(tokens)) and tokens[current_token + 2][0] == 'LEFT_PAREN':
                         current_token, temp, s = expression(tokens, current_token + 2)
+                        express_n = ''
                         node.append(('operand', tuple(s)))
 
                 elif (current_token + 1 < len(tokens)) and (tokens[current_token + 1][0] == 'AND' or tokens[current_token + 1][0] == 'OR'):
@@ -126,6 +127,7 @@ def condition_statement_RFC(tokens, position):
                             current_token += 2
                     elif (current_token + 2 < len(tokens)) and tokens[current_token + 2][0] == 'LEFT_PAREN':
                         current_token, temp, s = expression(tokens, current_token + 2)
+                        express_n = ''
                         node.append(('operand', tuple(s)))
 
                 elif tokens[current_token + 1][0] == 'RIGHT_PAREN':
@@ -143,11 +145,13 @@ def condition_statement_RFC(tokens, position):
 
             elif (current_token + 1 < len(tokens)) and tokens[current_token + 1][0] == 'LEFT_PAREN':
                 current_token, temp, s = expression(tokens, current_token + 1)
+                express_n = ''
                 node.append(tuple(s))
                 print(tokens[current_token])
 
         elif current_token < len(tokens) and tokens[current_token][0] == 'LEFT_PAREN':
             current_token, temp, s = expression(tokens, current_token)
+            express_n = ''
             node.append(('operand', tuple(s)))
 
             while True:
@@ -163,6 +167,7 @@ def condition_statement_RFC(tokens, position):
 
                     elif (current_token + 2 < len(tokens)) and tokens[current_token + 2][0] == 'LEFT_PAREN':
                         current_token, temp, s = expression(tokens, current_token + 2)
+                        express_n = ''
                         node.append(('operand', tuple(s)))
 
                 elif (current_token + 1 < len(tokens)) and (tokens[current_token + 1][0] == 'AND' or tokens[current_token + 1][0] == 'OR'):
@@ -176,6 +181,7 @@ def condition_statement_RFC(tokens, position):
                             current_token += 2
                     elif (current_token + 2 < len(tokens)) and tokens[current_token + 2][0] == 'LEFT_PAREN':
                         current_token, temp, s = expression(tokens, current_token + 2)
+                        express_n = ''
                         node.append(('operand', tuple(s)))
 
                 elif tokens[current_token + 1][0] == 'RIGHT_PAREN':
