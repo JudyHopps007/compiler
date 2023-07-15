@@ -91,6 +91,8 @@ def condition_statement_RFC(tokens, position):
         current_token += 1
         if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_PAREN':
             back_track -= 1
+        elif (current_token < len(tokens)) and tokens[current_token][0] == 'IDENTIFIER' and tokens[current_token - 1][0] == 'LEFT_PAREN':
+            node.append(('operand',
         elif current_token < len(tokens) and (tokens[current_token][0] == 'IDENTIFIER' or tokens[current_token][0] == 'INTEGER' or tokens[current_token][0] == 'FLOATING_POINT' or tokens[current_token][0] == 'CHAR' or tokens[current_token][0] == 'STRING'):
 
             while True:
