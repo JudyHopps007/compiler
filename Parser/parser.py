@@ -148,43 +148,33 @@ def condition_statement_RFC(tokens, position):
 
         elif current_token < len(tokens) and tokens[current_token][0] == 'LEFT_PAREN':
             current_token, temp, s = expression(tokens, current_token)
-            print('erererer', tokens[current_token+1])
             node.append(('operand', tuple(s)))
 
             while True:
                 if (current_token + 1 < len(tokens)) and (tokens[current_token + 1][0] == 'EQUAL' or tokens[current_token + 1][0] == 'NOT_EQUAL' or tokens[current_token + 1][0] == 'LESS_THAN' or tokens[current_token + 1][0] == 'GREATER_THAN' or tokens[current_token + 1][0] == 'LESS_THAN_EQUAL' or tokens[current_token + 1][0] == 'GREATER_THAN_EQUAL'):
+                    node.append(('Relational_operator', tokens[current_token + 1][1]))
                     if (current_token + 2 < len(tokens)) and (tokens[current_token + 2][0] == 'IDENTIFIER' or tokens[current_token + 2][0] == 'INTEGER' or tokens[current_token + 2][0] == 'FLOATING_POINT' or tokens[current_token + 2][0] == 'CHAR' or tokens[current_token + 2][0] == 'STRING'):
-
+                        node.append(('operand', tokens[current_token + 2][1]))
                         if (current_token + 3 < len(tokens)) and tokens[current_token + 3][0] == 'RIGHT_PAREN':
-
-                            node.append((('operand', tokens[current_token][1]), ('Relational_operator', tokens[current_token + 1][1]), ('operand', tokens[current_token + 2][1])))
                             current_token += 2
                             break
                         else:
-                            node.append(('operand', tokens[current_token][1]))
-                            node.append(('Relational_operator', tokens[current_token + 1][1]))
-                            node.append(('operand', tokens[current_token + 2][1]))
                             current_token += 2
+
                     elif (current_token + 2 < len(tokens)) and tokens[current_token + 2][0] == 'LEFT_PAREN':
-                        node.append(('operand', tokens[current_token][1]))
-                        node.append(('Relational_operator', tokens[current_token + 1][1]))
                         current_token, temp, s = expression(tokens, current_token + 2)
                         node.append(('operand', tuple(s)))
 
                 elif (current_token + 1 < len(tokens)) and (tokens[current_token + 1][0] == 'AND' or tokens[current_token + 1][0] == 'OR'):
+                    node.append(('logical_operator', tokens[current_token + 1][1]))
                     if (current_token + 2 < len(tokens)) and (tokens[current_token + 2][0] == 'IDENTIFIER' or tokens[current_token + 2][0] == 'INTEGER' or tokens[current_token + 2][0] == 'FLOATING_POINT' or tokens[current_token + 2][0] == 'CHAR' or tokens[current_token + 2][0] == 'STRING'):
+                        node.append(('operand', tokens[current_token + 2][1]))
                         if (current_token + 3 < len(tokens)) and tokens[current_token + 3][0] == 'RIGHT_PAREN':
-                            node.append((('operand', tokens[current_token][1]), ('logical_operator', tokens[current_token + 1][1]), ('operand', tokens[current_token + 2][1])))
                             current_token += 2
                             break
                         else:
-                            node.append(('operand', tokens[current_token][1]))
-                            node.append(('logical_operator', tokens[current_token + 1][1]))
-                            node.append(('operand', tokens[current_token + 2][1]))
                             current_token += 2
                     elif (current_token + 2 < len(tokens)) and tokens[current_token + 2][0] == 'LEFT_PAREN':
-                        node.append(('operand', tokens[current_token][1]))
-                        node.append(('Relational_operator', tokens[current_token + 1][1]))
                         current_token, temp, s = expression(tokens, current_token + 2)
                         node.append(('operand', tuple(s)))
 
@@ -194,6 +184,7 @@ def condition_statement_RFC(tokens, position):
                 else:
                     Error_list += f"\nSyntax error : condition statement error at line {tokens[current_token][2]}"
                     break
+
 
         else:
             Error_list += f"\nSyntax error : condition statement error at line {tokens[current_token][2]}"
