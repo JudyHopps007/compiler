@@ -92,8 +92,8 @@ def condition_statement_RFC(tokens, position):
              back_track -= 1
         elif  current_token < len(tokens) and tokens[current_token][0] == 'IDENTIFIER':
             if (current_token+1 < len(tokens)) and (tokens[current_token+1][0] == 'EQUAL' or tokens[current_token+1][0] == 'NOT_EQUAL' or tokens[current_token+1][0] == 'LESS_THAN' or tokens[current_token+1][0] == 'GREATER_THAN' or tokens[current_token+1][0] == 'LESS_THAN_EQUAL' or tokens[current_token+1][0] == 'GREATER_THAN_EQUAL'):
-               if  current_token+2 < len(tokens) and tokens[current_token][0] == 'IDENTIFIER:
-                   node.append( )
+               if ( current_token+2 < len(tokens)) and tokens[current_token+2][0] == 'IDENTIFIER':
+                   node.append(('left_operand',  tokens[current_token][1]), ('logical_operator', tokens[current_token+1][1] ), 'right_operand', tokens[current_token + 2][0])
 
 
 
