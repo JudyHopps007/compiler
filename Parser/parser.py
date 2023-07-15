@@ -185,7 +185,6 @@ def condition_statement_RFC(tokens, position):
                     Error_list += f"\nSyntax error : condition statement error at line {tokens[current_token][2]}"
                     break
 
-
         else:
             Error_list += f"\nSyntax error : condition statement error at line {tokens[current_token][2]}"
             break
