@@ -955,6 +955,11 @@ def statments(tokens, postion):  # statement: (declaration | initializing | func
         else:
             print('1')
             Error_list += f"\nSyntax Error : '{tokens[current_token-2][1]}'  at line  {tokens[current_token-2][2]}"
+            if current_token < len(tokens):
+                pass
+            else:
+                break
+
 
         current_token += 1
 
