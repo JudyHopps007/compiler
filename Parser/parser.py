@@ -786,7 +786,6 @@ def statments(tokens, postion):  # statement: (declaration | initializing | func
                 Error_list += f"\nSyntax Error: incomplete statement at line {tokens[current_token][2]}"
 
 
-
         elif  current_token < len(tokens) and tokens[current_token][0] == 'STRUCT_KEY':  # Structure
             struct_members_node = []
             if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'IDENTIFIER':
