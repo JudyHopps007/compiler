@@ -132,8 +132,9 @@ def condition_statement_RFC(tokens, position):
                         current_token, temp, s = expression(tokens, current_token + 2)
                         node.append(('operand', tuple(s)))
 
-                elif (current_token + 1 < len(tokens)) and tokens[current_token + 1][0] == 'RIGHT_PAREN':
-                     break
+                elif (current_token + 1 < len(tokens)) and tokens[current_token + 1][0] == 'RIGHT_PAREN' and tokens[current_token - 1][0] == 'IDENTIFIER' and tokens[current_token - 2][0] == 'LEFT_PAREN':
+                    node.append(('operand', tokens[current_token][0]))
+
 
                 else:
                     print('Error ')
