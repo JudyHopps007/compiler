@@ -92,7 +92,7 @@ def condition_statement_RFC(tokens, position):
         if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_PAREN':
             back_track -= 1
 
-        elif (current_token + 1 < len(tokens)) and tokens[current_token][0] == 'IDENTIFIER' and tokens[current_token + 1][0] == 'RIGHT_PAREN':
+        elif (current_token + 1 < len(tokens)) and (tokens[current_token][0] == 'IDENTIFIER'  or tokens[current_token][0] == 'INTEGER') and tokens[current_token + 1][0] == 'RIGHT_PAREN':
             node.append(('operand', tokens[current_token][1]))
             current_token += 1
             back_track -= 1
@@ -154,6 +154,11 @@ def condition_statement_RFC(tokens, position):
                 current_token, temp, s = expression(tokens, current_token + 1)
                 node.append(tuple(s))
                 print(tokens[current_token])
+
+        elif current_token < len(tokens) and tokens[current_token][0] == 'LEFT_PAREN':
+            current_token, temp, s = expression(tokens, current_token + 2)
+            node.append(('operand', tuple(s)))
+
 
     return current_token, condition_statment, node
 
