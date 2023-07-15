@@ -86,7 +86,7 @@ def condition_statement_RFC(tokens, position):
     condition_statment = ''  # store condition statements
     back_track = 1
     current_token = position
-    while block_track != 0:
+    while back_track != 0:
         if current_token < len(tokens) and (tokens[current_token][0] == 'RIGHT_PAREN':
         back_track -= 1
 
