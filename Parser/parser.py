@@ -138,7 +138,6 @@ def condition_statement_RFC(tokens, position):
                 elif tokens[current_token - 1][0] == 'LEFT_PAREN':
                     break
 
-
                 else:
                     Error_list += f"\nSyntax error : condition statement error at line {tokens[current_token][2]}"
                     break
