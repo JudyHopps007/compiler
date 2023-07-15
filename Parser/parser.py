@@ -56,7 +56,7 @@ def condition_statement_RFC_old(tokens, position):
     node = []  # store condition statement node information
     condition_statment = ''  # store condition statements
     current_token = position
-    print('cond',tokens[current_token][0])
+    print('cond', tokens[current_token][0])
 
     current_token, left_operand, exp_node_l = expression(tokens, current_token)
     condition_statment += left_operand
@@ -81,23 +81,24 @@ def condition_statement_RFC_old(tokens, position):
 
     return current_token, condition_statment, node
 
+
 def condition_statement_RFC(tokens, position):
     node = []  # store condition statement node information
     condition_statment = ''  # store condition statements
     back_track = 1
     current_token = position
-    print('0000000',tokens[current_token][0])
+    print('0000000', tokens[current_token][0])
     while back_track != 0:
         current_token += 1
         if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_PAREN':
-             back_track -= 1
-        elif  current_token < len(tokens) and (tokens[current_token][0] == 'IDENTIFIER' or tokens[current_token][0] == 'INTEGER' or tokens[current_token+2][0] == 'FLOATING_POINT' or tokens[current_token+2][0] == 'CHAR' or tokens[current_token+2][0] == 'STRING' ):
-            if (current_token+1 < len(tokens)) and (tokens[current_token+1][0] == 'EQUAL' or tokens[current_token+1][0] == 'NOT_EQUAL' or tokens[current_token+1][0] == 'LESS_THAN' or tokens[current_token+1][0] == 'GREATER_THAN' or tokens[current_token+1][0] == 'LESS_THAN_EQUAL' or tokens[current_token+1][0] == 'GREATER_THAN_EQUAL'):
-               if (current_token+2 < len(tokens)) and (tokens[current_token+2][0] == 'IDENTIFIER' or tokens[current_token+2][0] == 'INTEGER' or tokens[current_token+2][0] == 'FLOATING_POINT' or tokens[current_token+2][0] == 'CHAR' or tokens[current_token+2][0] == 'STRING' ):
-                   node.append((('left_operand',  tokens[current_token][1]), ('logical_operator', tokens[current_token+1][1]), ('right_operand', tokens[current_token + 2][1])))
-                   current_token+=2
-
-
+            back_track -= 1
+        elif current_token < len(tokens) and (tokens[current_token][0] == 'IDENTIFIER' or tokens[current_token][0] == 'INTEGER' or tokens[current_token][0] == 'FLOATING_POINT' or tokens[current_token][0] == 'CHAR' or tokens[current_token][0] == 'STRING'):
+            if (current_token + 1 < len(tokens)) and (tokens[current_token + 1][0] == 'EQUAL' or tokens[current_token + 1][0] == 'NOT_EQUAL' or tokens[current_token + 1][0] == 'LESS_THAN' or tokens[current_token + 1][0] == 'GREATER_THAN' or tokens[current_token + 1][0] == 'LESS_THAN_EQUAL' or tokens[current_token + 1][0] == 'GREATER_THAN_EQUAL'):
+                if (current_token + 2 < len(tokens)) and (tokens[current_token + 2][0] == 'IDENTIFIER' or tokens[current_token + 2][0] == 'INTEGER' or tokens[current_token + 2][0] == 'FLOATING_POINT' or tokens[current_token + 2][0] == 'CHAR' or tokens[current_token + 2][0] == 'STRING'):
+                    node.append((('left_operand', tokens[current_token][1]), ('logical_operator', tokens[current_token + 1][1]), ('right_operand', tokens[current_token + 2][1])))
+                    current_token += 2
+            elif (current_token + 1 < len(tokens)) and (tokens[current_token + 1][0] == 'RIGHT_PAREN':
+                 node.append((
 
 
     return current_token, condition_statment, node
@@ -474,7 +475,7 @@ def statments(tokens, postion):  # statement: (declaration | initializing | func
             else:
                 Error_list += f"\nSyntax Error: constant definition error. missing constant data type at line  {tokens[current_token][2]}"
 
-        elif  current_token < len(tokens) and tokens[current_token][0] == "KEYWORD" and tokens[current_token][1] != 'return':
+        elif current_token < len(tokens) and tokens[current_token][0] == "KEYWORD" and tokens[current_token][1] != 'return':
             type_specifer = tokens[current_token][1]
             while True:
                 if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "IDENTIFIER":
@@ -596,7 +597,7 @@ def statments(tokens, postion):  # statement: (declaration | initializing | func
                     Error_list += f"\nSyntax Error : incomplete statement  at line {tokens[current_token][2]}"
                     break
 
-        elif  current_token < len(tokens) and tokens[current_token][0] == 'ARRAY':  # Array syntax 2
+        elif current_token < len(tokens) and tokens[current_token][0] == 'ARRAY':  # Array syntax 2
             if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "ASSIGN":
                 if (current_token + 2) < len(tokens) and (tokens[current_token + 2][0] == "IDENTIFIER" or tokens[current_token + 2][0] == "INTEGER" or tokens[current_token + 2][0] == "STRING" or tokens[current_token + 2][0] == "FLOATING_POINT" or tokens[current_token + 2][0] == "CHAR"):
                     array_name = tokens[current_token][1]
@@ -808,7 +809,7 @@ def statments(tokens, postion):  # statement: (declaration | initializing | func
                 Error_list += f"\nSyntax Error: incomplete statement at line {tokens[current_token][2]}"
 
 
-        elif  current_token < len(tokens) and tokens[current_token][0] == 'STRUCT_KEY':  # Structure
+        elif current_token < len(tokens) and tokens[current_token][0] == 'STRUCT_KEY':  # Structure
             struct_members_node = []
             if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'IDENTIFIER':
                 structure_name = tokens[current_token + 1][1]
@@ -893,7 +894,7 @@ def statments(tokens, postion):  # statement: (declaration | initializing | func
                     else:
                         Error_list += f"\nSyntax error: unterminated statement. missing semicolon  at line {tokens[current_token][2]}"
 
-        elif  current_token < len(tokens) and tokens[current_token][0] == 'ENUMERATION_KEY':  # Enumerated Type Declaration
+        elif current_token < len(tokens) and tokens[current_token][0] == 'ENUMERATION_KEY':  # Enumerated Type Declaration
             constants_node = []
             if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'IDENTIFIER':
                 enumeration_name = tokens[current_token + 1][1]
