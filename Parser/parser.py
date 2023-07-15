@@ -109,7 +109,8 @@ def condition_statement_RFC(tokens, position):
 
                 elif (current_token + 1 < len(tokens)) and tokens[current_token + 1][0] == 'RIGHT_PAREN':
                     node.append(tokens[current_token][1])
-                    
+                    break
+
                 else:
                     print('Error ')
                     break
