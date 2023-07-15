@@ -136,11 +136,11 @@ def condition_statement_RFC(tokens, position):
                         current_token, temp, s = expression(tokens, current_token + 2)
                         node.append(('operand', tuple(s)))
 
-                elif tokens[current_token - 1][0] == 'LEFT_PAREN':
+                elif tokens[current_token + 1][0] == 'RIGHT_PAREN':
                     break
 
                 else:
-                    Error_list += f"\nSyntax error : condition statement error at line {tokens[current_token][1]}"
+                    Error_list += f"\nSyntax error : condition statement error at line {tokens[current_token][2]}"
                     break
 
         elif current_token < len(tokens) and tokens[current_token][0] == 'NOT':
