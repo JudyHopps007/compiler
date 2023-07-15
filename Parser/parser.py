@@ -418,9 +418,9 @@ def statments(tokens, postion):  # statement: (declaration | initializing | func
     statment_block = ''  # store statements in block
     block_track = 1
     current_token = postion
-
+    current_token += 1
     while block_track != 0:
-        current_token += 1
+
         if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_BRACE':
             block_track -= 1
 
@@ -953,7 +953,8 @@ def statments(tokens, postion):  # statement: (declaration | initializing | func
                     print(f"RETURN-STATEMENT  : return  <missing return-value>  <missing ';'>")
                     Error_list += f"\nSyntax error: no return value was specified, and  missing a 'statement' terminator for return statement {tokens[current_token - 1][2]}"
         else:
-            Error_list += f"\nSyntax Error : '{tokens[current_token][1]}'  at line  {tokens[current_token][2]}"
+            Error_list += f"\nSyntax Error : '{tokens[current_token-1][1]}'  at line  {tokens[current_token-1][2]}"
+        current_token += 1
 
     return current_token, statment_block, node
 
