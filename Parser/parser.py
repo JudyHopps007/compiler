@@ -114,7 +114,7 @@ def condition_statement_RFC(tokens, position):
                             node.append(('operand', tokens[current_token + 2][1]))
                             current_token += 2
                     elif (current_token + 2 < len(tokens)) and tokens[current_token + 2][0] == 'LEFT_PAREN':
-                        node.append(('operand', hold_operand))
+
                         node.append(('Relational_operator', tokens[current_token + 1][1]))
                         current_token, temp, s = expression(tokens, current_token + 2)
                         node.append(('operand', tuple(s)))
