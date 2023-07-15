@@ -83,6 +83,7 @@ def condition_statement_RFC_old(tokens, position):
 
 
 def condition_statement_RFC(tokens, position):
+    global Error_list
     node = []  # store condition statement node information
     condition_statment = ''  # store condition statements
     back_track = 1
@@ -139,7 +140,7 @@ def condition_statement_RFC(tokens, position):
                     break
 
                 else:
-                    Error_list += f"\nSyntax error : condition statement error at line {tokens[current_token][2]}"
+                    Error_list += f"\nSyntax error : condition statement error at line {tokens[current_token][1]}"
                     break
 
         elif current_token < len(tokens) and tokens[current_token][0] == 'NOT':
