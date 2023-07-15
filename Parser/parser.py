@@ -56,6 +56,7 @@ def condition_statement_RFC(tokens, position):
     node = []  # store condition statement node information
     condition_statment = ''  # store condition statements
     current_token = position
+    print('cond',tokens[current_token][0])
 
     current_token, left_operand, exp_node_l = expression(tokens, current_token)
     condition_statment += left_operand
