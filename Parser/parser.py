@@ -86,15 +86,16 @@ def condition_statement_RFC(tokens, position):
     condition_statment = ''  # store condition statements
     back_track = 1
     current_token = position
+    print('0000000',tokens[current_token][0])
     while back_track != 0:
         current_token += 1
         if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_PAREN':
              back_track -= 1
         elif  current_token < len(tokens) and tokens[current_token][0] == 'IDENTIFIER':
             if (current_token+1 < len(tokens)) and (tokens[current_token+1][0] == 'EQUAL' or tokens[current_token+1][0] == 'NOT_EQUAL' or tokens[current_token+1][0] == 'LESS_THAN' or tokens[current_token+1][0] == 'GREATER_THAN' or tokens[current_token+1][0] == 'LESS_THAN_EQUAL' or tokens[current_token+1][0] == 'GREATER_THAN_EQUAL'):
-               if ( current_token+2 < len(tokens)) and tokens[current_token+2][0] == 'IDENTIFIER':
-                   node.append(('left_operand',  tokens[current_token][1]), ('logical_operator', tokens[current_token+1][1] ), 'right_operand', tokens[current_token + 2][0])
-
+               if (current_token+2 < len(tokens)) and tokens[current_token+2][0] == 'IDENTIFIER':
+                   node.append((('left_operand',  tokens[current_token][1]), ('logical_operator', tokens[current_token+1][1]), ('right_operand', tokens[current_token + 2][0])))
+                   current_token+=2
 
 
 
