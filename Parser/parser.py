@@ -81,7 +81,7 @@ def condition_statement_RFC(tokens, position):
     return current_token, condition_statment, node
 
 
-def statments(token, postion):  # statement: (declaration | initializing | function_call | assignment | if_statement | while_statement | return_statement)*;
+def statments_old(token, postion):  # statement: (declaration | initializing | function_call | assignment | if_statement | while_statement | return_statement)*;
     global express_n, Error_list
     node = []  # store  statement node information
     statment_block = ''  # store statements in block
@@ -412,6 +412,552 @@ def statments(token, postion):  # statement: (declaration | initializing | funct
     return current_token, statment_block, node
 
 
+def statments(tokens, postion):  # statement: (declaration | initializing | function_call | assignment | if_statement | while_statement | return_statement)*;
+    global express_n, Error_list
+    node = []  # store  statement node information
+    statment_block = ''  # store statements in block
+    block_track = 1
+    current_token = postion
+
+    while block_track != 0:
+        current_token += 1
+        if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_BRACE':
+            block_track -= 1
+
+        # constant syntax
+        elif current_token < len(tokens) and tokens[current_token][0] == "CONSTANT_KEY":
+            if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "KEYWORD" and tokens[current_token + 1][1] != 'return' and tokens[current_token + 1][1] != 'void' and tokens[current_token + 1][1] != 'bool':
+                if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "IDENTIFIER":
+                    if (current_token + 3) < len(tokens) and tokens[current_token + 3][0] == "ASSIGN":
+                        if (current_token + 4) < len(tokens) and (tokens[current_token + 4][0] == "IDENTIFIER" or tokens[current_token + 4][0] == "FLOATING_POINT" or tokens[current_token + 4][0] == "CHAR" or tokens[current_token + 4][0] == "STRING"):
+                            constant_data_type = tokens[current_token + 1][1]
+                            constant_name = tokens[current_token + 2][1]
+                            constant_value = tokens[current_token + 4][1]
+                            current_token += 4
+                            print(f"CONSTANT: {constant_data_type} {constant_name} {constant_value}")
+                            node.append(('CONSTANT', ("constant_data_type", constant_data_type), ("constant_name", constant_name), ("constant_value", constant_value)))
+                            if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
+                                current_token += 1
+                            else:
+                                Error_list += f"\nSyntax Error: constant definition not terminated. missing semicolon at line  {tokens[current_token][2]}"
+                        else:
+                            current_token += 3
+                            Error_list += f"\nSyntax Error: constant definition error. no value assigned to the constant variable at line  {tokens[current_token][2]}"
+                    else:
+                        current_token += 2
+                        Error_list += f"\nSyntax Error: constant definition error. missing =  at line  {tokens[current_token][2]}"
+                else:
+                    current_token += 1
+                    Error_list += f"\nSyntax Error: constant definition incomplete. missing constant variable name  at line  {tokens[current_token][2]}"
+            else:
+                Error_list += f"\nSyntax Error: constant definition error. missing constant data type at line  {tokens[current_token][2]}"
+
+        elif  current_token < len(tokens) and tokens[current_token][0] == "KEYWORD" and tokens[current_token][1] != 'return':
+            type_specifer = tokens[current_token][1]
+            while True:
+                if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "IDENTIFIER":
+                    varable_name = tokens[current_token + 1][1]
+                    current_token += 1
+                    if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":  # handle declaration
+                        print(f"DECLARATION :  {type_specifer} {varable_name}")
+                        node.append(("DECLARATION", ("type_specifier", f"{type_specifer}"), ('IDENTIFIER', varable_name)))
+                        current_token += 1
+                        break
+                    elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "COMMA":
+                        print(f"DECLARATION :  {type_specifer} {varable_name}")
+                        node.append(("DECLARATION", ("type_specifier", f"{type_specifer}"), ('IDENTIFIER', varable_name)))
+                        current_token += 1
+                        continue
+
+
+                    elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "LEFT_PAREN":  # handle functions
+                        f_lp = tokens[current_token + 1][1]
+                        function_parameter_str, token_position, function_parameter_node = parameter_RFC(tokens, (current_token + 1))
+                        current_token = token_position
+                        if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_PAREN":
+                            f_rp = tokens[current_token][1]
+                            if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "LEFT_BRACE":
+                                block_track += 1
+                                f_lb = tokens[current_token + 1][1]
+                                current_token, function_body, child_node = statments(tokens, current_token + 1)
+
+                                if current_token < len(tokens) and tokens[current_token][0] == "RIGHT_BRACE":
+                                    block_track -= 1
+                                    f_rb = tokens[current_token][1]
+                                    print(f"FUNCTION: {type_specifer}  {varable_name} {f_lp} {function_parameter_str} {f_rp} {f_lb} {function_body} {f_rb}")
+                                    node.append(('FUNCTION', ("type_specifier", type_specifer), ("function_name", varable_name), ("function_parameter", tuple(function_parameter_node)), ("function_body", tuple(child_node))))
+                                    break
+                                else:
+                                    print(f"FUNCTION: {type_specifer}  {varable_name} {f_lp} {function_parameter_str} {f_rp} {f_lb} {function_body}")
+                                    Error_list += f"\nSyntax Error: <missing right-brace>,  function block not closed properly at line {tokens[current_token - 1][2]}"
+                                    node.append(('FUNCTION', ("type_specifier", type_specifer), ("function_name", varable_name), ("function_parameter", tuple(function_parameter_node)), ("function_body", tuple(child_node))))
+                                    break
+                            else:
+                                print(f"FUNCTION: {type_specifer}  {varable_name} {f_lp} {function_parameter_str} <missing LEFT_BRACE>...")
+                                Error_list += f"\nSyntax Error: Incomplete Functon definition.  missing left-brace  at line  {tokens[current_token][2]}"
+                                break
+                        else:
+                            print(f"FUNCTION: {type_specifer}  {varable_name} {f_lp} {function_parameter_str} <missing ')'>...")
+                            Error_list += f"\nSyntax Error: incomplete function statement, missing ')' 'right-paren' at line  {tokens[current_token - 1][2]}"
+                            break
+
+                    elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "ASSIGN":  # Variable declaration and  initialization
+                        asg = tokens[current_token + 1][1]
+                        current_token, express, exp_node = expression(tokens, current_token + 1)
+                        express_n = ''
+                        if len(express) != 0:
+                            if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
+                                s_tm = tokens[current_token][1]
+                                print(f"VAR_DECLARATION_INITIALIZATION-: {type_specifer} {varable_name} {asg} {express} {s_tm}")
+                                node.append(('VAR_DECLARATION_INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("IDENTIFIER", f"{varable_name}"), ("expression", tuple(exp_node))))
+                                break
+                            else:
+                                print(f"VAR_DECLARATION_INITIALIZATION: {type_specifer} {varable_name} {asg} {express} <missing ';'>")
+                                node.append(('VAR_DECLARATION_INITIALIZATION', ("type_specifier", type_specifer), ("IDENTIFIER", varable_name), ("expression", tuple(exp_node))))
+                                Error_list += f"\nSyntax Error : unterminated statement  at line {tokens[current_token - 1][2]} "
+                                break
+                        else:
+                            Error_list += f"\nSyntax Error: variable Initialization error, no value was assigned to variable at line {tokens[current_token][2]}"
+                            if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
+                                s_tm = tokens[current_token][1]
+                                print(f"VAR_DECLARATION_INITIALIZATION: {type_specifer} {varable_name} {asg} ~{None}~ {s_tm}")
+                                break
+                            else:
+                                print(f"VAR_DECLARATION_INITIALIZATION: {type_specifer} {varable_name} {asg} ~{None}~ <missing ';'>")
+                                Error_list += f"\nSyntax Error: missing statement terminator at line {tokens[current_token][2]}"
+                                break
+
+                elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "POINTER_TO_VAR":  # pointer declaration
+                    varable_name = tokens[current_token + 1][1]
+                    current_token += 1
+                    if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":
+                        print(f"POINTER_DECLARATION :  {type_specifer} {varable_name}")
+                        node.append(("POINTER_DECLARATION", ("type_specifier", type_specifer), ('POINTER_TO_VAR', varable_name)))
+                        current_token += 1
+                        break
+                    elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "COMMA":
+                        print(f"POINTER_DECLARATION :  {type_specifer} {varable_name}")
+                        node.append(("POINTER_DECLARATION", ("type_specifier", type_specifer), ('POINTER_TO_VAR', varable_name)))
+                        current_token += 1
+                        continue
+                    else:
+                        Error_list += f"\nSyntax Error : unterminated pointer statement  at line {tokens[current_token][2]}"
+                        break
+
+                elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "ARRAY":  # Array syntax 1
+                    array = tokens[current_token + 1][1]
+                    if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "SEMICOLON":
+                        print(f"ARRAY_DECLARATION: {type_specifer} {array} ")
+                        node.append(('ARRAY_DECLARATION', ("type_specifier", f"{type_specifer}"), ("array_name", array)))
+                        current_token += 2
+                    elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == "ASSIGN":
+                        if (current_token + 3) < len(tokens) and tokens[current_token + 3][0] == "ARRAY_VALUE":
+                            array_value = tokens[current_token + 3][1]
+                            print(f"ARRAY_DECLARATION_INITIALIZATION: {type_specifer} {array}  =  {array_value}")
+                            node.append(('ARRAY_DECLARATION_INITIALIZATION', ("type_specifier", f"{type_specifer}"), ("array_name", array), ("array_value", array_value)))
+                            current_token += 3
+                            if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":
+                                current_token += 1
+                                break
+                            else:
+                                Error_list += f"\nSyntax Error : unterminated statement  at line {tokens[current_token][2]} "
+                                break
+                        else:
+                            current_token += 2
+                            Error_list += f"\nSyntax Error : no value assigned to array  at line {tokens[current_token][2]} "
+                            break
+                    else:
+                        current_token += 1
+                        Error_list += f"\nSyntax Error : incomplete array declaration  at line {tokens[current_token][2]} "
+                        break
+                else:
+                    Error_list += f"\nSyntax Error : incomplete statement  at line {tokens[current_token][2]}"
+                    break
+
+        elif  current_token < len(tokens) and tokens[current_token][0] == 'ARRAY':  # Array syntax 2
+            if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "ASSIGN":
+                if (current_token + 2) < len(tokens) and (tokens[current_token + 2][0] == "IDENTIFIER" or tokens[current_token + 2][0] == "INTEGER" or tokens[current_token + 2][0] == "STRING" or tokens[current_token + 2][0] == "FLOATING_POINT" or tokens[current_token + 2][0] == "CHAR"):
+                    array_name = tokens[current_token][1]
+                    array_value = tokens[current_token + 2][1]
+                    match = re.search(r'\[\s*([a-zA-Z_][a-zA-Z0-9_])+\s*\]', array_name)
+                    if match:
+                        print(f"ARRAY_INITIALIZATION:  {array_name}  =  {array_value}")
+                        node.append(('ARRAY_INITIALIZATION', ("array_name", array_name), ("array_value", array_value)))
+                        current_token += 2
+                        if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":
+                            current_token += 1
+                        else:
+                            Error_list += f"\nSyntax Error : Statement not terminated proper. missing a semicolon at line  {tokens[current_token][2]}"
+                    else:
+                        current_token += 2
+                        Error_list += f"\nSyntax Error : Array initialization error. array index not specified at line  {tokens[current_token][2]}"
+                else:
+                    current_token += 1
+                    Error_list += f"\nSyntax Error : Array element value error. wrong value is being assigned to the array at line  {tokens[current_token][2]}"
+
+        elif  current_token < len(tokens) and tokens[current_token][0] == 'IF':
+            gm = ""
+            if_node = []
+            else_if = 0
+            while True:
+                if_key_word = tokens[current_token][1]
+                gm += if_key_word + ' '
+                if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_PAREN':
+                    l_p = tokens[current_token + 1][1]
+                    gm += l_p + ' '
+                    current_token, if_condition, con_node = condition_statement_RFC(tokens, current_token + 1)
+                    gm += if_condition + ' '
+                    if else_if == 0:
+                        if_node.append(('if_condition', tuple(con_node)))
+                    else:
+                        if_node.append(('elif_condition', tuple(con_node)))
+                    if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_PAREN':
+                        r_p = tokens[current_token][1]
+                        gm += r_p + ' '
+                        if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_BRACE':
+                            block_track += 1
+                            l_b = tokens[current_token + 1][1]
+                            gm += l_b + ' '
+                            current_token, if_statment_body, stat_node = statments(tokens, current_token + 1)
+                            if else_if == 0:
+                                if_node.append(('if_body', tuple(stat_node)))
+                            else:
+                                if_node.append(('elif_body', tuple(stat_node)))
+                            gm += if_statment_body + ' '
+                            if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_BRACE':
+                                block_track -= 1
+                                r_b = tokens[current_token][1]
+                                gm += r_b + ' '
+                                # current_token += 2
+                                if current_token == len(tokens):
+                                    print(f"IF STATEMENT {gm}")
+                                    break
+                                elif (current_token + 1) >= len(tokens):
+                                    print(f"IF STATEMENT: {gm}")
+                                    break
+                                elif tokens[current_token + 1][0] != 'ELSE':
+                                    print(f"IF STATEMENT: {gm}")
+                                    break
+                                else:
+                                    if (current_token + 2) < len(tokens) and tokens[current_token + 1][0] == 'ELSE' and tokens[current_token + 2][0] != 'IF':
+                                        else_key = tokens[current_token + 1][1]
+                                        gm += else_key + ' '
+                                        if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'LEFT_BRACE':
+                                            block_track += 1
+                                            e_lb = tokens[current_token + 2][1]
+                                            gm += e_lb + ' '
+                                            current_token, else_statment_body, els_node = statments(tokens, current_token + 2)
+                                            if_node.append(('else_body', tuple(els_node)))
+                                            gm += else_statment_body + ' '
+                                            if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_BRACE':
+                                                block_track -= 1
+                                                e_rb = tokens[current_token][1]
+                                                gm += e_rb + ' '
+                                                if else_if == 0:
+                                                    print(f"IF-ELSE STATEMENT: {gm}")
+
+                                                else:
+                                                    print(f"IF-ELSE-IF STATEMENT: {gm}")
+                                                break
+                                            else:
+                                                print(f"IF-STATEMENT: {gm} <missing 'RIGHT_BRACE'>")
+                                                Error_list += f"\nSyntax Error: incomplete else statement  missing <RIGHT_BRACE> at line  {tokens[current_token - 1][2]}"
+                                                break
+                                        else:
+                                            print(f"IF statement: {gm} < missing 'LEFT_BRACE' 'RIGHT_BRACE'>")
+                                            Error_list += f"\nSyntax Error: incomplete else statement at line {tokens[current_token - 1][2]}"
+                                            break
+
+                                    elif (current_token + 2) < len(tokens) and tokens[current_token + 1][0] == 'ELSE' and tokens[current_token + 2][0] == 'IF':
+                                        else_key = tokens[current_token + 1][1]
+                                        gm += else_key + " "
+                                        else_if += 1
+                                        current_token += 2
+                            else:
+                                Error_list += f"\nSyntax Error : if-statement expected  RIGHT_BRACE  at line   {tokens[current_token - 1][2]}"
+                                print(f"IF STATEMENT: {gm} < missing 'RIGHT_BRACE'>")
+                                node.append(('if_statement', ('condition', tuple(con_node)), ("if_body", tuple(stat_node))))
+                                break
+                        else:
+                            Error_list += f"\nSyntax Error : if-statement expected  LEFT_BRACE   at line  {tokens[current_token - 1][2]}"
+                            print(f"IF STATEMENT: {gm} ... <statement incomplete> ...")
+                            break
+                    else:
+                        Error_list += f"\nSyntax Error : if-statement expected  LEFT_PAREN   < missing ')'> at line {tokens[current_token - 1][2]}"
+                        print(f"IF STATEMENT: {gm} ... <statement incomplete> ...")
+                        break
+                else:
+                    Error_list += f"\n Syntax Error : illigal if-statement format at line  {tokens[current_token][2]}"
+                    print(f"IF STATEMENT: {gm} ... <missing LEFT_PAREN> ...")
+                    break
+            node.append(('if_statment', tuple(if_node)))
+
+        elif current_token < len(tokens) and tokens[current_token][0] == 'WHILE':
+            while_key = tokens[current_token][0]
+            if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_PAREN':
+                wh_lp = tokens[current_token + 1][1]
+                current_token, condition_statment, con_node = condition_statement_RFC(tokens, current_token + 1)
+                if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_PAREN':
+                    wh_rp = tokens[current_token][1]
+                    if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_BRACE':
+                        block_track += 1
+                        wh_lb = tokens[current_token + 1][1]
+                        current_token, while_body, child_node = statments(tokens, current_token + 1)
+                        if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_BRACE':
+                            block_track -= 1
+                            wh_rb = tokens[current_token][1]
+                            print(F"WHILE-STATEMENT: {while_key} {wh_lp} {condition_statment} {wh_rp} {wh_lb}  {while_body} {wh_rb}")
+                            node.append(('WHILE-STATEMENT', ('condition', tuple(con_node)), ("while_body", tuple(child_node))))
+                        else:
+                            print(F"WHILE-STATEMENT: {while_key} {wh_lp} {condition_statment} {wh_rp} {wh_lb}  {while_body} <missing RIGHT_BRACE>")
+                            node.append(('WHILE-STATEMENT', ('condition', f'{condition_statment}'), ("while_body", f"{while_body}")))
+                            Error_list += f"\nSyntax Error: missing right-brace at line {tokens[current_token - 1][2]}"
+                else:
+                    print(F"WHILE-STATEMENT: {while_key} {wh_lp} <error incomplete-while-statement> <missing ')'...>")
+                    Error_list += f"\nSyntax error: while statement <error incomplete-while-statement> <missing ')'...>  at line {tokens[current_token - 1][2]}"
+            else:
+                print(F"WHILE-STATEMENT: {while_key}  <error incomplete-while-statement>")
+                Error_list += f"\nSyntax error: while statement incomplete at line  {tokens[current_token][2]}"
+
+        elif  current_token < len(tokens) and tokens[current_token][0] == 'IDENTIFIER':
+            name = tokens[current_token][1]
+            if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'ASSIGN':
+                asg = tokens[current_token + 1][1]
+                if (current_token + 2) < len(tokens) and (current_token + 3) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER' and tokens[current_token + 3][0] == 'LEFT_PAREN':  # function_assignment_call
+                    f_name = tokens[current_token + 2][1]
+                    l_p = tokens[current_token + 3][1]
+                    f_parameter, current_token, param_node = parameter_RFC(tokens, (current_token + 3))
+                    r_p = tokens[current_token][1]
+
+                    if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
+                        s_tm = tokens[current_token + 1][1]
+                        print(f"FUNCTION ASSIGNMENT: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} {s_tm}")
+                        node.append(('function_assignment', ("IDENTIFIER", name), ("f_name", f_name), ('param', tuple(param_node))))
+                        current_token += 1
+                    else:
+                        print(f"FUNCTION ASSIGNMENT: {name} {asg} {f_name} {l_p} {f_parameter} {r_p} <missing ';'>")
+                        node.append(('function_assignment', ("IDENTIFIER", name), ("f_name", f_name), ('param', tuple(param_node))))
+                        print("Syntax error: function-call-assignment statement.  missing statement terminator at line at line ", tokens[current_token][2])
+
+                elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'MEMORY_REFERENCE':  # pointer assignment statement
+                    print(f"POINTER_ASSIGNMENT:  {name} {asg} {tokens[current_token + 2][1]}")
+                    node.append(('POINTER_ASSIGNMENT', ("pointer_name", name), ("pointer_value", tokens[current_token + 2][1])))
+                    current_token += 2
+                    if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
+                        current_token += 1
+                    else:
+                        Error_list += f"\nSyntax Error: statement terminator missing at line {tokens[current_token][2]}"
+
+                else:  # variable assignment statement
+                    current_token, express, exp_node = expression(tokens, current_token + 1)
+                    express_n = ''
+                    if len(express) != 0:
+                        if current_token < len(tokens) and tokens[current_token][0] != "SEMICOLON":
+                            Error_list += f"\nSyntax Error: statement terminator missing at line {tokens[current_token - 1][2]}"
+                            print(f"VARIABLE_ASSIGNMENT: {name} {asg} {express}")
+                            node.append(('VARIABLE_ASSIGNMENT', ("IDENTIFIER", f"{name}"), ("expression", tuple(exp_node))))
+                        elif current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
+                            print(f"VARIABLE_ASSIGNMENT: {name} {asg} {express} {tokens[current_token][1]}")
+                            node.append(('VARIABLE_ASSIGNMENT', ("IDENTIFIER", f"{name}"), ("expression", tuple(exp_node))))
+                        else:
+                            Error_list += f"\nSyntax Error: statement terminator missing at line {tokens[current_token - 1][2]}"
+                            print(f"VARIABLE_ASSIGNMENT: {name} {asg} {express}  <missing ';'>")
+                            node.append(('VARIABLE_ASSIGNMENT', ("IDENTIFIER", f"{name}"), ("expression", tuple(exp_node))))
+                    else:
+                        Error_list += f"\nSyntax Error: variable assignment error, no value was assigned {tokens[current_token - 1][2]}"
+                        if tokens[current_token][0] == "SEMICOLON":
+                            s_tm = tokens[current_token][1]
+                            print(f"VARIABLE_ASSIGNMENT: {name} {asg} {None} {s_tm}")
+
+            elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'LEFT_PAREN':  # function call
+                l_p = tokens[current_token + 1][1]
+                function_parameter, pos, param_node = parameter_RFC(tokens, (current_token + 1))
+                current_token = pos
+                if tokens[current_token][0] == "RIGHT_PAREN":
+                    f_rp = tokens[current_token][1]
+                    if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":
+                        tm = tokens[current_token + 1][1]
+                        print(f"FUNCTION CALL: {name} {l_p} {function_parameter} {f_rp} {tm}")
+                        current_token += 1
+                    else:
+                        print(f"FUNCTION CALL : {name} {l_p} {function_parameter} {f_rp}  < missing ';'>")
+                        Error_list += f"\nSyntax Error: function call missing statement terminator at line {tokens[current_token][2]}"
+            else:
+                Error_list += f"\nSyntax Error: incomplete statement at line {tokens[current_token][2]}"
+
+
+
+        elif  current_token < len(tokens) and tokens[current_token][0] == 'STRUCT_KEY':  # Structure
+            struct_members_node = []
+            if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'IDENTIFIER':
+                structure_name = tokens[current_token + 1][1]
+                if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'LEFT_BRACE':
+                    block_track += 1
+                    current_token += 2
+                    while True:
+                        if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'KEYWORD':
+                            if (current_token + 2) < len(tokens) and (tokens[current_token + 2][0] == 'IDENTIFIER' or tokens[current_token + 2][0] == 'ARRAY'):
+                                struct_members_node.append(('struct_member', ('member_data_type', tokens[current_token + 1][1]), ('member_name', tokens[current_token + 2][1])))
+                                current_token += 2
+                                if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
+                                    current_token += 1
+                                else:
+                                    Error_list += f"\nSyntax error: unterminated structure member statement  at line {tokens[current_token][2]}"
+                            else:
+                                Error_list += f"\nSyntax error: incorrect structure member definition. structure member is defined incorrectly at line {tokens[current_token][2]}"
+                                break
+
+                        elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'STRUCT_KEY':  # nested struct
+                            if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER':
+                                if (current_token + 3) < len(tokens) and tokens[current_token + 3][0] == 'IDENTIFIER':
+                                    struct_members_node.append(('nested_struct_member', ('struct_name', tokens[current_token + 2][1]), ('member_name', tokens[current_token + 3][1])))
+                                    current_token += 3
+                                    if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
+                                        current_token += 1
+                                    else:
+                                        Error_list += f"\nSyntax error: unterminated nested structure member statement at line {tokens[current_token][2]}"
+                                else:
+                                    current_token += 2
+                                    Error_list += f"\nSyntax error:  nested structure member defined incorrectly at line {tokens[current_token][2]}"
+                            else:
+                                current_token += 1
+                                Error_list += f"\nSyntax error: incomplete nested structure member definition at line {tokens[current_token][2]}"
+
+
+                        elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'RIGHT_BRACE':
+                            block_track -= 1
+                            if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'SEMICOLON':
+                                node.append(("STRUCTURE_DEFINITION", ('structure_name', structure_name), ('structure_members', tuple(struct_members_node))))
+                                current_token += 2
+                                break
+
+                            elif (current_token + 2) < len(tokens) and (tokens[current_token + 2][0] == 'IDENTIFIER' or tokens[current_token + 2][0] == 'ARRAY'):
+                                node.append(("STRUCTURE_DEFINITION", ('structure_name', structure_name), ('structure_members', tuple(struct_members_node))))
+                                current_token += 2
+                                while True:
+                                    if current_token < len(tokens) and (tokens[current_token][0] == 'IDENTIFIER' or tokens[current_token][0] == 'ARRAY'):
+                                        structure_variable = tokens[current_token][1]
+                                        if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":
+                                            node.append(("STRUCTURE_VARIABLE", ('structure_name', structure_name), ('structure_variable', structure_variable)))
+                                            current_token += 1
+                                            break
+
+                                        elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "COMMA":
+                                            node.append(("STRUCTURE_VARIABLE", ('structure_name', structure_name), ('structure_variable', structure_variable)))
+                                            current_token += 1
+                                        else:
+                                            Error_list += f"\nSyntax error: incorrect statement  at line {tokens[current_token][2]}"
+                                            current_token += 1
+                                            break
+                                        current_token += 1
+                                    else:
+                                        Error_list += f"\nSyntax error: incomplete statement at line {tokens[current_token][2]}"
+                                        break
+
+                                break
+                            else:
+                                current_token += 1
+                                Error_list += f"\nSyntax error: unterminated structure  statement. missing semicolon  at line {tokens[current_token][2]}"
+                                break
+                        else:
+                            Error_list += f"\nSyntax error: unidentified error at line {tokens[current_token][2]}"
+
+                            break
+
+                elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER':  # struct Variables
+                    node.append(("STRUCTURE_VARIABLE", ('structure_name', structure_name), ('structure_variable', tokens[current_token + 2][1])))
+                    current_token += 2
+                    if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'SEMICOLON':
+                        current_token += 1
+                    else:
+                        Error_list += f"\nSyntax error: unterminated statement. missing semicolon  at line {tokens[current_token][2]}"
+
+        elif  current_token < len(tokens) and tokens[current_token][0] == 'ENUMERATION_KEY':  # Enumerated Type Declaration
+            constants_node = []
+            if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'IDENTIFIER':
+                enumeration_name = tokens[current_token + 1][1]
+                if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'LEFT_BRACE':
+                    block_track += 1
+                    current_token += 2
+                    while True:
+                        if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'IDENTIFIER':
+                            if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'ASSIGN':
+                                if (current_token + 3) < len(tokens) and tokens[current_token + 3][0] == 'INTEGER':
+                                    constants_node.append(('enumeration_member', ('constant_name', tokens[current_token + 1][1]), ('constant_value', tokens[current_token + 3][1])))
+                                    current_token += 3
+                                    if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'COMMA':
+                                        current_token += 1
+                                    else:
+                                        Error_list += f"\nSyntax error: missing comma  at line {tokens[current_token][2]}"
+                                else:
+                                    Error_list += f"\nSyntax error: incorrect structure member definition. structure member is defined incorrectly at line {tokens[current_token][2]}"
+                                    break
+                        elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == 'RIGHT_BRACE':
+                            block_track -= 1
+                            if (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'SEMICOLON':
+                                node.append(("ENUMERATION_DEFINITION", ('enumeration_name', enumeration_name), 'enumeration_constants', tuple(constants_node)))
+                                current_token += 2
+                                break
+
+                            elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER':
+                                node.append(("ENUMERATION_DEFINITION", ('enumeration_name', enumeration_name), 'enumeration_constants', tuple(constants_node)))
+                                current_token += 2
+                                while True:
+                                    if current_token < len(tokens) and (tokens[current_token][0] == 'IDENTIFIER'):
+                                        structure_variable = tokens[current_token][1]
+                                        if (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "SEMICOLON":
+                                            node.append(("ENUMERATION_VARIABLE", ('enumeration_name', enumeration_name), ('enumeration_variable', structure_variable)))
+                                            current_token += 1
+                                            break
+
+                                        elif (current_token + 1) < len(tokens) and tokens[current_token + 1][0] == "COMMA":
+                                            node.append(("ENUMERATION_VARIABLE", ('enumeration_name', enumeration_name), ('enumeration_variable', structure_variable)))
+                                            current_token += 1
+                                        else:
+                                            Error_list += f"\nSyntax error: incorrect statement  at line {tokens[current_token][2]}"
+                                            current_token += 1
+                                            break
+                                        current_token += 1
+                                    else:
+                                        Error_list += f"\nSyntax error: incomplete statement at line {tokens[current_token][2]}"
+                                        break
+                                break
+                elif (current_token + 2) < len(tokens) and tokens[current_token + 2][0] == 'IDENTIFIER':
+                    node.append(("ENUMERATION_VARIABLE", ('enumeration_name', enumeration_name), ('enumeration_variable', tokens[current_token + 2][1])))
+                    if (current_token + 3) < len(tokens) and tokens[current_token + 3][0] == 'SEMICOLON':
+                        current_token += 3
+                    else:
+                        Error_list += f"\nSyntax error: unterminated  statement at line {tokens[current_token][2]}"
+                        current_token += 2
+                else:
+                    Error_list += f"\nSyntax error: incorrect enumeration declaration statement at line {tokens[current_token][2]}"
+                    current_token += 1
+            else:
+                Error_list += f"\nSyntax error: at statement at line {tokens[current_token][2]}"
+
+        elif current_token < len(tokens) and tokens[current_token][1] == 'return':
+            current_token, express, exp_node = expression(tokens, current_token)
+            express_n = ''
+            if current_token < len(tokens) and tokens[current_token][0] == "SEMICOLON":
+                if len(express) != 0:
+                    print("RETURN-STATEMENT  : return ", express, tokens[current_token][1])
+                    node.append(("return_statement", express))
+                else:
+                    Error_list += f"\nSyntax error: no return value was specified at line {tokens[current_token][2]}"
+            else:
+                if len(express) != 0:
+                    print(f"RETURN-STATEMENT  : return {express} <missing ';'>")
+                    Error_list += f"\nSyntax error: return statement missing semicolon  at line {tokens[current_token - 1][2]}"
+                    node.append(("return_statement", express))
+                else:
+                    print(f"RETURN-STATEMENT  : return  <missing return-value>  <missing ';'>")
+                    Error_list += f"\nSyntax error: no return value was specified, and  missing a 'statement' terminator for return statement {tokens[current_token - 1][2]}"
+        else:
+            Error_list += f"\nSyntax Error : '{tokens[current_token][1]}'  at line  {tokens[current_token][2]}"
+
+    return current_token, statment_block, node
+
+
 def precedence():
     pass
 
@@ -556,13 +1102,6 @@ def parse_program(tokens, postion):
                     Error_list += f"\nSyntax Error: constant definition incomplete. missing constant variable name  at line  {tokens[current_token][2]}"
             else:
                 Error_list += f"\nSyntax Error: constant definition error. missing constant data type at line  {tokens[current_token][2]}"
-
-
-
-
-
-
-
 
 
         elif tokens[current_token][0] == "KEYWORD" and tokens[current_token][1] != 'return':
