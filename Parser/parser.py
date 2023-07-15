@@ -87,7 +87,6 @@ def condition_statement_RFC(tokens, position):
     condition_statment = ''  # store condition statements
     back_track = 1
     current_token = position
-    print('0000000', tokens[current_token][0])
     while back_track != 0:
         current_token += 1
         if current_token < len(tokens) and tokens[current_token][0] == 'RIGHT_PAREN':
@@ -106,7 +105,7 @@ def condition_statement_RFC(tokens, position):
                             node.append(('operand', tokens[current_token + 2][1]))
                             current_token += 2
                     elif (current_token + 2 < len(tokens)) and tokens[current_token + 2][0] == 'LEFT_PAREN':
-                        current_token, temp, s = expression(tokens, current_token + 1)
+                        current_token, temp, s = expression(tokens, current_token + 2)
                         node.append(('operand', tuple(s)))
 
 
@@ -122,7 +121,7 @@ def condition_statement_RFC(tokens, position):
                             node.append(('operand', tokens[current_token + 2][1]))
                             current_token += 2
                     elif (current_token + 2 < len(tokens)) and tokens[current_token + 2][0] == 'LEFT_PAREN':
-                        current_token, temp, s = expression(tokens, current_token + 1)
+                        current_token, temp, s = expression(tokens, current_token + 2)
                         node.append(('operand', tuple(s)))
 
                 elif (current_token + 1 < len(tokens)) and tokens[current_token + 1][0] == 'RIGHT_PAREN':
