@@ -98,12 +98,12 @@ def condition_statement_RFC(tokens, position):
                 if (current_token + 1 < len(tokens)) and (tokens[current_token + 1][0] == 'EQUAL' or tokens[current_token + 1][0] == 'NOT_EQUAL' or tokens[current_token + 1][0] == 'LESS_THAN' or tokens[current_token + 1][0] == 'GREATER_THAN' or tokens[current_token + 1][0] == 'LESS_THAN_EQUAL' or tokens[current_token + 1][0] == 'GREATER_THAN_EQUAL'):
                     if (current_token + 2 < len(tokens)) and (tokens[current_token + 2][0] == 'IDENTIFIER' or tokens[current_token + 2][0] == 'INTEGER' or tokens[current_token + 2][0] == 'FLOATING_POINT' or tokens[current_token + 2][0] == 'CHAR' or tokens[current_token + 2][0] == 'STRING'):
                         if (current_token + 3 < len(tokens)) and tokens[current_token + 3][0] == 'RIGHT_PAREN':
-                            node.append((('operand', tokens[current_token][1]), ('logical_operator', tokens[current_token + 1][1]), ('operand', tokens[current_token + 2][1])))
+                            node.append((('operand', tokens[current_token][1]), ('Relational_operator', tokens[current_token + 1][1]), ('operand', tokens[current_token + 2][1])))
                             current_token += 2
                             break
                         else:
                             node.append(('operand', tokens[current_token][1]))
-                            node.append(('logical_operator', tokens[current_token + 1][1]))
+                            node.append(('Relational_operator', tokens[current_token + 1][1]))
                             node.append(('operand', tokens[current_token + 2][1]))
                             current_token += 2
 
