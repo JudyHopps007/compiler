@@ -131,13 +131,16 @@ def condition_statement_RFC(tokens, position):
                     print('Error ')
                     break
         elif current_token < len(tokens) and tokens[current_token][0] == 'NOT':
+            print('not')
             if (current_token + 1 < len(tokens)) and tokens[current_token + 1][0] == 'IDENTIFIER':
-                if (current_token + 3 < len(tokens)) and tokens[current_token + 3][0] == 'RIGHT_PAREN':
+                print('not')
+                if (current_token + 2 < len(tokens)) and tokens[current_token + 2][0] == 'RIGHT_PAREN':
+                    print('not')
                     node.append((('logical_operator', tokens[current_token][1]), ('operand', tokens[current_token + 1][1])))
                     current_token += 3
                     break
             elif (current_token + 1 < len(tokens)) and tokens[current_token + 1][0] == 'LEFT_PAREN':
-                 current_token, temp,  node = expression(tokens, current_token + 1)
+                 current_token, temp,  s = expression(tokens, current_token + 1)
 
 
 
