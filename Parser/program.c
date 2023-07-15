@@ -1,7 +1,7 @@
 
 
 
-    if(zz0 == kijio == ihuuhu) {
+    if(!zz0) {
 
         return -1;
     }
