@@ -12,6 +12,7 @@ count = 1  # keep track of temporary variables in the Intimidate_Code
 label_track = 1  # keep track of Lable variables in the Intimidate_Code that are used for ~ goto ~
 
 
+
 def Intemidiet_Code_Generator(parser_tree):
     global disct, count, label_track
     for node_name, *children in parser_tree:
