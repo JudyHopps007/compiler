@@ -7,7 +7,6 @@ def serach(my_dict, target_value): # function that is used to search for same in
             return key
     return target_value
 
-
 disct = {}  # dictionary to store variable information in each scope as the Intimidate_Code_Generator generates Intimidate_Code and assign temporary variable
 count = 1  # keep track of temporary variables in the Intimidate_Code
 label_track = 1  # keep track of Lable variables in the Intimidate_Code that are used for ~ goto ~
